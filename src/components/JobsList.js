@@ -1,10 +1,11 @@
 import React from 'react';
+import Job from './Job';
 
 const JobsList = ({ data }) => {
     return(
         <div>
             {data.map(job => (
-                <h3>{job.node.job_title}</h3>
+                <Job job={job.node}/>
             ))}
         </div>
     );
