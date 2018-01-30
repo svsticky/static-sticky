@@ -1,11 +1,12 @@
-import React from 'react'
-import Link from 'gatsby-link'
+import React from 'react';
+import Link from 'gatsby-link';
+import { Button, Container } from 'semantic-ui-react'
 
 const HomePage = () => (
-  <div>
+  <Container>
     <h1>S.V. Sticky</h1>
     <Link to="/vacatures/">VacatureIndex</Link>
-  </div>
+  </Container>
 )
 
 export default HomePage
