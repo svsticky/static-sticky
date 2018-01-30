@@ -13,7 +13,7 @@ class JobIndexPage extends React.Component {
     render() {
         return(
             <div>
-                <h1>Job Index Page</h1>
+                <h1>Vacatures</h1>
                 <JobsList data={this.props.data.allContentfulJobListing.edges} />
             </div>
         )

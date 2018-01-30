@@ -1,11 +1,22 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import Link from 'gatsby-link';
+import { Card, Label } from 'semantic-ui-react';
 
 const Job = ({ job }) => {
     return(
-        <Card>
-            <h3>{job.job_title}</h3>
-            <p>{job.summary}</p>
+        <Card fluid>
+            <Card.Content>
+                <Card.Header>
+                    {job.job_title}
+                    {job.featured && 
+                        <Label corner='right' color='yellow' icon='star' size='mini'/>
+                    }
+                </Card.Header>
+                <Card.Meta>
+                    {job.partner.name}
+                </Card.Meta>
+                <p>{job.summary}</p>
+            </Card.Content>
         </Card>
     );
 }
