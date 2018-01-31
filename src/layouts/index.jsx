@@ -8,19 +8,19 @@ import '../css/index.scss';
 
 
 export default ({ children }) => (
-    <div>
-        <Menu size='large' fixed='top'>
-            <Link to='/'>
-                <Menu.Item name='Home'/>
-            </Link>
-            <Link to='/vacatures'>
-                <Menu.Item name='Vacatures'/>
-            </Link>
-        </Menu>
-        <StyledContainer>
-            {children()}
-        </StyledContainer>
-    </div>
+  <div>
+    <Menu size="large" fixed="top">
+      <Link to="/">
+        <Menu.Item name="Home" />
+      </Link>
+      <Link to="/vacatures">
+        <Menu.Item name="Vacatures" />
+      </Link>
+    </Menu>
+    <StyledContainer>
+      {children()}
+    </StyledContainer>
+  </div>
 );
 
 const StyledContainer = styled(Container)`
@@ -28,4 +28,4 @@ const StyledContainer = styled(Container)`
         position: relative;
         top: 75px;
     }
-`
+`;

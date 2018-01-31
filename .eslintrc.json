@@ -1,0 +1,10 @@
+{
+    "extends": "airbnb",
+    "rules": {
+      "react/prop-types": "off",
+      "jsx-a11y/anchor-is-valid": "off"
+    },
+    "globals": {
+      "graphql": false
+    }
+}
