@@ -1,9 +1,11 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import { Button, Container } from 'semantic-ui-react'
+import { Button, Container, Segment } from 'semantic-ui-react'
 
 const HomePage = () => (
-    <h1>Homepage</h1>
+    <Segment>
+        <h1>Homepage</h1>
+    </Segment>
 )
 
 export default HomePage
