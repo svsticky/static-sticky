@@ -1,10 +1,16 @@
 import React from 'react';
 import Job from './Job';
 
-const JobsList = ({ data }) => (
+const displayJob = (studiesFilter, job) => {
+  if (studiesFilter.length === 0 || job.target_studies.some(r => studiesFilter.indexOf(r) >= 0)) {
+    return <Job job={job} />;
+  }
+  return null;
+};
+
+const JobsList = props => (
   <div>
-    {data.map(job =>
-      <Job job={job.node} />)}
+    {props.data.map(job => displayJob(props.studiesFilter, job.node))}
   </div>
 );
 

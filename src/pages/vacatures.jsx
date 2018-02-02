@@ -6,13 +6,13 @@ class JobIndexPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      studies_filter: [],
+      studiesFilter: [],
     };
     this.toggleStudiesFilter = this.toggleStudiesFilter.bind(this);
   }
 
   toggleStudiesFilter(term) {
-    const studiesFilter = [...this.state.studies_filter];
+    const studiesFilter = [...this.state.studiesFilter];
     if (studiesFilter.includes(term)) {
       studiesFilter.splice(studiesFilter.indexOf(term), 1);
     } else {
@@ -20,7 +20,7 @@ class JobIndexPage extends React.Component {
     }
 
     this.setState({
-      studies_filter: studiesFilter,
+      studiesFilter,
     });
   }
 
@@ -30,9 +30,12 @@ class JobIndexPage extends React.Component {
         <h1>Vacatures</h1>
         <JobFilter
           toggleStudiesFilter={this.toggleStudiesFilter}
-          studies_filter={this.state.studies_filter}
+          studiesFilter={this.state.studiesFilter}
         />
-        <JobsList data={this.props.data.allContentfulJobListing.edges} />
+        <JobsList
+          data={this.props.data.allContentfulJobListing.edges}
+          studiesFilter={this.state.studiesFilter}
+        />
       </div>
     );
   }
