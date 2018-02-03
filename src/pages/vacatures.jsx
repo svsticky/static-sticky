@@ -42,27 +42,28 @@ class JobIndexPage extends React.Component {
 }
 
 export const JobsListQuery = graphql`
-    query JobsListQuery {
-        allContentfulJobListing {
-            edges {
-                node {
-                    job_title
-                    summary
-                    featured
-                    target_studies
-                    type
-                    partner {
-                        name
-                        logo {
-                            file {
-                                url
-                            }
-                        }
-                    }
-                }
+  query JobsListQuery {
+    allContentfulJobListing {
+      edges {
+        node {
+          id
+          job_title
+          summary
+          featured
+          target_studies
+          type
+          partner {
+            name
+            logo {
+              file {
+                url
+              }
             }
+          }
         }
+      }
     }
+  }
 `;
 
 export default JobIndexPage;
