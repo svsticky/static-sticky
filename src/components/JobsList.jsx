@@ -1,20 +1,27 @@
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
 import Job from './Job';
 
-const displayJob = (studiesFilter, job) => {
-  if (studiesFilter.length === 0 || job.target_studies.some(r => studiesFilter.indexOf(r) >= 0)) {
+const displayJob = (studiesFilter, typesFilter, job) => {
+  if (studiesFilter.length === 0 && typesFilter.length === 0) {
     return true;
+  }
+  const inStudiesFilter = (job.target_studies.some(studie => studiesFilter.indexOf(studie) >= 0));
+  const inTypesFilter = (job.type.some(type => typesFilter.indexOf(type) >= 0));
+  if ((inStudiesFilter && typesFilter.length === 0) || (inTypesFilter && studiesFilter.length === 0)) {
+    return true;
+  }
+  if (studiesFilter.length > 0 && typesFilter.length > 0) {
+    return (inStudiesFilter && inTypesFilter);
   }
   return false;
 };
 
 const JobsList = props => (
-  <Segment>
+  <div>
     {props.data.map(job =>
-      displayJob(props.studiesFilter, job.node) &&
+      displayJob(props.studiesFilter, props.typesFilter, job.node) &&
         <Job key={job.node.id} job={job.node} />)}
-  </Segment>
+  </div>
 );
 
 export default JobsList;

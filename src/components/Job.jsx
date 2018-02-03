@@ -14,6 +14,8 @@ const Job = ({ job }) => (
         {job.partner.name}
       </Card.Meta>
       <p>{job.summary}</p>
+      <p>{job.target_studies}</p>
+      <p>{job.type}</p>
     </Card.Content>
   </Card>
 );
