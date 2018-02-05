@@ -2,8 +2,11 @@ $bestuurskleur: #000078;
 
 .ui.menu {
   background-color: $bestuurskleur;
-  
   .item {
     color: white;
+  }
+  a.item:hover {
+    background-color: white;
+    color: $bestuurskleur;
   }
 }
