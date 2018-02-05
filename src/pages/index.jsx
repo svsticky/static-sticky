@@ -1,10 +1,7 @@
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
 
 const HomePage = () => (
-  <Segment>
-    <h1>Homepage</h1>
-  </Segment>
+  <h1>Homepage</h1>
 );
 
 export default HomePage;
