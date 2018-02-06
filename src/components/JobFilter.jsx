@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dropdown, Checkbox, Segment } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 const studieFilterOptions = [
   'Informatica',
@@ -21,7 +22,7 @@ const typeFilterOptions = [
 ];
 
 const JobFilter = props => (
-  <Segment>
+  <Filter>
     <Dropdown text={'Studies (' + props.studiesFilter.length + ')'} icon="student" labeled button className="icon">
       <Dropdown.Menu>
         <Dropdown.Menu scrolling>
@@ -44,9 +45,16 @@ const JobFilter = props => (
         </Dropdown.Menu>
       </Dropdown.Menu>
     </Dropdown>
-  </Segment>
+  </Filter>
 );
 
 export default JobFilter;
 
-// onClick={() => props.toggleStudiesFilter("Game and Media Technology")}
+const Filter = styled(Segment)`
+  &&& {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 3.9em;
+    z-index: 5;
+  }
+`;
