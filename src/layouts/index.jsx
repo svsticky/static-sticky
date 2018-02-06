@@ -31,13 +31,13 @@ export default ({ children }) => (
 const Content = styled(Container)`
   &&& {
     position: relative;
-    top: 75px;
+    top: 80px;
   }
 `;
 
 const Logo = styled.img`
   &&& {
-    max-height: 50px;
+    max-height: 3.2em;
     padding: 5px 18px 2px;
   }
 `;
