@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import styled from 'styled-components';
-import { Button, Container, Menu } from 'semantic-ui-react';
+import { Button, Container, Dropdown, Menu } from 'semantic-ui-react';
 
 import logo from '../images/logo-sticky.png';
 
@@ -10,12 +10,24 @@ const Navbar = () => (
     <Container>
       <Link to="/"><Logo src={logo} alt="" /></Link>
       <Menu.Menu position="right">
-        <Menu.Item as={Link} to="/vereniging" name="Vereniging" />
-        <Menu.Item as={Link} to="/vacatures" name="Bedrijven" />
-        <Menu.Item as={Link} to="/onderwijs" name="Onderwijs" />
+        <Dropdown item simple as={Link} to="/vereniging" text="Vereniging">
+          <Dropdown.Menu>
+            <Dropdown.Item as={Link} to="/besturen" text="Besturen" />
+          </Dropdown.Menu>
+        </Dropdown>
+        <Dropdown item simple as={Link} to="/bedrijven" text="Bedrijven">
+          <Dropdown.Menu>
+            <Dropdown.Item as={Link} to="/vacatures" text="Vacatures" />
+          </Dropdown.Menu>
+        </Dropdown>
+        <Dropdown item simple as={Link} to="/onderwijs" text="Onderwijs">
+          <Dropdown.Menu>
+            <Dropdown.Item as={Link} to="/medezeggenschap" text="Medezeggenschap" />
+          </Dropdown.Menu>
+        </Dropdown>
       </Menu.Menu>
       <Menu.Item>
-        <Button href="https://koala.svsticky.nl/">Koala</Button>
+        <Button size="mini" content="Koala" icon="right arrow" labelPosition="right" href="https://koala.svsticky.nl/" />
       </Menu.Item>
     </Container>
   </Menu>
@@ -29,3 +41,4 @@ const Logo = styled.img`
     padding: 5px 18px 2px;
   }
 `;
+

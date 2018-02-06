@@ -5,7 +5,7 @@ $bestuurskleur: #000078;
   .item {
     color: white;
   }
-  a.item:hover {
+  a.simple.dropdown:hover {
     background-color: white;
     color: $bestuurskleur;
   }
