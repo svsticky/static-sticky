@@ -1,6 +1,5 @@
 import React from 'react';
 import { Card, Checkbox, Dropdown } from 'semantic-ui-react';
-import styled from 'styled-components';
 
 const studieFilterOptions = [
   'Informatica',
@@ -22,9 +21,9 @@ const typeFilterOptions = [
 ];
 
 const JobFilter = props => (
-  <Filter fluid>
+  <Card fluid>
     <Card.Content>
-      <Dropdown compact text={'Studies (' + props.studiesFilter.length + ')'} icon="student" labeled button className="icon" scrolling="false">
+      <Dropdown compact text={'Studies (' + props.studiesFilter.length + ')'} icon="student" labeled button className="icon" scrolling={false}>
         <Dropdown.Menu>
           <Dropdown.Menu scrolling>
             {studieFilterOptions.map(study => (
@@ -47,16 +46,7 @@ const JobFilter = props => (
         </Dropdown.Menu>
       </Dropdown>
     </Card.Content>
-  </Filter>
+  </Card>
 );
 
 export default JobFilter;
-
-const Filter = styled(Card)`
-  &&& {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 3.9em;
-    z-index: 5;
-  }
-`;

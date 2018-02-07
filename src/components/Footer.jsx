@@ -1,15 +1,27 @@
 import React from 'react';
-import styled from 'styled-components';
 
 const Footer = () => (
-  <StyledFooter>Footer</StyledFooter>
+  <div>
+    <div>
+      <h3>Bezoekadres</h3>
+      Kamer 2.81 <br />
+      Buys Ballot Gebouw <br />
+      Princetonplein 5 <br />
+      3584 CC UTRECHT
+    </div>
+    <div>
+      <h3>Postadres</h3>
+      Studievereniging Sticky <br />
+      Princetonplein 5 <br />
+      3584 CC UTRECHT
+    </div>
+    <div>
+      <h3>Gegevens</h3>
+      IBAN: NL61INGB0002877106 <br />
+      BTW: NL-8173.55.303.B01 <br />
+      KvK: 30220729, UTRECHT
+    </div>
+  </div>
 );
 
 export default Footer;
-
-const StyledFooter = styled.div`
-  &&& {
-    background-color: #efefef;
-    margin-top: 20px;
-  }
-`;
