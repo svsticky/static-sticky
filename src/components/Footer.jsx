@@ -1,7 +1,15 @@
 import React from 'react';
+import Radium from 'radium';
+
+const styles = {
+  footerContainer: {
+    backgroundColor: '#efefef',
+    marginTop: '20px',
+  },
+};
 
 const Footer = () => (
-  <div>
+  <div style={styles.footerContainer}>
     <div>
       <h3>Bezoekadres</h3>
       Kamer 2.81 <br />
@@ -24,4 +32,4 @@ const Footer = () => (
   </div>
 );
 
-export default Footer;
+export default Radium(Footer);

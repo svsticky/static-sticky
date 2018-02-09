@@ -1,5 +1,14 @@
 import React from 'react';
 import { Card, Checkbox, Dropdown } from 'semantic-ui-react';
+import Radium from 'radium';
+
+const styles = {
+  filterContainer: {
+    position: 'sticky',
+    top: '3.9em',
+    zIndex: '10',
+  },
+};
 
 const studieFilterOptions = [
   'Informatica',
@@ -21,7 +30,7 @@ const typeFilterOptions = [
 ];
 
 const JobFilter = props => (
-  <Card fluid>
+  <Card fluid style={styles.filterContainer}>
     <Card.Content>
       <Dropdown compact text={'Studies (' + props.studiesFilter.length + ')'} icon="student" labeled button className="icon" scrolling={false}>
         <Dropdown.Menu>
@@ -49,4 +58,4 @@ const JobFilter = props => (
   </Card>
 );
 
-export default JobFilter;
+export default Radium(JobFilter);
