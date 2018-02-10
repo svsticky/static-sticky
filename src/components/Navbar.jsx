@@ -4,7 +4,7 @@ import Radium from 'radium';
 import Link from 'gatsby-link';
 import logo from '../images/logo-sticky-small.png';
 
-const style = {
+const styles = {
   navbar: {
     backgroundColor: '#000078',
     color: 'white',
@@ -20,13 +20,13 @@ const style = {
 
 const Navbar = () => (
   <div>
-    <Menu style={style.navbar} fixed="top">
+    <Menu style={styles.navbar} fixed="top">
       <Container>
         <Menu secondary>
-          <Link to="/"><img src={logo} alt="" style={style.logo} /></Link>
-          <Menu.Item as={Link} to="/bestuur" content="Bestuur" style={style.navbaritem} />
-          <Menu.Item as={Link} to="/vacatures" content="Vacatures" style={style.navbaritem} />
-          <Menu.Item as={Link} to="/onderwijs" content="Onderwijs" style={style.navbaritem} />
+          <Link to="/"><img src={logo} alt="" style={styles.logo} /></Link>
+          <Menu.Item as={Link} to="/bestuur" content="Bestuur" style={styles.navbaritem} />
+          <Menu.Item as={Link} to="/vacatures" content="Vacatures" style={styles.navbaritem} />
+          <Menu.Item as={Link} to="/onderwijs" content="Onderwijs" style={styles.navbaritem} />
         </Menu>
       </Container>
     </Menu>

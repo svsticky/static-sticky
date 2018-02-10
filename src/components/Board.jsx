@@ -1,7 +1,12 @@
 import React from 'react';
+import { Card } from 'semantic-ui-react';
+import Radium from 'radium';
+
 
 const Board = ({ board }) => (
-  <div>{board.number}e bestuur</div>
+  <Card>
+    {board.number}e bestuur
+  </Card>
 );
 
-export default Board;
+export default Radium(Board);
