@@ -1,5 +1,5 @@
 import React from 'react';
-import { Segment } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import JobsList from '../components/JobsList';
 import JobFilter from '../components/JobFilter';
 
@@ -44,9 +44,9 @@ class JobIndexPage extends React.Component {
     return (
       <div>
         <h1>Vacatures</h1>
-        <Segment> {/* placeholder for featured */}
+        <Card raised fluid> {/* placeholder for featured */}
           <br /><br />Featured<br /><br /><br />
-        </Segment>
+        </Card>
         <JobFilter
           toggleStudiesFilter={this.toggleStudiesFilter}
           studiesFilter={this.state.studiesFilter}
