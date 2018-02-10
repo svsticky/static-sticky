@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Menu } from 'semantic-ui-react';
 import Radium from 'radium';
 import Link from 'gatsby-link';
-import logo from '../images/logo-sticky.png';
+import logo from '../images/logo-sticky-small.png';
 
 const style = {
   navbar: {
