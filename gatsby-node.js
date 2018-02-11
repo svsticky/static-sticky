@@ -45,7 +45,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       // Create jobpages.
       result.data.allContentfulJobListing.edges.forEach((edge) => {
-        const url = edge.node.job_title.replace(/ /g, '-').toLowerCase();
+        const url = edge.node.job.job_title.replace(/-|\/|/g, '').replace(/\s\s/g, ' ').replace(/ /g, '-').toLowerCase(); // way too ugly, must be fixed with proper RegEx
         createPage({
           path: `/vacatures/${url}`, // required
           component: slash(jobTemplate),
