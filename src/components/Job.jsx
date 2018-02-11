@@ -23,7 +23,7 @@ const styles = {
 };
 
 const Job = ({ job }) => (
-  <Card as={Link} to={'/vacatures/' + job.job_title.replace(/-|\/|/g, '').replace(/\s\s/g, ' ').replace(/ /g, '-').toLowerCase()} fluid style={styles.jobCard}> {/* way too ugly, must be fixed with proper RegEx */}
+  <Card as={Link} to={'/vacatures/' + job.job_title.replace(/\W+/g, '-').toLowerCase()} fluid style={styles.jobCard}>
     <Card.Content style={styles.header}>
       <div style={styles.logoContainer}>
         <img src={job.partner.logo.file.url} alt="Partner Logo" style={styles.partnerLogo} />

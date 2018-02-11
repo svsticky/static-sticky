@@ -7,37 +7,37 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   return new Promise((resolve, reject) => {
     const jobTemplate = path.resolve('src/templates/JobTemplate.jsx');
     resolve(graphql(`
-    query JobQuery {
-      allContentfulJobListing {
-        edges {
-          node {
-            id
-            job_title
-            summary
-            contact_name
-            contact_email
-            phone_number
-            featured
-            target_studies
-            type
-            content {
+      query JobQuery {
+        allContentfulJobListing {
+          edges {
+            node {
               id
-            }
-            partner {
-              id
-              name
-              website
-              logo {
-                title
-                file {
-                  url
+              job_title
+              summary
+              contact_name
+              contact_email
+              phone_number
+              featured
+              target_studies
+              type
+              content {
+                id
+              }
+              partner {
+                id
+                name
+                website
+                logo {
+                  title
+                  file {
+                    url
+                  }
                 }
               }
             }
           }
         }
       }
-    }
     `).then((result) => {
       if (result.errors) {
         reject(result.errors);
@@ -45,7 +45,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       // Create jobpages.
       result.data.allContentfulJobListing.edges.forEach((edge) => {
-        const url = edge.node.job.job_title.replace(/-|\/|/g, '').replace(/\s\s/g, ' ').replace(/ /g, '-').toLowerCase(); // way too ugly, must be fixed with proper RegEx
+        const url = edge.node.job_title.replace(/\W+/g, '-').toLowerCase();
         createPage({
           path: `/vacatures/${url}`, // required
           component: slash(jobTemplate),
