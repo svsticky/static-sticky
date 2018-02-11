@@ -23,7 +23,7 @@ const styles = {
 };
 
 const Job = ({ job }) => (
-  <Card as={Link} to={'/vacatures/' + job.id} fluid style={styles.jobCard}>
+  <Card as={Link} to={'/vacatures/' + job.job_title.replace(/ /g, '-').toLowerCase()} fluid style={styles.jobCard}>
     <Card.Content style={styles.header}>
       <div style={styles.logoContainer}>
         <img src={job.partner.logo.file.url} alt="Partner Logo" style={styles.partnerLogo} />

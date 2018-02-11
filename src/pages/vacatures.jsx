@@ -44,7 +44,8 @@ class JobIndexPage extends React.Component {
     return (
       <div>
         <h1>Vacatures</h1>
-        <Card raised fluid> {/* placeholder for featured */}
+        <Card raised fluid>
+          {/* TODO */}
           <br /><br />Featured<br /><br /><br />
         </Card>
         <JobFilter
