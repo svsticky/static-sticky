@@ -13,27 +13,6 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             node {
               id
               job_title
-              summary
-              contact_name
-              contact_email
-              phone_number
-              featured
-              target_studies
-              type
-              content {
-                id
-              }
-              partner {
-                id
-                name
-                website
-                logo {
-                  title
-                  file {
-                    url
-                  }
-                }
-              }
             }
           }
         }
@@ -44,13 +23,16 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       }
 
       // Create jobpages.
-      result.data.allContentfulJobListing.edges.forEach((edge) => {
-        const url = edge.node.job_title.replace(/\W+/g, '-').toLowerCase();
+      result.data.allContentfulJobListing.edges.forEach((({ node }) => {
+        const url = node.job_title.replace(/\W+/g, '-').toLowerCase();
         createPage({
           path: `/vacatures/${url}`, // required
           component: slash(jobTemplate),
+          context: {
+            id: node.id,
+          },
         });
-      });
+      }));
     }));
   });
 };
