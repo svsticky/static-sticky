@@ -1,5 +1,5 @@
 import React from 'react';
-import Job from './Job';
+import JobItem from './JobItem';
 
 const displayJob = (studiesFilter, typesFilter, job) => {
   if (studiesFilter.length === 0 && typesFilter.length === 0) {
@@ -20,7 +20,7 @@ const JobsList = props => (
   <div>
     {props.data.map(job =>
       displayJob(props.studiesFilter, props.typesFilter, job.node) &&
-        <Job key={job.node.id} job={job.node} />)}
+        <JobItem key={job.node.id} job={job.node} />)}
   </div>
 );
 
