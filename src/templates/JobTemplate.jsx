@@ -3,10 +3,20 @@ import { Card, Image } from 'semantic-ui-react';
 import Markdown from 'markdown-to-jsx';
 
 const styles = {
-  jobview: {
-    display: 'grid',
-    gridTemplateColumns: '1fr 3fr',
-    gridColumnGap: '20px',
+  flexContainer: {
+    display: 'flex',
+    alignItems: 'flex-start',
+  },
+  contactInfo: {
+    width: '20em',
+    minWidth: '200px',
+    margin: '1em 0.5em',
+    position: 'sticky',
+    top: '5em',
+    zIndex: '10',
+  },
+  jobContent: {
+    margin: '1em 0.5em',
   },
   logoContainer: {
     height: '10em',
@@ -15,13 +25,13 @@ const styles = {
     justifyContent: 'center',
   },
   partnerLogo: {
-    width: '75%',
+    width: '100%',
   },
 };
 
 const JobView = ({ data }) => (
-  <div style={styles.jobview}>
-    <Card fluid>
+  <div style={styles.flexContainer}>
+    <Card fluid style={styles.contactInfo}>
       <Card.Content>
         <div style={styles.logoContainer}>
           <img src={data.contentfulJobListing.partner.logo.file.url} style={styles.partnerLogo}/>
@@ -31,7 +41,7 @@ const JobView = ({ data }) => (
         <h3>{data.contentfulJobListing.partner.name}</h3>
       </Card.Content>
     </Card>
-    <Card fluid>
+    <Card fluid style={styles.jobContent}>
       <Card.Content>
         <h2>{data.contentfulJobListing.job_title}</h2>
       </Card.Content>
