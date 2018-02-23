@@ -7,16 +7,16 @@ const styles = {
     display: 'flex',
     alignItems: 'flex-start',
   },
-  contactInfo: {
+  info: {
     width: '20em',
-    minWidth: '200px',
-    margin: '1em 0.5em',
+    minWidth: '220px',
+    margin: '0 0.5em',
     position: 'sticky',
     top: '5em',
     zIndex: '10',
   },
   jobContent: {
-    margin: '1em 0.5em',
+    margin: '0 0.5em',
   },
   logoContainer: {
     height: '10em',
@@ -25,21 +25,26 @@ const styles = {
     justifyContent: 'center',
   },
   partnerLogo: {
-    width: '100%',
+    width: '80%',
   },
 };
 
 const JobView = ({ data }) => (
   <div style={styles.flexContainer}>
-    <Card fluid style={styles.contactInfo}>
+    <Card fluid style={styles.info}>
       <Card.Content>
         <div style={styles.logoContainer}>
           <img src={data.contentfulJobListing.partner.logo.file.url} style={styles.partnerLogo}/>
         </div>
       </Card.Content>
-      <Card.Content>
-        <h3>{data.contentfulJobListing.partner.name}</h3>
-      </Card.Content>
+        { data.contentfulJobListing.contactPerson && (
+          <Card.Content>
+            <h3>Contact</h3>
+            <p>{data.contentfulJobListing.contactPerson.name} <br/>
+            <a href={"mailto:" + data.contentfulJobListing.contactPerson.email}>{data.contentfulJobListing.contactPerson.email}</a> <br/>
+            <a href={"tel:" + data.contentfulJobListing.contactPerson.phone}>{data.contentfulJobListing.contactPerson.phone}</a></p>
+          </Card.Content>
+        )}
     </Card>
     <Card fluid style={styles.jobContent}>
       <Card.Content>
@@ -63,8 +68,17 @@ export const jobQuery = graphql`
       content {
         content
       }
-      partner {
+      contactPerson {
         name
+        email
+        phone
+        photo {
+          file {
+            url
+          }
+        }
+      }
+      partner {
         logo {
           file {
             url
