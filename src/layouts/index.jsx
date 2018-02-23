@@ -1,26 +1,31 @@
 import React from 'react';
 import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import Radium from 'radium';
+import { StyleRoot } from 'radium';
 import Navbar from '../components/Navbar';
+import MobileNavbar from '../components/MobileNavbar';
 import Footer from '../components/Footer';
 
 const styles = {
   contentContainer: {
-    marginTop: '5rem',
+    marginTop: '5em',
+    '@media screen and (max-width: 768px)': {
+      marginTop: '1em',
+    }
   },
 };
 
 const layout = ({ children }) => (
-  <div>
+  <StyleRoot>
     <Navbar />
-    <div>
-      <Container style={styles.contentContainer}>
+    <div style={styles.contentContainer}>
+      <Container>
         {children()}
       </Container>
       <Footer />
     </div>
-  </div>
+    <MobileNavbar />
+  </StyleRoot>
 );
 
-export default Radium(layout);
+export default layout;
