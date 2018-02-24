@@ -18,7 +18,7 @@ const displayJob = (studiesFilter, typesFilter, job) => {
 
 const JobsList = props => (
   <div>
-    {props.data.map(job =>
+    {props.jobs.map(job =>
       displayJob(props.studiesFilter, props.typesFilter, job.node) &&
         <JobItem key={job.node.id} job={job.node} />)}
   </div>

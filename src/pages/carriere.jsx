@@ -14,6 +14,8 @@ class JobIndexPage extends React.Component {
     this.toggleTypesFilter = this.toggleTypesFilter.bind(this);
   }
 
+  jobs = this.props.data.allContentfulJobListing.edges;
+
   toggleStudiesFilter(term) {
     const studiesFilter = [...this.state.studiesFilter];
     if (studiesFilter.includes(term)) {
@@ -55,7 +57,7 @@ class JobIndexPage extends React.Component {
           typesFilter={this.state.typesFilter}
         />
         <JobsList
-          data={this.props.data.allContentfulJobListing.edges}
+          jobs={this.jobs}
           studiesFilter={this.state.studiesFilter}
           typesFilter={this.state.typesFilter}
         />

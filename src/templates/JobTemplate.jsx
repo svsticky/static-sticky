@@ -29,35 +29,39 @@ const styles = {
   },
 };
 
-const JobView = ({ data }) => (
-  <div style={styles.flexContainer}>
-    <Card fluid style={styles.info}>
-      <Card.Content>
-        <div style={styles.logoContainer}>
-          <img src={data.contentfulJobListing.partner.logo.file.url} style={styles.partnerLogo}/>
-        </div>
-      </Card.Content>
-        { data.contentfulJobListing.contactPerson && (
-          <Card.Content>
-            <h3>Contact</h3>
-            <p>{data.contentfulJobListing.contactPerson.name} <br/>
-            <a href={"mailto:" + data.contentfulJobListing.contactPerson.email}>{data.contentfulJobListing.contactPerson.email}</a> <br/>
-            <a href={"tel:" + data.contentfulJobListing.contactPerson.phone}>{data.contentfulJobListing.contactPerson.phone}</a></p>
-          </Card.Content>
-        )}
-    </Card>
-    <Card fluid style={styles.jobContent}>
-      <Card.Content>
-        <h2>{data.contentfulJobListing.job_title}</h2>
-      </Card.Content>
-      <Card.Content>
-        <Markdown>
-          {data.contentfulJobListing.content.content}
-        </Markdown>
-      </Card.Content>
-    </Card>
-  </div>
-);
+const JobView = ({ data }) => {
+  const job = data.contentfulJobListing;
+
+  return(
+    <div style={styles.flexContainer}>
+      <Card fluid style={styles.info}>
+        <Card.Content>
+          <div style={styles.logoContainer}>
+            <img src={job.partner.logo.file.url} style={styles.partnerLogo}/>
+          </div>
+        </Card.Content>
+          {job.contactPerson && (
+            <Card.Content>
+              <h3>Contact</h3>
+              <p>{job.contactPerson.name} <br/>
+              <a href={"mailto:" + job.contactPerson.email}>{job.contactPerson.email}</a> <br/>
+              <a href={"tel:" + job.contactPerson.phone}>{job.contactPerson.phone}</a></p>
+            </Card.Content>
+          )}
+      </Card>
+      <Card fluid style={styles.jobContent}>
+        <Card.Content>
+          <h2>{job.job_title}</h2>
+        </Card.Content>
+        <Card.Content>
+          <Markdown>
+            {job.content.content}
+          </Markdown>
+        </Card.Content>
+      </Card>
+    </div>
+  );
+};
 
 export default JobView;
 

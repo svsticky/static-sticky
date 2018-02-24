@@ -1,14 +1,17 @@
 import React from 'react';
 import Board from '../components/Board';
 
-const Bestuur = props => (
-  <div>
-    <h1>Huidig bestuur</h1>
-    <h1>Vorige besturen</h1>
-    {props.data.allContentfulBoard.edges.map(board =>
-      <Board key={board.node.id} board={board.node} />)}
-  </div>
-);
+const BoardsList = props => {
+  const boards = props.data.allContentfulBoard.edges;
+  return (
+    <div>
+      <h1>Huidig bestuur</h1>
+      <h1>Vorige besturen</h1>
+      {boards.map(board =>
+        <Board key={board.node.id} board={board.node} />)}
+    </div>
+  );
+};
 
 export const BoardsQuery = graphql`
   query BoardsQuery {
@@ -32,4 +35,4 @@ export const BoardsQuery = graphql`
   }
 `;
 
-export default Bestuur;
+export default BoardsList;
