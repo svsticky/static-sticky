@@ -1,5 +1,6 @@
 import React from 'react';
 import Radium from 'radium';
+import globalStyles from '../styles/globalStyles';
 
 const styles = {
   footer: {
@@ -7,6 +8,9 @@ const styles = {
     marginTop: '20px',
     display: 'flex',
     justifyContent: 'center',
+    [globalStyles.screen.tabletDown]: {
+      marginBottom: '4.8em',
+    },
   },
   footerContainer: {
     display: 'flex',
@@ -36,9 +40,9 @@ const Footer = () => (
       </div>
       <div style={styles.footerItem}>
         <h3>Gegevens</h3>
-        IBAN: NL61INGB0002877106 <br />
-        BTW: NL-8173.55.303.B01 <br />
-        KvK: 30220729, UTRECHT
+        <strong>IBAN:</strong> NL61INGB0002877106 <br />
+        <strong>BTW:</strong> NL-8173.55.303.B01 <br />
+        <strong>KvK:</strong> 30220729, UTRECHT
       </div>
     </div>
   </div>

@@ -1,12 +1,19 @@
 import React from 'react';
 import { Card, Checkbox, Dropdown } from 'semantic-ui-react';
 import Radium from 'radium';
+import globalStyles from "../styles/globalStyles";
 
 const styles = {
   filterContainer: {
+    [globalStyles.screen.tabletUp]: {
+      top: '3.9em',
+    },
+    [globalStyles.screen.tabletDown]: {
+      top: '0',
+    },
     position: 'sticky',
-    top: '3.9em',
     zIndex: '10',
+    marginBottom: '1em',
   },
 };
 
@@ -30,32 +37,34 @@ const typeFilterOptions = [
 ];
 
 const JobFilter = props => (
-  <Card fluid style={styles.filterContainer}>
-    <Card.Content>
-      <Dropdown compact text={'Studies (' + props.studiesFilter.length + ')'} icon="student" labeled button className="icon" scrolling={false}>
-        <Dropdown.Menu>
-          <Dropdown.Menu scrolling>
-            {studieFilterOptions.map(study => (
-              <Dropdown.Item key={study} onClick={() => props.toggleStudiesFilter(study)}>
-                <Checkbox checked={props.studiesFilter.includes(study)} />
-                <span> {study}</span>
-              </Dropdown.Item>))}
+  <div style={styles.filterContainer}>
+    <Card fluid>
+      <Card.Content>
+        <Dropdown compact text={'Studies (' + props.studiesFilter.length + ')'} icon="student" labeled button className="icon" scrolling={false}>
+          <Dropdown.Menu>
+            <Dropdown.Menu scrolling>
+              {studieFilterOptions.map(study => (
+                <Dropdown.Item key={study} onClick={() => props.toggleStudiesFilter(study)}>
+                  <Checkbox checked={props.studiesFilter.includes(study)} />
+                  <span> {study}</span>
+                </Dropdown.Item>))}
+            </Dropdown.Menu>
           </Dropdown.Menu>
-        </Dropdown.Menu>
-      </Dropdown>
-      <Dropdown compact text={'Typen (' + props.typesFilter.length + ')'} icon="tags" labeled button className="icon">
-        <Dropdown.Menu>
-          <Dropdown.Menu scrolling>
-            {typeFilterOptions.map(type => (
-              <Dropdown.Item key={type} onClick={() => props.toggleTypesFilter(type)}>
-                <Checkbox checked={props.typesFilter.includes(type)} />
-                <span> {type}</span>
-              </Dropdown.Item>))}
+        </Dropdown>
+        <Dropdown compact text={'Typen (' + props.typesFilter.length + ')'} icon="tags" labeled button className="icon">
+          <Dropdown.Menu>
+            <Dropdown.Menu scrolling>
+              {typeFilterOptions.map(type => (
+                <Dropdown.Item key={type} onClick={() => props.toggleTypesFilter(type)}>
+                  <Checkbox checked={props.typesFilter.includes(type)} />
+                  <span> {type}</span>
+                </Dropdown.Item>))}
+            </Dropdown.Menu>
           </Dropdown.Menu>
-        </Dropdown.Menu>
-      </Dropdown>
-    </Card.Content>
-  </Card>
+        </Dropdown>
+      </Card.Content>
+    </Card>
+  </div>
 );
 
 export default Radium(JobFilter);
