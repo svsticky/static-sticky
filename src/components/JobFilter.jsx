@@ -6,7 +6,7 @@ import globalStyles from "../styles/globalStyles";
 const styles = {
   filterContainer: {
     [globalStyles.screen.tabletUp]: {
-      top: '3.9em',
+      top: '3.5em',
     },
     [globalStyles.screen.tabletDown]: {
       top: '0',

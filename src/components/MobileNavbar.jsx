@@ -17,7 +17,7 @@ const styles = {
 
 const MobileNavbar = () =>
   <div style={responsive.hide.tabletUp}>
-    <Menu widths={3} fixed='bottom' icon='labeled' secondary style={styles.navbar}>
+    <Menu widths={3} fixed='bottom' icon='labeled' secondary style={styles.navbar} size='mini'>
       <Menu.Item as={Link} to="/bestuur"style={styles.navbaritem}>
         <Icon name='users'/>
         Bestuur

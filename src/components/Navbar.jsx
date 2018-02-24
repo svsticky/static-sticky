@@ -15,18 +15,22 @@ const styles = {
     color: 'white',
   },
   logo: {
-    height: '3.2em',
-    margin: '0.3em 0 0 0.5em',
+    height: '2.8em',
+    marginTop: '0.3em',
   },
 };
 
 const Navbar = () => (
   <div style={responsive.hide.tabletDown}>
     <Menu style={styles.navbar} fixed="top">
+    <Container>
       <Link to="/"><img src={logo} alt="" style={styles.logo} /></Link>
-      <Menu.Item as={Link} to="/bestuur" content="Bestuur" style={styles.navbaritem} />
-      <Menu.Item as={Link} to="/carriere" content="Carrière" style={styles.navbaritem} />
-      <Menu.Item as={Link} to="/onderwijs" content="Onderwijs" style={styles.navbaritem} />
+      <Menu.Menu position="right" secondary>
+        <Menu.Item as={Link} to="/bestuur" content="Bestuur" style={styles.navbaritem} />
+        <Menu.Item as={Link} to="/carriere" content="Carrière" style={styles.navbaritem} />
+        <Menu.Item as={Link} to="/onderwijs" content="Onderwijs" style={styles.navbaritem} />
+      </Menu.Menu>
+      </Container>
     </Menu>
   </div>
 );
