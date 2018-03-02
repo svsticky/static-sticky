@@ -6,6 +6,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
   return new Promise((resolve, reject) => {
     const jobTemplate = path.resolve('src/templates/JobTemplate.jsx');
+    const partnerTemplate = path.resolve('src/templates/PartnerTemplate.jsx');
     resolve(graphql(`
       query JobQuery {
         allContentfulJobListing {
@@ -13,6 +14,14 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             node {
               id
               job_title
+            }
+          }
+        }
+        allContentfulPartner {
+          edges {
+            node {
+              id
+              name
             }
           }
         }
@@ -32,6 +41,17 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             id: node.id,
           },
         });
+      }));
+      
+      result.data.allContentfulPartner.edges.forEach((({ node }) => {
+        const url = node.name.replace(/\W+/g, '-').toLowerCase();
+        createPage({
+          path: `/partners/${url}`, //required
+          component: slash(partnerTemplate),
+          context: {
+            id: node.id
+          }
+        })
       }));
     }));
   });
