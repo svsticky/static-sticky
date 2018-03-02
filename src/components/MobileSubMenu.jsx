@@ -8,7 +8,8 @@ const styles = {
     width: '100%',
     textAlign: 'center',
     padding: '0',
-    margin: '0'
+    margin: '0',
+    zIndex: 5
   },
   mobileSubMenu: {
     display: 'flex',
