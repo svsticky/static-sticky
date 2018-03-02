@@ -20,9 +20,9 @@ const styles = {
 
 
 const Partner = ({partner}) => (
-    <div as={Link} to={"google.com"} style={styles.logoContainer}>
+    <Link to={'/partners/' + partner.name.replace(/\W+/g, '-').toLowerCase()} style={styles.logoContainer}>
         <img  src={partner.logo.file.url} alt="Partner Logo" style={styles.partnerLogo} />
-    </div>
+    </Link>
 );
 
 export default Partner

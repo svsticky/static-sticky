@@ -20,6 +20,7 @@ export const PartnerListQuery = graphql`
       edges {
         node {
           id
+          name
           logo {
             file {
               url
