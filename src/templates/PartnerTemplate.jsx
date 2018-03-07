@@ -55,23 +55,23 @@ const PartnerView = ({ data }) => {
               </Card.Content>
             }
         </Card>
-        <div>
-        <Card fluid style={styles.partnerContent}>
-          <Card.Content>
-            <h2>{partner.name}</h2>
-          </Card.Content>
+        <div style={styles.partnerContent}>
+        <h2>{partner.name}</h2>
+        <Card fluid >
           <Card.Content>
             <Markdown>
               {partner.description.description}
             </Markdown>
           </Card.Content>
         </Card>
-        <partnerJobList>
-        {
-            partner.job_listing.map(job_listing => 
-            <JobItem key={job_listing.id} job={job_listing} />)
-        }
-        </partnerJobList>
+
+        <h2> Vacatures </h2>  
+          <div >
+          {
+              partner.job_listing.map(job_listing => 
+              <JobItem key={job_listing.id} job={job_listing} />)
+          }
+          </div>
         </div>
       </div>  
     );
