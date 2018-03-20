@@ -25,9 +25,9 @@ const Navbar = () => (
     <Menu style={styles.navbar} fixed="top">
     <Container>
       <Link to="/"><img src={logo} alt="" style={styles.logo} /></Link>
-      <Menu.Menu position="right" secondary>
+      <Menu.Menu position="right">
         <Menu.Item as={Link} to="/bestuur" content="Bestuur" style={styles.navbaritem} />
-        <Menu.Item as={Link} to="/carriere" content="Carrière" style={styles.navbaritem} />
+        <Menu.Item as={Link} to="/vacatures" content="Vacatures" style={styles.navbaritem} />
         <Menu.Item as={Link} to="/onderwijs" content="Onderwijs" style={styles.navbaritem} />
       </Menu.Menu>
       </Container>

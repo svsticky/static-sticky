@@ -1,15 +1,16 @@
 import React from 'react';
-import { Icon, Menu, Segment } from 'semantic-ui-react';
+import Link from 'gatsby-link';
 
 const styles = {
   mobileSubMenuPopUp: {
+    backgroundColor: 'white',
     position: 'fixed',
     bottom: '3.8em',
     width: '100%',
     textAlign: 'center',
-    padding: '0',
+    padding: '5px',
     margin: '0',
-    zIndex: 5
+    zIndex: 1
   },
   mobileSubMenu: {
     display: 'flex',
@@ -17,10 +18,12 @@ const styles = {
     justifyContent: 'flex-end'
   },
   mobileSubMenuItem: {
+    color: '#000078',
     width: '33%',
     alignSelf: 'flex-start',
     height: '4em',
-    border: '1px solid #efefef',
+    border: '1px solid #000078',
+    borderRadius: '8px',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -28,32 +31,33 @@ const styles = {
   }
 }
 
+//
 const subMenuItems = {
-  association: [
-    'Besturen'
-  ],
-  career: [
-    'Vacatures',
-    'Partners',
-    'Stages/Scripties'
-  ],
-  education: [
-    'Links'
-  ]
+  association: {
+    'Besturen':'besturen'
+  },
+  career: {
+    'Vacatures':'vacatures',
+    'Partners':'partners',
+    'Stages/Scripties':'stages'
+  },
+  education: {
+    'Links':'links'
+  }
 }
 
 const MobileSubMenu = (props) => {
   return(
     props.activeItem ? (
-      <Segment style={styles.mobileSubMenuPopUp}>
+      <div style={styles.mobileSubMenuPopUp}>
         <div style={styles.mobileSubMenu}>
-          {subMenuItems[props.activeItem].map(item =>
-            <div style={styles.mobileSubMenuItem}>
-              {item}
-            </div>)
+          {Object.entries(subMenuItems[props.activeItem]).map(item => 
+            <Link to={"/" + item[1]} key={item} style={styles.mobileSubMenuItem}>
+              {item[0]}
+            </Link>)
           }
         </div>
-      </Segment>
+      </div>
     ) : null
   );
 };
