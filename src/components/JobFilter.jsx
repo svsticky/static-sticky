@@ -1,21 +1,6 @@
 import React from 'react';
-import { Card, Checkbox, Dropdown } from 'semantic-ui-react';
-import Radium from 'radium';
-import globalStyles from "../styles/globalStyles";
+import styled from 'styled-components';
 
-const styles = {
-  filterContainer: {
-    [globalStyles.screen.tabletUp]: {
-      top: '3.5em',
-    },
-    [globalStyles.screen.tabletDown]: {
-      top: '0',
-    },
-    position: 'sticky',
-    zIndex: '10',
-    marginBottom: '1em',
-  },
-};
 
 const studieFilterOptions = [
   'Informatica',
@@ -36,9 +21,10 @@ const typeFilterOptions = [
   'Traineeship',
 ];
 
-const JobFilter = props => (
-  <div style={styles.filterContainer}>
-    <Card fluid>
+const jobfilter = props => (
+  <div>
+    jobfilter
+    {/* <Card fluid>
       <Card.Content>
         <Dropdown compact text={'Studies (' + props.studiesFilter.length + ')'} icon="student" labeled button className="icon" scrolling={false}>
           <Dropdown.Menu>
@@ -46,7 +32,7 @@ const JobFilter = props => (
               {studieFilterOptions.map(study => (
                 <Dropdown.Item key={study} onClick={() => props.toggleStudiesFilter(study)}>
                   <Checkbox checked={props.studiesFilter.includes(study)} />
-                  <span> {study}</span>
+                  <span>{study}</span>
                 </Dropdown.Item>))}
             </Dropdown.Menu>
           </Dropdown.Menu>
@@ -63,8 +49,20 @@ const JobFilter = props => (
           </Dropdown.Menu>
         </Dropdown>
       </Card.Content>
-    </Card>
+    </Card> */}
   </div>
 );
 
-export default Radium(JobFilter);
+const FilterContainer = styled.div`
+  @media (min-width: 768px) {
+    top: '3.5em';
+  }
+  @media screen and (max-width: 768px) {
+    top: '0',
+  }
+  position: 'sticky';
+  z-index: '10';
+  margin-bottom: '1em';
+`
+
+export default jobfilter;

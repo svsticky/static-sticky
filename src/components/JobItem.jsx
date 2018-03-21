@@ -1,12 +1,8 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import { Card, Label } from 'semantic-ui-react';
-import Radium from 'radium';
+import styled from 'styled-components';
 
 const styles = {
-  jobCard: {
-    color: 'black',
-  },
   header: {
     display: 'flex',
   },
@@ -23,24 +19,33 @@ const styles = {
 };
 
 const Job = ({ job }) => (
-  <Card as={Link} to={'/vacatures/' + job.job_title.replace(/\W+/g, '-').toLowerCase()} fluid style={styles.jobCard}>
-    <Card.Content style={styles.header}>
-      <div style={styles.logoContainer}>
-        <img src={job.partner.logo.file.url} alt="Partner Logo" style={styles.partnerLogo} />
+  <JobCard to={'/vacatures/' + job.job_title.replace(/\W+/g, '-').toLowerCase()}>
+    <div>
+      <div>
+        <img src={job.partner.logo.file.url} alt="Partner Logo" />
       </div>
       <div>
         {job.job_title}
-        <Card.Meta>
+        <div>
           {job.partner.name}
-        </Card.Meta>
+        </div>
       </div>
-      {job.featured &&
-        <Label corner="right" color="yellow" icon="star" size="mini" />}
-    </Card.Content>
-    <Card.Content>
+    </div>
+    <div>
       <p>{job.summary}</p>
-    </Card.Content>
-  </Card>
+    </div>
+  </JobCard>
 );
 
-export default Radium(Job);
+const JobCard = styled(Link)`
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  padding: 8px;
+  :hover {
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  }
+`
+
+export default Job;

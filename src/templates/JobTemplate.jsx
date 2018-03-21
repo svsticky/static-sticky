@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, Image } from 'semantic-ui-react';
 import Markdown from 'markdown-to-jsx';
 
 const styles = {
@@ -34,31 +33,31 @@ const JobView = ({ data }) => {
 
   return(
     <div style={styles.flexContainer}>
-      <Card fluid style={styles.info}>
-        <Card.Content>
+      <div fluid style={styles.info}>
+        <div>
           <div style={styles.logoContainer}>
             <img src={job.partner.logo.file.url} style={styles.partnerLogo}/>
           </div>
-        </Card.Content>
+        </div>
           {job.contactPerson && (
-            <Card.Content>
+            <div>
               <h3>Contact</h3>
               <p>{job.contactPerson.name} <br/>
               <a href={"mailto:" + job.contactPerson.email}>{job.contactPerson.email}</a> <br/>
               <a href={"tel:" + job.contactPerson.phone}>{job.contactPerson.phone}</a></p>
-            </Card.Content>
+            </div>
           )}
-      </Card>
-      <Card fluid style={styles.jobContent}>
-        <Card.Content>
+      </div>
+      <div fluid style={styles.jobContent}>
+        <div>
           <h2>{job.job_title}</h2>
-        </Card.Content>
-        <Card.Content>
+        </div>
+        <div>
           <Markdown>
             {job.content.content}
           </Markdown>
-        </Card.Content>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };

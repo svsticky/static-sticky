@@ -1,18 +1,12 @@
 import React from 'react';
-import { Container, Icon, Menu } from 'semantic-ui-react';
 import Link from 'gatsby-link';
-import Radium from 'radium';
 import MobileSubMenu from '../components/MobileSubMenu';
-import globalStyles from '../styles/globalStyles';
-import responsive from '../styles/responsive';
+import styled from 'styled-components';
 
 const styles = {
   navbar: {
-    backgroundColor: globalStyles.theme.bestuurskleur,
-    color: 'white',
   },
   navbaritem: {
-    color: 'white',
   },
 };
 
@@ -42,23 +36,36 @@ class MobileNavbar extends React.Component {
 
   render() {
     return (
-    <div style={responsive.hide.tabletUp}>
+    <MobileSubMenuContainer>
       <MobileSubMenu activeItem={this.state.activeItem}/>
-      <Menu widths={3} fixed='bottom' icon='labeled' secondary style={styles.navbar} size='mini'>
-        <Menu.Item name="association" style={styles.navbaritem} onClick={this.handleItemClick}>
-          <Icon name='users'/>
+      <Menu widths={3} fixed='bottom' icon='labeled' secondary size='mini'>
+        <MenuItem name="association" onClick={this.handleItemClick}>
           Vereniging
-        </Menu.Item>
-        <Menu.Item name="career" style={styles.navbaritem} onClick={this.handleItemClick}>
-          <Icon name='briefcase'/>
+        </MenuItem>
+        <MenuItem name="career" onClick={this.handleItemClick}>
           Carrière
-        </Menu.Item>
-        <Menu.Item name="education" style={styles.navbaritem} onClick={this.handleItemClick}>
-          <Icon name='student'/>
+        </MenuItem>
+        <MenuItem name="education" onClick={this.handleItemClick}>
           Onderwijs
-        </Menu.Item>
+        </MenuItem>
       </Menu>
-    </div>
+    </MobileSubMenuContainer>
   )};
+}
+
+const MobileSubMenuContainer = styled.div`
+  @media (min-width: 768px) {
+    display: none;
   }
-export default Radium(MobileNavbar);
+`;
+
+const Menu = styled.div`
+  background-color: '#000078';
+  color: 'white';
+`;
+
+const MenuItem = styled.div`
+  color: 'white';
+`;
+
+export default MobileNavbar;

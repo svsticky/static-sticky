@@ -1,5 +1,6 @@
 import React from 'react';
 import JobItem from './JobItem';
+import styled from 'styled-components';
 
 const displayJob = (studiesFilter, typesFilter, job) => {
   if (studiesFilter.length === 0 && typesFilter.length === 0) {
@@ -16,12 +17,21 @@ const displayJob = (studiesFilter, typesFilter, job) => {
   return false;
 };
 
-const JobsList = props => (
-  <div>
+const jobslist = props => (
+  <JobsList>
     {props.jobs.map(job =>
       displayJob(props.studiesFilter, props.typesFilter, job.node) &&
         <JobItem key={job.node.id} job={job.node} />)}
-  </div>
+  </JobsList>
 );
 
-export default JobsList;
+const JobsList = styled.div`
+  display: grid;
+  @media (min-width: 990px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  grid-template-columns: 1fr;
+  grid-gap: 12px;
+`
+
+export default jobslist;

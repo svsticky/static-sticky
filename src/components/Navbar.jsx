@@ -1,38 +1,48 @@
 import React from 'react';
-import { Container, Menu } from 'semantic-ui-react';
-import Radium from 'radium';
 import Link from 'gatsby-link';
 import logo from '../images/logo-sticky-small.png';
-import globalStyles from '../styles/globalStyles';
-import responsive from '../styles/responsive';
-
-const styles = {
-  navbar: {
-    backgroundColor: globalStyles.theme.bestuurskleur,
-    color: 'white',
-  },
-  navbaritem: {
-    color: 'white',
-  },
-  logo: {
-    height: '2.8em',
-    marginTop: '0.3em',
-  },
-};
+import styled from 'styled-components';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import Typography from 'material-ui/Typography';
 
 const Navbar = () => (
-  <div style={responsive.hide.tabletDown}>
-    <Menu style={styles.navbar} fixed="top">
-    <Container>
-      <Link to="/"><img src={logo} alt="" style={styles.logo} /></Link>
-      <Menu.Menu position="right">
-        <Menu.Item as={Link} to="/bestuur" content="Bestuur" style={styles.navbaritem} />
-        <Menu.Item as={Link} to="/vacatures" content="Vacatures" style={styles.navbaritem} />
-        <Menu.Item as={Link} to="/onderwijs" content="Onderwijs" style={styles.navbaritem} />
-      </Menu.Menu>
-      </Container>
-    </Menu>
-  </div>
+  <AppBar position="fixed" color="primary">
+    <Toolbar>
+      <Logo to="/"><img src={logo} alt=""/></Logo>
+    </Toolbar>
+  </AppBar>
+  // <NavbarContainer>
+  //   <div>
+  //     
+  //     <div>
+  //       <NavbarItem to="/besturen" content="Bestuur" />
+  //       <NavbarItem to="/vacatures" content="Vacatures" />
+  //       <NavbarItem to="/onderwijs" content="Onderwijs" />
+  //     </div>
+  //   </div>
+  // </NavbarContainer>
 );
 
-export default Radium(Navbar);
+const NavbarContainer = styled.div`
+  background-color: '#000078';
+  color: 'white';
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const NavbarItem = styled.div`
+  color: 'white';
+`;
+
+const Logo = styled(Link)`
+  img { 
+    height: 50px;
+    margin-top: 2px;
+    margin-left: -12px;
+  }
+`
+
+
+export default Navbar;

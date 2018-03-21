@@ -4,7 +4,8 @@ import styled from 'styled-components';
 const Board = ({board}) => {
   return (
     <BoardCard color={board.color}>
-      {board.number}e bestuur
+      <h3>{board.number}e bestuur</h3>
+      {board.years}
     </BoardCard>
   )
 };

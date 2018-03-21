@@ -6,8 +6,6 @@ const Bestuur = props => {
   const boards = props.data.allContentfulBoard.edges;
   return (
     <div>
-      <h1>Huidig bestuur</h1>
-      <h1>Vorige besturen</h1>
       <BoardsList>
         {boards.map(board =>
           <Board key={board.node.id} board={board.node} />)}
@@ -25,9 +23,9 @@ const BoardsList = styled.div`
     grid-template-columns: repeat(2, 1fr);
   }
   @media (max-width: 560px) {
-    grid-template-columns: 1fr
+    grid-template-columns: 1fr;
   }
-  grid-gap: 10px;
+  grid-gap: 12px;
 `
 
 export const BoardsQuery = graphql`
