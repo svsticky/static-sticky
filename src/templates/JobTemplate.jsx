@@ -33,7 +33,7 @@ const JobView = ({ data }) => {
 
   return(
     <div style={styles.flexContainer}>
-      <div fluid style={styles.info}>
+      <div style={styles.info}>
         <div>
           <div style={styles.logoContainer}>
             <img src={job.partner.logo.file.url} style={styles.partnerLogo}/>
@@ -48,7 +48,7 @@ const JobView = ({ data }) => {
             </div>
           )}
       </div>
-      <div fluid style={styles.jobContent}>
+      <div style={styles.jobContent}>
         <div>
           <h2>{job.job_title}</h2>
         </div>

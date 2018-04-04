@@ -1,7 +1,5 @@
 import React from 'react';
-import Radium from 'radium';
 import Link from 'gatsby-link';
-import { Card, Label } from 'semantic-ui-react';
 
 const styles = {
     partnerLogo: {

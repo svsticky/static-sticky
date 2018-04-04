@@ -1,6 +1,5 @@
 import React from 'react';
 import Partner from '../components/Partner';
-import { Card } from 'semantic-ui-react';
 
 
 const PartnerIndexPage =  ({data}) => {

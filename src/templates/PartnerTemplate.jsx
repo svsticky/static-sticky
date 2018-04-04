@@ -1,5 +1,4 @@
 import React from 'react';
-import { Card, Image } from 'semantic-ui-react';
 import Markdown from 'markdown-to-jsx';
 import JobItem from '../components/JobItem';
 
@@ -40,30 +39,30 @@ const PartnerView = ({ data }) => {
 
     return(
       <div style={styles.flexContainer}>
-        <Card fluid style={styles.info}>
-          <Card.Content>
+        <div style={styles.info}>
+          <div>
             <div style={styles.logoContainer}>
               <img src={partner.logo.file.url} style={styles.partnerLogo}/>
             </div>
-          </Card.Content>
+          </div>
             {
-              <Card.Content>
+              <div>
                 <h3>Contact</h3>
                 <p>
-                    <a href={partner.website}>{"website"}</a> <br/>
+                    <a href={partner.website}>website</a> <br/>
                 </p>
-              </Card.Content>
+              </div>
             }
-        </Card>
+        </div>
         <div style={styles.partnerContent}>
         <h2>{partner.name}</h2>
-        <Card fluid >
-          <Card.Content>
+        <div>
+          <div>
             <Markdown>
               {partner.description.description}
             </Markdown>
-          </Card.Content>
-        </Card>
+          </div>
+        </div>
 
         <h2> Vacatures </h2>  
           <div >
