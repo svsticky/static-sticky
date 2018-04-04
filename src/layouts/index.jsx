@@ -2,9 +2,9 @@ import React from 'react';
 import Navbar from '../components/Navbar';
 import MobileNavbar from '../components/MobileNavbar';
 import Footer from '../components/Footer';
-import 'typeface-roboto';
 import { MuiThemeProvider } from 'material-ui/styles';
 import theme from '../styles/theme';
+import 'typeface-roboto';
 
 const layout = ({ children }) => (
   <MuiThemeProvider theme={theme}>
