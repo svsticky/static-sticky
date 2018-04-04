@@ -7,7 +7,9 @@ const PartnerIndexPage =  ({data}) => {
 
   return(
     <div>
-      {partners.map(partner => <Partner key={partner.node.id} partner={partner.node}/>)}
+      { partners.map(partner => 
+        <Partner key={partner.node.id} partner={partner.node}/>)
+      }
     </div>
   );
 };

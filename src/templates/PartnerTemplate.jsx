@@ -68,7 +68,7 @@ const PartnerView = ({ data }) => {
           <div >
           {
               partner.job_listing.map(job_listing => 
-              <JobItem key={job_listing.id} job={job_listing} />)
+              <JobItem key={job_listing.id} job={job_listing} partner={partner} />)
           }
           </div>
         </div>

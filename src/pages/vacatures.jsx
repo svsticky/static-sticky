@@ -44,7 +44,6 @@ class JobIndexPage extends React.Component {
   render() {
     return (
       <div>
-        <h1>Vacatures</h1>
         <JobFilter
           toggleStudiesFilter={this.toggleStudiesFilter}
           studiesFilter={this.state.studiesFilter}
