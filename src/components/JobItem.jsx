@@ -3,6 +3,7 @@ import Link from 'gatsby-link'
 import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import styled from 'styled-components';
 
+
 const Job = (props) => (
   <JobWrapper>
     <div className="logo-container">
@@ -55,5 +56,6 @@ const JobWrapper = styled(Card)`
     text-decoration: none;
   }
 `
+
 
 export default Job;

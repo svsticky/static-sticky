@@ -17,6 +17,7 @@ const subMenuItems = {
   }
 }
 
+
 const mobileSubMenu = props => {
   return(
     props.activeItem && (
@@ -33,6 +34,7 @@ const mobileSubMenu = props => {
   );
 };
 
+
 const MobileSubMenuPopUp = styled.div`
   background-color: 'white';
   position: 'fixed';
@@ -46,11 +48,13 @@ const MobileSubMenuPopUp = styled.div`
   box-shadow: '0 -1px 3px';
 `;
 
+
 const MobileSubMenu = styled.div`
   display: 'flex';
   flex-wrap: 'wrap';
   justify-content: 'flex-end';
 `;
+
 
 const MobileSubMenuItem = styled(Link)`
   color: '#000078';
@@ -65,5 +69,6 @@ const MobileSubMenuItem = styled(Link)`
   margin: '0.15%';
   padding: '0';
 `;
+
 
 export default mobileSubMenu;

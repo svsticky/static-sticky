@@ -33,4 +33,5 @@ export const PartnerListQuery = graphql`
   }
 `;
 
+
 export default PartnerIndexPage

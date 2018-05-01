@@ -3,12 +3,6 @@ import Link from 'gatsby-link';
 import MobileSubMenu from '../components/MobileSubMenu';
 import styled from 'styled-components';
 
-const styles = {
-  navbar: {
-  },
-  navbaritem: {
-  },
-};
 
 class MobileNavbar extends React.Component {
   constructor(props) {
@@ -53,19 +47,23 @@ class MobileNavbar extends React.Component {
   )};
 }
 
+
 const MobileSubMenuContainer = styled.div`
   @media (min-width: 768px) {
     display: none;
   }
 `;
 
+
 const Menu = styled.div`
   background-color: '#000078';
   color: 'white';
 `;
 
+
 const MenuItem = styled.div`
   color: 'white';
 `;
+
 
 export default MobileNavbar;

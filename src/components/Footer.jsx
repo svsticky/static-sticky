@@ -28,6 +28,7 @@ const Footer = () => (
   </FooterWrapper>
 );
 
+
 const FooterWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -42,5 +43,6 @@ const FooterWrapper = styled.div`
     }
   }
 `
+
 
 export default Footer;

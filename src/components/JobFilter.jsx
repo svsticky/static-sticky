@@ -21,6 +21,7 @@ const typeFilterOptions = [
   'Traineeship',
 ];
 
+
 const jobfilter = props => (
   <div>
     jobfilter
@@ -53,6 +54,7 @@ const jobfilter = props => (
   </div>
 );
 
+
 const FilterContainer = styled.div`
   @media (min-width: 768px) {
     top: '3.5em';
@@ -64,5 +66,6 @@ const FilterContainer = styled.div`
   z-index: '10';
   margin-bottom: '1em';
 `
+
 
 export default jobfilter;

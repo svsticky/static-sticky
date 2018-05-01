@@ -2,6 +2,7 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import JobItem from '../components/JobItem';
 
+
 const styles = {
     flexContainer: {
       display: 'flex',
@@ -75,6 +76,7 @@ const PartnerView = ({ data }) => {
       </div>  
     );
 };
+
 
 export default PartnerView
 

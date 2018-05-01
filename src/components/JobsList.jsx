@@ -2,6 +2,7 @@ import React from 'react';
 import JobItem from './JobItem';
 import styled from 'styled-components';
 
+
 const displayJob = (studiesFilter, typesFilter, job) => {
   if (studiesFilter.length === 0 && typesFilter.length === 0) {
     return true;
@@ -17,6 +18,7 @@ const displayJob = (studiesFilter, typesFilter, job) => {
   return false;
 };
 
+
 const jobslist = props => (
   <JobsList>
     {props.jobs.map(job =>
@@ -25,13 +27,16 @@ const jobslist = props => (
   </JobsList>
 );
 
+
 const JobsList = styled.div`
   display: grid;
+  margin: 0 12px;
   @media (min-width: 990px) {
     grid-template-columns: repeat(2, 1fr);
   }
   grid-template-columns: 1fr;
   grid-gap: 12px;
 `
+
 
 export default jobslist;

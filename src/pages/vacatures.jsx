@@ -2,6 +2,7 @@ import React from 'react';
 import JobsList from '../components/JobsList';
 import JobFilter from '../components/JobFilter';
 
+
 class JobIndexPage extends React.Component {
   constructor(props) {
     super(props);
@@ -60,6 +61,7 @@ class JobIndexPage extends React.Component {
   }
 }
 
+
 export const JobsListQuery = graphql`
   query JobsListQuery {
     allContentfulJobListing {
@@ -84,6 +86,7 @@ export const JobsListQuery = graphql`
     }
   }
 `;
+
 
 export default JobIndexPage;
 

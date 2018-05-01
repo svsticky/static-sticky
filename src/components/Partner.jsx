@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 
+
 const styles = {
     partnerLogo: {
         width: '100%',
@@ -15,12 +16,11 @@ const styles = {
 };
 
 
-
-
 const Partner = ({partner}) => (
     <Link to={'/partners/' + partner.name.replace(/\W+/g, '-').toLowerCase()} style={styles.logoContainer}>
         <img  src={partner.logo.file.url} alt="Partner Logo" style={styles.partnerLogo} />
     </Link>
 );
+
 
 export default Partner

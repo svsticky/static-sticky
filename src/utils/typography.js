@@ -1,5 +1,6 @@
 import Typography from "typography";
-2
+
+
 const typography = new Typography({
     baseFontSize: "18px",
     baseLineHeight: 1.25,
@@ -9,5 +10,5 @@ const typography = new Typography({
     bodyFontFamily: ["Roboto", "serif"],
 });
 
-export default typography;
 
+export default typography;

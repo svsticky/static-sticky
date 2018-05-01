@@ -2,6 +2,7 @@ import React from 'react';
 import Board from '../components/Board';
 import styled from 'styled-components';
 
+
 const Bestuur = props => {
   const boards = props.data.allContentfulBoard.edges;
   return (
@@ -13,6 +14,7 @@ const Bestuur = props => {
     </div>
   );
 };
+
 
 const BoardsList = styled.div`
   display: grid;
@@ -27,6 +29,7 @@ const BoardsList = styled.div`
   }
   grid-gap: 12px;
 `
+
 
 export const BoardsQuery = graphql`
   query BoardsQuery {
@@ -49,5 +52,6 @@ export const BoardsQuery = graphql`
     }
   }
 `;
+
 
 export default Bestuur;

@@ -1,43 +1,17 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
+import styled from 'styled-components';
 
-const styles = {
-  flexContainer: {
-    display: 'flex',
-    alignItems: 'flex-start',
-  },
-  info: {
-    width: '20em',
-    minWidth: '220px',
-    margin: '0 0.5em',
-    position: 'sticky',
-    top: '5em',
-    zIndex: '10',
-  },
-  jobContent: {
-    margin: '0 2em',
-    textAlign: 'justify'
-  },
-  logoContainer: {
-    height: '10em',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  partnerLogo: {
-    width: '80%',
-  },
-};
 
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
 
   return(
-    <div style={styles.flexContainer}>
-      <div style={styles.info}>
+    <JobTemplateWrapper>
+      <div className="info">
         <div>
-          <div style={styles.logoContainer}>
-            <img src={job.partner.logo.file.url} style={styles.partnerLogo}/>
+          <div className="logo-container">
+            <img src={job.partner.logo.file.url} className="partner-logo"/>
           </div>
         </div>
           {job.contactPerson && (
@@ -49,7 +23,7 @@ const JobView = ({ data }) => {
             </div>
           )}
       </div>
-      <div style={styles.jobContent}>
+      <div className="job-content">
         <div>
           <h2>{job.job_title}</h2>
         </div>
@@ -59,11 +33,44 @@ const JobView = ({ data }) => {
           </Markdown>
         </div>
       </div>
-    </div>
+    </JobTemplateWrapper>
   );
 };
 
+
+const JobTemplateWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+
+  .info {
+    width: 20em;
+    min-width: 220px;
+    margin: 0 0.5em;
+    position: sticky;
+    top: 5em;
+    z-index: 10;
+
+    .logo-container {
+      height: 10em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .partner-logo {
+        width: 80%;
+      }
+    }
+  }
+
+  .job-content {
+    margin: 0 2em;
+    text-align: justify;
+  }
+`
+
+
 export default JobView;
+
 
 export const jobQuery = graphql`
   query jobQuery($id: String!){

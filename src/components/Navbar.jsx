@@ -40,6 +40,7 @@ const Navbar = () => (
   // </NavbarContainer>
 );
 
+
 const Logo = styled(Button)`
   img {
     height: 2.5em;
