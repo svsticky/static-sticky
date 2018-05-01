@@ -15,7 +15,8 @@ const styles = {
     zIndex: '10',
   },
   jobContent: {
-    margin: '0 0.5em',
+    margin: '0 2em',
+    textAlign: 'justify'
   },
   logoContainer: {
     height: '10em',
