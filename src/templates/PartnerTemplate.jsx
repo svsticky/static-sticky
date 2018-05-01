@@ -1,81 +1,76 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
+import styled from 'styled-components';
 import JobItem from '../components/JobItem';
-
-
-const styles = {
-    flexContainer: {
-      display: 'flex',
-      alignItems: 'flex-start',
-    },
-    info: {
-      width: '20em',
-      minWidth: '220px',
-      margin: '0 0.5em',
-      position: 'sticky',
-      top: '5em',
-      zIndex: '10',
-    },
-    partnerContent: {
-      margin: '0 0.5em',
-    },
-    logoContainer: {
-      height: '10em',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    partnerLogo: {
-      width: '80%',
-    },
-    partnerJobList: {
-        margin: '0px 0.5em',
-    }
-
-  };
 
 
 const PartnerView = ({ data }) => {
     const partner = data.contentfulPartner;
 
     return(
-      <div style={styles.flexContainer}>
-        <div style={styles.info}>
+      <PartnerTemplateWrapper>
+        <div className="info">
           <div>
-            <div style={styles.logoContainer}>
-              <img src={partner.logo.file.url} style={styles.partnerLogo}/>
+            <div className="logo-container">
+              <img src={partner.logo.file.url} className="partner-logo"/>
             </div>
           </div>
-            {
-              <div>
-                <h3>Contact</h3>
-                <p>
-                    <a href={partner.website}>website</a> <br/>
-                </p>
-              </div>
-            }
+            <div>
+              <h3>Contact</h3>
+              <p>
+                <a href={partner.website}>website</a> <br/>
+              </p>
+            </div>
         </div>
-        <div style={styles.partnerContent}>
-        <h2>{partner.name}</h2>
-        <div>
-          <div>
+        <div className="partner-content">
+          <h2>{partner.name}</h2>
             <Markdown>
               {partner.description.description}
             </Markdown>
-          </div>
-        </div>
-
-        <h2> Vacatures </h2>  
-          <div >
-          {
-              partner.job_listing.map(job_listing => 
+          <h2> Vacatures </h2>  
+            <div className="partner-joblist">
+            { partner.job_listing.map(job_listing => 
               <JobItem key={job_listing.id} job={job_listing} partner={partner} />)
-          }
+            }
           </div>
         </div>
-      </div>  
+      </PartnerTemplateWrapper>  
     );
 };
+
+
+const PartnerTemplateWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+
+  .info {
+    width: 20em;
+    min-width: 220px;
+    margin: 0 0.5em;
+    position: sticky;
+    top: 5em;
+    z-index: 10;
+
+    .logo-container {
+      height: 10em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .partner-logo {
+        width: 80%;
+      }
+    }
+  }
+
+  .partner-content: {
+    margin: 0 0.5em;
+  }
+  
+  .partner-joblist {
+    margin: 0px 0.5em;
+  }
+`
 
 
 export default PartnerView
