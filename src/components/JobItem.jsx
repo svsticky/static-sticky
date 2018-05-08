@@ -14,14 +14,6 @@ const Job = (props) => (
         />
       </Link>
     </div>
-    <Link to={"/vacatures/" + props.job.job_title.replace(/\W+/g, '-').toLowerCase()} className="content-container">
-      <CardContent>
-        <h3>{props.job.job_title}</h3>
-        <p>
-          {props.job.summary}
-        </p>
-      </CardContent>
-    </Link>
   </JobWrapper>
 );
 
