@@ -39,7 +39,6 @@ const JobView = ({ data }) => {
 const JobTemplateWrapper = styled.div`
   display: flex;
   align-items: flex-start;
-  padding: 1em;
 
   h1 {
     border-bottom: 1px solid #ddd;
@@ -52,7 +51,7 @@ const JobTemplateWrapper = styled.div`
     margin: 0 0.5em;
     padding: 1em;
     position: sticky;
-    top: 5em;
+    top: 4em;
     z-index: 10;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import Link from 'gatsby-link'
-import Card, { CardContent, CardMedia } from 'material-ui/Card';
+import Link from 'gatsby-link';
 import styled from 'styled-components';
+import Card from '../atoms/Card';
 
 
 const Job = (props) => (
@@ -14,17 +14,21 @@ const Job = (props) => (
         />
       </Link>
     </div>
+    <Link to={"/vacatures/" + props.job.job_title.replace(/\W+/g, '-').toLowerCase()} className="content-container">	
+      <Card hoverable>	
+        <h3>{props.job.job_title}</h3>	
+        {props.job.summary}	
+      </Card>	
+    </Link>
   </JobWrapper>
 );
 
 
-const JobWrapper = styled(Card)`
+const JobWrapper = styled.div`
   text-decoration: none;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  transition: all 0.2s;
   &:hover {
-    box-shadow: 0 7px 14px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22);
   }
   .logo-container {
     display: flex;  
@@ -33,6 +37,7 @@ const JobWrapper = styled(Card)`
     height: inherit;
     padding: 25px;
     background-color: #eee;
+    border-radius: 8px 0 0 8px;
     .logo {
       width: auto;
       height: auto;
@@ -46,6 +51,8 @@ const JobWrapper = styled(Card)`
   .content-container {
     color: black;
     text-decoration: none;
+    padding: 1em;
+    text-align: justify;
   }
 `
 
