@@ -20,7 +20,7 @@ const JobView = ({ data }) => {
             <div className="contactperson">
               <h3>Contact</h3>
               <p>{job.contactPerson.name}</p>
-              <Button color="primary" href={"mailto:" + job.contactPerson.email}><Email/>{job.contactPerson.email}</Button>
+              <Button className = "button" color="primary" href={"mailto:" + job.contactPerson.email}><Email />{job.contactPerson.email}</Button>
               <Button color="primary" href={"tel:" + job.contactPerson.phone}><Phone/>{job.contactPerson.phone}</Button>
             </div>
           )}
@@ -68,7 +68,8 @@ const JobTemplateWrapper = styled.div`
 
     .button {
       max-width: 100%;
-      word-wrap: normal
+      word-wrap: break-word;
+      background-color: black;
     }
   }
 

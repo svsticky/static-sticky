@@ -24,7 +24,7 @@ const layout = ({ children }) => (
 
 const Content = styled.div`
   width: 90%;
-  margin: 3em auto 1em auto;
+  margin: 4em auto 1em auto;
 `
 
 

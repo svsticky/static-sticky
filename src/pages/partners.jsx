@@ -7,19 +7,18 @@ const PartnerIndexPage =  ({data}) => {
   const partners = data.allContentfulPartner.edges;
 
   return(
-    <JobsList>
+    <PartnerList>
       { partners.map(partner => 
         <Partner key={partner.node.id} partner={partner.node}/>)
       }
-    </JobsList>
+    </PartnerList>
   );
 };
 
-const JobsList = styled.div`
+const PartnerList = styled.div`
   display: grid;
   @media (min-width: 300px) {
     grid-template-columns: repeat(1, 1fr);
-    
   }
   @media (min-width: 450px) {
     grid-template-columns: repeat(2, 1fr);

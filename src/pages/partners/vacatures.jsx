@@ -1,6 +1,6 @@
 import React from 'react';
-import JobsList from '../components/JobsList';
-import JobFilter from '../components/JobFilter';
+import JobsList from '../../components/JobsList';
+import JobFilter from '../../components/JobFilter';
 
 
 class JobIndexPage extends React.Component {
