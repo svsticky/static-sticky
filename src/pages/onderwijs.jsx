@@ -7,7 +7,7 @@ const Onderwijs = () => (
     <p>Mocht je opmerkingen of klachten hebben over je vak of denk je dat het allemaal op een andere manier veel beter kan. Laat ons het weten!</p>
     <p>Vul <a title="CAO" href="https://docs.google.com/a/stickyutrecht.nl/forms/d/1DL6fKMI1HLKuS6GZWfnfHtouHNCliFYGEIBam4P2vJk/viewform">hier</a> het 
     CAO-formulier&nbsp;in, waarna wij zullen kijken wat we voor je kunnen doen.</p>
-    <p>&nbsp;</p>
+        <p>&nbsp;</p>
     <h1>Alles over het leenstelsel</h1>
     <p>Na maandenlange onderhandelingen tussen VVD, PvdA, D66 en GroenLinks is het&nbsp;zeker dat studenten per 1 september 2015 te maken krijgen met een leenstelsel. 
         Wil je alles weten over hoe het nu allemaal gaat, kijk dan <a title="Leenstelsel" href="http://www.iso.nl/leenstelsel">hier</a> voor&nbsp;alle plannen van de 

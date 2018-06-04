@@ -16,10 +16,10 @@ const Navbar = () => (
           <img src={logo} alt=""/>
         </Logo>
         <div  style={{flex: 1}}></div>
-        <Button component={Link} to="/besturen" color="inherit">
+        <Button component={Link} to="/sticky" color="inherit">
           Vereniging
         </Button>
-        <Button component={Link} to="/vacatures" color="inherit">
+        <Button component={Link} to="/partners/vacatures" color="inherit">
           Carrière
         </Button>
         <Button component={Link} to="/onderwijs" color="inherit">

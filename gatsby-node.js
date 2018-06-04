@@ -1,6 +1,7 @@
 const Promise = require('bluebird');
 const path = require('path');
 const slash = require('slash');
+const axios = require('axios');
 
 exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
@@ -56,3 +57,15 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
     }));
   });
 };
+
+exports.sourceNodes = async ({boundActionCreators}) => {
+  const {createNode} = boundActionCreators;
+
+  const fetchActivities = () => axios.get('https://koala.svsticky.nl/api/activities')
+  const res = await fetchActivities()
+  .then(function(data) {
+    data.map
+    const activities = data;
+    console.log(activities)
+  });
+}
