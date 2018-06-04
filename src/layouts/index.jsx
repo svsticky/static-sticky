@@ -10,21 +10,24 @@ import theme from '../styles/theme';
 
 const layout = ({ children }) => (
   <MuiThemeProvider theme={theme}>
-    <div>
+    <SiteWrapper>
       <Navbar />
-      <Content>
+      <div className="content">
         {children()}
-      </Content>
+      </div>
       <Footer />
       {/* <MobileNavbar /> */}
-    </div>
+    </SiteWrapper>
   </MuiThemeProvider>
 );
 
 
-const Content = styled.div`
-  width: 90%;
-  margin: 4em auto 1em auto;
+const SiteWrapper = styled.div`
+  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+  font-family: 'Open Sans', sans-serif;
+  .content {
+
+  }
 `
 
 
