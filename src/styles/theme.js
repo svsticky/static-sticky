@@ -8,9 +8,6 @@ const theme = createMuiTheme({
       primary: {
         main: bestuurskleur 
       },
-      secondary: { 
-        main: '#11cb5f' 
-      },
     },
   }
 );
