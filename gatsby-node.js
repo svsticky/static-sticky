@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const path = require('path');
 const slash = require('slash');
 const axios = require('axios');
+const crypto = require('crypto');
 
 exports.createPages = ({ graphql, boundActionCreators }) => {
   const { createPage } = boundActionCreators;
@@ -63,9 +64,26 @@ exports.sourceNodes = async ({boundActionCreators}) => {
 
   const fetchActivities = () => axios.get('https://koala.svsticky.nl/api/activities')
   const res = await fetchActivities()
-  .then(function(data) {
-    data.map
-    const activities = data;
-    console.log(activities)
-  });
+  res.data.map((activity, i) => {
+      const activityNode = {
+        id: `${i}`,
+        parent: `__SOURCE__`,
+        internal: {
+          type: `Activity`
+        },
+        children: [],   
+        name: activity.name,
+        location: activity.location,
+        start_date: activity.start_date,
+        end_date: activity.end_date,
+        poster: activity.poster,
+        fullness: activity.fullness
+      }
+
+      const contentDigest = crypto.createHash(`md5`)
+      .update(JSON.stringify(activityNode)).digest(`hex`);
+      activityNode.internal.contentDigest = contentDigest;
+
+      createNode(activityNode);
+    });
 }
