@@ -26,7 +26,8 @@ const SiteWrapper = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Open+Sans');
   font-family: 'Open Sans', sans-serif;
   .content {
-
+    margin:5em auto 1em auto;
+    width: 70%;
   }
 `
 

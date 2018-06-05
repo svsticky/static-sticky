@@ -8,6 +8,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   return new Promise((resolve, reject) => {
     const jobTemplate = path.resolve('src/templates/JobTemplate.jsx');
     const partnerTemplate = path.resolve('src/templates/PartnerTemplate.jsx');
+    const pageTemplate = path.resolve('src/templates/PageTemplate.jsx');
     resolve(graphql(`
       query JobQuery {
         allContentfulJobListing {
@@ -26,13 +27,23 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             }
           }
         }
+        allContentfulPage {
+          edges {
+            node {
+              id
+              title
+              contentfulparent
+              customSlug
+            }
+          }
+        }
       }
     `).then((result) => {
       if (result.errors) {
         reject(result.errors);
       }
 
-      // Create jobpages.
+      // Create jobpages
       result.data.allContentfulJobListing.edges.forEach((({ node }) => {
         const url = node.job_title.replace(/\W+/g, '-').toLowerCase();
         createPage({
@@ -44,11 +55,29 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         });
       }));
       
+      // Create partnerpages
       result.data.allContentfulPartner.edges.forEach((({ node }) => {
         const url = node.name.replace(/\W+/g, '-').toLowerCase();
         createPage({
           path: `/partners/${url}`, //required
           component: slash(partnerTemplate),
+          context: {
+            id: node.id
+          }
+        })
+      }));
+
+      // Create general pages
+      result.data.allContentfulPage.edges.forEach((({ node }) => {
+        let url
+        if(node.customSlug) {
+          url = node.customSlug;
+        } else {
+          url = node.contentfulparent + "/" + node.title.replace(/\W+/g, '-').toLowerCase();
+        }
+        createPage({
+          path: `/${url}`, //required
+          component: slash(pageTemplate),
           context: {
             id: node.id
           }
