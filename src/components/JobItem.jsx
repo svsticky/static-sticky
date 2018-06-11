@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Card from '../atoms/Card';
 
 
-const Job = (props) => (
+const Job = props => (
   <JobWrapper>
     <div className="logo-container">
       <Link to={'/partners/' + props.partner.name.replace(/\W+/g, '-').toLowerCase()}>
@@ -15,32 +15,33 @@ const Job = (props) => (
       </Link>
     </div>
     <Link to={"/vacatures/" + props.job.job_title.replace(/\W+/g, '-').toLowerCase()} className="content-container">	
-      <Card hoverable>	
+      <div hoverable>	
         <h3>{props.job.job_title}</h3>	
-        {props.job.summary}	
-      </Card>	
+        <p>{props.job.summary}</p>
+      </div>	
     </Link>
   </JobWrapper>
 );
 
 
-const JobWrapper = styled.div`
+const JobWrapper = styled(Card)`
   text-decoration: none;
   display: grid;
   grid-template-columns: 1fr 3fr;
   &:hover {
+    background-color: rgba(0, 0, 120, 0.05);
   }
   .logo-container {
     display: flex;  
     align-items: center;
     justify-content: center;
     height: inherit;
+    width: inherit;
     padding: 25px;
-    background-color: #eee;
     border-radius: 8px 0 0 8px;
     .logo {
-      width: auto;
       height: auto;
+      width: 100%;
       margin: 0;
       transition: all 0.15s;
       &:hover {
@@ -53,6 +54,11 @@ const JobWrapper = styled.div`
     text-decoration: none;
     padding: 1em;
     text-align: justify;
+    h3 { 
+      margin: 0; 
+      padding: 5px 0;
+      border-bottom: 1px solid #ececec;
+    }
   }
 `
 
