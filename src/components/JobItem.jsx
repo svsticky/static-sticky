@@ -5,7 +5,7 @@ import Card from '../atoms/Card';
 
 
 const Job = props => (
-  <JobWrapper>
+  <JobWrapper hoverable>
     <div className="logo-container">
       <Link to={'/partners/' + props.partner.name.replace(/\W+/g, '-').toLowerCase()}>
         <img className="logo"
@@ -28,9 +28,6 @@ const JobWrapper = styled(Card)`
   text-decoration: none;
   display: grid;
   grid-template-columns: 1fr 3fr;
-  &:hover {
-    background-color: rgba(0, 0, 120, 0.05);
-  }
   .logo-container {
     display: flex;  
     align-items: center;

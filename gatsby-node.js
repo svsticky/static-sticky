@@ -70,11 +70,11 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       // Create general pages
       result.data.allContentfulPage.edges.forEach((({ node }) => {
-        let url
+        let url;
         if(node.customSlug) {
           url = node.customSlug;
         } else if(node.contentfulparent) {
-          url = node.contentfulparent.title + "/" + node.title.replace(/\W+/g, '-').toLowerCase();
+          url = node.contentfulparent.title.toLowerCase() + "/" + node.title.replace(/\W+/g, '-').toLowerCase();
         } else {
           url = node.title.replace(/\W+/g, '-').toLowerCase(); 
         }
@@ -90,14 +90,14 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   });
 };
 
-// exports.sourceNodes = async ({boundActionCreators}) => {
-//   const {createNode} = boundActionCreators;
+exports.sourceNodes = async ({boundActionCreators}) => {
+  const {createNode} = boundActionCreators;
 
-//   const fetchActivities = () => axios.get('https://koala.svsticky.nl/api/activities')
-//   const res = await fetchActivities()
-//   .then(function(data) {
-//     data.map
-//     const activities = data;
-//     console.log(activities)
-//   });
-// }
+  const fetchActivities = () => axios.get('https://koala.svsticky.nl/api/activities')
+  const res = await fetchActivities()
+  .then(function(data) {
+    data.map
+    const activities = data;
+    console.log(activities)
+  });
+}
