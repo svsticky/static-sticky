@@ -1,13 +1,14 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
+import Card from '../atoms/Card';
 
 const PageView = ({ data }) => {
   const page = data.contentfulPage;
 
   return(
     <PageWrapper>
-      <h1>{page.title}</h1>
+      <h1 className="title">{page.title}</h1>
       <Markdown>
         {page.content.content}
       </Markdown>
@@ -16,8 +17,13 @@ const PageView = ({ data }) => {
 };
 
 
-const PageWrapper = styled.div`
-
+const PageWrapper = styled(Card)`
+  padding: 1em;
+  .title { 
+    margin: 0; 
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid #ececec;
+  }
 `
 
 export default PageView;
