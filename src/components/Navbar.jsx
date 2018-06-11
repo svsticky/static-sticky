@@ -4,7 +4,6 @@ import logo from '../images/logo-sticky-small.png';
 import styled from 'styled-components';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
 
@@ -16,10 +15,10 @@ const Navbar = () => (
           <img src={logo} alt=""/>
         </Logo>
         <div  style={{flex: 1}}></div>
-        <Button component={Link} to="/sticky" color="inherit">
+        <Button component={Link} to="/vereniging" color="inherit">
           Vereniging
         </Button>
-        <Button component={Link} to="/partners/vacatures" color="inherit">
+        <Button component={Link} to="/vacatures" color="inherit">
           Carrière
         </Button>
         <Button component={Link} to="/onderwijs" color="inherit">
@@ -28,16 +27,6 @@ const Navbar = () => (
       </Toolbar>
     </AppBar>
   </div>
-  // <NavbarContainer>
-  //   <div>
-  //     
-  //     <div>
-  //       <NavbarItem to="/besturen" content="Bestuur" />
-  //       <NavbarItem to="/vacatures" content="Vacatures" />
-  //       <NavbarItem to="/onderwijs" content="Onderwijs" />
-  //     </div>
-  //   </div>
-  // </NavbarContainer>
 );
 
 
