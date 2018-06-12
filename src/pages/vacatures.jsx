@@ -10,42 +10,23 @@ class JobIndexPage extends React.Component {
       studiesFilter: [],
       typesFilter: [],
     };
-    this.toggleStudiesFilter = this.toggleStudiesFilter.bind(this);
-    this.toggleTypesFilter = this.toggleTypesFilter.bind(this);
   }
 
-  toggleStudiesFilter(term) {
-    const studiesFilter = [...this.state.studiesFilter];
-    if (studiesFilter.includes(term)) {
-      studiesFilter.splice(studiesFilter.indexOf(term), 1);
-    } else {
-      studiesFilter.push(term);
-    }
-    this.setState({
-      studiesFilter,
-    });
+  updateStudiesFilter = (selectedStudies) => {
+    this.setState({ studiesFilter: selectedStudies });
   }
 
-  toggleTypesFilter(term) {
-    const typesFilter = [...this.state.typesFilter];
-    if (typesFilter.includes(term)) {
-      typesFilter.splice(typesFilter.indexOf(term), 1);
-    } else {
-      typesFilter.push(term);
-    }
-
-    this.setState({
-      typesFilter,
-    });
+  updateTypesFilter = (selectedTypes) => {
+    this.setState({ typesFilter: selectedTypes });
   }
 
   render() {
     return (
       <div>
         <JobFilter
-          toggleStudiesFilter={this.toggleStudiesFilter}
+          updateStudiesFilter={this.updateStudiesFilter}
           studiesFilter={this.state.studiesFilter}
-          toggleTypesFilter={this.toggleTypesFilter}
+          updateTypesFilter={this.updateTypesFilter}
           typesFilter={this.state.typesFilter}
         />
         <JobsList
