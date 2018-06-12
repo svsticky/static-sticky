@@ -15,7 +15,7 @@ const Job = props => (
       </Link>
     </div>
     <Link to={"/vacatures/" + props.job.job_title.replace(/\W+/g, '-').toLowerCase()} className="content-container">	
-      <div hoverable>	
+      <div hoverable>
         <h3>{props.job.job_title}</h3>	
         <p>{props.job.summary}</p>
       </div>	
@@ -53,12 +53,12 @@ const JobWrapper = styled(Card)`
 
     color: black !important;
     h3 { 
-      margin: 0; 
-      padding: 5px 0;
+      margin: 0;
+      padding-bottom: 0.2em;
       border-bottom: 1px solid #ececec;
     }
     p {
-      margin: 0.5em 0;
+      margin: 0;
       font-weight: 300;
     }
   }

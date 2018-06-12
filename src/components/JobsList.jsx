@@ -30,12 +30,11 @@ const jobslist = props => (
 
 const JobsList = styled.div`
   display: grid;
-  margin: 0 12px;
   @media (min-width: 990px) {
     grid-template-columns: repeat(2, 1fr);
   }
   grid-template-columns: 1fr;
-  grid-gap: 12px;
+  grid-gap: 1em;
 `
 
 

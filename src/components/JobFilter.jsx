@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Card from '../atoms/Card';
 
 
 const studieFilterOptions = [
@@ -23,8 +24,8 @@ const typeFilterOptions = [
 
 
 const jobfilter = props => (
-  <div>
-    jobfilter
+  <FilterWrapper>
+    JobFilter
     {/* <Card fluid>
       <Card.Content>
         <Dropdown compact text={'Studies (' + props.studiesFilter.length + ')'} icon="student" labeled button className="icon" scrolling={false}>
@@ -51,20 +52,14 @@ const jobfilter = props => (
         </Dropdown>
       </Card.Content>
     </Card> */}
-  </div>
+  </FilterWrapper>
 );
 
 
-const FilterContainer = styled.div`
-  @media (min-width: 768px) {
-    top: '3.5em';
-  }
-  @media screen and (max-width: 768px) {
-    top: '0',
-  }
-  position: 'sticky';
-  z-index: '10';
-  margin-bottom: '1em';
+const FilterWrapper = styled(Card)`
+  margin-bottom: 1em;
+  position: sticky;
+  top: 4.2em;
 `
 
 
