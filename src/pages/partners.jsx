@@ -1,15 +1,15 @@
 import React from 'react';
-import Partner from '../components/Partner';
 import styled from 'styled-components';
+import Partner from '../components/Partner';
 
 
-const PartnerIndexPage =  ({data}) => {
+const PartnerIndexPage = ({ data }) => {
   const partners = data.allContentfulPartner.edges;
 
-  return(
+  return (
     <PartnerList>
-      { partners.map(partner => 
-        <Partner key={partner.node.id} partner={partner.node}/>)
+      { partners.map(partner =>
+        <Partner key={partner.node.id} partner={partner.node} />)
       }
     </PartnerList>
   );
@@ -38,7 +38,7 @@ const PartnerList = styled.div`
 
   grid-template-columns: 1fr;
   grid-gap: 12px;
-`
+`;
 
 
 export const PartnerListQuery = graphql`
@@ -60,4 +60,4 @@ export const PartnerListQuery = graphql`
 `;
 
 
-export default PartnerIndexPage
+export default PartnerIndexPage;

@@ -1,20 +1,17 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import logo from '../images/logo-sticky-small.png';
 import styled from 'styled-components';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Button from 'material-ui/Button';
-
+import { Toolbar, AppBar, Button } from '@material-ui/core';
+import logo from '../images/logo-sticky-small.png';
 
 const Navbar = () => (
-  <div style={{flexGrow: 1}}>
+  <div style={{ flexGrow: 1 }}>
     <AppBar position="fixed" color="primary">
       <Toolbar>
         <Logo component={Link} to="/" color="inherit">
-          <img src={logo} alt=""/>
+          <img src={logo} alt="Sticky logo" />
         </Logo>
-        <div  style={{flex: 1}}></div>
+        <div style={{ flex: 1 }} />
         <Button component={Link} to="/vereniging" color="inherit">
           Vereniging
         </Button>

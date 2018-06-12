@@ -1,7 +1,7 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
-import Button from 'material-ui/Button';
+import { Button } from '@material-ui/core';
 import Email from '@material-ui/icons/Email';
 import Phone from '@material-ui/icons/Phone';
 import Card from '../atoms/Card';
@@ -9,23 +9,23 @@ import Card from '../atoms/Card';
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
 
-  return(
+  return (
     <JobTemplateWrapper>
       <div className="side-info">
         <div>
           <Card className="logo-container">
-            <img src={job.partner.logo.file.url} className="partner-logo"/>
+            <img src={job.partner.logo.file.url} className="partner-logo" alt="Partner Logo" />
           </Card>
           { job.contactPerson && (
             <Card className="contactperson">
               <h3>Contact</h3>
               <p>{job.contactPerson.name}</p>
-              <Button className="button" color="primary" href={"mailto:" + job.contactPerson.email}>
+              <Button className="button" color="primary" href={'mailto:' + job.contactPerson.email}>
                 <Email />
                 <span className="content">{job.contactPerson.email}</span>
               </Button>
-              <Button className="button" color="primary" href={"tel:" + job.contactPerson.phone}>
-                <Phone/>
+              <Button className="button" color="primary" href={'tel:' + job.contactPerson.phone}>
+                <Phone />
                 {job.contactPerson.phone}
               </Button>
             </Card>
@@ -92,7 +92,7 @@ const JobTemplateWrapper = styled.div`
   .job-content {
     padding: 1em;
   }
-`
+`;
 
 
 export default JobView;

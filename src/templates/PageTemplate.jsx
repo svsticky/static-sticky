@@ -6,7 +6,7 @@ import Card from '../atoms/Card';
 const PageView = ({ data }) => {
   const page = data.contentfulPage;
 
-  return(
+  return (
     <PageWrapper>
       <h1 className="title">{page.title}</h1>
       <Markdown>
@@ -24,7 +24,7 @@ const PageWrapper = styled(Card)`
     padding-bottom: 0.5em;
     border-bottom: 1px solid #ececec;
   }
-`
+`;
 
 export default PageView;
 

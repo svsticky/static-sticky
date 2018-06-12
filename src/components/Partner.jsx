@@ -1,19 +1,20 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import Card, { CardContent, CardMedia } from 'material-ui/Card';
 import styled from 'styled-components';
+import Card from '../atoms/Card';
 
-const Partner = ({partner}) => (
-    <PartnerLogo>
+const Partner = ({ partner }) => (
+  <PartnerLogo>
     <div className="logo-container">
       <Link to={'/partners/' + partner.name.replace(/\W+/g, '-').toLowerCase()}>
-        <img className="logo"
+        <img
+          className="logo"
           src={partner.logo.file.url}
           alt="Partner Logo"
         />
       </Link>
     </div>
-    </PartnerLogo>
+  </PartnerLogo>
 );
 
 const PartnerLogo = styled(Card)`
@@ -42,6 +43,6 @@ const PartnerLogo = styled(Card)`
       }
     }
   }
-`
+`;
 
-export default Partner
+export default Partner;

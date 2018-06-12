@@ -42,7 +42,7 @@ const FooterWrapper = styled.div`
       margin: 0.8em 2em;
     }
   }
-`
+`;
 
 
 export default Footer;

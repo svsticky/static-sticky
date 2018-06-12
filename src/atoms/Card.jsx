@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import globals from '../styles/globals.json';
 
@@ -9,8 +8,8 @@ const Card = styled.div`
   padding: 0.5em;
   background-color: white;
   &:hover {
-    background-color: ${ props => props.hoverable ? `rgba(${globals.boardColor}, 0.05)` : null }
+    background-color: ${props => (props.hoverable ? `rgba(${globals.boardColor}, 0.05)` : null)}
   }
-`
+`;
 
 export default Card;

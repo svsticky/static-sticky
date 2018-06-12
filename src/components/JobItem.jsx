@@ -8,17 +8,18 @@ const Job = props => (
   <JobWrapper hoverable>
     <div className="logo-container">
       <Link to={'/partners/' + props.partner.name.replace(/\W+/g, '-').toLowerCase()}>
-        <img className="logo"
+        <img
+          className="logo"
           src={props.job.partner.logo.file.url}
           alt="Partner Logo"
         />
       </Link>
     </div>
-    <Link to={"/vacatures/" + props.job.job_title.replace(/\W+/g, '-').toLowerCase()} className="content-container">	
-      <div hoverable>
-        <h3>{props.job.job_title}</h3>	
+    <Link to={'/vacatures/' + props.job.job_title.replace(/\W+/g, '-').toLowerCase()} className="content-container">
+      <div>
+        <h3>{props.job.job_title}</h3>
         <p>{props.job.summary}</p>
-      </div>	
+      </div>
     </Link>
   </JobWrapper>
 );
@@ -62,7 +63,7 @@ const JobWrapper = styled(Card)`
       font-weight: 300;
     }
   }
-`
+`;
 
 
 export default Job;

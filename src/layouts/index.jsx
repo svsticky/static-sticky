@@ -1,9 +1,7 @@
 import React from 'react';
-import { MuiThemeProvider } from 'material-ui/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import 'typeface-roboto';
 import Navbar from '../components/Navbar';
-import MobileNavbar from '../components/MobileNavbar';
 import Footer from '../components/Footer';
 import theme from '../styles/theme';
 import globals from '../styles/globals.json';
@@ -23,8 +21,8 @@ const layout = ({ children }) => (
   </MuiThemeProvider>
 );
 
-/* These are also the globals styles to the website in general. 
-In .page there is an ugly hack to cancel out the standard 
+/* These are also the globals styles to the website in general.
+In .page there is an ugly hack to cancel out the standard
 margin: 8 on the body-element without messing with html.js */
 const SiteWrapper = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Open+Sans');
@@ -48,7 +46,7 @@ const SiteWrapper = styled.div`
     ${globals.media.large} { width: 70%; }
     ${globals.media.veryLarge} { width: 60%; }
   }
-`
+`;
 
 
 export default layout;
