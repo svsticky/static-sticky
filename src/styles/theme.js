@@ -1,16 +1,16 @@
 import { createMuiTheme } from 'material-ui/styles';
-
-
-const bestuurskleur = "rgb(0, 0, 120)";
+import globals from "../styles/globals.json";
 
 const theme = createMuiTheme({
-    palette: {
-      primary: {
-        main: bestuurskleur 
-      },
+  typography: {
+    "fontFamily": "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif"
+  },
+  palette: {
+    primary: {
+      main: `rgb(${globals.boardColor})`
     },
-  }
-);
+  },
+});
 
 
 export default theme;

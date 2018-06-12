@@ -6,6 +6,7 @@ import Navbar from '../components/Navbar';
 import MobileNavbar from '../components/MobileNavbar';
 import Footer from '../components/Footer';
 import theme from '../styles/theme';
+import globals from '../styles/globals.json';
 
 
 const layout = ({ children }) => (
@@ -22,12 +23,20 @@ const layout = ({ children }) => (
 );
 
 
+// These are also the globals styles to the website in general
 const SiteWrapper = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans";
   .content {
-    margin:5em auto 1em auto;
-    width: 70%;
+    a {
+      color: rgb(${globals.boardColor});
+      font-weight: bold;
+    }
+    margin: 5em auto 1em auto;
+    ${globals.media.small} { width: 90%; }
+    ${globals.media.medium} { width: 80%; }
+    ${globals.media.large} { width: 70%; }
+    ${globals.media.veryLarge} { width: 60%; }
   }
 `
 

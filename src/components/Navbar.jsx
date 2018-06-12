@@ -32,7 +32,7 @@ const Navbar = () => (
 
 const Logo = styled(Button)`
   img {
-    height: 2.5em;
+    height: 3.2em;
     margin-bottom: 0;
   }
 `;
