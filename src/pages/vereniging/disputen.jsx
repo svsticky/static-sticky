@@ -1,11 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 const Disputen = () => (
-    <div>
-        <h1>TODO</h1>
-    </div>
-
+  <div>
+    <h1>TODO</h1>
+  </div>
 );
 
 
