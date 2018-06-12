@@ -34,12 +34,12 @@ const JobWrapper = styled(Card)`
     justify-content: center;
     height: inherit;
     width: inherit;
-    padding: 25px;
+    padding: 10px;
     border-radius: 8px 0 0 8px;
     .logo {
       height: auto;
-      width: 100%;
-      margin: 0;
+      width: 80%;
+      margin: 10%;
       transition: all 0.15s;
       &:hover {
         transform: scale(1.2);
@@ -49,12 +49,17 @@ const JobWrapper = styled(Card)`
   .content-container {
     color: black;
     text-decoration: none;
-    padding: 1em;
-    text-align: justify;
+    padding: 0 1em 0 0;
+
+    color: black !important;
     h3 { 
       margin: 0; 
       padding: 5px 0;
       border-bottom: 1px solid #ececec;
+    }
+    p {
+      margin: 0.5em 0;
+      font-weight: 300;
     }
   }
 `

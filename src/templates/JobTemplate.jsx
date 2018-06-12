@@ -58,7 +58,7 @@ const JobTemplateWrapper = styled.div`
     min-width: 220px;
     margin: 0 1em;
     position: sticky;
-    top: 5em;
+    top: 5.5em;
     z-index: 10;
     .logo-container {
       height: 10em;
@@ -67,7 +67,7 @@ const JobTemplateWrapper = styled.div`
       justify-content: center;
       margin-bottom: 1em;
       .partner-logo {
-        width: 80%;
+        width: 70%;
         height: auto;
       }
     }
@@ -91,7 +91,6 @@ const JobTemplateWrapper = styled.div`
   }
   .job-content {
     padding: 1em;
-    text-align: justify;
   }
 `
 
