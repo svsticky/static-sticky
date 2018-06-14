@@ -93,28 +93,27 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
 exports.sourceNodes = async ({ boundActionCreators }) => {
   const { createNode } = boundActionCreators;
+  await axios.get('https://koala.svsticky.nl/api/activities').then((res) => {
+    res.data.map((activity, i) => {
+      const activityNode = {
+        id: `${i}`,
+        parent: '__SOURCE__',
+        internal: {
+          type: 'Activity',
+        },
+        children: [],
+        name: activity.name,
+        location: activity.location,
+        start_date: activity.start_date,
+        end_date: activity.end_date,
+        poster: activity.poster,
+        fullness: activity.fullness,
+      };
+      const contentDigest = crypto.createHash('md5')
+        .update(JSON.stringify(activityNode)).digest('hex');
+      activityNode.internal.contentDigest = contentDigest;
 
-  const fetchActivities = () => axios.get('https://koala.svsticky.nl/api/activities');
-  const res = await fetchActivities();
-  res.data.map((activity, i) => {
-    const activityNode = {
-      id: `${i}`,
-      parent: '__SOURCE__',
-      internal: {
-        type: 'Activity',
-      },
-      children: [],
-      name: activity.name,
-      location: activity.location,
-      start_date: activity.start_date,
-      end_date: activity.end_date,
-      poster: activity.poster,
-      fullness: activity.fullness,
-    };
-    const contentDigest = crypto.createHash('md5')
-      .update(JSON.stringify(activityNode)).digest('hex');
-    activityNode.internal.contentDigest = contentDigest;
-
-    return createNode(activityNode);
-  });
+      return createNode(activityNode);
+    });
+  }).catch(err => console.log(err));
 };
