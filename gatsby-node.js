@@ -49,73 +49,72 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       result.data.allContentfulJobListing.edges.forEach((({ node }) => {
         const url = node.job_title.replace(/\W+/g, '-').toLowerCase();
         createPage({
-          path: `/vacatures/${url}`, // required
+          path: `/vacatures/${url}`,
           component: slash(jobTemplate),
           context: {
             id: node.id,
           },
         });
       }));
-      
+
       // Create partnerpages
       result.data.allContentfulPartner.edges.forEach((({ node }) => {
         const url = node.name.replace(/\W+/g, '-').toLowerCase();
         createPage({
-          path: `/partners/${url}`, //required
+          path: `/partners/${url}`,
           component: slash(partnerTemplate),
           context: {
-            id: node.id
-          }
-        })
+            id: node.id,
+          },
+        });
       }));
 
       // Create general pages
       result.data.allContentfulPage.edges.forEach((({ node }) => {
         let url;
-        if(node.customSlug) {
+        if (node.customSlug) {
           url = node.customSlug;
-        } else if(node.contentfulparent) {
-          url = node.contentfulparent.title.toLowerCase() + "/" + node.title.replace(/\W+/g, '-').toLowerCase();
+        } else if (node.contentfulparent) {
+          url = node.contentfulparent.title.toLowerCase() + '/' + node.title.replace(/\W+/g, '-').toLowerCase();
         } else {
-          url = node.title.replace(/\W+/g, '-').toLowerCase(); 
+          url = node.title.replace(/\W+/g, '-').toLowerCase();
         }
         createPage({
-          path: `/${url}`, //required
+          path: `/${url}`,
           component: slash(pageTemplate),
           context: {
-            id: node.id
-          }
-        })
+            id: node.id,
+          },
+        });
       }));
     }));
   });
 };
 
-exports.sourceNodes = async ({boundActionCreators}) => {
-  const {createNode} = boundActionCreators;
+exports.sourceNodes = async ({ boundActionCreators }) => {
+  const { createNode } = boundActionCreators;
 
-  const fetchActivities = () => axios.get('https://koala.svsticky.nl/api/activities')
-  const res = await fetchActivities()
+  const fetchActivities = () => axios.get('https://koala.svsticky.nl/api/activities');
+  const res = await fetchActivities();
   res.data.map((activity, i) => {
-      const activityNode = {
-        id: `${i}`,
-        parent: `__SOURCE__`,
-        internal: {
-          type: `Activity`
-        },
-        children: [],   
-        name: activity.name,
-        location: activity.location,
-        start_date: activity.start_date,
-        end_date: activity.end_date,
-        poster: activity.poster,
-        fullness: activity.fullness
-      }
+    const activityNode = {
+      id: `${i}`,
+      parent: '__SOURCE__',
+      internal: {
+        type: 'Activity',
+      },
+      children: [],
+      name: activity.name,
+      location: activity.location,
+      start_date: activity.start_date,
+      end_date: activity.end_date,
+      poster: activity.poster,
+      fullness: activity.fullness,
+    };
+    const contentDigest = crypto.createHash('md5')
+      .update(JSON.stringify(activityNode)).digest('hex');
+    activityNode.internal.contentDigest = contentDigest;
 
-      const contentDigest = crypto.createHash(`md5`)
-      .update(JSON.stringify(activityNode)).digest(`hex`);
-      activityNode.internal.contentDigest = contentDigest;
-
-      createNode(activityNode);
-    });
-}
+    return createNode(activityNode);
+  });
+};
