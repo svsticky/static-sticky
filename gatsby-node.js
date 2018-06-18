@@ -93,7 +93,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
 exports.sourceNodes = async ({ boundActionCreators }) => {
   const { createNode } = boundActionCreators;
-  await axios.get('https://koala.svsticky.nl/api/activities').then((res) => {
+  await axios.get('https://koala.svsticky.nl/api/activitiese').then((res) => {
     res.data.map((activity, i) => {
       const activityNode = {
         id: `${i}`,
@@ -115,5 +115,26 @@ exports.sourceNodes = async ({ boundActionCreators }) => {
 
       return createNode(activityNode);
     });
-  }).catch(err => console.log(err));
+  }).catch((error) => {
+    // console.log(error)
+    const errorNode = {
+      id: `${-1}`,
+      parent: '__SOURCE__',
+      internal: {
+        type: 'Activity',
+      },
+      children: [],
+      name: "error",
+      location: "",
+      start_date: "",
+      end_date: "",
+      poster: "",
+      fullness: "",
+    };
+    const contentDigest = crypto.createHash('md5')
+    .update(JSON.stringify(errorNode)).digest('hex');
+    errorNode.internal.contentDigest = contentDigest;
+
+    return createNode(errorNode);
+  });
 };
