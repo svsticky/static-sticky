@@ -93,7 +93,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
 exports.sourceNodes = async ({ boundActionCreators }) => {
   const { createNode } = boundActionCreators;
-  await axios.get('https://koala.svsticky.nl/api/activitiese').then((res) => {
+  await axios.get('https://koala.svsticky.nl/api/activities').then((res) => {
     res.data.map((activity, i) => {
       const activityNode = {
         id: `${i}`,
