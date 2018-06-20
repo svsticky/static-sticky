@@ -27,7 +27,7 @@ class Navbar extends React.Component {
   renderMenu = pages => (
     pages.map(item => (
       (item.node.contentfulparent === null ?
-        <React.Fragment>
+        <React.Fragment key={item.node.title}>
           <Button
             key={item.node.title}
             color="inherit"
@@ -45,6 +45,7 @@ class Navbar extends React.Component {
                 subitem.node.contentfulparent &&
                 subitem.node.contentfulparent.title === item.node.title ?
                   <MenuItem
+                    key={subitem.node.title}
                     component={Link}
                     to={'/' + item.node.title + '/' + subitem.node.title}
                     onClick={this.handleMenuClose}

@@ -16,7 +16,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           edges {
             node {
               id
-              job_title
+              slug
             }
           }
         }
@@ -24,7 +24,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           edges {
             node {
               id
-              name
+              slug
             }
           }
         }
@@ -32,9 +32,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           edges {
             node {
               id
-              title
+              slug
               contentfulparent {
-                title
+                slug
               }
             }
           }
@@ -47,7 +47,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       // Create jobpages
       result.data.allContentfulJobListing.edges.forEach((({ node }) => {
-        const url = node.job_title.replace(/\W+/g, '-').toLowerCase();
+        const url = node.slug;
         createPage({
           path: `/vacatures/${url}`,
           component: slash(jobTemplate),
@@ -59,7 +59,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       // Create partnerpages
       result.data.allContentfulPartner.edges.forEach((({ node }) => {
-        const url = node.name.replace(/\W+/g, '-').toLowerCase();
+        const url = node.slug;
         createPage({
           path: `/partners/${url}`,
           component: slash(partnerTemplate),
@@ -72,12 +72,10 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       // Create general pages
       result.data.allContentfulPage.edges.forEach((({ node }) => {
         let url;
-        if (node.customSlug) {
-          url = node.customSlug;
-        } else if (node.contentfulparent) {
-          url = node.contentfulparent.title.toLowerCase() + '/' + node.title.replace(/\W+/g, '-').toLowerCase();
+        if (node.contentfulparent) {
+          url = node.contentfulparent.slug + '/' + node.slug;
         } else {
-          url = node.title.replace(/\W+/g, '-').toLowerCase();
+          url = node.slug;
         }
         createPage({
           path: `/${url}`,
