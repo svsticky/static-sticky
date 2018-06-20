@@ -33,7 +33,8 @@ const FooterWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-content: space-between;
-  background-color: #efefef;
+  background-color: #444;
+  color: white;
   .footer-list {
     display: flex;
     flex-wrap: wrap;

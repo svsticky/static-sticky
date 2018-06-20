@@ -58,7 +58,7 @@ const JobTemplateWrapper = styled.div`
     min-width: 220px;
     margin: 0 1em;
     position: sticky;
-    top: 5.5em;
+    top: 8em;
     z-index: 10;
     .logo-container {
       height: 10em;
