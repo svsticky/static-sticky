@@ -24,43 +24,45 @@ class Navbar extends React.Component {
     })
   );
 
-  renderMenu = pages => (
-    pages.map(item => (
-      (item.node.contentfulparent === null ?
-        <React.Fragment key={item.node.title}>
-          <Button
-            key={item.node.title}
-            color="inherit"
-            onClick={e => this.handleMenuClick(item.node.title, e)}
-          >
-            {item.node.title}
-          </Button>
-          <Menu
-            id={item.node.title}
-            anchorEl={this.state.anchorEl}
-            open={Boolean(this.state.selected === item.node.title)}
-            onClose={this.handleMenuClose}
-          >
-            { pages.map(subitem => (
-                subitem.node.contentfulparent &&
-                subitem.node.contentfulparent.title === item.node.title ?
-                  <MenuItem
-                    key={subitem.node.title}
-                    component={Link}
-                    to={'/' + item.node.title + '/' + subitem.node.title}
-                    onClick={this.handleMenuClose}
-                  >
-                    {subitem.node.title}
-                  </MenuItem>
-                :
-                null
-            ))}
-          </Menu>
-        </React.Fragment>
-        :
-        null)
-    ))
+  renderMenuItems = pages => (
+    pages.map((menuItem) => {
+      if (menuItem.node.parentPage === null) {
+        return (
+          <React.Fragment key={menuItem.node.title}>
+            <Button
+              key={menuItem.node.title}
+              color="inherit"
+              onClick={e => this.handleMenuClick(menuItem.node.title, e)}
+            >
+              { menuItem.node.title }
+            </Button>
+            <Menu
+              id={menuItem.node.title}
+              anchorEl={this.state.anchorEl}
+              open={Boolean(this.state.selected === menuItem.node.title)}
+              onClose={this.handleMenuClose}
+            >
+              { this.renderMenuSubItems(pages.filter(subMenuItem =>
+                subMenuItem.node.parentPage !== null &&
+                subMenuItem.node.parentPage.slug === menuItem.node.slug)) }
+            </Menu>
+          </React.Fragment>);
+      }
+      return null;
+    })
   )
+
+  renderMenuSubItems = subMenuItems =>
+    subMenuItems.map(subMenuItem => (
+      <MenuItem
+        key={subMenuItem.node.title}
+        component={Link}
+        to={'/' + subMenuItem.node.parentPage.slug + '/' + subMenuItem.node.slug}
+        onClick={this.handleMenuClose}
+      >
+        { subMenuItem.node.title }
+      </MenuItem>
+    ));
 
   render() {
     return (
@@ -71,7 +73,7 @@ class Navbar extends React.Component {
               <img src={logo} alt="Sticky logo" />
             </Button>
             <div style={{ flex: 1 }} />
-            { this.renderMenu(this.props.pages) }
+            { this.renderMenuItems(this.props.pages) }
           </Toolbar>
         </AppBar>
       </NavBarWrapper>
