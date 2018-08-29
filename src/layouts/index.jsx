@@ -25,7 +25,6 @@ const layout = props => (
 In .page there is an ugly hack to cancel out the standard
 margin: 8 on the body-element without messing with html.js */
 const SiteWrapper = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
   font-family: "Open Sans";
   .page {
     position: absolute;
@@ -56,8 +55,10 @@ export const NavBarQuery = graphql`
         node {
           id
           title
-          contentfulparent {
+          slug
+          parentPage {
             title
+            slug
           }
         }
       }
