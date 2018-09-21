@@ -40,7 +40,6 @@ const PartnerList = styled.div`
   grid-gap: 12px;
 `;
 
-
 export const PartnerListQuery = graphql`
   query PartnerListQuery {
     allContentfulPartner {
@@ -58,6 +57,4 @@ export const PartnerListQuery = graphql`
     }
   }
 `;
-
-
 export default PartnerIndexPage;

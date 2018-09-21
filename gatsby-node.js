@@ -39,6 +39,14 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             }
           }
         }
+        allContentfulPartner {
+          edges {
+            node {
+              id
+              name
+            }
+          }
+        }
       }
     `).then((result) => {
       if (result.errors) {
@@ -55,7 +63,6 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           },
         });
       }));
-
       // Create partnerpages
       result.data.allContentfulPartner.edges.forEach((({ node }) => {
         createPage({
