@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-starter-default",
-  "description": "Gatsby default starter",
+  "name": "static-sticky",
+  "description": "Static Website Studyassociation Sticky",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "Emiel van Rijn (mail@emielvanrijn.nl)",
   "dependencies": {
     "@material-ui/core": "^1.2.0",
     "@material-ui/icons": "^1.0.0-beta.43",
@@ -25,7 +25,10 @@
     "typography": "^0.16.6"
   },
   "keywords": [
-    "gatsby"
+    "static",
+    "website",
+    "studyassociation",
+    "sticky"
   ],
   "license": "MIT",
   "main": "n/a",
