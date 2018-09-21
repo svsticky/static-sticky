@@ -1,18 +1,44 @@
 import React from 'react';
+import styled from 'styled-components';
 import Partner from '../components/Partner';
-import { Card } from 'semantic-ui-react';
 
 
-const PartnerIndexPage =  ({data}) => {
+const PartnerIndexPage = ({ data }) => {
   const partners = data.allContentfulPartner.edges;
 
-  return(
-    <div>
-      {partners.map(partner => <Partner key={partner.node.id} partner={partner.node}/>)}
-    </div>
+  return (
+    <PartnerList>
+      { partners.map(partner =>
+        <Partner key={partner.node.id} partner={partner.node} />)
+      }
+    </PartnerList>
   );
 };
 
+const PartnerList = styled.div`
+  display: grid;
+  @media (min-width: 300px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  @media (min-width: 450px) {
+    grid-template-columns: repeat(2, 1fr);
+    
+  }
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(3, 1fr);
+    
+  }
+  @media (min-width: 900px) {
+    grid-template-columns: repeat(4, 1fr);
+    
+  }
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  grid-template-columns: 1fr;
+  grid-gap: 12px;
+`;
 
 export const PartnerListQuery = graphql`
   query PartnerListQuery {
@@ -31,5 +57,4 @@ export const PartnerListQuery = graphql`
     }
   }
 `;
-
-export default PartnerIndexPage
+export default PartnerIndexPage;

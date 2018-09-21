@@ -1,12 +1,20 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
-import Radium from 'radium';
+import styled from 'styled-components';
 
 
 const Board = ({ board }) => (
-  <Card>
-    {board.number}e bestuur
-  </Card>
+  <BoardCard color={board.color}>
+    <h3>{board.number}e bestuur</h3>
+    {board.years}
+  </BoardCard>
 );
 
-export default Radium(Board);
+
+const BoardCard = styled.div`
+  border: 3px ${props => (props.color ? `solid ${props.color}` : 'dashed #efefef')};
+  border-radius: 5px;
+  padding: 5px;
+`;
+
+
+export default Board;

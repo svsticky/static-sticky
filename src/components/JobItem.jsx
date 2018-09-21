@@ -1,46 +1,69 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import { Card, Label } from 'semantic-ui-react';
-import Radium from 'radium';
+import styled from 'styled-components';
+import Card from '../atoms/Card';
 
-const styles = {
-  jobCard: {
-    color: 'black',
-  },
-  header: {
-    display: 'flex',
-  },
-  partnerLogo: {
-    width: '100%',
-  },
-  logoContainer: {
-    width: '80px',
-    height: '50px',
-    marginRight: '20px',
-    display: 'flex',
-    alignItems: 'center',
-  },
-};
 
-const Job = ({ job }) => (
-  <Card as={Link} to={'/vacatures/' + job.job_title.replace(/\W+/g, '-').toLowerCase()} fluid style={styles.jobCard}>
-    <Card.Content style={styles.header}>
-      <div style={styles.logoContainer}>
-        <img src={job.partner.logo.file.url} alt="Partner Logo" style={styles.partnerLogo} />
-      </div>
+const Job = props => (
+  <JobWrapper hoverable>
+    <div className="logo-container">
+      <Link to={'/partners/' + props.partner.name.replace(/\W+/g, '-').toLowerCase()}>
+        <img
+          className="logo"
+          src={props.job.partner.logo.file.url}
+          alt="Partner Logo"
+        />
+      </Link>
+    </div>
+    <Link to={'/vacatures/' + props.job.job_title.replace(/\W+/g, '-').toLowerCase()} className="content-container">
       <div>
-        {job.job_title}
-        <Card.Meta>
-          {job.partner.name}
-        </Card.Meta>
+        <h3>{props.job.job_title}</h3>
+        <p>{props.job.summary}</p>
       </div>
-      {job.featured &&
-        <Label corner="right" color="yellow" icon="star" size="mini" />}
-    </Card.Content>
-    <Card.Content>
-      <p>{job.summary}</p>
-    </Card.Content>
-  </Card>
+    </Link>
+  </JobWrapper>
 );
 
-export default Radium(Job);
+
+const JobWrapper = styled(Card)`
+  text-decoration: none;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  .logo-container {
+    display: flex;  
+    align-items: center;
+    justify-content: center;
+    height: inherit;
+    width: inherit;
+    padding: 10px;
+    border-radius: 8px 0 0 8px;
+    .logo {
+      height: auto;
+      width: 80%;
+      margin: 10%;
+      transition: all 0.15s;
+      &:hover {
+        transform: scale(1.2);
+      }
+    }
+  }
+  .content-container {
+    color: black;
+    text-decoration: none;
+    padding: 0 1em 0 0;
+
+    color: black !important;
+    h3 { 
+      margin: 0;
+      padding-bottom: 0.2em;
+      border-bottom: 1px solid #ececec;
+    }
+    p {
+      margin: 0;
+      font-weight: 300;
+    }
+  }
+`;
+
+
+export default Job;
