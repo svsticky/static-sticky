@@ -7,13 +7,13 @@ import theme from '../styles/theme';
 import globals from '../styles/globals.json';
 
 
-const layout = ({ children }) => (
+const layout = props => (
   <MuiThemeProvider theme={theme}>
     <SiteWrapper>
-      <Navbar />
+      <Navbar pages={props.data.allContentfulPage.edges} />
       <div className="page">
         <div className="content">
-          {children()}
+          {props.children()}
         </div>
         <Footer />
       </div>
@@ -25,7 +25,6 @@ const layout = ({ children }) => (
 In .page there is an ugly hack to cancel out the standard
 margin: 8 on the body-element without messing with html.js */
 const SiteWrapper = styled.div`
-  @import url('https://fonts.googleapis.com/css?family=Open+Sans');
   font-family: "Open Sans";
   .page {
     position: absolute;
@@ -34,19 +33,37 @@ const SiteWrapper = styled.div`
     height: calc(100vh + 8px);
     width: calc(100vw + 8px);
     overflow-y: auto;
+    background-color: #f6f6f6;
   }
   .content {
     a {
       color: rgb(${globals.boardColor});
       font-weight: bold;
     }
-    margin: 5.5em auto 1em auto;
-    ${globals.media.small} { width: 90%; }
-    ${globals.media.medium} { width: 80%; }
-    ${globals.media.large} { width: 70%; }
-    ${globals.media.veryLarge} { width: 60%; }
+    margin: 8em auto 4em auto;
+    ${globals.media.small} { width: 95%; }
+    ${globals.media.medium} { width: 88%; }
+    ${globals.media.large} { width: 80%; }
+    ${globals.media.veryLarge} { width: 75%; }
   }
 `;
 
+export const NavBarQuery = graphql`
+  query NavBarQuery {
+    allContentfulPage {
+      edges {
+        node {
+          id
+          title
+          slug
+          parentPage {
+            title
+            slug
+          }
+        }
+      }
+    }
+  }
+`;
 
 export default layout;

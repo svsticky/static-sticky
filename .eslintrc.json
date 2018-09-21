@@ -4,7 +4,8 @@
     "rules": {
       "react/prop-types": "off",
       "jsx-a11y/anchor-is-valid": "off",
-      "prefer-template": "off"
+      "prefer-template": "off",
+      "no-use-before-define": "off"
     },
     "globals": {
       "graphql": false

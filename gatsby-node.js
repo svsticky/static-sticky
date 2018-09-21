@@ -16,7 +16,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           edges {
             node {
               id
-              job_title
+              slug
             }
           }
         }
@@ -24,7 +24,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           edges {
             node {
               id
-              name
+              slug
             }
           }
         }
@@ -32,9 +32,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           edges {
             node {
               id
-              title
-              contentfulparent {
-                title
+              slug
+              parentPage {
+                slug
               }
             }
           }
@@ -47,9 +47,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       // Create jobpages
       result.data.allContentfulJobListing.edges.forEach((({ node }) => {
-        const url = node.job_title.replace(/\W+/g, '-').toLowerCase();
         createPage({
-          path: `/vacatures/${url}`,
+          path: `/vacatures/${node.slug}`,
           component: slash(jobTemplate),
           context: {
             id: node.id,
@@ -59,9 +58,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
       // Create partnerpages
       result.data.allContentfulPartner.edges.forEach((({ node }) => {
-        const url = node.name.replace(/\W+/g, '-').toLowerCase();
         createPage({
-          path: `/partners/${url}`,
+          path: `/partners/${node.slug}`,
           component: slash(partnerTemplate),
           context: {
             id: node.id,
@@ -72,12 +70,10 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       // Create general pages
       result.data.allContentfulPage.edges.forEach((({ node }) => {
         let url;
-        if (node.customSlug) {
-          url = node.customSlug;
-        } else if (node.contentfulparent) {
-          url = node.contentfulparent.title.toLowerCase() + '/' + node.title.replace(/\W+/g, '-').toLowerCase();
+        if (node.parentPage) {
+          url = node.parentPage.slug + '/' + node.slug;
         } else {
-          url = node.title.replace(/\W+/g, '-').toLowerCase();
+          url = node.slug;
         }
         createPage({
           path: `/${url}`,
@@ -93,48 +89,53 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
 exports.sourceNodes = async ({ boundActionCreators }) => {
   const { createNode } = boundActionCreators;
-  await axios.get('https://koala.svsticky.nl/api/activities').then((res) => {
-    res.data.map((activity, i) => {
-      const activityNode = {
-        id: `${i}`,
-        parent: '__SOURCE__',
-        internal: {
-          type: 'Activity',
-        },
-        children: [],
-        name: activity.name,
-        location: activity.location,
-        start_date: activity.start_date,
-        end_date: activity.end_date,
-        poster: activity.poster,
-        fullness: activity.fullness,
-      };
-      const contentDigest = crypto.createHash('md5')
-        .update(JSON.stringify(activityNode)).digest('hex');
-      activityNode.internal.contentDigest = contentDigest;
+  await axios.get('https://koala.svsticky.nl/api/activities')
+    .then((res) => {
+      if (res.data.length > 0) {
+        res.data.map((activity, i) => {
+          const activityNode = {
+            id: `${i}`,
+            parent: '__SOURCE__',
+            internal: {
+              type: 'Activity',
+            },
+            children: [],
+            name: activity.name,
+            location: activity.location,
+            start_date: activity.start_date,
+            end_date: activity.end_date,
+            poster: activity.poster,
+            fullness: activity.fullness,
+          };
+          const contentDigest = crypto.createHash('md5')
+            .update(JSON.stringify(activityNode)).digest('hex');
+          activityNode.internal.contentDigest = contentDigest;
+          return createNode(activityNode);
+        });
+      } else {
+        createEmptyActivityNode(createNode);
+      }
+    })
+    .catch(() => createEmptyActivityNode(createNode));
+};
 
-      return createNode(activityNode);
-    });
-  }).catch((error) => {
-    // console.log(error)
-    const errorNode = {
-      id: `${-1}`,
-      parent: '__SOURCE__',
-      internal: {
-        type: 'Activity',
-      },
-      children: [],
-      name: "error",
-      location: "",
-      start_date: "",
-      end_date: "",
-      poster: "",
-      fullness: "",
-    };
-    const contentDigest = crypto.createHash('md5')
-    .update(JSON.stringify(errorNode)).digest('hex');
-    errorNode.internal.contentDigest = contentDigest;
-
-    return createNode(errorNode);
-  });
+const createEmptyActivityNode = (createNode) => {
+  const emptyNode = {
+    id: `${-1}`,
+    parent: '__SOURCE__',
+    internal: {
+      type: 'Activity',
+    },
+    children: [],
+    name: 'error',
+    location: '',
+    start_date: '',
+    end_date: '',
+    poster: '',
+    fullness: '',
+  };
+  const contentDigest = crypto.createHash('md5')
+    .update(JSON.stringify(emptyNode)).digest('hex');
+  emptyNode.internal.contentDigest = contentDigest;
+  return createNode(emptyNode);
 };
