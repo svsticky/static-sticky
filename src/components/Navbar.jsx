@@ -1,52 +1,93 @@
 import React from 'react';
 import Link from 'gatsby-link';
-import logo from '../images/logo-sticky-small.png';
 import styled from 'styled-components';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
+import { Toolbar, AppBar, Button, Menu, MenuItem } from '@material-ui/core';
+import logo from '../images/logo-sticky-small.png';
 
+class Navbar extends React.Component {
+  state = {
+    anchorEl: null,
+    selected: '',
+  }
 
-const Navbar = () => (
-  <div style={{flexGrow: 1}}>
-    <AppBar position="fixed" color="primary">
-      <Toolbar>
-        <Logo component={Link} to="/" color="inherit">
-          <img src={logo} alt=""/>
-        </Logo>
-        <div  style={{flex: 1}}></div>
-        <Button component={Link} to="/sticky" color="inherit">
-          Vereniging
-        </Button>
-        <Button component={Link} to="/partners/vacatures" color="inherit">
-          Carrière
-        </Button>
-        <Button component={Link} to="/onderwijs" color="inherit">
-          Onderwijs
-        </Button>
-      </Toolbar>
-    </AppBar>
-  </div>
-  // <NavbarContainer>
-  //   <div>
-  //     
-  //     <div>
-  //       <NavbarItem to="/besturen" content="Bestuur" />
-  //       <NavbarItem to="/vacatures" content="Vacatures" />
-  //       <NavbarItem to="/onderwijs" content="Onderwijs" />
-  //     </div>
-  //   </div>
-  // </NavbarContainer>
-);
+  handleMenuClick = (title, e) => (
+    this.setState({
+      anchorEl: e.currentTarget,
+      selected: title,
+    })
+  );
 
+  handleMenuClose = () => (
+    this.setState({
+      anchorEl: null,
+      selected: null,
+    })
+  );
 
-const Logo = styled(Button)`
-  img {
-    height: 2.5em;
-    margin-bottom: 0;
+  renderMenuItems = pages => (
+    pages.map((menuItem) => {
+      if (menuItem.node.parentPage === null) {
+        return (
+          <React.Fragment key={menuItem.node.title}>
+            <Button
+              key={menuItem.node.title}
+              color="inherit"
+              onClick={e => this.handleMenuClick(menuItem.node.title, e)}
+            >
+              { menuItem.node.title }
+            </Button>
+            <Menu
+              id={menuItem.node.title}
+              anchorEl={this.state.anchorEl}
+              open={Boolean(this.state.selected === menuItem.node.title)}
+              onClose={this.handleMenuClose}
+            >
+              { this.renderMenuSubItems(pages.filter(subMenuItem =>
+                subMenuItem.node.parentPage !== null &&
+                subMenuItem.node.parentPage.slug === menuItem.node.slug)) }
+            </Menu>
+          </React.Fragment>);
+      }
+      return null;
+    })
+  )
+
+  renderMenuSubItems = subMenuItems =>
+    subMenuItems.map(subMenuItem => (
+      <MenuItem
+        key={subMenuItem.node.title}
+        component={Link}
+        to={'/' + subMenuItem.node.parentPage.slug + '/' + subMenuItem.node.slug}
+        onClick={this.handleMenuClose}
+      >
+        { subMenuItem.node.title }
+      </MenuItem>
+    ));
+
+  render() {
+    return (
+      <NavBarWrapper>
+        <AppBar position="fixed" color="primary">
+          <Toolbar>
+            <Button component={Link} to="/" color="inherit" className="logo">
+              <img src={logo} alt="Sticky logo" />
+            </Button>
+            <div style={{ flex: 1 }} />
+            { this.renderMenuItems(this.props.pages) }
+          </Toolbar>
+        </AppBar>
+      </NavBarWrapper>
+    );
+  }
+}
+
+const NavBarWrapper = styled.div`
+  .logo {
+    img {
+      height: 3.2em;
+      margin-bottom: 0;
+    }
   }
 `;
-
 
 export default Navbar;

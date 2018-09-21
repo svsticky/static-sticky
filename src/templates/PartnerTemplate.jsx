@@ -5,37 +5,37 @@ import JobItem from '../components/JobItem';
 
 
 const PartnerView = ({ data }) => {
-    const partner = data.contentfulPartner;
+  const partner = data.contentfulPartner;
 
-    return(
-      <PartnerTemplateWrapper>
-        <div className="info">
-          <div>
-            <div className="logo-container">
-              <img src={partner.logo.file.url} className="partner-logo"/>
-            </div>
-          </div>
-            <div>
-              <h3>Contact</h3>
-              <p>
-                <a href={partner.website}>website</a> <br/>
-              </p>
-            </div>
-        </div>
-        <div className="partner-content">
-          <h2>{partner.name}</h2>
-            <Markdown>
-              {partner.description.description}
-            </Markdown>
-          <h2> Vacatures </h2>  
-            <div className="partner-joblist">
-            { partner.job_listing.map(job_listing => 
-              <JobItem key={job_listing.id} job={job_listing} partner={partner} />)
-            }
+  return (
+    <PartnerTemplateWrapper>
+      <div className="info">
+        <div>
+          <div className="logo-container">
+            <img src={partner.logo.file.url} className="partner-logo" alt="Partner logo" />
           </div>
         </div>
-      </PartnerTemplateWrapper>  
-    );
+        <div>
+          <h3>Contact</h3>
+          <p>
+            <a href={partner.website}>website</a> <br />
+          </p>
+        </div>
+      </div>
+      <div className="partner-content">
+        <h2>{partner.name}</h2>
+        <Markdown>
+          {partner.description.description}
+        </Markdown>
+        <h2> Vacatures </h2>
+        <div className="partner-joblist">
+          { partner.job_listing.map(jobListing =>
+            <JobItem key={jobListing.id} job={jobListing} partner={partner} />)
+          }
+        </div>
+      </div>
+    </PartnerTemplateWrapper>
+  );
 };
 
 
@@ -70,10 +70,10 @@ const PartnerTemplateWrapper = styled.div`
   .partner-joblist {
     margin: 0px 0.5em;
   }
-`
+`;
 
 
-export default PartnerView
+export default PartnerView;
 
 
 export const PartnerQuery = graphql`

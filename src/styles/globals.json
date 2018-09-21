@@ -1,0 +1,9 @@
+{
+  "boardColor": "0, 0, 120",
+  "media": {
+    "small": "@media screen and (min-width: 400px)",
+    "medium": "@media screen and (min-width: 800px)",
+    "large": "@media screen and (min-width: 1200px)",
+    "veryLarge": "@media screen and (min-width: 1600px)"
+  }
+}

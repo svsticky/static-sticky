@@ -1,9 +1,9 @@
 import React from 'react';
-import Board from '../../components/Board';
 import styled from 'styled-components';
+import Board from '../../components/Board';
 
 
-const Bestuur = props => {
+const Bestuur = (props) => {
   const boards = props.data.allContentfulBoard.edges;
   return (
     <div>
@@ -28,7 +28,7 @@ const BoardsList = styled.div`
     grid-template-columns: 1fr;
   }
   grid-gap: 12px;
-`
+`;
 
 
 export const BoardsQuery = graphql`

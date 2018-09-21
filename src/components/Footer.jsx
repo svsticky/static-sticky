@@ -33,7 +33,8 @@ const FooterWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-content: space-between;
-  background-color: #efefef;
+  background-color: #444;
+  color: white;
   .footer-list {
     display: flex;
     flex-wrap: wrap;
@@ -42,7 +43,7 @@ const FooterWrapper = styled.div`
       margin: 0.8em 2em;
     }
   }
-`
+`;
 
 
 export default Footer;
