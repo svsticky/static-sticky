@@ -6,11 +6,17 @@ const Activiteiten = ({ data }) => {
   return (
     <div>
       { activiteiten.map(activity => (
-        <p key={activity.node.id}>
-          <img src={activity.node.poster} width="50%" alt={`${activity.node.name}-poster`} />
-        </p>))}
+          activity.node.id != -1 ? 
+            <p key={activity.node.id}>
+                <img src={activity.node.poster} width="50%" alt={`${activity.node.name}-poster`} />
+            </p>
+          :
+          <p>
+            Er zijn geen activiteiten om weer te geven
+          </p>
+      ))}
     </div>
-  );
+    );
 };
 
 export const ActivitiesQuery = graphql`

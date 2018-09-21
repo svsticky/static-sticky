@@ -110,7 +110,6 @@ exports.sourceNodes = async ({ boundActionCreators }) => {
           const contentDigest = crypto.createHash('md5')
             .update(JSON.stringify(activityNode)).digest('hex');
           activityNode.internal.contentDigest = contentDigest;
-
           return createNode(activityNode);
         });
       } else {
