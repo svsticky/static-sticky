@@ -5,6 +5,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-plugin-styled-components": "^1.7.1",
     "bluebird": "^3.5.2",
     "dotenv": "^6.0.0",
     "gatsby": "^2.0.0",
