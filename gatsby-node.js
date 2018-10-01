@@ -4,8 +4,8 @@ const slash = require('slash');
 const axios = require('axios');
 const crypto = require('crypto');
 
-exports.createPages = ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators;
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions;
   return new Promise((resolve, reject) => {
     const jobTemplate = path.resolve('src/templates/JobTemplate.jsx');
     const partnerTemplate = path.resolve('src/templates/PartnerTemplate.jsx');
@@ -94,8 +94,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
   });
 };
 
-exports.sourceNodes = async ({ boundActionCreators }) => {
-  const { createNode } = boundActionCreators;
+exports.sourceNodes = async ({ actions }) => {
+  const { createNode } = actions;
   await axios.get('https://koala.svsticky.nl/api/activities')
     .then((res) => {
       if (res.data.length > 0) {

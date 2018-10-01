@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import styled from 'styled-components';
-import { Toolbar, AppBar, Button, Menu, MenuItem } from '@material-ui/core';
+import { Button, Dropdown, Menu } from 'semantic-ui-react';
 import logo from '../images/logo-sticky-small.png';
 
 class Navbar extends React.Component {
@@ -29,23 +29,13 @@ class Navbar extends React.Component {
       if (menuItem.node.parentPage === null) {
         return (
           <React.Fragment key={menuItem.node.title}>
-            <Button
-              key={menuItem.node.title}
-              color="inherit"
-              onClick={e => this.handleMenuClick(menuItem.node.title, e)}
-            >
-              { menuItem.node.title }
-            </Button>
-            <Menu
-              id={menuItem.node.title}
-              anchorEl={this.state.anchorEl}
-              open={Boolean(this.state.selected === menuItem.node.title)}
-              onClose={this.handleMenuClose}
-            >
+            <Dropdown item text={menuItem.node.title}>
+              <Dropdown.Menu>
               { this.renderMenuSubItems(pages.filter(subMenuItem =>
                 subMenuItem.node.parentPage !== null &&
                 subMenuItem.node.parentPage.slug === menuItem.node.slug)) }
-            </Menu>
+              </Dropdown.Menu>
+            </Dropdown>
           </React.Fragment>);
       }
       return null;
@@ -54,28 +44,29 @@ class Navbar extends React.Component {
 
   renderMenuSubItems = subMenuItems =>
     subMenuItems.map(subMenuItem => (
-      <MenuItem
+      <Dropdown.Item
         key={subMenuItem.node.title}
         component={Link}
         to={'/' + subMenuItem.node.parentPage.slug + '/' + subMenuItem.node.slug}
-        onClick={this.handleMenuClose}
       >
         { subMenuItem.node.title }
-      </MenuItem>
+      </Dropdown.Item>
     ));
 
   render() {
     return (
       <NavBarWrapper>
-        <AppBar position="fixed" color="primary">
-          <Toolbar>
+        <div position="fixed" color="primary">
+          <div>
             <Button component={Link} to="/" color="inherit" className="logo">
               <img src={logo} alt="Sticky logo" />
             </Button>
             <div style={{ flex: 1 }} />
-            { this.renderMenuItems(this.props.pages) }
-          </Toolbar>
-        </AppBar>
+            <Menu>
+              { this.renderMenuItems(this.props.pages) }
+            </Menu>
+          </div>
+        </div>
       </NavBarWrapper>
     );
   }

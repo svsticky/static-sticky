@@ -1,25 +1,20 @@
 import React from 'react';
-import { MuiThemeProvider } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import theme from '../styles/theme';
-import globals from '../styles/globals.json';
 
 
 const layout = props => (
-  <MuiThemeProvider theme={theme}>
-    <SiteWrapper>
-      <Navbar pages={props.data.allContentfulPage.edges} />
-      <div className="page">
-        <div className="content">
-          {props.children()}
-        </div>
-        <Footer />
+  <SiteWrapper>
+    <Navbar pages={props.data.allContentfulPage.edges} />
+    <div className="page">
+      <div className="content">
+        {props.children()}
       </div>
-    </SiteWrapper>
-  </MuiThemeProvider>
+      <Footer />
+    </div>
+  </SiteWrapper>
 );
 
 /* These are also the globals styles to the website in general.
@@ -38,7 +33,6 @@ const SiteWrapper = styled.div`
   }
   .content {
     a {
-      color: rgb(${globals.boardColor});
       font-weight: bold;
     }
     margin: 8em auto 4em auto;

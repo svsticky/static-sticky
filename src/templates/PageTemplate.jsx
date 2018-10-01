@@ -2,7 +2,7 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
-import Card from '../atoms/Card';
+import { Card } from 'semantic-ui-react';
 
 const PageView = ({ data }) => {
   const page = data.contentfulPage;
