@@ -1,6 +1,7 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
+import { graphql } from 'gatsby';
 import { Button } from '@material-ui/core';
 import Email from '@material-ui/icons/Email';
 import Phone from '@material-ui/icons/Phone';

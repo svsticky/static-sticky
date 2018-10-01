@@ -1,6 +1,7 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
+import { graphql } from 'gatsby';
 import Card from '../atoms/Card';
 
 const PageView = ({ data }) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql } from 'gatsby';
 import JobsList from '../components/JobsList';
 import JobFilter from '../components/JobFilter';
 
