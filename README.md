@@ -6,7 +6,7 @@ Studyassociation Sticky's website is a static website built in React with Gatsby
    
 2. Install the required version of nodejs by running `nvm install` in the project directory. 
    
-3. Install gatsby-cli globally on your system by running `npm i -g gatsby-cli@1.1.58` (this specific version is needed because of a bug, as soon as the bug is resolved the '@1.1.58' can be removed, more info [here](https://github.com/gatsbyjs/gatsby/issues/3467)).
+3. Install gatsby-cli globally on your system by running `npm i -g gatsby-cli`.
    
 4. Install dependencies by running `npm i` in the project directory.
    
