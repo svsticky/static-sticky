@@ -1,12 +1,12 @@
 import React from 'react';
-// import styled from 'styled-components';
+import { graphql } from 'gatsby';
 
 const Activiteiten = ({ data }) => {
   const activiteiten = data.allActivity.edges;
   return (
     <div>
       { activiteiten.map(activity => (
-          activity.node.id != -1 ? 
+          activity.node.id !== -1 ? 
             <p key={activity.node.id}>
                 <img src={activity.node.poster} width="50%" alt={`${activity.node.name}-poster`} />
             </p>

@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { FormControl, Select, Input, MenuItem, InputLabel } from '@material-ui/core';
-import Card from '../atoms/Card';
-import globals from '../styles/globals.json';
+import { Card } from 'semantic-ui-react';
 
 
 const studieFilterOptions = [
@@ -26,68 +24,52 @@ const typeFilterOptions = [
 
 
 const JobFilter = props => (
-  <FilterWrapper>
-    <FormControl>
-      <InputLabel htmlFor="select-study" className="input-label">
+  <JobFilterWrapper>
+      <div>
         { props.studiesFilter.length > 0 ?
           <span>{props.studiesFilter.length} studie(s) geselecteerd:</span> :
           <span>Selecteer op studie(s)</span> }
-      </InputLabel>
-      <Select
+      </div>
+      <div
         multiple
         value={props.studiesFilter}
         onChange={e => (props.updateStudiesFilter(e.target.value))}
-        input={<Input id="select-study" />}
+        input={<div id="select-study" />}
       >
         { studieFilterOptions.map(option => (
-          <MenuItem
+          <div
             key={option}
             value={option}
           >
             {option}
-          </MenuItem>
+          </div>
         ))}
-      </Select>
-    </FormControl>
-
-    <FormControl>
-      <InputLabel htmlFor="select-type" className="input-label">
+      </div>
+      <div htmlFor="select-type" className="input-label">
         { props.typesFilter.length > 0 ?
           <span>{props.typesFilter.length} type(n) geselecteerd:</span> :
           <span>Selecteer op type(n)</span> }
-      </InputLabel>
-      <Select
+      </div>
+      <div
         multiple
         value={props.typesFilter}
         onChange={e => (props.updateTypesFilter(e.target.value))}
-        input={<Input id="select-type" />}
+        input={<div id="select-type" />}
       >
         { typeFilterOptions.map(option => (
-          <MenuItem
+          <div
             key={option}
             value={option}
           >
             {option}
-          </MenuItem>
+          </div>
         ))}
-      </Select>
-    </FormControl>
-  </FilterWrapper>
+      </div>
+  </JobFilterWrapper>
 );
 
-const FilterWrapper = styled(Card)`
-  margin-bottom: 1em;
-  padding: 1em;
-  z-index: 10;
-  position: sticky;
-  top: 4.2em;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1em;
-  .input-label {
-    color: rgb(${globals.boardColor});
-  }
-`;
-
+const JobFilterWrapper = styled.div`
+	
+`
 
 export default JobFilter;
