@@ -24,9 +24,8 @@ const typeFilterOptions = [
 
 
 const JobFilter = props => (
-  <FilterWrapper>
-    <div>
-      <div htmlFor="select-study" className="input-label">
+  <JobFilterWrapper>
+      <div>
         { props.studiesFilter.length > 0 ?
           <span>{props.studiesFilter.length} studie(s) geselecteerd:</span> :
           <span>Selecteer op studie(s)</span> }
@@ -46,9 +45,6 @@ const JobFilter = props => (
           </div>
         ))}
       </div>
-    </div>
-
-    <div>
       <div htmlFor="select-type" className="input-label">
         { props.typesFilter.length > 0 ?
           <span>{props.typesFilter.length} type(n) geselecteerd:</span> :
@@ -69,20 +65,11 @@ const JobFilter = props => (
           </div>
         ))}
       </div>
-    </div>
-  </FilterWrapper>
+  </JobFilterWrapper>
 );
 
-const FilterWrapper = styled(Card)`
-  margin-bottom: 1em;
-  padding: 1em;
-  z-index: 10;
-  position: sticky;
-  top: 4.2em;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 1em;
-`;
-
+const JobFilterWrapper = styled.div`
+	
+`
 
 export default JobFilter;
