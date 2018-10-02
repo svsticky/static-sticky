@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'gatsby-link';
 import { graphql, StaticQuery } from 'gatsby';
 import styled from 'styled-components';
-import { Dropdown, Image, Menu } from 'semantic-ui-react';
+import { Dropdown, Image, Menu, Container } from 'semantic-ui-react';
 import logo from '../images/logo-sticky-small.png';
 
 
@@ -40,11 +40,13 @@ class NavBar extends React.Component {
     return (
       <NavBarWrapper>
         <Menu className="navbar">
-          <Image as={Link} to="/" className="logo">
-            <img src={logo} alt="Sticky logo" />
-          </Image>
-          <div style={{ flex: 1 }} />
-          { this.renderMenuItems(this.props.data.allContentfulPage.edges)}
+          <Container>
+            <Image as={Link} to="/" className="logo">
+              <img src={logo} alt="Sticky logo" />
+            </Image>
+            <div style={{ flex: 1 }} />
+            { this.renderMenuItems(this.props.data.allContentfulPage.edges)}
+          </Container>
         </Menu>
       </NavBarWrapper>
     );

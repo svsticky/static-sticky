@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
+import Layout from '../components/Layout';
 import Partner from '../components/Partner';
 
 
@@ -8,11 +9,13 @@ const PartnerIndexPage = ({ data }) => {
   const partners = data.allContentfulPartner.edges;
 
   return (
-    <PartnerList>
-      { partners.map(partner =>
-        <Partner key={partner.node.id} partner={partner.node} />)
-      }
-    </PartnerList>
+    <Layout>
+      <PartnerList>
+        { partners.map(partner =>
+          <Partner key={partner.node.id} partner={partner.node} />)
+        }
+      </PartnerList>
+    </Layout>
   );
 };
 

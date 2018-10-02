@@ -1,10 +1,11 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import Layout from '../components/Layout';
 
 const Activiteiten = ({ data }) => {
   const activiteiten = data.allActivity.edges;
   return (
-    <div>
+    <Layout>
       { activiteiten.map(activity => (
           activity.node.id !== -1 ? 
             <p key={activity.node.id}>
@@ -15,7 +16,7 @@ const Activiteiten = ({ data }) => {
             Er zijn geen activiteiten om weer te geven
           </p>
       ))}
-    </div>
+    </Layout>
     );
 };
 

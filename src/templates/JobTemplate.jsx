@@ -2,39 +2,42 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
+import Layout from '../components/Layout';
 import { Button, Card } from 'semantic-ui-react';
 
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
 
   return (
-    <JobTemplateWrapper>
-      <div className="side-info">
-        <div>
-          <Card className="logo-container">
-            <img src={job.partner.logo.file.url} className="partner-logo" alt="Partner Logo" />
-          </Card>
-          { job.contactPerson && (
-            <Card className="contactperson">
-              <h3>Contact</h3>
-              <p>{job.contactPerson.name}</p>
-              <Button className="button" color="primary" href={'mailto:' + job.contactPerson.email}>
-                <span className="content">{job.contactPerson.email}</span>
-              </Button>
-              <Button className="button" color="primary" href={'tel:' + job.contactPerson.phone}>
-                {job.contactPerson.phone}
-              </Button>
+    <Layout>
+      <JobTemplateWrapper>
+        <div className="side-info">
+          <div>
+            <Card className="logo-container">
+              <img src={job.partner.logo.file.url} className="partner-logo" alt="Partner Logo" />
             </Card>
-          )}
+            { job.contactPerson && (
+              <Card className="contactperson">
+                <h3>Contact</h3>
+                <p>{job.contactPerson.name}</p>
+                <Button className="button" color="primary" href={'mailto:' + job.contactPerson.email}>
+                  <span className="content">{job.contactPerson.email}</span>
+                </Button>
+                <Button className="button" color="primary" href={'tel:' + job.contactPerson.phone}>
+                  {job.contactPerson.phone}
+                </Button>
+              </Card>
+            )}
+          </div>
         </div>
-      </div>
-      <Card className="job-content">
-        <h1>{job.job_title}</h1>
-        <Markdown>
-          {job.content.content}
-        </Markdown>
-      </Card>
-    </JobTemplateWrapper>
+        <Card className="job-content">
+          <h1>{job.job_title}</h1>
+          <Markdown>
+            {job.content.content}
+          </Markdown>
+        </Card>
+      </JobTemplateWrapper>
+    </Layout>
   );
 };
 

@@ -25,44 +25,8 @@ const Job = props => (
 );
 
 
-const JobWrapper = styled(Card)`
-  text-decoration: none;
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  .logo-container {
-    display: flex;  
-    align-items: center;
-    justify-content: center;
-    height: inherit;
-    width: inherit;
-    padding: 10px;
-    border-radius: 8px 0 0 8px;
-    .logo {
-      height: auto;
-      width: 80%;
-      margin: 10%;
-      transition: all 0.15s;
-      &:hover {
-        transform: scale(1.2);
-      }
-    }
-  }
-  .content-container {
-    color: black;
-    text-decoration: none;
-    padding: 0 1em 0 0;
-
-    color: black !important;
-    h3 { 
-      margin: 0;
-      padding-bottom: 0.2em;
-      border-bottom: 1px solid #ececec;
-    }
-    p {
-      margin: 0;
-      font-weight: 300;
-    }
-  }
+const JobWrapper = styled.div`
+  
 `;
 
 

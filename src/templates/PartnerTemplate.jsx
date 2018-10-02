@@ -2,40 +2,43 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
+import Layout from '../components/Layout';
 import JobItem from '../components/JobItem';
 
 
 const PartnerView = ({ data }) => {
-  const partner = data.contentfulPartner;
+  const { contentfulPartner: partner}  = data;
 
   return (
-    <PartnerTemplateWrapper>
-      <div className="info">
-        <div>
-          <div className="logo-container">
-            <img src={partner.logo.file.url} className="partner-logo" alt="Partner logo" />
+    <Layout>
+      <PartnerTemplateWrapper>
+        <div className="info">
+          <div>
+            <div className="logo-container">
+              <img src={partner.logo.file.url} className="partner-logo" alt="Partner logo" />
+            </div>
+          </div>
+          <div>
+            <h3>Contact</h3>
+            <p>
+              <a href={partner.website}>website</a> <br />
+            </p>
           </div>
         </div>
-        <div>
-          <h3>Contact</h3>
-          <p>
-            <a href={partner.website}>website</a> <br />
-          </p>
+        <div className="partner-content">
+          <h2>{partner.name}</h2>
+          <Markdown>
+            {partner.description.description}
+          </Markdown>
+          <h2> Vacatures </h2>
+          <div className="partner-joblist">
+            { partner.job_listing.map(jobListing =>
+              <JobItem key={jobListing.id} job={jobListing} partner={partner} />)
+            }
+          </div>
         </div>
-      </div>
-      <div className="partner-content">
-        <h2>{partner.name}</h2>
-        <Markdown>
-          {partner.description.description}
-        </Markdown>
-        <h2> Vacatures </h2>
-        <div className="partner-joblist">
-          { partner.job_listing.map(jobListing =>
-            <JobItem key={jobListing.id} job={jobListing} partner={partner} />)
-          }
-        </div>
-      </div>
-    </PartnerTemplateWrapper>
+      </PartnerTemplateWrapper>
+    </Layout>
   );
 };
 
