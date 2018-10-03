@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'gatsby-link';
 import styled from 'styled-components';
-import Card from '../atoms/Card';
+import { Card } from 'semantic-ui-react';
 
 const Partner = ({ partner }) => (
   <PartnerLogo>

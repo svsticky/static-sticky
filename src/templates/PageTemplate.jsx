@@ -1,18 +1,22 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
-import Card from '../atoms/Card';
+import { graphql } from 'gatsby';
+import Layout from '../components/Layout';
+import { Card } from 'semantic-ui-react';
 
 const PageView = ({ data }) => {
   const page = data.contentfulPage;
 
   return (
-    <PageWrapper>
-      <h1 className="title">{page.title}</h1>
-      <Markdown>
-        {page.content.content}
-      </Markdown>
-    </PageWrapper>
+    <Layout>
+      <PageWrapper>
+        <h1 className="title">{page.title}</h1>
+        <Markdown>
+          {page.content.content}
+        </Markdown>
+      </PageWrapper>
+    </Layout>
   );
 };
 

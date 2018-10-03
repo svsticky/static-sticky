@@ -1,17 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
+import { graphql } from 'gatsby';
+import Layout from '../../components/Layout';
 import Board from '../../components/Board';
 
 
 const Bestuur = (props) => {
   const boards = props.data.allContentfulBoard.edges;
   return (
-    <div>
+    <Layout>
       <BoardsList>
         {boards.map(board =>
           <Board key={board.node.id} board={board.node} />)}
       </BoardsList>
-    </div>
+    </Layout>
   );
 };
 

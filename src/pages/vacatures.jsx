@@ -1,4 +1,6 @@
 import React from 'react';
+import { graphql } from 'gatsby';
+import Layout from '../components/Layout';
 import JobsList from '../components/JobsList';
 import JobFilter from '../components/JobFilter';
 
@@ -22,7 +24,7 @@ class JobIndexPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <Layout>
         <JobFilter
           updateStudiesFilter={this.updateStudiesFilter}
           studiesFilter={this.state.studiesFilter}
@@ -34,7 +36,7 @@ class JobIndexPage extends React.Component {
           studiesFilter={this.state.studiesFilter}
           typesFilter={this.state.typesFilter}
         />
-      </div>
+      </Layout>
     );
   }
 }
