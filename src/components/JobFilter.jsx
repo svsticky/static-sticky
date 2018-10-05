@@ -69,7 +69,7 @@ const JobFilter = props => (
 );
 
 const JobFilterWrapper = styled.div`
-	
+
 `
 
 export default JobFilter;

@@ -3,28 +3,26 @@ import styled from 'styled-components';
 import JobItem from './JobItem';
 
 
-const displayJob = (studiesFilter, typesFilter, job) => {
+const displayJobs = (studiesFilter, typesFilter, jobs) => {
   if (studiesFilter.length === 0 && typesFilter.length === 0) {
-    return true;
+    return (jobs.map(job =>
+    <JobItem key={job.node.id} job={job.node} partner={job.node.partner} />))
   }
-  const inStudiesFilter = (job.target_studies.some(studie => studiesFilter.indexOf(studie) >= 0));
-  const inTypesFilter = (job.type.some(type => typesFilter.indexOf(type) >= 0));
-  if ((inStudiesFilter && typesFilter.length === 0) ||
-      (inTypesFilter && studiesFilter.length === 0)) {
-    return true;
-  }
-  if (studiesFilter.length > 0 && typesFilter.length > 0) {
-    return (inStudiesFilter && inTypesFilter);
-  }
+  const jobSuperFilter = jobs.filter(job =>
+    job.target_studies.some(studie => studiesFilter.indexOf(studie) >= 0) &&
+    job.target_studies.some(type => typesFilter.indexOf(type) >= 0));
+
+  if (studiesFilter.length > 0 && typesFilter.length > 0 && jobSuperFilter.length > 0) {
+    return (jobSuperFilter.map(job =>
+      <JobItem key={job.node.id} job={job.node} partner={job.node.partner} />));
+    }
   return false;
 };
 
 
 const jobslist = props => (
   <JobsList>
-    {props.jobs.map(job =>
-      displayJob(props.studiesFilter, props.typesFilter, job.node) &&
-        <JobItem key={job.node.id} job={job.node} partner={job.node.partner} />)}
+    {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
   </JobsList>
 );
 
