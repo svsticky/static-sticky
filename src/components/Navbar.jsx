@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'gatsby-link';
 import { graphql, StaticQuery } from 'gatsby';
 import styled from 'styled-components';
-import { Dropdown, Image, Menu, Container } from 'semantic-ui-react';
+import { Dropdown, Image, Menu, Container, Button } from 'semantic-ui-react';
 import logo from '../images/logo-sticky-small.png';
 
 
@@ -46,6 +46,9 @@ class NavBar extends React.Component {
             </Image>
             <div style={{ flex: 1 }} />
             { this.renderMenuItems(this.props.data.allContentfulPage.edges)}
+            <Menu.Item className="link-item">
+              <Button href="http://koala.svsticky.nl" target="_blank" className="button">Koala</Button>
+            </Menu.Item>
           </Container>
         </Menu>
       </NavBarWrapper>
@@ -54,7 +57,7 @@ class NavBar extends React.Component {
 }
 
 const NavBarWrapper = styled.div`
-  &&& 
+  &&&
   .navbar {
     background-color: #000078;
     border-radius: 0;
@@ -72,6 +75,18 @@ const NavBarWrapper = styled.div`
       }
       .item-text {
         color: #000078;
+      }
+    }
+    .link-item {
+      &:hover {
+        background-color: #000078;
+      }
+      .button {
+        background-color: white;
+        color: #000078;
+        &:hover {
+          background-color: lightgrey;
+        }
       }
     }
   }
