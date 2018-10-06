@@ -15,7 +15,7 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
 
   if (studiesFilter.length > 0 || typesFilter.length > 0 && jobSuperFilter.length > 0) {
     return (jobSuperFilter.map(job =>
-      <JobItem key={job.node.id} job={job.node} partner={job.node.partner} />));
+      <JobItem fluid key={job.node.id} job={job.node} partner={job.node.partner} />));
     }
   return false;
 };
@@ -23,18 +23,26 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
 
 const jobslist = props => (
   <JobsList>
+    <div className='container'>
     {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
+    </div>
   </JobsList>
 );
 
 
 const JobsList = styled.div`
-  display: grid;
-  @media (min-width: 990px) {
-    grid-template-columns: repeat(2, 1fr);
+   &&&
+  .container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-between;
+    justify-content: space-evenly;
   }
-  grid-template-columns: 1fr;
-  grid-gap: 1em;
+  .item{
+    display: flex;
+    align-self: stretch;
+  }
 `;
 
 

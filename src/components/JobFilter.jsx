@@ -56,7 +56,7 @@ const JobFilterWrapper = styled.div`
 &&&
   .container{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     flex-direction: row;
 
   }
