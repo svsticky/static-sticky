@@ -10,8 +10,8 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
     <JobItem key={job.node.id} job={job.node} partner={job.node.partner} />))
   }
   const jobSuperFilter = jobs.filter(job =>
-    job.target_studies.some(studie => studiesFilter.indexOf(studie) >= 0) &&
-    job.type.some(type => typesFilter.indexOf(type) >= 0));
+    job.node.target_studies.some(studie => studiesFilter.indexOf(studie) >= 0) ||
+    job.node.type.some(type => typesFilter.indexOf(type) >= 0));
 
   if (studiesFilter.length > 0 || typesFilter.length > 0 && jobSuperFilter.length > 0) {
     return (jobSuperFilter.map(job =>

@@ -25,25 +25,22 @@ const typeFilterOptions = [
 //The problem lies in the first dropdown -> onChange. Somehow it won't allow to filter
 const JobFilter = props => (
   <JobFilterWrapper>
-      <div>
+  <div className='container'>
+      <div className='item1'>
         { props.studiesFilter.length > 0 ?
           <span>{props.studiesFilter.length} studie(s) geselecteerd:</span> :
           <span>Selecteer op studie(s)</span> }
-      </div>
-      <div>
       <Dropdown
           search multiple selection
           options={studieFilterOptions}
           placeholder="Filter op studie"
-          onChange={(e, data) => {props.updateStudiesFilter(data.value)}}
+          onChange={(e,data) => {props.updateStudiesFilter(data.value)}}
           />
       </div>
-      <div htmlFor="select-type" className="input-label">
+      <div className='item2'>
         { props.typesFilter.length > 0 ?
           <span>{props.typesFilter.length} type(n) geselecteerd:</span> :
           <span>Selecteer op type(n)</span> }
-      </div>
-      <div>
       <Dropdown
           search multiple selection
           options={typeFilterOptions}
@@ -51,11 +48,31 @@ const JobFilter = props => (
           onChange={(e,data) => {props.updateTypesFilter(data.value)}}
           />
       </div>
+    </div>
   </JobFilterWrapper>
 );
 
 const JobFilterWrapper = styled.div`
+&&&
+  .container{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
 
+  }
+  .item1{
+    display: flex;
+    flex-direction: column;
+    order: 1;
+    align-self: auto;
+
+  }
+  .item2{
+    display: flex;
+    flex-direction: column;
+    order: 2;
+    align-self: auto;
+  }
 `
 
 export default JobFilter;

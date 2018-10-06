@@ -16,12 +16,10 @@ class JobIndexPage extends React.Component {
 
   updateStudiesFilter = (selectedStudies) => {
     this.setState({ studiesFilter: selectedStudies });
-    console.log(selectedStudies);
   }
 
   updateTypesFilter = (selectedTypes) => {
     this.setState({ typesFilter: selectedTypes });
-    console.log(selectedTypes);
   }
 
   render() {
