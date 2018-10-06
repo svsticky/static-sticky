@@ -15,7 +15,7 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
 
   if (studiesFilter.length > 0 || typesFilter.length > 0 && jobSuperFilter.length > 0) {
     return (jobSuperFilter.map(job =>
-      <JobItem fluid key={job.node.id} job={job.node} partner={job.node.partner} />));
+      <JobItem key={job.node.id} job={job.node} partner={job.node.partner} />));
     }
   return false;
 };
@@ -34,7 +34,7 @@ const JobsList = styled.div`
    &&&
   .container{
     display: flex;
-    flex-direction: row;
+    flex-direction: 
     flex-wrap: wrap;
     align-content: space-between;
     justify-content: space-evenly;
