@@ -26,22 +26,26 @@ const typeFilterOptions = [
 const JobFilter = props => (
   <JobFilterWrapper>
   <div className='container'>
-      <div className='item1'>
+      <div className='text1'>
         { props.studiesFilter.length > 0 ?
           <span>{props.studiesFilter.length} studie(s) geselecteerd:</span> :
           <span>Selecteer op studie(s)</span> }
-      <Dropdown
+      </div>
+      <div className='text2'>
+        { props.typesFilter.length > 0 ?
+          <span>{props.typesFilter.length} type(n) geselecteerd:</span> :
+          <span>Selecteer op type(n)</span> }
+      </div>
+      <div className='filter1'>
+      <Dropdown fluid
           search multiple selection
           options={studieFilterOptions}
           placeholder="Filter op studie"
           onChange={(e,data) => {props.updateStudiesFilter(data.value)}}
           />
       </div>
-      <div className='item2'>
-        { props.typesFilter.length > 0 ?
-          <span>{props.typesFilter.length} type(n) geselecteerd:</span> :
-          <span>Selecteer op type(n)</span> }
-      <Dropdown
+      <div className='filter2'>
+      <Dropdown fluid
           search multiple selection
           options={typeFilterOptions}
           placeholder="Filter op type"
@@ -55,23 +59,30 @@ const JobFilter = props => (
 const JobFilterWrapper = styled.div`
 &&&
   .container{
-    display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: 30% 30%;
+    grid-template-rows: 20% 70%;
+    grid-column-gap: 20px;
+    grid-row-gap: 10px;
+    grid-auto-flow: row;
+    align-content: center;
 
   }
-  .item1{
-    display: flex;
-    flex-direction: column;
-    order: 1;
-    align-self: auto;
-
+  .text1{
+    grid-column: 1;
+    grid-row: 1
   }
-  .item2{
-    display: flex;
-    flex-direction: column;
-    order: 2;
-    align-self: auto;
+  .text2{
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .filter1{
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .filter2{
+    grid-column 2;
+    grid-row: 2;
   }
 `
 
