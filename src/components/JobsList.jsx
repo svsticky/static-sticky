@@ -32,7 +32,7 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
 
 const createJobs = (jobbies) => {
   return(jobbies.map(job =>
-  <JobItem className= 'item' key={job.node.id} job={job.node} partner={job.node.partner} />));
+  <JobItem className='item' key={job.node.id} job={job.node} partner={job.node.partner} />));
 }
 
 
@@ -51,12 +51,9 @@ const JobsList = styled.div`
     display: grid;
     grid-template-columns: 33% 33% 33%;
     grid-template-rows: 33% 33% 33%;
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
+    grid-gap: 20px;
+    padding: 20px;
     grid-auto-flow: row;
-  }
-  .item{
-    align-self: end;
   }
 `;
 
