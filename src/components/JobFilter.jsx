@@ -64,6 +64,7 @@ const JobFilterWrapper = styled.div`
     grid-template-rows: 20% 70%;
     grid-column-gap: 20px;
     grid-row-gap: 10px;
+    padding: 5px;
     grid-auto-flow: row;
     align-content: center;
 

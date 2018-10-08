@@ -21,22 +21,23 @@ const Job = props => (
 const JobWrapper = styled.div`
   &&&
   .card{
+    display: grid;
     height:100%;
   }
   .contentcontainer{
     display: grid;
-    grid-template-rows: 40% 10% 50%;
+    grid-template-rows: 175px 5% 50%;
     grid-template-columns: 100%;
     row-gap: 5px;
     grid-auto-flow: row;
   }
   .image{
-    grid-row: 1;
+    align-self: center;
   }
   .header{
   }
   .desc{
-    vertical-align: text-bottom;
+    align-self: start;
   }
 
 `;
