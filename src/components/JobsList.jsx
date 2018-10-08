@@ -1,41 +1,60 @@
 import React from 'react';
 import styled from 'styled-components';
 import JobItem from './JobItem';
+import { Card } from 'semantic-ui-react';
 
 
-const displayJob = (studiesFilter, typesFilter, job) => {
+const displayJobs = (studiesFilter, typesFilter, jobs) => {
+
   if (studiesFilter.length === 0 && typesFilter.length === 0) {
-    return true;
+    return(createJobs(jobs));
   }
-  const inStudiesFilter = (job.target_studies.some(studie => studiesFilter.indexOf(studie) >= 0));
-  const inTypesFilter = (job.type.some(type => typesFilter.indexOf(type) >= 0));
-  if ((inStudiesFilter && typesFilter.length === 0) ||
-      (inTypesFilter && studiesFilter.length === 0)) {
-    return true;
+
+  else if(studiesFilter.length > 0 && typesFilter.length === 0){
+    const jobStudieFilter = jobs.filter(job =>
+      job.node.target_studies.some(studie => studiesFilter.indexOf(studie) >= 0));
+      return (createJobs(jobStudieFilter));
   }
-  if (studiesFilter.length > 0 && typesFilter.length > 0) {
-    return (inStudiesFilter && inTypesFilter);
+
+  else if(typesFilter.length > 0 && studiesFilter.length === 0){
+     const jobTypeFilter = jobs.filter(job =>
+       job.node.type.some(type => typesFilter.indexOf(type) >= 0));
+      return(createJobs(jobTypeFilter));
   }
-  return false;
-};
+
+  else if(studiesFilter.length > 0 && typesFilter.length > 0){
+      const jobSuperFilter = jobs.filter(job =>
+        job.node.target_studies.some(studie => studiesFilter.indexOf(studie) >= 0) &&
+        job.node.type.some(type => typesFilter.indexOf(type) >= 0));
+        return(createJobs(jobSuperFilter));
+  }
+}
+
+const createJobs = (jobbies) => {
+  return(jobbies.map(job =>
+  <JobItem className='item' key={job.node.id} job={job.node} partner={job.node.partner} />));
+}
 
 
 const jobslist = props => (
   <JobsList>
-    {props.jobs.map(job =>
-      displayJob(props.studiesFilter, props.typesFilter, job.node) &&
-        <JobItem key={job.node.id} job={job.node} partner={job.node.partner} />)}
+        <div className='container'>
+            {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
+        </div>
   </JobsList>
 );
 
 
 const JobsList = styled.div`
-  display: grid;
-  @media (min-width: 990px) {
-    grid-template-columns: repeat(2, 1fr);
+   &&&
+  .container{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 33% 33% 33%;
+    grid-gap: 20px;
+    padding: 20px;
+    grid-auto-flow: row;
   }
-  grid-template-columns: 1fr;
-  grid-gap: 1em;
 `;
 
 

@@ -69,4 +69,3 @@ export const JobsListQuery = graphql`
 
 
 export default JobIndexPage;
-
