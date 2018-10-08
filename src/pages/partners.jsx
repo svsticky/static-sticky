@@ -1,23 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
-import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import Partner from '../components/Partner';
-
+import React from 'react'
+import styled from 'styled-components'
+import { graphql } from 'gatsby'
+import Layout from '../components/Layout'
+import Partner from '../components/Partner'
 
 const PartnerIndexPage = ({ data }) => {
-  const partners = data.allContentfulPartner.edges;
+  const partners = data.allContentfulPartner.edges
 
   return (
     <Layout>
       <PartnerList>
-        { partners.map(partner =>
-          <Partner key={partner.node.id} partner={partner.node} />)
-        }
+        {partners.map(partner => (
+          <Partner key={partner.node.id} partner={partner.node} />
+        ))}
       </PartnerList>
     </Layout>
-  );
-};
+  )
+}
 
 const PartnerList = styled.div`
   display: grid;
@@ -26,15 +25,12 @@ const PartnerList = styled.div`
   }
   @media (min-width: 450px) {
     grid-template-columns: repeat(2, 1fr);
-    
   }
   @media (min-width: 600px) {
     grid-template-columns: repeat(3, 1fr);
-    
   }
   @media (min-width: 900px) {
     grid-template-columns: repeat(4, 1fr);
-    
   }
   @media (min-width: 1200px) {
     grid-template-columns: repeat(5, 1fr);
@@ -42,7 +38,7 @@ const PartnerList = styled.div`
 
   grid-template-columns: 1fr;
   grid-gap: 12px;
-`;
+`
 
 export const PartnerListQuery = graphql`
   query PartnerListQuery {
@@ -60,5 +56,5 @@ export const PartnerListQuery = graphql`
       }
     }
   }
-`;
-export default PartnerIndexPage;
+`
+export default PartnerIndexPage

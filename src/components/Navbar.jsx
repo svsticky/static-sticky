@@ -1,40 +1,44 @@
-import React from 'react';
-import Link from 'gatsby-link';
-import { graphql, StaticQuery } from 'gatsby';
-import styled from 'styled-components';
-import { Dropdown, Image, Menu, Container, Button } from 'semantic-ui-react';
-import logo from '../images/logo-sticky-small.png';
-
-
-
+import React from 'react'
+import Link from 'gatsby-link'
+import { graphql, StaticQuery } from 'gatsby'
+import styled from 'styled-components'
+import { Dropdown, Image, Menu, Container, Button } from 'semantic-ui-react'
+import logo from '../images/logo-sticky-small.png'
 
 class NavBar extends React.Component {
-  renderMenuItems = data => (
-    data.map((menuItem) => {
+  renderMenuItems = data =>
+    data.map(menuItem => {
       if (menuItem.node.parentPage === null) {
         return (
           <Dropdown item text={menuItem.node.title} direction="left">
             <Dropdown.Menu>
-            { this.renderMenuSubItems(data.filter(subMenuItem =>
-              subMenuItem.node.parentPage !== null &&
-              subMenuItem.node.parentPage.slug === menuItem.node.slug)) }
+              {this.renderMenuSubItems(
+                data.filter(
+                  subMenuItem =>
+                    subMenuItem.node.parentPage !== null &&
+                    subMenuItem.node.parentPage.slug === menuItem.node.slug
+                )
+              )}
             </Dropdown.Menu>
-          </Dropdown>);
+          </Dropdown>
+        )
       }
-      return null;
+      return null
     })
-  )
 
   renderMenuSubItems = subMenuItems =>
     subMenuItems.map(subMenuItem => (
-      <Dropdown.Item className="item"
+      <Dropdown.Item
+        className="item"
         key={subMenuItem.node.title}
         as={Link}
-        to={'/' + subMenuItem.node.parentPage.slug + '/' + subMenuItem.node.slug}
+        to={
+          '/' + subMenuItem.node.parentPage.slug + '/' + subMenuItem.node.slug
+        }
       >
-        <p className="item-text">{ subMenuItem.node.title }</p>
+        <p className="item-text">{subMenuItem.node.title}</p>
       </Dropdown.Item>
-    ));
+    ))
 
   render() {
     return (
@@ -45,20 +49,25 @@ class NavBar extends React.Component {
               <img src={logo} alt="Sticky logo" />
             </Image>
             <div style={{ flex: 1 }} />
-            { this.renderMenuItems(this.props.data.allContentfulPage.edges)}
+            {this.renderMenuItems(this.props.data.allContentfulPage.edges)}
             <Menu.Item className="link-item">
-              <Button href="http://koala.svsticky.nl" target="_blank" className="button">Koala</Button>
+              <Button
+                href="http://koala.svsticky.nl"
+                target="_blank"
+                className="button"
+              >
+                Koala
+              </Button>
             </Menu.Item>
           </Container>
         </Menu>
       </NavBarWrapper>
-    );
+    )
   }
 }
 
 const NavBarWrapper = styled.div`
-  &&&
-  .navbar {
+  &&& .navbar {
     background-color: #000078;
     border-radius: 0;
     .logo {
@@ -91,7 +100,6 @@ const NavBarWrapper = styled.div`
     }
   }
 `
-
 
 export default props => (
   <StaticQuery

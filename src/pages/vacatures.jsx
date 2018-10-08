@@ -1,25 +1,24 @@
-import React from 'react';
-import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import JobsList from '../components/JobsList';
-import JobFilter from '../components/JobFilter';
-
+import React from 'react'
+import { graphql } from 'gatsby'
+import Layout from '../components/Layout'
+import JobsList from '../components/JobsList'
+import JobFilter from '../components/JobFilter'
 
 class JobIndexPage extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       studiesFilter: [],
       typesFilter: [],
-    };
+    }
   }
 
-  updateStudiesFilter = (selectedStudies) => {
-    this.setState({ studiesFilter: selectedStudies });
+  updateStudiesFilter = selectedStudies => {
+    this.setState({ studiesFilter: selectedStudies })
   }
 
-  updateTypesFilter = (selectedTypes) => {
-    this.setState({ typesFilter: selectedTypes });
+  updateTypesFilter = selectedTypes => {
+    this.setState({ typesFilter: selectedTypes })
   }
 
   render() {
@@ -37,10 +36,9 @@ class JobIndexPage extends React.Component {
           typesFilter={this.state.typesFilter}
         />
       </Layout>
-    );
+    )
   }
 }
-
 
 export const JobsListQuery = graphql`
   query JobsListQuery {
@@ -65,7 +63,6 @@ export const JobsListQuery = graphql`
       }
     }
   }
-`;
+`
 
-
-export default JobIndexPage;
+export default JobIndexPage

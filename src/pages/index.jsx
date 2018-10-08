@@ -1,6 +1,5 @@
-import React from 'react';
-import Layout from '../components/Layout';
-
+import React from 'react'
+import Layout from '../components/Layout'
 
 export default () => (
   <>
@@ -8,4 +7,4 @@ export default () => (
       <h1>Homepage</h1>
     </Layout>
   </>
-);
+)
