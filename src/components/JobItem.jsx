@@ -9,7 +9,7 @@ const Job = props => (
     <Card fluid className='card'
         href={'/partners/' + props.partner.name.replace(/\W+/g, '-').toLowerCase()}>
       <Card.Content className='contentcontainer'>
-        <Image className='image' src= {props.job.partner.logo.file.url}/>
+        <Image size='small' centered className='image' src= {props.job.partner.logo.file.url}/>
         <Card.Header className='header'>{props.job.job_title}</Card.Header>
         <Card.Description className='desc'>{props.job.summary}</Card.Description>
       </Card.Content>
@@ -26,7 +26,7 @@ const JobWrapper = styled.div`
   }
   .contentcontainer{
     display: grid;
-    grid-template-rows: 175px 5% 50%;
+    grid-template-rows: 150px 5% 50%;
     grid-template-columns: 100%;
     row-gap: 5px;
     grid-auto-flow: row;

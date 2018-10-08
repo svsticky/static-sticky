@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Dropdown } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
 
 const studieFilterOptions = [
