@@ -9,7 +9,7 @@ class NavBar extends React.Component {
     data.map((menuItem) => {
       if (menuItem.node.parentPage === null) {
         return (
-          <Dropdown item text={menuItem.node.title} direction="left">
+          <Dropdown item text={menuItem.node.title} direction="left" key={menuItem.node.title}>
             <Dropdown.Menu>
             { this.renderMenuSubItems(data.filter(subMenuItem =>
               subMenuItem.node.parentPage !== null &&
