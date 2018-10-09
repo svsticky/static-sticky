@@ -1,12 +1,8 @@
 import React from 'react';
-import Link from 'gatsby-link';
-import { graphql, StaticQuery } from 'gatsby';
+import { graphql, StaticQuery, Link } from 'gatsby';
 import styled from 'styled-components';
 import { Dropdown, Image, Menu, Container, Button } from 'semantic-ui-react';
 import logo from '../images/logo-sticky-small.png';
-
-
-
 
 class NavBar extends React.Component {
   renderMenuItems = data => (
