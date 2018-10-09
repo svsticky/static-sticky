@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import JobItem from './JobItem';
-import { Card } from 'semantic-ui-react';
 
 
 const displayJobs = (studiesFilter, typesFilter, jobs) => {
