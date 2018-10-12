@@ -1,8 +1,8 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import JobsList from '../components/JobsList';
-import JobFilter from '../components/JobFilter';
+import Layout from '../../components/Layout';
+import JobsList from '../../components/JobsList';
+import JobFilter from '../../components/JobFilter';
 
 
 class JobIndexPage extends React.Component {
