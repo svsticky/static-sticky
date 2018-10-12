@@ -10,24 +10,23 @@ const PageView = ({ data }) => {
 
   return (
     <Layout>
-      <PageWrapper fluid>
-        <h1 className="title">{page.title}</h1>
-        <Markdown>
-          {page.content.content}
-        </Markdown>
+      <PageWrapper>
+        <Card fluid>
+          <Card.Content>{page.title}</Card.Content>
+          <Card.Content>
+            <Markdown>
+              {page.content.content}
+            </Markdown>
+          </Card.Content>
+        </Card>
       </PageWrapper>
     </Layout>
   );
 };
 
 
-const PageWrapper = styled(Card)`
-  padding: 1em;
-  .title {
-    margin: 0;
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid #ececec;
-  }
+const PageWrapper = styled.div`
+  padding-bottom: 3em;
 `;
 
 export default PageView;
