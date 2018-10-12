@@ -60,7 +60,7 @@ const JobFilterWrapper = styled.div`
 &&&
   .container{
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 20% 70%;
     grid-column-gap: 20px;
     grid-row-gap: 10px;

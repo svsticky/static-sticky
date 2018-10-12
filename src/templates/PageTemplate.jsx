@@ -12,7 +12,7 @@ const PageView = ({ data }) => {
     <Layout>
       <PageWrapper>
         <Card fluid>
-          <Card.Content>{page.title}</Card.Content>
+          <Card.Content><h2>{page.title}</h2></Card.Content>
           <Card.Content>
             <Markdown>
               {page.content.content}
@@ -26,7 +26,7 @@ const PageView = ({ data }) => {
 
 
 const PageWrapper = styled.div`
-  padding-bottom: 3em;
+  padding: 3em 0;
 `;
 
 export default PageView;
