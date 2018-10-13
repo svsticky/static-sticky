@@ -1,8 +1,9 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import JobsList from '../components/JobsList';
-import JobFilter from '../components/JobFilter';
+import JobsList from '../../components/JobsList';
+import JobFilter from '../../components/JobFilter';
+import ContentfulPage from '../../components/ContentfulPage'
+import Markdown from 'markdown-to-jsx'
 
 
 class JobIndexPage extends React.Component {
@@ -12,6 +13,7 @@ class JobIndexPage extends React.Component {
       studiesFilter: [],
       typesFilter: [],
     };
+    this.page = props.data.contentfulPage
   }
 
   updateStudiesFilter = (selectedStudies) => {
@@ -24,7 +26,10 @@ class JobIndexPage extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <ContentfulPage page={this.page}>
+        <Markdown>
+          {this.page.content.content}
+        </Markdown>
         <JobFilter
           updateStudiesFilter={this.updateStudiesFilter}
           studiesFilter={this.state.studiesFilter}
@@ -36,7 +41,7 @@ class JobIndexPage extends React.Component {
           studiesFilter={this.state.studiesFilter}
           typesFilter={this.state.typesFilter}
         />
-      </Layout>
+      </ContentfulPage>
     );
   }
 }
@@ -62,6 +67,12 @@ export const JobsListQuery = graphql`
             }
           }
         }
+      }
+    }
+    contentfulPage(slug: {eq: "vacatures"}) {
+      title
+      content {
+        content
       }
     }
   }
