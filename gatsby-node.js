@@ -2,6 +2,7 @@ const path = require('path')
 const slash = require('slash')
 const axios = require('axios')
 const crypto = require('crypto')
+const fs = require('fs')
 
 exports.createPages = async({ graphql, actions }) => {
   const { createPage } = actions
@@ -9,7 +10,7 @@ exports.createPages = async({ graphql, actions }) => {
   const partnerTemplate = path.resolve('src/templates/PartnerTemplate.jsx')
   const pageTemplate = path.resolve('src/templates/PageTemplate.jsx')
   const query = await graphql(`
-      query JobQuery {
+      query PagesQuery {
         allContentfulJobListing {
           edges {
             node {
@@ -37,40 +38,30 @@ exports.createPages = async({ graphql, actions }) => {
             }
           }
         }
-        allContentfulPartner {
-          edges {
-            node {
-              id
-              name
-            }
-          }
-        }
       }
     `)
+
+  function createTemplatePage(url, templatePath, id){
+    createPage({
+      path: url,
+      component: slash(templatePath),
+      context: {
+        id: id,
+      },
+    })
+  }
 
   if(query.errors){
     throw new Error(JSON.stringify(query.errors))
   }else{
     // Create jobpages
     query.data.allContentfulJobListing.edges.forEach((({ node }) => {
-      createPage({
-        path: `/vacatures/${node.slug}`,
-        component: slash(jobTemplate),
-        context: {
-          id: node.id,
-        },
-      })
+      createTemplatePage(`/vacatures/${node.slug}`, jobTemplate, node.id)
     }))
 
     // Create partnerpages
     query.data.allContentfulPartner.edges.forEach((({ node }) => {
-      createPage({
-        path: `/partners/${node.slug}`,
-        component: slash(partnerTemplate),
-        context: {
-          id: node.id,
-        },
-      })
+      createTemplatePage(`/partners/${node.slug}`, partnerTemplate, node.id)
     }))
 
     // Create general pages
@@ -81,13 +72,18 @@ exports.createPages = async({ graphql, actions }) => {
       }else{
         url = node.slug
       }
-      createPage({
-        path: `/${url}`,
-        component: slash(pageTemplate),
-        context: {
-          id: node.id,
-        },
-      })
+
+      const localPath = path.resolve('src', 'pages', url + '.jsx')
+      fs.access(localPath, (err => {
+        if(err)
+          createTemplatePage(`/${url}`, pageTemplate, node.id)
+        else
+          createPage({
+            path: `/${url}`,
+            component: slash(localPath),
+          })
+        }
+      ))
     }))
   }
 }
