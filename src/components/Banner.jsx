@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import { Card, Image } from 'semantic-ui-react';
-import { getRandom } from '../utils.jsx';
+import { getRandomSubSet } from '../utils.jsx';
 
 class Banner extends React.Component {
 
   renderLogos = allLogos => (
     <Card fluid >
       <Card.Content className="card-content">
-        {getRandom(allLogos, 5).map(logo => {
+        {getRandomSubSet(allLogos, 5).map(logo => {
           return(
             <Image className="image" key={logo.node.id} size="small" src={logo.node.image.file.url} />
           );

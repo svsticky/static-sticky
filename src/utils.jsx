@@ -1,6 +1,6 @@
 //Place here functions that can be used in different components
 
-export const getRandom = (arr, n) => {
+export const getRandomSubSet = (arr, n) => {
   const result = new Array(n);
   let len = arr.length;
   const taken = new Array(len);
