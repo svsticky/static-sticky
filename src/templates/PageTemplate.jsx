@@ -1,37 +1,19 @@
-import React from 'react';
-import Markdown from 'markdown-to-jsx';
-import styled from 'styled-components';
-import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import { Card } from 'semantic-ui-react';
+import React from 'react'
+import Markdown from 'markdown-to-jsx'
+import { graphql } from 'gatsby'
+import ContentfulPage from '../components/ContentfulPage'
 
-const PageView = ({ data }) => {
-  const page = data.contentfulPage;
+export default ({ data }) => {
+  const page = data.contentfulPage
 
   return (
-    <Layout>
-      <PageWrapper fluid>
-        <h1 className="title">{page.title}</h1>
-        <Markdown>
-          {page.content.content}
-        </Markdown>
-      </PageWrapper>
-    </Layout>
-  );
+    <ContentfulPage page={page}>
+      <Markdown>
+        {page.content.content}
+      </Markdown>
+    </ContentfulPage>
+  )
 };
-
-
-const PageWrapper = styled(Card)`
-  padding: 1em;
-  .title {
-    margin: 0;
-    padding-bottom: 0.5em;
-    border-bottom: 1px solid #ececec;
-  }
-`;
-
-export default PageView;
-
 
 export const pageQuery = graphql`
   query pageQuery($id: String!){
@@ -42,4 +24,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`;
+`
