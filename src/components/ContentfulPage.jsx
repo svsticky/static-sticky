@@ -8,10 +8,10 @@ export default ({ page, children }) => {
     <Layout>
       <PageWrapper>
         <Card fluid>
-          <Card.Content><h2>{page.title}</h2></Card.Content>
           <Card.Content>
-            {children}
+            <h2>{page.title}</h2>
           </Card.Content>
+          <Card.Content>{children}</Card.Content>
         </Card>
       </PageWrapper>
     </Layout>
@@ -20,4 +20,4 @@ export default ({ page, children }) => {
 
 const PageWrapper = styled.div`
   padding: 3em 0;
-`;
+`

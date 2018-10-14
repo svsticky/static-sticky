@@ -1,12 +1,12 @@
-import React from 'react';
-import Markdown from 'markdown-to-jsx';
-import styled from 'styled-components';
-import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import { Button, Card } from 'semantic-ui-react';
+import React from 'react'
+import Markdown from 'markdown-to-jsx'
+import styled from 'styled-components'
+import { graphql } from 'gatsby'
+import Layout from '../components/Layout'
+import { Button, Card } from 'semantic-ui-react'
 
 const JobView = ({ data }) => {
-  const job = data.contentfulJobListing;
+  const job = data.contentfulJobListing
 
   return (
     <Layout>
@@ -14,16 +14,28 @@ const JobView = ({ data }) => {
         <div className="side-info">
           <div>
             <Card className="logo-container">
-              <img src={job.partner.logo.file.url} className="partner-logo" alt="Partner Logo" />
+              <img
+                src={job.partner.logo.file.url}
+                className="partner-logo"
+                alt="Partner Logo"
+              />
             </Card>
-            { job.contactPerson && (
+            {job.contactPerson && (
               <Card className="contactperson">
                 <h3>Contact</h3>
                 <p>{job.contactPerson.name}</p>
-                <Button className="button" color="primary" href={'mailto:' + job.contactPerson.email}>
+                <Button
+                  className="button"
+                  color="primary"
+                  href={'mailto:' + job.contactPerson.email}
+                >
                   <span className="content">{job.contactPerson.email}</span>
                 </Button>
-                <Button className="button" color="primary" href={'tel:' + job.contactPerson.phone}>
+                <Button
+                  className="button"
+                  color="primary"
+                  href={'tel:' + job.contactPerson.phone}
+                >
                   {job.contactPerson.phone}
                 </Button>
               </Card>
@@ -32,15 +44,12 @@ const JobView = ({ data }) => {
         </div>
         <Card className="job-content">
           <h1>{job.job_title}</h1>
-          <Markdown>
-            {job.content.content}
-          </Markdown>
+          <Markdown>{job.content.content}</Markdown>
         </Card>
       </JobTemplateWrapper>
     </Layout>
-  );
-};
-
+  )
+}
 
 const JobTemplateWrapper = styled.div`
   display: flex;
@@ -91,15 +100,13 @@ const JobTemplateWrapper = styled.div`
   .job-content {
     padding: 1em;
   }
-`;
+`
 
-
-export default JobView;
-
+export default JobView
 
 export const jobQuery = graphql`
-  query jobQuery($id: String!){
-    contentfulJobListing(id: {eq: $id}) {
+  query jobQuery($id: String!) {
+    contentfulJobListing(id: { eq: $id }) {
       job_title
       content {
         content
@@ -123,4 +130,4 @@ export const jobQuery = graphql`
       }
     }
   }
-`;
+`

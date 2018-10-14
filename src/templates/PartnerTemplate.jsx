@@ -1,13 +1,12 @@
-import React from 'react';
-import Markdown from 'markdown-to-jsx';
-import styled from 'styled-components';
-import { graphql } from 'gatsby';
-import Layout from '../components/Layout';
-import JobItem from '../components/JobItem';
-
+import React from 'react'
+import Markdown from 'markdown-to-jsx'
+import styled from 'styled-components'
+import { graphql } from 'gatsby'
+import Layout from '../components/Layout'
+import JobItem from '../components/JobItem'
 
 const PartnerView = ({ data }) => {
-  const { contentfulPartner: partner}  = data;
+  const { contentfulPartner: partner } = data
 
   return (
     <Layout>
@@ -15,7 +14,11 @@ const PartnerView = ({ data }) => {
         <div className="info">
           <div>
             <div className="logo-container">
-              <img src={partner.logo.file.url} className="partner-logo" alt="Partner logo" />
+              <img
+                src={partner.logo.file.url}
+                className="partner-logo"
+                alt="Partner logo"
+              />
             </div>
           </div>
           <div>
@@ -27,21 +30,18 @@ const PartnerView = ({ data }) => {
         </div>
         <div className="partner-content">
           <h2>{partner.name}</h2>
-          <Markdown>
-            {partner.description.description}
-          </Markdown>
+          <Markdown>{partner.description.description}</Markdown>
           <h2> Vacatures </h2>
           <div className="partner-joblist">
-            { partner.job_listing.map(jobListing =>
-              <JobItem key={jobListing.id} job={jobListing} partner={partner} />)
-            }
+            {partner.job_listing.map(jobListing => (
+              <JobItem key={jobListing.id} job={jobListing} partner={partner} />
+            ))}
           </div>
         </div>
       </PartnerTemplateWrapper>
     </Layout>
-  );
-};
-
+  )
+}
 
 const PartnerTemplateWrapper = styled.div`
   display: flex;
@@ -70,24 +70,22 @@ const PartnerTemplateWrapper = styled.div`
   .partner-content: {
     margin: 0 0.5em;
   }
-  
+
   .partner-joblist {
     margin: 0px 0.5em;
   }
-`;
+`
 
-
-export default PartnerView;
-
+export default PartnerView
 
 export const PartnerQuery = graphql`
   query PartnerQuery($id: String!) {
-    contentfulPartner(id: {eq: $id}) {
+    contentfulPartner(id: { eq: $id }) {
       id
       name
       website
       description {
-          description
+        description
       }
 
       logo {
@@ -104,11 +102,11 @@ export const PartnerQuery = graphql`
         partner {
           logo {
             file {
-                url
+              url
             }
           }
         }
       }
     }
   }
-`;
+`

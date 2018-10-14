@@ -36,10 +36,18 @@
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^1.8.0",
+    "husky": "^1.1.1",
+    "precise-commits": "^1.0.2",
     "prettier": "^1.14.2"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/svsticky/static-sticky"
+  },
+  "husky": {
+    "hooks": {
+      "//": "Best thing i could find that worked on WSL with the Git from Windows",
+      "pre-commit": "node node_modules/precise-commits/bin/index.js"
+    }
   }
 }

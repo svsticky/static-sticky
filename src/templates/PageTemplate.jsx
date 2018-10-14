@@ -8,16 +8,14 @@ export default ({ data }) => {
 
   return (
     <ContentfulPage page={page}>
-      <Markdown>
-        {page.content.content}
-      </Markdown>
+      <Markdown>{page.content.content}</Markdown>
     </ContentfulPage>
   )
-};
+}
 
 export const pageQuery = graphql`
-  query pageQuery($id: String!){
-    contentfulPage(id: {eq: $id}) {
+  query pageQuery($id: String!) {
+    contentfulPage(id: { eq: $id }) {
       title
       content {
         content
