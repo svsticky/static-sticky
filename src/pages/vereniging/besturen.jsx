@@ -1,19 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
-import Layout from '../../components/Layout';
 import Board from '../../components/Board';
+import ContentfulPage from '../../components/ContentfulPage';
+import Markdown from 'markdown-to-jsx';
 
 
 const Bestuur = (props) => {
   const boards = props.data.allContentfulBoard.edges;
+  const page = props.data.contentfulPage;
   return (
-    <Layout>
+    <ContentfulPage page={page}>
+      <Markdown>
+        {page.content.content}
+      </Markdown>
       <BoardsList>
         {boards.map(board =>
           <Board key={board.node.id} board={board.node} />)}
       </BoardsList>
-    </Layout>
+    </ContentfulPage>
   );
 };
 
@@ -50,6 +55,12 @@ export const BoardsQuery = graphql`
             }
           }
         }
+      }
+    }
+    contentfulPage(slug: {eq: "besturen"}) {
+      title
+      content {
+        content
       }
     }
   }
