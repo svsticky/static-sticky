@@ -48,8 +48,7 @@ const JobsList = styled.div`
    &&&
   .container{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-columns: 1fr;
     grid-gap: 20px;
     padding: 20px;
     grid-auto-flow: row;
