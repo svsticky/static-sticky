@@ -21,7 +21,7 @@ const Partner = ({ partner }) => (
 const PartnerLogo = styled.div`
   .card{
     display: flex;
-    height: 100%
+    height: 100%;
   }
   .logo-container {
     display: flex;
