@@ -1,18 +1,15 @@
 import React from 'react'
 import Layout from './Layout'
 import styled from 'styled-components'
-import { Card } from 'semantic-ui-react'
 
 export default ({ page, children }) => {
   return (
     <Layout>
       <PageWrapper>
-        <Card fluid>
-          <Card.Content>
-            <h2>{page.title}</h2>
-          </Card.Content>
-          <Card.Content>{children}</Card.Content>
-        </Card>
+        <div>
+          <h2 className="title">{page.title}</h2>
+        </div>
+        <div>{children}</div>
       </PageWrapper>
     </Layout>
   )
@@ -20,4 +17,8 @@ export default ({ page, children }) => {
 
 const PageWrapper = styled.div`
   padding: 3em 0;
+  .title{
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
 `
