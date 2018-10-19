@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const Board = ({ board }) => (
   <BoardCard color={board.color}>
-    <h3>{board.number}e bestuur</h3>
+    <h3><a href={'/besturen/' + board.slug.replace(/\W+/g, '-').toLowerCase()}>{board.number}e bestuur</a></h3>
     {board.years}
   </BoardCard>
 )

@@ -24,6 +24,7 @@ const Bestuur = (props) => {
 
 
 const BoardsList = styled.div`
+  margin-top: 10pt;
   display: grid;
   @media (min-width: 990px) {
     grid-template-columns: repeat(3, 1fr);
@@ -44,6 +45,7 @@ export const BoardsQuery = graphql`
       edges {
         node {
           id
+          slug
           years
           number
           motto
