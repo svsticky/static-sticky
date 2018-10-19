@@ -57,7 +57,7 @@ class NavBar extends React.Component {
           <Grid>
             <Grid.Row>
               <Grid.Column width={12}>
-                <p class="item-text icon-item-text">{externMenuItem.title} &emsp;&emsp;</p>
+                <p class="item-text icon-item-text">{externMenuItem.title}</p>
               </Grid.Column>
               <Grid.Column>
                 <i class="item-text icon external" />
@@ -124,7 +124,7 @@ const NavBarWrapper = styled.div`
         color: #000078;
       }
       .icon-item-text {
-        padding-right: 5pt;
+        padding-right: 20pt;
       }
     }
     .link-item {
