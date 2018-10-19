@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, StaticQuery } from 'gatsby'
 import Board from '../../components/Board';
 import ContentfulPage from '../../components/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
@@ -37,9 +37,9 @@ const BoardsList = styled.div`
 `;
 
 
-export const BoardsQuery = graphql`
+const BoardsQuery = graphql`
   query BoardsQuery {
-    allContentfulBoard(sort: {fields: [number], order: DESC}) {
+    allContentfulBoard(sort: { fields: [number], order: DESC }) {
       edges {
         node {
           id
@@ -56,14 +56,18 @@ export const BoardsQuery = graphql`
         }
       }
     }
-    contentfulPage(slug: {eq: "besturen"}) {
+    contentfulPage(slug: { eq: "besturen" }) {
       title
       content {
         content
       }
     }
   }
-`;
+`
 
-
-export default BoardPage
+export default props => (
+  <StaticQuery
+    query={BoardsQuery}
+    render={data => <BoardPage data={data} {...props} />}
+  />
+)

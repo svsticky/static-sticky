@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, StaticQuery } from 'gatsby'
 import JobsList from '../../components/JobsList';
 import JobFilter from '../../components/JobFilter';
 import ContentfulPage from '../../components/ContentfulPage'
@@ -47,7 +47,7 @@ class JobIndexPage extends React.Component {
 }
 
 
-export const JobsListQuery = graphql`
+const JobsListQuery = graphql`
   query JobsListQuery {
     allContentfulJobListing {
       edges {
@@ -69,14 +69,18 @@ export const JobsListQuery = graphql`
         }
       }
     }
-    contentfulPage(slug: {eq: "vacatures"}) {
+    contentfulPage(slug: { eq: "vacatures" }) {
       title
       content {
         content
       }
     }
   }
-`;
+`
 
-
-export default JobIndexPage;
+export default props => (
+  <StaticQuery
+    query={JobsListQuery}
+    render={data => <JobIndexPage data={data} {...props} />}
+  />
+)

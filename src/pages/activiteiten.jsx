@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, StaticQuery } from 'gatsby'
 import Layout from '../components/Layout'
 
 const Activities = ({ data }) => {
@@ -24,7 +24,7 @@ const Activities = ({ data }) => {
   )
 }
 
-export const ActivitiesQuery = graphql`
+const ActivitiesQuery = graphql`
   query ActivitiesQuery {
     allActivity {
       edges {
@@ -42,4 +42,9 @@ export const ActivitiesQuery = graphql`
   }
 `
 
-export default Activities
+export default props => (
+  <StaticQuery
+    query={ActivitiesQuery}
+    render={data => <Activities data={data} {...props} />}
+  />
+)
