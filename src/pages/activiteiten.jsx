@@ -2,7 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 
-const Activiteiten = ({ data }) => {
+const Activities = ({ data }) => {
   const activiteiten = data.allActivity.edges
   return (
     <Layout>
@@ -42,4 +42,4 @@ export const ActivitiesQuery = graphql`
   }
 `
 
-export default Activiteiten
+export default Activities

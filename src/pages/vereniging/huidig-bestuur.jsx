@@ -1,11 +1,11 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 
-const HuidigBestuur = () => (
+const CurrentBoard = () => (
   <Layout>
     <h1>TODO</h1>
   </Layout>
 );
 
 
-export default HuidigBestuur;
+export default CurrentBoard;

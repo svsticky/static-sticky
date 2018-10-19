@@ -6,7 +6,7 @@ import ContentfulPage from '../../components/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 
 
-const Bestuur = (props) => {
+const BoardPage = (props) => {
   const boards = props.data.allContentfulBoard.edges;
   const page = props.data.contentfulPage;
   return (
@@ -67,4 +67,4 @@ export const BoardsQuery = graphql`
 `;
 
 
-export default Bestuur;
+export default BoardPage;
