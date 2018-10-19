@@ -6,21 +6,20 @@ import ContentfulPage from '../../components/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 
 
-const BoardPage = (props) => {
-  const boards = props.data.allContentfulBoard.edges;
-  const page = props.data.contentfulPage;
+const BoardPage = props => {
+  const boards = props.data.allContentfulBoard.edges
+  const page = props.data.contentfulPage
   return (
     <ContentfulPage page={page}>
-      <Markdown>
-        {page.content.content}
-      </Markdown>
+      <Markdown>{page.content.content}</Markdown>
       <BoardsList>
-        {boards.map(board =>
-          <Board key={board.node.id} board={board.node} />)}
+        {boards.map(board => (
+          <Board key={board.node.id} board={board.node} />
+        ))}
       </BoardsList>
     </ContentfulPage>
-  );
-};
+  )
+}
 
 
 const BoardsList = styled.div`
@@ -67,4 +66,4 @@ export const BoardsQuery = graphql`
 `;
 
 
-export default BoardPage;
+export default BoardPage

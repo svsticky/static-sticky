@@ -5,7 +5,7 @@ const CurrentBoard = () => (
   <Layout>
     <h1>TODO</h1>
   </Layout>
-);
+)
 
 
-export default CurrentBoard;
+export default CurrentBoard

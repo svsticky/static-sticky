@@ -5,7 +5,7 @@ const Disputes = () => (
   <Layout>
     <h1>TODO</h1>
   </Layout>
-);
+)
 
 
-export default Disputes;
+export default Disputes
