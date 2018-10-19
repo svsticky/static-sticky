@@ -1,0 +1,7 @@
+{
+    "extern": [
+        {"title":"Boekverkoop", "url":"https://sticky.itdepartment.nl"},
+        {"title":"ODC Informatica", "url":"http://www.cs.uu.nl/docs/committees/odc/"},
+        {"title":"SODI", "url": "https://sodi.nl/"}
+    ]
+}

@@ -1,8 +1,9 @@
 import React from 'react'
 import { graphql, StaticQuery, Link } from 'gatsby'
 import styled from 'styled-components'
-import { Dropdown, Image, Menu, Container, Button } from 'semantic-ui-react'
+import { Dropdown, Image, Menu, Container, Button, Grid } from 'semantic-ui-react'
 import logo from '../images/logo-sticky-small.png'
+import data from '../data/menu.json'
 
 class NavBar extends React.Component {
   renderMenuItems = data =>
@@ -44,6 +45,29 @@ class NavBar extends React.Component {
       </Dropdown.Item>
     ))
 
+  renderexternMenuItems = externMenuItems =>
+    externMenuItems.map(externMenuItem => {
+      return (
+        <Dropdown.Item
+          className="item"
+          key={externMenuItem.title}
+          href={externMenuItem.url}
+          target="_blank"
+        >
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={12}>
+                <p class="item-text icon-item-text">{externMenuItem.title} &emsp;&emsp;</p>
+              </Grid.Column>
+              <Grid.Column>
+                <i class="item-text icon external" />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Dropdown.Item>
+      )
+    })
+
   render() {
     return (
       <NavBarWrapper>
@@ -54,6 +78,16 @@ class NavBar extends React.Component {
             </Image>
             <div style={{ flex: 1 }} />
             {this.renderMenuItems(this.props.data.allContentfulPage.edges)}
+            <Dropdown
+              item
+                text="Extern"
+                direction="left"
+                key="extern"
+            >
+              <Dropdown.Menu>
+                {this.renderexternMenuItems(data.extern)}
+              </Dropdown.Menu>
+            </Dropdown>
             <Menu.Item className="link-item">
               <Button
                 href="http://koala.svsticky.nl"
@@ -88,6 +122,9 @@ const NavBarWrapper = styled.div`
       }
       .item-text {
         color: #000078;
+      }
+      .icon-item-text {
+        padding-right: 5pt;
       }
     }
     .link-item {
