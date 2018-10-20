@@ -48,7 +48,7 @@ const showButton = board => {
   if(board.number === 1){
    return(next)
   }
-  if(board.number === 12){ //TODO: based on current boardnumber
+  if(board.number === 13){ //TODO: based on current boardnumber
   return(prev)
   }
   return(
@@ -60,7 +60,7 @@ const showButton = board => {
 }
 
 const BoardTemplateWrapper = styled.div`
-  padding: 10pt;
+  padding: 1em;
   .border {
     border: 3px
     ${props => (props.color ? `solid ${props.color}` : 'dashed #efefef')};
@@ -68,7 +68,7 @@ const BoardTemplateWrapper = styled.div`
     padding: 5px;
   }
   .image {
-    margin-right: 10pt;
+    margin-right: 1em;
   }
   .text {
     padding: 5px;
@@ -82,7 +82,7 @@ const BoardTemplateWrapper = styled.div`
     font-weight: bold;
   }
   .button-group {
-    margin-top: 10pt;
+    margin-top: 1em;
   }
   .button {
     background-color: #000078;

@@ -14,14 +14,36 @@ const Bestuur = (props) => {
       <Markdown>
         {page.content.content}
       </Markdown>
+      <CurrentBoard>
+        {getCurrentBoard(boards)}
+      </CurrentBoard>
       <BoardsList>
-        {boards.map(board =>
-          <Board key={board.node.id} board={board.node} />)}
+        {getOldBoards(boards)}
       </BoardsList>
     </ContentfulPage>
   );
 };
 
+const getCurrentBoard = boards => {
+  const currentBoard = boards[0]
+
+  return (
+    <Board key={currentBoard.node.id} board={currentBoard.node}/>
+  )
+}
+
+const getOldBoards = boards => {
+  const oldBoards = boards.filter(board => boards.indexOf(board) !== 0)
+
+  return (
+    oldBoards.map(board =>
+      <Board key={board.node.id} board={board.node}/>)
+  )
+}
+
+const CurrentBoard = styled.div`
+
+`
 
 const BoardsList = styled.div`
   margin-top: 10pt;
