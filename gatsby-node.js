@@ -43,7 +43,7 @@ exports.createPages = async({ graphql, actions }) => {
           edges {
             node {
               id
-              slug
+              number
             }
           }
         }
@@ -75,7 +75,7 @@ exports.createPages = async({ graphql, actions }) => {
 
     // Create boardpages
     query.data.allContentfulBoard.edges.forEach((({ node }) => {
-      createTemplatePage(`besturen/${node.slug}`, boardTemplate, node.id)
+      createTemplatePage(`besturen/${node.number}`, boardTemplate, node.id)
     }))
 
     // Create general pages
