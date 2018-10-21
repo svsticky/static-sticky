@@ -15,8 +15,10 @@ const Bestuur = (props) => {
         {page.content.content}
       </Markdown>
       <CurrentBoard>
+        <h3>Het huidig bestuur</h3>
         {getCurrentBoard(boards)}
       </CurrentBoard>
+      <h3>Oud besturen</h3>
       <BoardsList>
         {getOldBoards(boards)}
       </BoardsList>
@@ -42,11 +44,12 @@ const getOldBoards = boards => {
 }
 
 const CurrentBoard = styled.div`
+  margin-top: 1em;
 
 `
 
 const BoardsList = styled.div`
-  margin-top: 10pt;
+  margin-top: 1em;
   display: grid;
   @media (min-width: 990px) {
     grid-template-columns: repeat(3, 1fr);
@@ -57,7 +60,7 @@ const BoardsList = styled.div`
   @media (max-width: 560px) {
     grid-template-columns: 1fr;
   }
-  grid-gap: 12px;
+  grid-gap: 1em;
 `;
 
 
@@ -67,7 +70,6 @@ export const BoardsQuery = graphql`
       edges {
         node {
           id
-          slug
           years
           number
           motto

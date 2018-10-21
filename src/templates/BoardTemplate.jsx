@@ -40,10 +40,10 @@ const BoardView = ({ data }) => {
 const showButton = board => {
 
   const prev = <Button labelPosition="left" icon="left chevron" content="vorig bestuur"
-                       href={'/besturen/bestuur' + (board.number-1)} className="button"/>
+                       href={'/besturen/' + (board.number-1)} className="button"/>
 
   const next = <Button labelPosition="right" icon="right chevron" content="volgend bestuur"
-                       href={'/besturen/bestuur' + (board.number+1)} className="button"/>
+                       href={'/besturen/' + (board.number+1)} className="button"/>
 
   if(board.number === 1){
    return(next)
