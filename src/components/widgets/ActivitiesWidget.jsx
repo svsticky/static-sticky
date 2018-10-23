@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
+import styled from 'styled-components';
+import Activity from '../Activity';
 
 export default class ActivitiesWidget extends Component {
   constructor() {
@@ -14,19 +15,33 @@ export default class ActivitiesWidget extends Component {
   }
 
   async componentDidMount() {
-    const activities = await axios.get('https://koala.svsticky.nl/api/activities');
+    const activities = await fetch('https://koala.svsticky.nl/api/activities');
+    const activitiesJSON = await activities.json();
     this.setState({
       loading: false,
-      activities
+      activities: activitiesJSON
     });
-    console.log(activities);
+    console.log(activitiesJSON);
+  }
+
+  renderActivities = (activities) => {
+    return(
+      activities.map(activity => <Activity activity={activity} key={activity.name}/>)
+    )
   }
 
   render() {
     return(
-      <div>
-        { this.state.loading ? <p>Loading activities...</p> : <p>Activities loaded!</p> }
-        ActivitiesWidget</div>
+      <ActivitiesWidgetWrapper>
+        { this.state.loading ? <p>Loading activities...</p> : this.renderActivities(this.state.activities) }
+      </ActivitiesWidgetWrapper>
     )
   }
 }
+
+const ActivitiesWidgetWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 2em;
+  grid-row-gap: 0.5em;
+`;
