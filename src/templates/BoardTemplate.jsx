@@ -10,16 +10,17 @@ const BoardView = ({ data }) => {
   return(
     <Layout>
       <BoardTemplateWrapper color={board.color}>
-        <div className="border">
+        <div>
           <div>
-            <h3 className="text">{board.name}. {board.motto}</h3>
+            <h3 className="header">{buildHeader(board)}</h3>
           </div>
           <div>
-            <p className="text">{board.years}</p>
+            <p className="motto">O.d.z "{board.motto}"</p>
+            <p>{board.years}</p>
           </div>
           <div className="photo-members">
             <div>
-            <Image size="medium" src={board.photo.file.url} />
+            <Image rounded size="medium" src={board.photo.file.url} />
             </div>
             <div>
             <p>Bestuursleden:</p>
@@ -37,7 +38,14 @@ const BoardView = ({ data }) => {
   )
 }
 
-const showButton = board => {
+const buildHeader = (board) => {
+  if(board.current){
+    return("Huidig " + board.name)
+  }
+  return(board.name)
+}
+
+const showButton = (board) => {
 
   const prev = <Button labelPosition="left" icon="left chevron" content="vorig bestuur"
                        href={'/besturen/' + (board.number-1)} className="button"/>
@@ -48,7 +56,7 @@ const showButton = board => {
   if(board.number === 1){
    return(next)
   }
-  if(board.number === 13){ //TODO: based on current boardnumber
+  if(board.current){
   return(prev)
   }
   return(
@@ -61,17 +69,16 @@ const showButton = board => {
 
 const BoardTemplateWrapper = styled.div`
   padding: 1em;
-  .border {
-    border: 3px
-    ${props => (props.color ? `solid ${props.color}` : 'dashed #efefef')};
-    border-radius: 5px;
-    padding: 5px;
+  .header {
+    color: ${props => (props.color ? props.color : '#000')};
+    border-bottom: 1px solid #ddd;
   }
   .image {
     margin-right: 1em;
   }
-  .text {
-    padding: 5px;
+  .motto {
+    margin-top: 1em;
+    font-style: italic;
   }
   .photo-members {
     display: flex;
@@ -100,6 +107,7 @@ export const boardQuery = graphql`
           motto
           members
           color
+          current
           photo {
             file {
               url

@@ -26,7 +26,7 @@ const Bestuur = (props) => {
   );
 };
 
-const getCurrentBoard = boards => {
+const getCurrentBoard = (boards) => {
   const currentBoard = boards[0]
 
   return (
@@ -34,7 +34,7 @@ const getCurrentBoard = boards => {
   )
 }
 
-const getOldBoards = boards => {
+const getOldBoards = (boards) => {
   const oldBoards = boards.filter(board => boards.indexOf(board) !== 0)
 
   return (
