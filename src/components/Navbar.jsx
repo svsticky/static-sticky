@@ -3,7 +3,7 @@ import { graphql, StaticQuery, Link } from 'gatsby'
 import styled from 'styled-components'
 import { Dropdown, Image, Menu, Container, Button, Grid } from 'semantic-ui-react'
 import logo from '../images/logo-sticky-small.png'
-import data from '../data/menu.json'
+import menu from '../data/menu.json'
 
 class NavBar extends React.Component {
   renderMenuItems = data =>
@@ -24,6 +24,7 @@ class NavBar extends React.Component {
                     subMenuItem.node.parentPage.slug === menuItem.node.slug
                 )
               )}
+              {this.renderExternMenuItems(menu[menuItem.node.slug])}
             </Dropdown.Menu>
           </Dropdown>
         )
@@ -45,9 +46,8 @@ class NavBar extends React.Component {
       </Dropdown.Item>
     ))
 
-  renderexternMenuItems = externMenuItems =>
-    externMenuItems.map(externMenuItem => {
-      return (
+  renderExternMenuItems = externMenuItems => 
+    externMenuItems.map(externMenuItem => (
         <Dropdown.Item
           className="item"
           key={externMenuItem.title}
@@ -66,7 +66,8 @@ class NavBar extends React.Component {
           </Grid>
         </Dropdown.Item>
       )
-    })
+    )
+
 
   render() {
     return (
@@ -85,7 +86,7 @@ class NavBar extends React.Component {
                 key="extern"
             >
               <Dropdown.Menu>
-                {this.renderexternMenuItems(data.extern)}
+                {this.renderExternMenuItems(menu.extern)}
               </Dropdown.Menu>
             </Dropdown>
             <Menu.Item className="link-item">
