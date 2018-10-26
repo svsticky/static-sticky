@@ -14,8 +14,8 @@ const Bestuur = (props) => {
       <Markdown>
         {page.content.content}
       </Markdown>
-      <CurrentBoard>
-        <h3>Het huidig bestuur</h3>
+      <h3>Het huidig bestuur</h3>
+      <CurrentBoard>        
         {getCurrentBoard(boards)}
       </CurrentBoard>
       <h3>Oud besturen</h3>
@@ -45,7 +45,17 @@ const getOldBoards = (boards) => {
 
 const CurrentBoard = styled.div`
   margin-top: 1em;
-
+  display: grid;
+  @media (min-width: 990px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 990px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+  }
+  grid-gap: 1em;
 `
 
 const BoardsList = styled.div`

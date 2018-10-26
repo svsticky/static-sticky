@@ -5,7 +5,7 @@ import { Card, Image } from 'semantic-ui-react'
 const Board = ({ board }) => (
   <BoardCard color={board.color}>
     <div className="card">
-    <Card href={'/besturen/' + board.number}>
+    <Card fluid href={'/besturen/' + board.number}>
       <Card.Content>
         <h3 className="head">{board.number}e bestuur</h3>
         <p>{board.years}</p>
