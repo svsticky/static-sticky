@@ -9,6 +9,7 @@ exports.createPages = async({ graphql, actions }) => {
   const jobTemplate = path.resolve('src/templates/JobTemplate.jsx')
   const partnerTemplate = path.resolve('src/templates/PartnerTemplate.jsx')
   const pageTemplate = path.resolve('src/templates/PageTemplate.jsx')
+  const newsTemplate = path.resolve('src/templates/NewsTemplate.jsx')
   const query = await graphql(`
       query PagesQuery {
         allContentfulJobListing {
@@ -38,6 +39,14 @@ exports.createPages = async({ graphql, actions }) => {
             }
           }
         }
+        allContentfulNewsArticles {
+          edges {
+            node {
+              id
+              slug
+            }
+          }
+        }
       }
     `)
 
@@ -62,6 +71,10 @@ exports.createPages = async({ graphql, actions }) => {
     // Create partnerpages
     query.data.allContentfulPartner.edges.forEach((({ node }) => {
       createTemplatePage(`/partners/${node.slug}`, partnerTemplate, node.id)
+    }))
+
+    query.data.allContentfulNewsArticles.edges.forEach((({ node }) => {
+      createTemplatePage(`/news/${node.slug}`, newsTemplate, node.id)
     }))
 
     // Create general pages
