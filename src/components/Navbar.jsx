@@ -72,7 +72,7 @@ class NavBar extends React.Component {
 
 const NavBarWrapper = styled.div`
   &&& .navbar {
-    background-color: #000078;
+    background-color: #20730d;
     border-radius: 0;
     .logo {
       margin: 0.5em;
@@ -84,19 +84,19 @@ const NavBarWrapper = styled.div`
       color: white;
       &:hover {
         background-color: white;
-        color: #000078;
+        color: #20730d;
       }
       .item-text {
-        color: #000078;
+        color: #20730d;
       }
     }
     .link-item {
       &:hover {
-        background-color: #000078;
+        background-color: #20730d;
       }
       .button {
         background-color: white;
-        color: #000078;
+        color: #20730d;
         &:hover {
           background-color: lightgrey;
         }
