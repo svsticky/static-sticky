@@ -1,26 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, StaticQuery } from 'gatsby'
 import Board from '../../components/Board';
 import ContentfulPage from '../../components/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 
 
-const Bestuur = (props) => {
-  const boards = props.data.allContentfulBoard.edges;
-  const page = props.data.contentfulPage;
+const BoardPage = props => {
+  const boards = props.data.allContentfulBoard.edges
+  const page = props.data.contentfulPage
   return (
     <ContentfulPage page={page}>
-      <Markdown>
-        {page.content.content}
-      </Markdown>
+      <Markdown>{page.content.content}</Markdown>
       <BoardsList>
-        {boards.map(board =>
-          <Board key={board.node.id} board={board.node} />)}
+        {boards.map(board => (
+          <Board key={board.node.id} board={board.node} />
+        ))}
       </BoardsList>
     </ContentfulPage>
-  );
-};
+  )
+}
 
 
 const BoardsList = styled.div`
@@ -38,9 +37,9 @@ const BoardsList = styled.div`
 `;
 
 
-export const BoardsQuery = graphql`
+const BoardsQuery = graphql`
   query BoardsQuery {
-    allContentfulBoard(sort: {fields: [number], order: DESC}) {
+    allContentfulBoard(sort: { fields: [number], order: DESC }) {
       edges {
         node {
           id
@@ -57,14 +56,18 @@ export const BoardsQuery = graphql`
         }
       }
     }
-    contentfulPage(slug: {eq: "besturen"}) {
+    contentfulPage(slug: { eq: "besturen" }) {
       title
       content {
         content
       }
     }
   }
-`;
+`
 
-
-export default Bestuur;
+export default props => (
+  <StaticQuery
+    query={BoardsQuery}
+    render={data => <BoardPage data={data} {...props} />}
+  />
+)
