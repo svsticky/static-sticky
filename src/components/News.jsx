@@ -5,13 +5,15 @@ import { graphql, StaticQuery } from 'gatsby'
 class News extends React.Component {
 
   renderNewsItems = allItems => (
-    <div className="news-container">
+    <div>
       {allItems.map(item => {
         return(
-          <div>
-            <h3>{item.node.title}</h3>
+          <div key={item.node.id}>
+            <h3><a href={'/news/' + item.node.slug}>{item.node.title}</a></h3>
             <p>{item.node.dateOfPublishing}</p>
-            <p className="content">{item.node.content.content.slice(0,300)}...</p>
+            <p className="content">
+              {item.node.content.content.slice(0,300)}...
+              <a href={'/news/' + item.node.slug}>lees verder</a></p>
           </div>
         )
       })}
@@ -21,17 +23,14 @@ class News extends React.Component {
   render(){
     return(
       <NewsWrapper>
-        {this.renderNewsItems(this.props.data.allContentfulNewsArcticles.edges)}
+        {this.renderNewsItems(this.props.data.allContentfulNewsArticles.edges)}
       </NewsWrapper>
     );
 
   }
 }
 
-const NewsWrapper = styled.div`
-  .news-container {
-
-  }
+export const NewsWrapper = styled.div`
   .content {
     margin-bottom: 1em;
     border-bottom: 1px solid #ddd;
@@ -42,11 +41,12 @@ export default props => (
   <StaticQuery
     query={graphql`
       query {
-        allContentfulNewsArcticles{
+        allContentfulNewsArticles{
   	       edges{
              node {
                id
                title
+               slug
                dateOfPublishing
                content{
                  content
