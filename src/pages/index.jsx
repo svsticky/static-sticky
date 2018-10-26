@@ -25,7 +25,6 @@ const Index = (props) => {
 
 export const IndexWrapper = styled.div`
   &&&
-
   .container {
     display: grid;
     grid-template-columns: 33% 33% 33%;
