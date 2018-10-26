@@ -4,6 +4,7 @@
     ],
     "vereniging": [],
     "carriere": [],
+    "disputen": [],
     "extern": [
         {"title":"ODC Informatica", "url":"http://www.cs.uu.nl/docs/committees/odc/"},
         {"title":"SODI", "url": "https://sodi.nl/"}
