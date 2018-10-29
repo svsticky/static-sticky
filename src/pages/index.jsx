@@ -6,10 +6,12 @@ import News from '../components/News'
 import Drinks from '../components/Drinks'
 import FeaturedJobs from '../components/FeaturedJobs'
 
-const Index = prop => {  
+const Index = (props) => {
+
   return(
     <Layout>
       <IndexWrapper>
+        <h1>Homepage</h1>
         <div className="container">
           <div className="banner">
             <Banner />
@@ -46,6 +48,12 @@ export const IndexWrapper = styled.div`
   }
   .news {
     grid-area: news;
+  }
+  .drinks {
+    grid-area: drinks;
+  }
+  .jobs {
+    grid-area: jobs;
   }
 `
 
