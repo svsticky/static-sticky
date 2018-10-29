@@ -11,32 +11,32 @@ exports.createPages = async({ graphql, actions }) => {
   const pageTemplate = path.resolve('src/templates/PageTemplate.jsx')
   const boardTemplate = path.resolve('src/templates/BoardTemplate.jsx')
   const newsTemplate = path.resolve('src/templates/NewsTemplate.jsx')
+  const disputeTemplate = path.resolve(`src/templates/DisputeTemplate.jsx`)
   const query = await graphql(`
-      query PagesQuery {
-        allContentfulJobListing {
-          edges {
-            node {
-              id
-              slug
-            }
+    query PagesQuery {
+      allContentfulJobListing {
+        edges {
+          node {
+            id
+            slug
           }
         }
-        allContentfulPartner {
-          edges {
-            node {
-              id
-              slug
-            }
+      }
+      allContentfulPartner {
+        edges {
+          node {
+            id
+            slug
           }
         }
-        allContentfulPage {
-          edges {
-            node {
-              id
+      }
+      allContentfulPage {
+        edges {
+          node {
+            id
+            slug
+            parentPage {
               slug
-              parentPage {
-                slug
-              }
             }
           }
         }
@@ -57,7 +57,16 @@ exports.createPages = async({ graphql, actions }) => {
           }
         }
       }
-    `)
+      allContentfulDispute {
+        edges {
+          node {
+            id
+            slug
+          }
+        }
+      }
+    }
+  `)
 
   function createTemplatePage(url, templatePath, id){
     createPage({
@@ -112,6 +121,10 @@ exports.createPages = async({ graphql, actions }) => {
         }
       ))
     }))
+
+    query.data.allContentfulDispute.edges.forEach(({ node }) => {
+      createTemplatePage(`/disputen/${node.slug}`, disputeTemplate, node.id)
+    })
   }
 }
 
