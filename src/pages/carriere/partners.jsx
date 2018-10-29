@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, StaticQuery } from 'gatsby'
 import Partner from '../../components/Partner';
 import ContentfulPage from '../../components/ContentfulPage'
 import Markdown from 'markdown-to-jsx'
@@ -45,6 +45,7 @@ export const PartnerListQuery = graphql`
         node {
           id
           name
+          slug
           logo {
             file {
               url
@@ -53,12 +54,18 @@ export const PartnerListQuery = graphql`
         }
       }
     }
-    contentfulPage(slug: {eq: "partners"}) {
+    contentfulPage(slug: { eq: "partners" }) {
       title
-      content{
+      content {
         content
       }
     }
   }
-`;
-export default PartnerIndexPage;
+`
+
+export default props => (
+  <StaticQuery
+    query={PartnerListQuery}
+    render={data => <PartnerIndexPage data={data} {...props} />}
+  />
+)

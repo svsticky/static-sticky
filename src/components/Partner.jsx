@@ -4,15 +4,20 @@ import { Card, Image } from 'semantic-ui-react';
 
 const Partner = ({ partner }) => (
   <PartnerLogo>
-    <Card fluid className="card" color="grey"
-          href={'/partners/' + partner.name.replace(/\W+/g, '-').toLowerCase()}>
+    <Card
+      fluid
+      className="card"
+      color="grey"
+      href={'/partners/' + partner.slug}
+    >
       <Card.Content className="logo-container">
-      <Image
-        centered
-        size="small"
-        className="logo"
-        src={partner.logo.file.url}
-        alt="Partner logo"/>
+        <Image
+          centered
+          size="small"
+          className="logo"
+          src={partner.logo.file.url}
+          alt="Partner logo"
+        />
       </Card.Content>
     </Card>
   </PartnerLogo>

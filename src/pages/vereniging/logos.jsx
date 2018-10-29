@@ -8,7 +8,6 @@ const Logos = () => (
     Studievereniging Sticky en activiteiten die worden georganiseerd door Studievereniging Sticky.
     </p>
   </Layout>
-
 );
 
 

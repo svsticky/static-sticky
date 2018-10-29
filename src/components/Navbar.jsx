@@ -1,31 +1,27 @@
 import React from 'react'
 import { graphql, StaticQuery, Link } from 'gatsby'
 import styled from 'styled-components'
-import { Dropdown, Image, Menu, Container, Button } from 'semantic-ui-react'
+import {
+  Dropdown,
+  Image,
+  Menu,
+  Container,
+  Button,
+  Grid,
+} from 'semantic-ui-react'
 import logo from '../images/logo-sticky-small.png'
+import menu from '../data/menu.json'
 
 class NavBar extends React.Component {
   renderMenuItems = data =>
     data.map(menuItem => {
       if (menuItem.node.parentPage === null) {
-        return (
-          <Dropdown
-            item
-            text={menuItem.node.title}
-            direction="left"
-            key={menuItem.node.title}
-          >
+        return <Dropdown item text={menuItem.node.title} direction="left" key={menuItem.node.title}>
             <Dropdown.Menu>
-              {this.renderMenuSubItems(
-                data.filter(
-                  subMenuItem =>
-                    subMenuItem.node.parentPage !== null &&
-                    subMenuItem.node.parentPage.slug === menuItem.node.slug
-                )
-              )}
+              {this.renderMenuSubItems(data.filter(subMenuItem => subMenuItem.node.parentPage !== null && subMenuItem.node.parentPage.slug === menuItem.node.slug))}
+              {this.renderExternMenuItems(menu[menuItem.node.slug])}
             </Dropdown.Menu>
           </Dropdown>
-        )
       }
       return null
     })
@@ -44,9 +40,29 @@ class NavBar extends React.Component {
       </Dropdown.Item>
     ))
 
+  renderExternMenuItems = externMenuItems =>
+    externMenuItems.map(externMenuItem => (
+      <Dropdown.Item
+        className="item"
+        key={externMenuItem.title}
+        href={externMenuItem.url}
+        target="_blank"
+      >
+        <Grid>
+          <Grid.Row>
+            <Grid.Column width={12}>
+              <p className="item-text icon-item-text">{externMenuItem.title}</p>
+             </Grid.Column>
+            <Grid.Column>
+              <i className="item-text icon external" />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Dropdown.Item>
+    ))
+
   render() {
-    return (
-      <NavBarWrapper>
+    return <NavBarWrapper>
         <Menu className="navbar">
           <Container>
             <Image as={Link} to="/" className="logo">
@@ -54,25 +70,23 @@ class NavBar extends React.Component {
             </Image>
             <div style={{ flex: 1 }} />
             {this.renderMenuItems(this.props.data.allContentfulPage.edges)}
+            <Dropdown item text="Extern" direction="left" key="extern">
+              <Dropdown.Menu>     .renderExternMenuItems(menu.extern)}
+              </Dropdown.Menu>
+            </Dropdown>
             <Menu.Item className="link-item">
-              <Button
-                href="http://koala.svsticky.nl"
-                target="_blank"
-                className="button"
-              >
-                Koala
+   <Button href="http://koala.svsticky.nl" target="_blank" className="button">  Koala
               </Button>
             </Menu.Item>
           </Container>
         </Menu>
       </NavBarWrapper>
-    )
   }
 }
 
 const NavBarWrapper = styled.div`
   &&& .navbar {
-    background-color: #000078;
+    background-color: #20730d;
     border-radius: 0;
     .logo {
       margin: 0.5em;
@@ -84,19 +98,22 @@ const NavBarWrapper = styled.div`
       color: white;
       &:hover {
         background-color: white;
-        color: #000078;
+        color: #20730d;
       }
       .item-text {
-        color: #000078;
+        color: #20730d;
+      }
+      .icon-item-text {
+        padding-right: 20pt;
       }
     }
     .link-item {
       &:hover {
-        background-color: #000078;
+        background-color: #20730d;
       }
       .button {
         background-color: white;
-        color: #000078;
+        color: #20730d;
         &:hover {
           background-color: lightgrey;
         }
