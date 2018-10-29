@@ -63,7 +63,6 @@ class Banner extends React.Component {
 };
 
 export const BannerWrapper = styled.div`
-  padding-bottom: 3em;
   .card {
     display: flex;
     flex-direction: row;
