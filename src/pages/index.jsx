@@ -35,12 +35,12 @@ export const IndexWrapper = styled.div`
   &&&
   .container {
     display: grid;
-    grid-template-columns: 33% 33% 29%%;
+    grid-template-columns: repeat (4, 1fr);
     grid-template-rows: auto;
     grid-template-areas:
-      "banner banner banner"
-      "news news drinks"
-      "news news jobs";
+      "banner banner banner banner"
+      "news news news drinks"
+      "news news news jobs";
     grid-gap: 2em;
   }
   .banner {
