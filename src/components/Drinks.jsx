@@ -8,7 +8,7 @@ class Drinks extends React.Component {
   renderDescription = drinks => {
     return (
       <Card.Description>
-        Elke week is er een gratis borrel! Deze periode is de borreldag: <br /> 
+        Elke week is er een gratis borrel! Deze periode is de borreldag: <br />
         <b>Elke {drinks.day} vanaf {drinks.time} in de {drinks.location}!</b>
       </Card.Description>
     )
@@ -18,12 +18,12 @@ class Drinks extends React.Component {
     return (
       <DrinksWrapper>
         <div className="drinksCard">
+          <h3>Borreldag</h3>
           <Card fluid>
             <Card.Content>
-              <Card.Header>Borreldag</Card.Header>
               {this.renderDescription(this.props.data.contentfulDrinks)}
             </Card.Content>
-                    
+
           </Card>
         </div>
       </DrinksWrapper>
@@ -33,7 +33,7 @@ class Drinks extends React.Component {
 
 export const DrinksWrapper = styled.div`
   .drinksCard{
-    
+
   }
 `
 
