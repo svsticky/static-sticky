@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Button, Image, Reveal, Segment } from 'semantic-ui-react'
+import { Button, Image, Reveal } from 'semantic-ui-react'
 
 const Activity = props => {
-  const { name, poster, location } = props.activity
+  const { name, poster } = props.activity
   return (
     <ActivityWrapper>
       <div>

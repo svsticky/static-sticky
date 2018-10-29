@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import ActivitiesWidget from '../../components/widgets/ActivitiesWidget';
+import ActivitiesWidget from '../../components/activities/ActivitiesWidget'
 import ContentfulPage from '../../components/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 

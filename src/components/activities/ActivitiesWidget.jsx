@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import Activity from '../Activity'
+import Activity from './Activity'
 
 export default class ActivitiesWidget extends Component {
   constructor() {
