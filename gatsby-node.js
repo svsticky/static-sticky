@@ -4,7 +4,7 @@ const axios = require('axios')
 const crypto = require('crypto')
 const fs = require('fs')
 
-exports.createPages = async({ graphql, actions }) => {
+exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const jobTemplate = path.resolve('src/templates/JobTemplate.jsx')
   const partnerTemplate = path.resolve('src/templates/PartnerTemplate.jsx')
@@ -40,20 +40,20 @@ exports.createPages = async({ graphql, actions }) => {
             }
           }
         }
-        allContentfulBoard {
-          edges {
-            node {
-              id
-              number
-            }
+      }
+      allContentfulBoard {
+        edges {
+          node {
+            id
+            number
           }
         }
-        allContentfulNewsArticles {
-          edges {
-            node {
-              id
-              slug
-            }
+      }
+      allContentfulNewsArticles {
+        edges {
+          node {
+            id
+            slug
           }
         }
       }
@@ -68,19 +68,19 @@ exports.createPages = async({ graphql, actions }) => {
     }
   `)
 
-  function createTemplatePage(url, templatePath, id){
+  function createTemplatePage(url, templatePath, id) {
     createPage({
       path: url,
       component: slash(templatePath),
       context: {
-        id: id,
-      },
+        id: id
+      }
     })
   }
 
-  if(query.errors){
+  if (query.errors) {
     throw new Error(JSON.stringify(query.errors))
-  }else{
+  } else {
     // Create jobpages
     query.data.allContentfulJobListing.edges.forEach((({ node }) => {
       createTemplatePage(`/vacatures/${node.slug}`, jobTemplate, node.id)
@@ -103,21 +103,21 @@ exports.createPages = async({ graphql, actions }) => {
     // Create general pages
     query.data.allContentfulPage.edges.forEach((({ node }) => {
       let url
-      if(node.parentPage){
+      if (node.parentPage) {
         url = node.parentPage.slug + '/' + node.slug
-      }else{
+      } else {
         url = node.slug
       }
 
       const localPath = path.resolve('src', 'pages', url + '.jsx')
       fs.access(localPath, (err => {
-        if(err)
-          createTemplatePage(`/${url}`, pageTemplate, node.id)
-        else
-          createPage({
-            path: `/${url}`,
-            component: slash(localPath),
-          })
+          if (err)
+            createTemplatePage(`/${url}`, pageTemplate, node.id)
+          else
+            createPage({
+              path: `/${url}`,
+              component: slash(localPath)
+            })
         }
       ))
     }))
@@ -128,11 +128,11 @@ exports.createPages = async({ graphql, actions }) => {
   }
 }
 
-exports.sourceNodes = async({ actions }) => {
+exports.sourceNodes = async ({ actions }) => {
   const { createNode } = actions
   const res = await axios.get('https://koala.svsticky.nl/api/activities')
 
-  if(typeof res === 'undefined' || res.data.length === 0){
+  if (typeof res === 'undefined' || res.data.length === 0) {
     createEmptyActivityNode(createNode)
     return
   }
@@ -142,7 +142,7 @@ exports.sourceNodes = async({ actions }) => {
       id: `${i}`,
       parent: '__SOURCE__',
       internal: {
-        type: 'Activity',
+        type: 'Activity'
       },
       children: [],
       name: activity.name,
@@ -150,11 +150,11 @@ exports.sourceNodes = async({ actions }) => {
       start_date: activity.start_date,
       end_date: activity.end_date,
       poster: activity.poster,
-      fullness: activity.fullness,
+      fullness: activity.fullness
     }
 
     activityNode.internal.contentDigest = crypto.createHash('md5')
-                                                .update(JSON.stringify(activityNode)).digest('hex')
+      .update(JSON.stringify(activityNode)).digest('hex')
     return createNode(activityNode)
   })
 }
@@ -164,7 +164,7 @@ const createEmptyActivityNode = (createNode) => {
     id: `${-1}`,
     parent: '__SOURCE__',
     internal: {
-      type: 'Activity',
+      type: 'Activity'
     },
     children: [],
     name: 'error',
@@ -172,10 +172,10 @@ const createEmptyActivityNode = (createNode) => {
     start_date: '',
     end_date: '',
     poster: '',
-    fullness: '',
+    fullness: ''
   }
 
   emptyNode.internal.contentDigest = crypto.createHash('md5')
-                                           .update(JSON.stringify(emptyNode)).digest('hex')
+    .update(JSON.stringify(emptyNode)).digest('hex')
   return createNode(emptyNode)
 }
