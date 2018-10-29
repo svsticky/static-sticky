@@ -40,8 +40,8 @@ export default class ActivitiesWidget extends Component {
 }
 
 const ActivitiesWidgetWrapper = styled.div`
+  margin-top: 2em;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-column-gap: 2em;
-  grid-row-gap: 0.5em;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2.5em;
 `;
