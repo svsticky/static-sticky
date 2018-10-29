@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { Button, Image, Reveal } from 'semantic-ui-react'
 
 const Activity = props => {
-  const { name, poster } = props.activity
+  const { name, poster, id } = props.activity
   return (
     <ActivityWrapper>
       <div>
@@ -17,7 +17,7 @@ const Activity = props => {
             </div>
             <Button
               fluid
-              href="https://koala.svsticky.nl/"
+              href={"https://koala.svsticky.nl/activities/" + id}
               className="summary-button"
             >
               Inschrijven
