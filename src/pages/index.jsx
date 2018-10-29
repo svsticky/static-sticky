@@ -4,6 +4,7 @@ import Layout from '../components/Layout'
 import Banner from '../components/Banner'
 import News from '../components/News'
 import Drinks from '../components/Drinks'
+import FeaturedJobs from '../components/FeaturedJobs'
 
 const Index = (props) => {
 
@@ -21,6 +22,9 @@ const Index = (props) => {
           <div className="drinks">
             <Drinks />
           </div>
+          <div className="jobs">
+            <FeaturedJobs />
+          </div>
         </div>
       </IndexWrapper>
     </Layout>
@@ -36,7 +40,8 @@ export const IndexWrapper = styled.div`
     grid-template-areas:
       "banner banner banner"
       "news news drinks"
-      "awidget awidget awidget";
+      "news news jobs";
+    grid-gap: 2em;
   }
   .banner {
     grid-area: banner;

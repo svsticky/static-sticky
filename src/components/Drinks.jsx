@@ -33,7 +33,7 @@ class Drinks extends React.Component {
 
 export const DrinksWrapper = styled.div`
   .drinksCard{
-    padding-left:2em;
+    
   }
 `
 
