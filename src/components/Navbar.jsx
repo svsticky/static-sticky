@@ -1,8 +1,9 @@
 import React from 'react'
 import { graphql, StaticQuery, Link } from 'gatsby'
 import styled from 'styled-components'
-import { Dropdown, Image, Menu, Container, Button } from 'semantic-ui-react'
+import { Dropdown, Image, Menu, Container, Button, Grid } from 'semantic-ui-react'
 import logo from '../images/logo-sticky-small.png'
+import menu from '../data/menu.json'
 
 class NavBar extends React.Component {
   renderMenuItems = data =>
@@ -23,6 +24,7 @@ class NavBar extends React.Component {
                     subMenuItem.node.parentPage.slug === menuItem.node.slug
                 )
               )}
+              {this.renderExternMenuItems(menu[menuItem.node.slug])}
             </Dropdown.Menu>
           </Dropdown>
         )
@@ -44,6 +46,29 @@ class NavBar extends React.Component {
       </Dropdown.Item>
     ))
 
+  renderExternMenuItems = externMenuItems => 
+    externMenuItems.map(externMenuItem => (
+        <Dropdown.Item
+          className="item"
+          key={externMenuItem.title}
+          href={externMenuItem.url}
+          target="_blank"
+        >
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={12}>
+                <p class="item-text icon-item-text">{externMenuItem.title}</p>
+              </Grid.Column>
+              <Grid.Column>
+                <i class="item-text icon external" />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Dropdown.Item>
+      )
+    )
+
+
   render() {
     return (
       <NavBarWrapper>
@@ -54,6 +79,16 @@ class NavBar extends React.Component {
             </Image>
             <div style={{ flex: 1 }} />
             {this.renderMenuItems(this.props.data.allContentfulPage.edges)}
+            <Dropdown
+              item
+                text="Extern"
+                direction="left"
+                key="extern"
+            >
+              <Dropdown.Menu>
+                {this.renderExternMenuItems(menu.extern)}
+              </Dropdown.Menu>
+            </Dropdown>
             <Menu.Item className="link-item">
               <Button
                 href="http://koala.svsticky.nl"
@@ -88,6 +123,9 @@ const NavBarWrapper = styled.div`
       }
       .item-text {
         color: #20730d;
+      }
+      .icon-item-text {
+        padding-right: 20pt;
       }
     }
     .link-item {
