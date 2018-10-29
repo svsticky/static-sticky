@@ -20,7 +20,6 @@ class Banner extends React.Component {
   }
 
   scroll = direction => {
-    console.log("scroll called");
     let far = $('.card-content').width()/2*direction;
     let pos = $('.card-content').scrollLeft() + far;
     $('.card-content').animate( { scrollLeft: pos }, 1000);
@@ -49,7 +48,6 @@ class Banner extends React.Component {
     )
 
   componentDidMount() {
-    console.log("Mounted");
     setInterval(this.autoScroll, 5000);
   }
 

@@ -46,7 +46,7 @@ class NavBar extends React.Component {
       </Dropdown.Item>
     ))
 
-  renderExternMenuItems = externMenuItems => 
+  renderExternMenuItems = externMenuItems =>
     externMenuItems.map(externMenuItem => (
         <Dropdown.Item
           className="item"
@@ -57,10 +57,10 @@ class NavBar extends React.Component {
           <Grid>
             <Grid.Row>
               <Grid.Column width={12}>
-                <p class="item-text icon-item-text">{externMenuItem.title}</p>
+                <p className="item-text icon-item-text">{externMenuItem.title}</p>
               </Grid.Column>
               <Grid.Column>
-                <i class="item-text icon external" />
+                <i className="item-text icon external" />
               </Grid.Column>
             </Grid.Row>
           </Grid>
