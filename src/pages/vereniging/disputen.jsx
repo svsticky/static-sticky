@@ -28,6 +28,7 @@ const DisputeIndexPage = ({ data }) => {
                 src={dispute.logo.file.url}
                 alt={`${dispute.name} logo`}
                 centered
+                href={'/disputen/' + dispute.slug}
               />
             )}
           </Grid.Column>
@@ -43,6 +44,7 @@ const DisputeListQuery = graphql`
         node {
           id
           name
+          slug
           logo {
             file {
               url

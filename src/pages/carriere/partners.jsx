@@ -39,26 +39,27 @@ const PartnerList = styled.div`
 `;
 
 export const PartnerListQuery = graphql`
-  query PartnerListQuery {
-    allContentfulPartner {
-      edges {
-        node {
-          id
-          name
-          logo {
-            file {
-              url
-            }
-          }
-        }
-      }
-    }
-    contentfulPage(slug: {eq: "partners"}) {
-      title
-      content{
-        content
-      }
-    }
-  }
-`;
+         query PartnerListQuery {
+           allContentfulPartner {
+             edges {
+               node {
+                 id
+                 name
+                 slug
+                 logo {
+                   file {
+                     url
+                   }
+                 }
+               }
+             }
+           }
+           contentfulPage(slug: { eq: "partners" }) {
+             title
+             content {
+               content
+             }
+           }
+         }
+       `
 export default PartnerIndexPage;
