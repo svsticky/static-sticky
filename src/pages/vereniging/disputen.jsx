@@ -2,7 +2,8 @@ import React from 'react'
 import { graphql, StaticQuery } from 'gatsby'
 import ContentfulPage from '../../components/ContentfulPage'
 import Markdown from 'markdown-to-jsx'
-import { Grid, Image, Label } from 'semantic-ui-react'
+import { Image, Label } from 'semantic-ui-react'
+import styled from 'styled-components'
 
 const DisputeIndexPage = ({ data }) => {
   const disputes = data.allContentfulDispute.edges.map(
@@ -13,13 +14,9 @@ const DisputeIndexPage = ({ data }) => {
   return <ContentfulPage page={page}>
       <Markdown>{page.content.content}</Markdown>
       <br />
-      <Grid centered doubling columns={// Works as long as <= 12. Using a grid because centering is difficult.
-          disputes.length} verticalAlign="middle">
+      <Centered>
         {disputes.map(dispute => (
-          <Grid.Column
-            width={Math.floor(12 / disputes.length)}
-            key={dispute.id}
-          >
+          <div key={dispute.id}>
             {dispute.logo === null ? (
               <Label size="huge">{dispute.name}</Label>
             ) : (
@@ -31,11 +28,19 @@ const DisputeIndexPage = ({ data }) => {
                 href={'/disputen/' + dispute.slug}
               />
             )}
-          </Grid.Column>
+          </div>
         ))}
-      </Grid>
+      </Centered>
     </ContentfulPage>
 }
+
+const Centered = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+`
 
 const DisputeListQuery = graphql`
   query DisputeListQuery {
