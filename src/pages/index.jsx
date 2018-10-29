@@ -35,7 +35,7 @@ export const IndexWrapper = styled.div`
   &&&
   .container {
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 33% 33% 29%%;
     grid-template-rows: auto;
     grid-template-areas:
       "banner banner banner"
