@@ -9,7 +9,7 @@ const Activity = props => {
       <div>
         <Reveal animated="move" instant>
           <Reveal.Content visible className="poster">
-            <Image src={poster} className="poster-image" />
+            <Image size="medium" src={poster} className="poster-image" />
           </Reveal.Content>
           <Reveal.Content hidden className="summary">
             <div className="summary-info">
