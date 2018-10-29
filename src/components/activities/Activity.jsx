@@ -1,21 +1,27 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Button, Image, Reveal, Segment } from 'semantic-ui-react';
+import React from 'react'
+import styled from 'styled-components'
+import { Button, Image, Reveal, Segment } from 'semantic-ui-react'
 
-const Activity = (props) => {
-  const { name, poster, location } = props.activity;
-  return(
+const Activity = props => {
+  const { name, poster, location } = props.activity
+  return (
     <ActivityWrapper>
       <div>
-        <Reveal animated='move' instant>
-          <Reveal.Content visible className='poster'>
-            <Image src={poster} className='poster-image'/>
+        <Reveal animated="move" instant>
+          <Reveal.Content visible className="poster">
+            <Image src={poster} className="poster-image" />
           </Reveal.Content>
-          <Reveal.Content hidden className='summary'>
-            <div className='summary-info'>
+          <Reveal.Content hidden className="summary">
+            <div className="summary-info">
               <h4>{name}</h4>
             </div>
-            <Button fluid href="https://koala.svsticky.nl/" className='summary-button'>Inschrijven</Button>
+            <Button
+              fluid
+              href="https://koala.svsticky.nl/"
+              className="summary-button"
+            >
+              Inschrijven
+            </Button>
           </Reveal.Content>
         </Reveal>
       </div>
@@ -49,6 +55,6 @@ const ActivityWrapper = styled.div`
       }
     }
   }
-`;
+`
 
-export default Activity;
+export default Activity
