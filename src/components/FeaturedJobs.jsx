@@ -4,19 +4,26 @@ import { Card, Image } from 'semantic-ui-react'
 import { graphql, StaticQuery } from 'gatsby'
 
 class FeaturedJobs extends React.Component {
+
+  getRandom = max => {
+    return Math.floor(Math.random() * Math.floor(max));
+  }
+
   renderFeaturedJobs = jobs => {
     const featuredJobs = jobs.filter(job => job.node.featured)
+    const chosenJob = this.getRandom(featuredJobs.length)
     return (
       <div className="jobsCardWrapper">
-        {featuredJobs.map(job => this.renderFeaturedJob(job))}
+        <h3>Uitgelichte vacature</h3>
+        {this.renderFeaturedJob(featuredJobs[chosenJob])}
       </div>
     )
   }
 
   renderFeaturedJob = job => {
     return(
-      <Card fluid 
-        className="jobsCard" 
+      <Card fluid
+        className="jobsCard"
         href={"/partners/" + job.node.partner.name.replace(/\W+/g, '-').toLowerCase() }
       >
         <Card.Content>
