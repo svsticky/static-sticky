@@ -71,12 +71,13 @@ class NavBar extends React.Component {
             <div style={{ flex: 1 }} />
             {this.renderMenuItems(this.props.data.allContentfulPage.edges)}
             <Dropdown item text="Extern" direction="left" key="extern">
-              <Dropdown.Menu> 
-                  {this.renderExternMenuItems(menu.extern)}
+              <Dropdown.Menu>
+                {this.renderExternMenuItems(menu.extern)}
               </Dropdown.Menu>
             </Dropdown>
             <Menu.Item className="link-item">
-   <Button href="http://koala.svsticky.nl" target="_blank" className="button">  Koala
+              <Button href="http://koala.svsticky.nl" target="_blank" className="button">
+                Koala
               </Button>
             </Menu.Item>
           </Container>
