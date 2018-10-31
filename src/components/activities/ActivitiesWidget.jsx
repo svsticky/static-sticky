@@ -47,5 +47,6 @@ const ActivitiesWidgetWrapper = styled.div`
   margin-top: 2em;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 26em;
   grid-gap: 2.5em;
 `
