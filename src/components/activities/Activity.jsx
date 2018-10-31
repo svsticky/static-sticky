@@ -19,6 +19,7 @@ const Activity = props => {
               fluid
               href={"https://koala.svsticky.nl/activities/" + id}
               className="summary-button"
+              target="_blank"
             >
               Inschrijven
             </Button>
