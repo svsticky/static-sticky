@@ -14,7 +14,7 @@ const renderInfo = (poster, props) => {
         <p><strong>Prijs: </strong><em>{ price !== 0 ? ("€" + price + "0") : "Gratis!" }</em></p>
       </div>
       <Button 
-        href={"https://koala.svsticky.nl/" + id} 
+        href={"https://koala.svsticky.nl/activities/" + id} 
         target="_blank">
           <p>
             Inschrijven  <i className="item-text icon external" />
