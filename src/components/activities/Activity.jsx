@@ -58,6 +58,7 @@ const ActivityWrapper = styled.div`
           height: 100%;
           border-radius: 5px;
           border: 1px solid #ddd;
+          max-width:100%;
         }
       }
     }
