@@ -8,26 +8,22 @@ import { Grid, Header, Image, Divider } from 'semantic-ui-react'
 const DisputeView = ({ data }) => {
   const { contentfulDispute: dispute } = data
 
-  return (
-    <Layout>
+  return <Layout>
       <Grid columns={2} style={{ 'margin-top': '5px' }} stackable>
         <Grid.Column width={3}>
           <Sticky>
             <Grid.Row>
-              <Image
-                size="small"
-                src={dispute.logo.file.url}
-                alt={`${dispute.name} logo`}
-                centered
-              />
+              <Image size="small" src={dispute.logo.file.url} alt={`${dispute.name} logo`} centered />
             </Grid.Row>
-            <Divider />
-            <Grid.Row>
-              <h3>Contact</h3>
-              <p>
-                <a href={dispute.website}>website</a> <br />
-              </p>
-            </Grid.Row>
+            {dispute.website && <div>
+                <Divider />
+                <Grid.Row>
+                  <h3>Contact</h3>
+                  <p>
+                    <a href={dispute.website}>website</a> <br />
+                  </p>
+                </Grid.Row>
+              </div>}
           </Sticky>
         </Grid.Column>
         <Grid.Column width={9}>
@@ -36,7 +32,6 @@ const DisputeView = ({ data }) => {
         </Grid.Column>
       </Grid>
     </Layout>
-  )
 }
 
 const Sticky = styled.div`
