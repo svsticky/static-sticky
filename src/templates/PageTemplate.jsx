@@ -1,7 +1,7 @@
 import React from 'react'
 import Markdown from 'markdown-to-jsx'
 import { graphql } from 'gatsby'
-import ContentfulPage from '../components/ContentfulPage'
+import ContentfulPage from '../components/layout/ContentfulPage'
 
 export default ({ data }) => {
   const page = data.contentfulPage

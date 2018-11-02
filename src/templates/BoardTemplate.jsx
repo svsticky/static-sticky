@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
+import Layout from '../components/layout/Layout'
 import { Image, Button } from 'semantic-ui-react'
 
 const BoardView = ({ data }) => {

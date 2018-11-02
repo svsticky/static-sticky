@@ -2,7 +2,7 @@ import React from 'react'
 import Markdown from 'markdown-to-jsx'
 import styled from 'styled-components'
 import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
+import Layout from '../components/layout/Layout'
 import { Button, Card } from 'semantic-ui-react'
 
 const JobView = ({ data }) => {

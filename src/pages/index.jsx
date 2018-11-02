@@ -1,10 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import Layout from '../components/Layout'
+import Layout from '../components/layout/Layout'
 import Banner from '../components/Banner'
 import News from '../components/News'
 import Drinks from '../components/Drinks'
-import FeaturedJobs from '../components/FeaturedJobs'
+import FeaturedJobs from '../components/jobs/FeaturedJobs'
 
 const Index = (props) => {
 

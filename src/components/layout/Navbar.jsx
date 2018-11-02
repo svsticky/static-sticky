@@ -9,8 +9,8 @@ import {
   Button,
   Grid,
 } from 'semantic-ui-react'
-import logo from '../images/logo-sticky-small.png'
-import menu from '../data/menu.json'
+import logo from '../../images/logo-sticky-small.png'
+import menu from '../../data/menu.json'
 
 class NavBar extends React.Component {
   renderMenuItems = data =>
