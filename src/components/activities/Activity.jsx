@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Button, Card } from 'semantic-ui-react'
+import { Button, Card, Image } from 'semantic-ui-react'
 
 
 const renderInfo = (poster, props) => {
@@ -13,8 +13,8 @@ const renderInfo = (poster, props) => {
         { location ? <p><strong>Locatie: </strong><em>{location}</em></p> : null }
         <p><strong>Prijs: </strong><em>{ price !== 0 ? ("€" + price + "0") : "Gratis!" }</em></p>
       </div>
-      <Button 
-        href={"https://koala.svsticky.nl/activities/" + id} 
+      <Button
+        href={"https://koala.svsticky.nl/activities/" + id}
         target="_blank">
           <p>
             Inschrijven  <i className="item-text icon external" />
@@ -28,11 +28,11 @@ const Activity = props => {
   const { name, poster } = props.activity;
   return (
     <ActivityWrapper>
-      { poster ? 
+      { poster ?
       <div className="flip-card">
         <div className="flip-card-inner">
           <div className="flip-card-front">
-            <img src={poster} alt={"Poster voor " + name} />
+            <Image fluid src={poster} alt={"Poster voor " + name} />
           </div>
           { renderInfo(poster, props) }
         </div>
