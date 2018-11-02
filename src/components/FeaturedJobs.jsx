@@ -12,7 +12,7 @@ class FeaturedJobs extends React.Component {
     const featuredJobs = jobs.filter(job => job.node.featured)
     const chosenJob = this.getRandom(featuredJobs.length)
     return (
-      <div className="jobsCardWrapper">
+      <div>
         <h3>Uitgelichte vacature</h3>
         {this.renderFeaturedJob(featuredJobs[chosenJob])}
       </div>
@@ -23,7 +23,6 @@ class FeaturedJobs extends React.Component {
     return (
       <Card
         fluid
-        className="jobsCard"
         href={
           '/partners/' +
           job.node.partner.name.replace(/\W+/g, '-').toLowerCase()
@@ -52,12 +51,6 @@ class FeaturedJobs extends React.Component {
 }
 
 export const JobsWrapper = styled.div`
-  &&& .jobsCardWrapper {
-    padding-bottom: 1em;
-    .jobsCard {
-      margin-bottom: 2em;
-    }
-  }
   .logo {
     margin-bottom: 1em;
   }
