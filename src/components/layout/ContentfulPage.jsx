@@ -16,7 +16,7 @@ export default ({ page, children }) => {
 }
 
 const PageWrapper = styled.div`
-  .title{
+  .title {
     border-bottom: 1px solid #ddd;
     margin-bottom: 10px;
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby'
-import JobsList from '../../components/jobs/JobsList';
-import JobFilter from '../../components/jobs/JobFilter';
+import JobsList from '../../components/jobs/JobsList'
+import JobFilter from '../../components/jobs/JobFilter'
 import ContentfulPage from '../../components/layout/ContentfulPage'
 import Markdown from 'markdown-to-jsx'
 

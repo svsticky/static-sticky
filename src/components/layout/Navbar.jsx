@@ -16,12 +16,25 @@ class NavBar extends React.Component {
   renderMenuItems = data =>
     data.map(menuItem => {
       if (menuItem.node.parentPage === null) {
-        return <Dropdown item text={menuItem.node.title} direction="left" key={menuItem.node.title}>
+        return (
+          <Dropdown
+            item
+            text={menuItem.node.title}
+            direction="left"
+            key={menuItem.node.title}
+          >
             <Dropdown.Menu>
-              {this.renderMenuSubItems(data.filter(subMenuItem => subMenuItem.node.parentPage !== null && subMenuItem.node.parentPage.slug === menuItem.node.slug))}
+              {this.renderMenuSubItems(
+                data.filter(
+                  subMenuItem =>
+                    subMenuItem.node.parentPage !== null &&
+                    subMenuItem.node.parentPage.slug === menuItem.node.slug
+                )
+              )}
               {this.renderExternMenuItems(menu[menuItem.node.slug])}
             </Dropdown.Menu>
           </Dropdown>
+        )
       }
       return null
     })
@@ -52,7 +65,7 @@ class NavBar extends React.Component {
           <Grid.Row>
             <Grid.Column width={12}>
               <p className="item-text icon-item-text">{externMenuItem.title}</p>
-             </Grid.Column>
+            </Grid.Column>
             <Grid.Column>
               <i className="item-text icon external" />
             </Grid.Column>
@@ -62,7 +75,8 @@ class NavBar extends React.Component {
     ))
 
   render() {
-    return <NavBarWrapper>
+    return (
+      <NavBarWrapper>
         <Menu className="navbar">
           <Container>
             <Image as={Link} to="/" className="logo">
@@ -76,13 +90,18 @@ class NavBar extends React.Component {
               </Dropdown.Menu>
             </Dropdown>
             <Menu.Item className="link-item">
-              <Button href="http://koala.svsticky.nl" target="_blank" className="button">
+              <Button
+                href="http://koala.svsticky.nl"
+                target="_blank"
+                className="button"
+              >
                 Koala
               </Button>
             </Menu.Item>
           </Container>
         </Menu>
       </NavBarWrapper>
+    )
   }
 }
 

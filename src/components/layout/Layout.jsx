@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import styled from 'styled-components'
 import NavBar from './Navbar'
 import Footer from './Footer'
 import { Container } from 'semantic-ui-react'
@@ -15,7 +15,6 @@ const layout = ({ children }) => (
 
 const StyledContainer = styled(Container)`
   padding: 3em 0;
-`;
-
+`
 
 export default layout
