@@ -46,6 +46,15 @@ export default class ActivitiesWidget extends Component {
 const ActivitiesWidgetWrapper = styled.div`
   margin-top: 2em;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  @media (min-width: 990px){
+    grid-template-columns: repeat(4, 1fr);
+  }
+  @media (max-width: 990px){
+    grid-template-columns: repeat(3, 1fr);
+  }
+  @media (max-width: 680px){
+    grid-template-columns: repeat(2, 1fr);
+  }
+  grid-auto-rows: 26em;
   grid-gap: 2.5em;
 `
