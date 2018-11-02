@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Activity from './Activity'
 
-export default class ActivitiesWidget extends Component {
+export default class ActivityCollection extends Component {
   constructor() {
     super()
     this.state = {
@@ -32,18 +32,18 @@ export default class ActivitiesWidget extends Component {
 
   render() {
     return (
-      <ActivitiesWidgetWrapper>
+      <ActivityCollectionWrapper>
         {this.state.loading ? (
           <p>Loading activities...</p>
         ) : (
           this.renderActivities(this.state.activities)
         )}
-      </ActivitiesWidgetWrapper>
+      </ActivityCollectionWrapper>
     )
   }
 }
 
-const ActivitiesWidgetWrapper = styled.div`
+const ActivityCollectionWrapper = styled.div`
   margin-top: 2em;
   display: grid;
   @media (min-width: 990px){

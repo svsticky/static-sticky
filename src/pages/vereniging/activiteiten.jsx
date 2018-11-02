@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import ActivitiesWidget from '../../components/activities/ActivitiesWidget'
+import ActivityCollection from '../../components/activities/ActivityCollection'
 import ContentfulPage from '../../components/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 
@@ -12,7 +12,7 @@ const Activiteiten = (props) => {
       <Markdown>
         {page.content.content}
       </Markdown>
-      <ActivitiesWidget />
+      <ActivityCollection />
     </ContentfulPage>
   );
 };
