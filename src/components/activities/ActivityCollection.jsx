@@ -62,13 +62,13 @@ const ActivityCollectionWrapper = styled.div`
   margin-top: 2em;
   display: grid;
   @media (min-width: 990px){
-    grid-template-columns: ${props => ( props.count === '0' ? "repeat(1, 1fr)" : "repeat(4, 1fr)" )};
+    grid-template-columns: ${props => ( props.count === '0' ? "1fr" : "repeat(4, 1fr)" )};
   }
   @media (max-width: 990px){
-    grid-template-columns: ${props => ( props.count === '0' ? "repeat(1, 1fr)" : "repeat(3, 1fr)" )};
+    grid-template-columns: ${props => ( props.count === '0' ? "1fr" : "repeat(3, 1fr)" )};
   }
   @media (max-width: 680px){
-    grid-template-columns: ${props => ( props.count === '0' ? "repeat(1, 1fr)" : "repeat(2, 1fr)" )};
+    grid-template-columns: ${props => ( props.count === '0' ? "1fr" : "repeat(2, 1fr)" )};
   }
   grid-auto-rows: 26em;
   grid-gap: 2.5em;
