@@ -19,7 +19,7 @@ export default class ActivityIndex extends Component {
 
 const ActivityIndexWrapper = styled.div`
   @media (min-width: 990px) {
-    width: 80%;
+    width: 80%; 
   }
   .more {
     margin-top: 0.5em;
