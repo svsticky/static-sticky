@@ -12,7 +12,7 @@ const Activiteiten = (props) => {
       <Markdown>
         {page.content.content}
       </Markdown>
-      <ActivityCollection />
+      <ActivityCollection count="all"/>
     </ContentfulPage>
   );
 };

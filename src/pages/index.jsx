@@ -5,7 +5,7 @@ import Banner from '../components/Banner'
 import News from '../components/News'
 import Drinks from '../components/Drinks'
 import FeaturedJobs from '../components/FeaturedJobs'
-import ActivityWidget from '../components/activities/ActivityWidget'
+import ActivityWidget from '../components/activities/ActivityIndex'
 
 const Index = (props) => {
 
