@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import Activity from './Activity'
 
-export default class ActivitiesWidget extends Component {
+export default class ActivityCollection extends Component {
   constructor() {
     super()
     this.state = {
@@ -25,35 +25,50 @@ export default class ActivitiesWidget extends Component {
   }
 
   renderActivities = activities => {
-    return activities.map(activity => (
-      <Activity activity={activity} key={activity.name} />
-    ))
+    return filterActivities(activities, this.props.count)
   }
 
   render() {
     return (
-      <ActivitiesWidgetWrapper>
+      <ActivityCollectionWrapper count={this.props.count}>
         {this.state.loading ? (
           <p>Loading activities...</p>
         ) : (
           this.renderActivities(this.state.activities)
         )}
-      </ActivitiesWidgetWrapper>
+      </ActivityCollectionWrapper>
     )
   }
 }
 
-const ActivitiesWidgetWrapper = styled.div`
+const filterActivities = (activities, count) => {
+  if(count === "all") {
+    return activities.map(activity => (
+      <Activity activity={activity} key={activity.name} />
+    ))
+  }
+  else {
+    const filtered = activities.filter(activity => (
+      activities.indexOf(activity) <= parseInt(count, 10)
+    ))
+
+    return filtered.map(activity => (
+      <Activity activity={activity} key={activity.name} />
+    ))
+  }
+}
+
+const ActivityCollectionWrapper = styled.div`
   margin-top: 2em;
   display: grid;
   @media (min-width: 990px){
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: ${props => ( props.count === '0' ? "1fr" : "repeat(4, 1fr)" )};
   }
   @media (max-width: 990px){
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: ${props => ( props.count === '0' ? "1fr" : "repeat(3, 1fr)" )};
   }
   @media (max-width: 680px){
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: ${props => ( props.count === '0' ? "1fr" : "repeat(2, 1fr)" )};
   }
   grid-auto-rows: 26em;
   grid-gap: 2.5em;
