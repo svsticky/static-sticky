@@ -11,7 +11,7 @@ const renderInfo = (poster, props) => {
       <div className='content'>
         <h3>{name}</h3>
         { location ? <p><strong>Locatie: </strong><em>{location}</em></p> : null }
-        <p><strong>Prijs: </strong><em>{ price !== 0 ? ("€" + (countDecimals(price) ? price : price + "0")) : "Gratis!" }</em></p>
+        <p><strong>Prijs: </strong><em>{ price !== 0 ? ("€" + (price.split('.')[1].length === 2 ? price : price + "0")) : "Gratis!" }</em></p>
       </div>
       <Button
         href={"https://koala.svsticky.nl/activities/" + id}
@@ -22,11 +22,6 @@ const renderInfo = (poster, props) => {
       </Button>
     </Card>
   )
-}
-
-const countDecimals = number => {
-  const numString = number.toString();
-  return numString.split('.')[1].length > 1;
 }
 
 const Activity = props => {
