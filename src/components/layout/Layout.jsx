@@ -7,14 +7,26 @@ import 'semantic-ui-css/semantic.min.css'
 
 const layout = ({ children }) => (
   <>
-    <NavBar />
-    <StyledContainer>{children}</StyledContainer>
-    <Footer />
+    <PageWrapper>
+      <NavBar />
+      <StyledContainer className="content">{children}</StyledContainer>
+      <Footer />
+    </PageWrapper>
   </>
 )
 
 const StyledContainer = styled(Container)`
   padding: 3em 0;
+`
+
+const PageWrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  .content {
+    flex: 1;
+  }
 `
 
 export default layout
