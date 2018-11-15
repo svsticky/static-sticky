@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { Card, Image } from 'semantic-ui-react';
 
 const Partner = ({ partner }) => (
@@ -21,10 +21,10 @@ const Partner = ({ partner }) => (
       </Card.Content>
     </Card>
   </PartnerLogo>
-)
+);
 
 const PartnerLogo = styled.div`
-  .card{
+  .card {
     display: flex;
     height: 100%;
   }
@@ -41,6 +41,6 @@ const PartnerLogo = styled.div`
       transition: all 0.15s;
     }
   }
-`
+`;
 
-export default Partner
+export default Partner;

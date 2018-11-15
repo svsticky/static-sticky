@@ -1,11 +1,11 @@
-import React from 'react'
-import styled from 'styled-components'
-import { graphql } from 'gatsby'
-import Layout from '../components/layout/Layout'
-import { Image, Button } from 'semantic-ui-react'
+import React from 'react';
+import styled from 'styled-components';
+import { graphql } from 'gatsby';
+import Layout from '../components/layout/Layout';
+import { Image, Button } from 'semantic-ui-react';
 
 const BoardView = ({ data }) => {
-  const board = data.contentfulBoard
+  const board = data.contentfulBoard;
 
   return (
     <Layout>
@@ -35,15 +35,15 @@ const BoardView = ({ data }) => {
         </div>
       </BoardTemplateWrapper>
     </Layout>
-  )
-}
+  );
+};
 
 const buildHeader = board => {
   if (board.current) {
-    return 'Huidig ' + board.name
+    return 'Huidig ' + board.name;
   }
-  return board.name
-}
+  return board.name;
+};
 
 const showButton = board => {
   const prev = (
@@ -54,7 +54,7 @@ const showButton = board => {
       href={'/besturen/' + (board.number - 1)}
       className="button"
     />
-  )
+  );
 
   const next = (
     <Button
@@ -64,21 +64,21 @@ const showButton = board => {
       href={'/besturen/' + (board.number + 1)}
       className="button"
     />
-  )
+  );
 
   if (board.number === 1) {
-    return next
+    return next;
   }
   if (board.current) {
-    return prev
+    return prev;
   }
   return (
     <>
       {prev}
       {next}
     </>
-  )
-}
+  );
+};
 
 const BoardTemplateWrapper = styled.div`
   padding: 1em;
@@ -108,7 +108,7 @@ const BoardTemplateWrapper = styled.div`
     background-color: #000078;
     color: #fff;
   }
-`
+`;
 
 export const boardQuery = graphql`
   query boardQuery($id: String!) {
@@ -128,6 +128,6 @@ export const boardQuery = graphql`
       }
     }
   }
-`
+`;
 
-export default BoardView
+export default BoardView;

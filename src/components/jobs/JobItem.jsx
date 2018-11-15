@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Card, Image } from 'semantic-ui-react'
+import React from 'react';
+import styled from 'styled-components';
+import { Card, Image } from 'semantic-ui-react';
 
 const Job = props => (
   <JobWrapper>
@@ -25,7 +25,7 @@ const Job = props => (
       </Card.Content>
     </Card>
   </JobWrapper>
-)
+);
 
 const JobWrapper = styled.div`
   &&& .card {
@@ -47,6 +47,6 @@ const JobWrapper = styled.div`
   .desc {
     align-self: start;
   }
-`
+`;
 
-export default Job
+export default Job;

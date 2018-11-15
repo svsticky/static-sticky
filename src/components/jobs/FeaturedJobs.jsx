@@ -1,23 +1,23 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Card, Image } from 'semantic-ui-react'
-import { graphql, StaticQuery } from 'gatsby'
+import React from 'react';
+import styled from 'styled-components';
+import { Card, Image } from 'semantic-ui-react';
+import { graphql, StaticQuery } from 'gatsby';
 
 class FeaturedJobs extends React.Component {
   getRandom = max => {
-    return Math.floor(Math.random() * Math.floor(max))
-  }
+    return Math.floor(Math.random() * Math.floor(max));
+  };
 
   renderFeaturedJobs = jobs => {
-    const featuredJobs = jobs.filter(job => job.node.featured)
-    const chosenJob = this.getRandom(featuredJobs.length)
+    const featuredJobs = jobs.filter(job => job.node.featured);
+    const chosenJob = this.getRandom(featuredJobs.length);
     return (
       <div>
         <h3>Uitgelichte vacature</h3>
         {this.renderFeaturedJob(featuredJobs[chosenJob])}
       </div>
-    )
-  }
+    );
+  };
 
   renderFeaturedJob = job => {
     return (
@@ -38,15 +38,15 @@ class FeaturedJobs extends React.Component {
           <Card.Description>{job.node.summary}</Card.Description>
         </Card.Content>
       </Card>
-    )
-  }
+    );
+  };
 
   render() {
     return (
       <JobsWrapper>
         {this.renderFeaturedJobs(this.props.data.allContentfulJobListing.edges)}
       </JobsWrapper>
-    )
+    );
   }
 }
 
@@ -54,7 +54,7 @@ export const JobsWrapper = styled.div`
   .logo {
     margin-bottom: 1em;
   }
-`
+`;
 
 export default props => (
   <StaticQuery
@@ -84,4 +84,4 @@ export default props => (
     `}
     render={data => <FeaturedJobs data={data} {...props} />}
   />
-)
+);

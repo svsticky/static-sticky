@@ -1,9 +1,9 @@
-import React from 'react'
-import styled from 'styled-components'
-import NavBar from './Navbar'
-import Footer from './Footer'
-import { Container } from 'semantic-ui-react'
-import 'semantic-ui-css/semantic.min.css'
+import React from 'react';
+import styled from 'styled-components';
+import NavBar from './Navbar';
+import Footer from './Footer';
+import { Container } from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 
 const layout = ({ children }) => (
   <>
@@ -13,11 +13,11 @@ const layout = ({ children }) => (
       <Footer />
     </PageWrapper>
   </>
-)
+);
 
 const StyledContainer = styled(Container)`
   padding: 3em 0;
-`
+`;
 
 const PageWrapper = styled.div`
   height: 100vh;
@@ -27,6 +27,6 @@ const PageWrapper = styled.div`
   .content {
     flex: 1;
   }
-`
+`;
 
-export default layout
+export default layout;

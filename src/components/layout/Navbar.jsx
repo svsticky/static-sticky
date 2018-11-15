@@ -1,6 +1,6 @@
-import React from 'react'
-import { graphql, StaticQuery, Link } from 'gatsby'
-import styled from 'styled-components'
+import React from 'react';
+import { graphql, StaticQuery, Link } from 'gatsby';
+import styled from 'styled-components';
 import {
   Dropdown,
   Image,
@@ -8,9 +8,9 @@ import {
   Container,
   Button,
   Grid,
-} from 'semantic-ui-react'
-import logo from '../../images/logo-sticky-small.png'
-import menu from '../../data/menu.json'
+} from 'semantic-ui-react';
+import logo from '../../images/logo-sticky-small.png';
+import menu from '../../data/menu.json';
 
 class NavBar extends React.Component {
   renderMenuItems = data =>
@@ -34,10 +34,10 @@ class NavBar extends React.Component {
               {this.renderExternMenuItems(menu[menuItem.node.slug])}
             </Dropdown.Menu>
           </Dropdown>
-        )
+        );
       }
-      return null
-    })
+      return null;
+    });
 
   renderMenuSubItems = subMenuItems =>
     subMenuItems.map(subMenuItem => (
@@ -51,7 +51,7 @@ class NavBar extends React.Component {
       >
         <p className="item-text">{subMenuItem.node.title}</p>
       </Dropdown.Item>
-    ))
+    ));
 
   renderExternMenuItems = externMenuItems =>
     externMenuItems.map(externMenuItem => (
@@ -72,7 +72,7 @@ class NavBar extends React.Component {
           </Grid.Row>
         </Grid>
       </Dropdown.Item>
-    ))
+    ));
 
   render() {
     return (
@@ -101,7 +101,7 @@ class NavBar extends React.Component {
           </Container>
         </Menu>
       </NavBarWrapper>
-    )
+    );
   }
 }
 
@@ -141,7 +141,7 @@ const NavBarWrapper = styled.div`
       }
     }
   }
-`
+`;
 
 export default props => (
   <StaticQuery
@@ -164,4 +164,4 @@ export default props => (
     `}
     render={data => <NavBar data={data} {...props} />}
   />
-)
+);

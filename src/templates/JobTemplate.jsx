@@ -1,12 +1,12 @@
-import React from 'react'
-import Markdown from 'markdown-to-jsx'
-import styled from 'styled-components'
-import { graphql } from 'gatsby'
-import Layout from '../components/layout/Layout'
-import { Button, Card } from 'semantic-ui-react'
+import React from 'react';
+import Markdown from 'markdown-to-jsx';
+import styled from 'styled-components';
+import { graphql } from 'gatsby';
+import Layout from '../components/layout/Layout';
+import { Button, Card } from 'semantic-ui-react';
 
 const JobView = ({ data }) => {
-  const job = data.contentfulJobListing
+  const job = data.contentfulJobListing;
 
   return (
     <Layout>
@@ -48,8 +48,8 @@ const JobView = ({ data }) => {
         </Card>
       </JobTemplateWrapper>
     </Layout>
-  )
-}
+  );
+};
 
 const JobTemplateWrapper = styled.div`
   display: flex;
@@ -100,9 +100,9 @@ const JobTemplateWrapper = styled.div`
   .job-content {
     padding: 1em;
   }
-`
+`;
 
-export default JobView
+export default JobView;
 
 export const jobQuery = graphql`
   query jobQuery($id: String!) {
@@ -130,4 +130,4 @@ export const jobQuery = graphql`
       }
     }
   }
-`
+`;

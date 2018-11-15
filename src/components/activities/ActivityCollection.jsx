@@ -1,32 +1,32 @@
-import React, { Component } from 'react'
-import styled from 'styled-components'
-import Activity from './Activity'
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import Activity from './Activity';
 
 export default class ActivityCollection extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       loading: true,
       activities: [],
-    }
+    };
   }
   state = {
     fetchedActivities: ['No activities'],
-  }
+  };
 
   async componentDidMount() {
-    const activities = await fetch('https://koala.svsticky.nl/api/activities')
-    const activitiesJSON = await activities.json()
+    const activities = await fetch('https://koala.svsticky.nl/api/activities');
+    const activitiesJSON = await activities.json();
     this.setState({
       loading: false,
       activities: activitiesJSON,
-    })
-    console.log(activitiesJSON)
+    });
+    console.log(activitiesJSON);
   }
 
   renderActivities = activities => {
-    return filterActivities(activities, this.props.count)
-  }
+    return filterActivities(activities, this.props.count);
+  };
 
   render() {
     return (
@@ -37,39 +37,41 @@ export default class ActivityCollection extends Component {
           this.renderActivities(this.state.activities)
         )}
       </ActivityCollectionWrapper>
-    )
+    );
   }
 }
 
 const filterActivities = (activities, count) => {
-  if(count === "all") {
+  if (count === 'all') {
     return activities.map(activity => (
       <Activity activity={activity} key={activity.name} />
-    ))
-  }
-  else {
-    const filtered = activities.filter(activity => (
-      activities.indexOf(activity) <= parseInt(count, 10)
-    ))
+    ));
+  } else {
+    const filtered = activities.filter(
+      activity => activities.indexOf(activity) <= parseInt(count, 10)
+    );
 
     return filtered.map(activity => (
       <Activity activity={activity} key={activity.name} />
-    ))
+    ));
   }
-}
+};
 
 const ActivityCollectionWrapper = styled.div`
   margin-top: 2em;
   display: grid;
-  @media (min-width: 990px){
-    grid-template-columns: ${props => ( props.count === '0' ? "1fr" : "repeat(4, 1fr)" )};
+  @media (min-width: 990px) {
+    grid-template-columns: ${props =>
+      props.count === '0' ? '1fr' : 'repeat(4, 1fr)'};
   }
-  @media (max-width: 990px){
-    grid-template-columns: ${props => ( props.count === '0' ? "1fr" : "repeat(3, 1fr)" )};
+  @media (max-width: 990px) {
+    grid-template-columns: ${props =>
+      props.count === '0' ? '1fr' : 'repeat(3, 1fr)'};
   }
-  @media (max-width: 680px){
-    grid-template-columns: ${props => ( props.count === '0' ? "1fr" : "repeat(2, 1fr)" )};
+  @media (max-width: 680px) {
+    grid-template-columns: ${props =>
+      props.count === '0' ? '1fr' : 'repeat(2, 1fr)'};
   }
   grid-auto-rows: 26em;
   grid-gap: 2.5em;
-`
+`;

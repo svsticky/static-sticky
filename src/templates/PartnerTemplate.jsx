@@ -1,12 +1,12 @@
-import React from 'react'
-import Markdown from 'markdown-to-jsx'
-import styled from 'styled-components'
-import { graphql } from 'gatsby'
-import Layout from '../components/layout/Layout'
-import JobItem from '../components/jobs/JobItem'
+import React from 'react';
+import Markdown from 'markdown-to-jsx';
+import styled from 'styled-components';
+import { graphql } from 'gatsby';
+import Layout from '../components/layout/Layout';
+import JobItem from '../components/jobs/JobItem';
 
 const PartnerView = ({ data }) => {
-  const { contentfulPartner: partner } = data
+  const { contentfulPartner: partner } = data;
 
   return (
     <Layout>
@@ -40,8 +40,8 @@ const PartnerView = ({ data }) => {
         </div>
       </PartnerTemplateWrapper>
     </Layout>
-  )
-}
+  );
+};
 
 const PartnerTemplateWrapper = styled.div`
   display: flex;
@@ -74,9 +74,9 @@ const PartnerTemplateWrapper = styled.div`
   .partner-joblist {
     margin: 0px 0.5em;
   }
-`
+`;
 
-export default PartnerView
+export default PartnerView;
 
 export const PartnerQuery = graphql`
   query PartnerQuery($id: String!) {
@@ -109,4 +109,4 @@ export const PartnerQuery = graphql`
       }
     }
   }
-`
+`;

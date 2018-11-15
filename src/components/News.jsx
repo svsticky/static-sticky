@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { graphql, StaticQuery } from 'gatsby'
+import React from 'react';
+import styled from 'styled-components';
+import { graphql, StaticQuery } from 'gatsby';
 
 class News extends React.Component {
   renderNewsItems = allItems => (
@@ -18,17 +18,17 @@ class News extends React.Component {
               <a href={'/news/' + item.node.slug}>lees verder</a>
             </p>
           </div>
-        )
+        );
       })}
     </div>
-  )
+  );
 
   render() {
     return (
       <NewsWrapper>
         {this.renderNewsItems(this.props.data.allContentfulNewsArticles.edges)}
       </NewsWrapper>
-    )
+    );
   }
 }
 
@@ -37,7 +37,7 @@ export const NewsWrapper = styled.div`
     margin-bottom: 1em;
     border-bottom: 1px solid #ddd;
   }
-`
+`;
 
 export default props => (
   <StaticQuery
@@ -60,4 +60,4 @@ export default props => (
     `}
     render={data => <News data={data} {...props} />}
   />
-)
+);

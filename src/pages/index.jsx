@@ -1,15 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import Layout from '../components/layout/Layout'
-import Banner from '../components/Banner'
-import News from '../components/News'
-import Drinks from '../components/Drinks'
-import FeaturedJobs from '../components/jobs/FeaturedJobs'
-import ActivityWidget from '../components/activities/ActivityIndex'
+import React from 'react';
+import styled from 'styled-components';
+import Layout from '../components/layout/Layout';
+import Banner from '../components/Banner';
+import News from '../components/News';
+import Drinks from '../components/Drinks';
+import FeaturedJobs from '../components/jobs/FeaturedJobs';
+import ActivityWidget from '../components/activities/ActivityIndex';
 
-const Index = (props) => {
-
-  return(
+const Index = props => {
+  return (
     <Layout>
       <IndexWrapper>
         <h1>Homepage</h1>
@@ -32,8 +31,8 @@ const Index = (props) => {
         </div>
       </IndexWrapper>
     </Layout>
-  )
-}
+  );
+};
 
 export const IndexWrapper = styled.div`
   &&&
@@ -62,6 +61,6 @@ export const IndexWrapper = styled.div`
   .activity {
     grid-area: activity;
   }
-`
+`;
 
-export default Index
+export default Index;

@@ -1,48 +1,60 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Button, Card, Image } from 'semantic-ui-react'
-
+import React from 'react';
+import styled from 'styled-components';
+import { Button, Card, Image } from 'semantic-ui-react';
 
 const renderInfo = (poster, props) => {
-  const classes = poster ? "flip-card-back" : "no-poster";
-  const {id, location, name, price} = props.activity;
-  return(
-    <Card fluid className={classes + " info"}>
-      <div className='content'>
+  const classes = poster ? 'flip-card-back' : 'no-poster';
+  const { id, location, name, price } = props.activity;
+  return (
+    <Card fluid className={classes + ' info'}>
+      <div className="content">
         <h3>{name}</h3>
-        { location ? <p><strong>Locatie: </strong><em>{location}</em></p> : null }
-        <p><strong>Prijs: </strong><em>{ price !== 0 ? ("€" + (price.split('.')[1].length === 2 ? price : price + "0")) : "Gratis!" }</em></p>
+        {location ? (
+          <p>
+            <strong>Locatie: </strong>
+            <em>{location}</em>
+          </p>
+        ) : null}
+        <p>
+          <strong>Prijs: </strong>
+          <em>
+            {price !== 0
+              ? '€' + (price.split('.')[1].length === 2 ? price : price + '0')
+              : 'Gratis!'}
+          </em>
+        </p>
       </div>
       <Button
-        href={"https://koala.svsticky.nl/activities/" + id}
-        target="_blank">
-          <p>
-            Inschrijven  <i className="item-text icon external" />
-          </p>
+        href={'https://koala.svsticky.nl/activities/' + id}
+        target="_blank"
+      >
+        <p>
+          Inschrijven <i className="item-text icon external" />
+        </p>
       </Button>
     </Card>
-  )
-}
+  );
+};
 
 const Activity = props => {
   const { name, poster } = props.activity;
   return (
     <ActivityWrapper>
-      { poster ?
-      <div className="flip-card">
-        <div className="flip-card-inner">
-          <div className="flip-card-front">
-            <Image fluid src={poster} alt={"Poster voor " + name} />
+      {poster ? (
+        <div className="flip-card">
+          <div className="flip-card-inner">
+            <div className="flip-card-front">
+              <Image fluid src={poster} alt={'Poster voor ' + name} />
+            </div>
+            {renderInfo(poster, props)}
           </div>
-          { renderInfo(poster, props) }
         </div>
-      </div>
-      :
-      renderInfo(poster, props)
-      }
+      ) : (
+        renderInfo(poster, props)
+      )}
     </ActivityWrapper>
-  )
-}
+  );
+};
 
 const ActivityWrapper = styled.div`
   .flip-card {
@@ -58,7 +70,7 @@ const ActivityWrapper = styled.div`
           height: 100%;
           border-radius: 5px;
           border: 1px solid #ddd;
-          max-width:100%;
+          max-width: 100%;
         }
       }
     }
@@ -66,7 +78,8 @@ const ActivityWrapper = styled.div`
       transform: rotateY(180deg);
     }
   }
-  .flip-card-front, .flip-card-back {
+  .flip-card-front,
+  .flip-card-back {
     background-color: white;
     position: absolute;
     width: 100%;
@@ -96,6 +109,6 @@ const ActivityWrapper = styled.div`
   .icon {
     margin-left: 0.4em;
   }
-`
+`;
 
 export default Activity;

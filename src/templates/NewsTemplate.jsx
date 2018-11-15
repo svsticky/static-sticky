@@ -1,11 +1,11 @@
-import React from 'react'
-import Markdown from 'markdown-to-jsx'
-import styled from 'styled-components'
-import { graphql } from 'gatsby'
-import Layout from '../components/layout/Layout'
+import React from 'react';
+import Markdown from 'markdown-to-jsx';
+import styled from 'styled-components';
+import { graphql } from 'gatsby';
+import Layout from '../components/layout/Layout';
 
 const NewsView = ({ data }) => {
-  const article = data.contentfulNewsArticles
+  const article = data.contentfulNewsArticles;
 
   return (
     <Layout>
@@ -19,8 +19,8 @@ const NewsView = ({ data }) => {
         <Markdown>{article.content.content}</Markdown>
       </NewsTemplateWrapper>
     </Layout>
-  )
-}
+  );
+};
 
 const NewsTemplateWrapper = styled.div`
   padding: 1em;
@@ -31,7 +31,7 @@ const NewsTemplateWrapper = styled.div`
     font-style: italic;
     margin-bottom: 5px;
   }
-`
+`;
 
 export const newsQuery = graphql`
   query newsQuery($id: String!) {
@@ -45,5 +45,5 @@ export const newsQuery = graphql`
       }
     }
   }
-`
-export default NewsView
+`;
+export default NewsView;

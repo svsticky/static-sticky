@@ -31,7 +31,7 @@
   "scripts": {
     "build": "gatsby build",
     "develop": "gatsby develop",
-    "format": "prettier --write '**/*.js'",
+    "format": "npx prettier **/*.{js,jsx} --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -47,7 +47,7 @@
   "husky": {
     "hooks": {
       "//": "Best thing i could find that worked on WSL with the Git from Windows",
-      "pre-commit": "node node_modules/precise-commits/bin/index.js"
+      "pre-commit": "npm run format"
     }
   }
 }

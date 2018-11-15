@@ -1,6 +1,6 @@
-import React from 'react'
-import Layout from './Layout'
-import styled from 'styled-components'
+import React from 'react';
+import Layout from './Layout';
+import styled from 'styled-components';
 
 export default ({ page, children }) => {
   return (
@@ -12,12 +12,12 @@ export default ({ page, children }) => {
         <div>{children}</div>
       </PageWrapper>
     </Layout>
-  )
-}
+  );
+};
 
 const PageWrapper = styled.div`
   .title {
     border-bottom: 1px solid #ddd;
     margin-bottom: 10px;
   }
-`
+`;

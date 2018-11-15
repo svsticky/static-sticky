@@ -1,7 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Card } from 'semantic-ui-react'
-import { graphql, StaticQuery } from 'gatsby'
+import React from 'react';
+import styled from 'styled-components';
+import { Card } from 'semantic-ui-react';
+import { graphql, StaticQuery } from 'gatsby';
 
 class Drinks extends React.Component {
   renderDescription = drinks => {
@@ -12,8 +12,8 @@ class Drinks extends React.Component {
           Elke {drinks.day} vanaf {drinks.time} in de {drinks.location}!
         </b>
       </Card.Description>
-    )
-  }
+    );
+  };
 
   render() {
     return (
@@ -27,14 +27,14 @@ class Drinks extends React.Component {
           </Card>
         </div>
       </DrinksWrapper>
-    )
+    );
   }
 }
 
 export const DrinksWrapper = styled.div`
   .drinksCard {
   }
-`
+`;
 
 export default props => (
   <StaticQuery
@@ -49,4 +49,4 @@ export default props => (
     `}
     render={data => <Drinks data={data} {...props} />}
   />
-)
+);

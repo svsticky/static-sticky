@@ -1,33 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql, StaticQuery } from 'gatsby'
+import { graphql, StaticQuery } from 'gatsby';
 import Partner from '../../components/Partner';
-import ContentfulPage from '../../components/layout/ContentfulPage'
-import Markdown from 'markdown-to-jsx'
-
+import ContentfulPage from '../../components/layout/ContentfulPage';
+import Markdown from 'markdown-to-jsx';
 
 const PartnerIndexPage = ({ data }) => {
   const partners = data.allContentfulPartner.edges;
   const page = data.contentfulPage;
 
   return (
-      <ContentfulPage page = {page}>
-        <Markdown>
-          {page.content.content}
-        </Markdown>
-        <PartnerList>
-          <div className="list">
-            { partners.map(partner =>
-              <Partner key={partner.node.id} partner={partner.node} />)
-              }
-          </div>
-        </PartnerList>
-      </ContentfulPage>
+    <ContentfulPage page={page}>
+      <Markdown>{page.content.content}</Markdown>
+      <PartnerList>
+        <div className="list">
+          {partners.map(partner => (
+            <Partner key={partner.node.id} partner={partner.node} />
+          ))}
+        </div>
+      </PartnerList>
+    </ContentfulPage>
   );
 };
 
 const PartnerList = styled.div`
-  .list{
+  .list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
@@ -35,7 +32,6 @@ const PartnerList = styled.div`
     justify-items: stretch;
     grid-auto-flow: row;
   }
-
 `;
 
 export const PartnerListQuery = graphql`
@@ -61,11 +57,11 @@ export const PartnerListQuery = graphql`
       }
     }
   }
-`
+`;
 
 export default props => (
   <StaticQuery
     query={PartnerListQuery}
     render={data => <PartnerIndexPage data={data} {...props} />}
   />
-)
+);

@@ -1,15 +1,15 @@
-import React from 'react'
-import { graphql, StaticQuery } from 'gatsby'
-import ContentfulPage from '../../components/layout/ContentfulPage'
-import Markdown from 'markdown-to-jsx'
-import { Image, Label } from 'semantic-ui-react'
-import styled from 'styled-components'
+import React from 'react';
+import { graphql, StaticQuery } from 'gatsby';
+import ContentfulPage from '../../components/layout/ContentfulPage';
+import Markdown from 'markdown-to-jsx';
+import { Image, Label } from 'semantic-ui-react';
+import styled from 'styled-components';
 
 const DisputeIndexPage = ({ data }) => {
   const disputes = data.allContentfulDispute.edges.map(
     disputeEdge => disputeEdge.node
-  )
-  const page = data.contentfulPage
+  );
+  const page = data.contentfulPage;
 
   return (
     <ContentfulPage page={page}>
@@ -33,8 +33,8 @@ const DisputeIndexPage = ({ data }) => {
         ))}
       </Centered>
     </ContentfulPage>
-  )
-}
+  );
+};
 
 const Centered = styled.div`
   display: flex;
@@ -42,7 +42,7 @@ const Centered = styled.div`
   align-items: center;
   justify-content: space-evenly;
   flex-wrap: wrap;
-`
+`;
 
 const DisputeListQuery = graphql`
   query DisputeListQuery {
@@ -67,11 +67,11 @@ const DisputeListQuery = graphql`
       }
     }
   }
-`
+`;
 
 export default props => (
   <StaticQuery
     query={DisputeListQuery}
     render={data => <DisputeIndexPage data={data} {...props} />}
   />
-)
+);

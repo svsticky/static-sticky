@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Card, Image } from 'semantic-ui-react'
+import React from 'react';
+import styled from 'styled-components';
+import { Card, Image } from 'semantic-ui-react';
 
 const Board = ({ board }) => (
   <BoardCard color={board.color}>
@@ -19,7 +19,7 @@ const Board = ({ board }) => (
       </Card>
     </div>
   </BoardCard>
-)
+);
 
 const BoardCard = styled.div`
   .head {
@@ -32,6 +32,6 @@ const BoardCard = styled.div`
   .card {
     height: 100%;
   }
-`
+`;
 
-export default Board
+export default Board;

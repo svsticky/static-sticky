@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Dropdown } from 'semantic-ui-react'
+import React from 'react';
+import styled from 'styled-components';
+import { Dropdown } from 'semantic-ui-react';
 
 const studieFilterOptions = [
   { key: 1, text: 'Informatica', value: 'Informatica' },
@@ -14,7 +14,7 @@ const studieFilterOptions = [
     text: 'Game and Media Technology',
     value: 'Game and Media Technology',
   },
-]
+];
 
 const typeFilterOptions = [
   { key: 1, text: 'Afstudeeropdracht', value: 'Afstudeeropdracht' },
@@ -23,7 +23,7 @@ const typeFilterOptions = [
   { key: 4, text: 'Part-time', value: 'Part-time' },
   { key: 5, text: 'Stage', value: 'Stage' },
   { key: 6, text: 'Traineeship', value: 'Traineeship' },
-]
+];
 
 //The problem lies in the first dropdown -> onChange. Somehow it won't allow to filter
 const JobFilter = props => (
@@ -52,7 +52,7 @@ const JobFilter = props => (
           options={studieFilterOptions}
           placeholder="Filter op studie"
           onChange={(e, data) => {
-            props.updateStudiesFilter(data.value)
+            props.updateStudiesFilter(data.value);
           }}
         />
       </div>
@@ -65,13 +65,13 @@ const JobFilter = props => (
           options={typeFilterOptions}
           placeholder="Filter op type"
           onChange={(e, data) => {
-            props.updateTypesFilter(data.value)
+            props.updateTypesFilter(data.value);
           }}
         />
       </div>
     </div>
   </JobFilterWrapper>
-)
+);
 
 const JobFilterWrapper = styled.div`
 &&&
@@ -102,6 +102,6 @@ const JobFilterWrapper = styled.div`
     grid-column 2;
     grid-row: 2;
   }
-`
+`;
 
-export default JobFilter
+export default JobFilter;

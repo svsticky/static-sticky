@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
 
 const Footer = () => (
   <FooterWrapper>
@@ -25,7 +25,7 @@ const Footer = () => (
       </div>
     </div>
   </FooterWrapper>
-)
+);
 
 const FooterWrapper = styled.div`
   display: flex;
@@ -41,6 +41,6 @@ const FooterWrapper = styled.div`
       margin: 0.8em 2em;
     }
   }
-`
+`;
 
-export default Footer
+export default Footer;

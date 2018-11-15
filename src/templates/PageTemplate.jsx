@@ -1,17 +1,17 @@
-import React from 'react'
-import Markdown from 'markdown-to-jsx'
-import { graphql } from 'gatsby'
-import ContentfulPage from '../components/layout/ContentfulPage'
+import React from 'react';
+import Markdown from 'markdown-to-jsx';
+import { graphql } from 'gatsby';
+import ContentfulPage from '../components/layout/ContentfulPage';
 
 export default ({ data }) => {
-  const page = data.contentfulPage
+  const page = data.contentfulPage;
 
   return (
     <ContentfulPage page={page}>
       <Markdown>{page.content.content}</Markdown>
     </ContentfulPage>
-  )
-}
+  );
+};
 
 export const pageQuery = graphql`
   query pageQuery($id: String!) {
@@ -22,4 +22,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
