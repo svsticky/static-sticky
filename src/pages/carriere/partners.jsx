@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
-import Partner from '../../components/Partner';
-import ContentfulPage from '../../components/layout/ContentfulPage';
+import Partner from '$/components/Partner';
+import ContentfulPage from '$/components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 
 const PartnerIndexPage = ({ data }) => {

@@ -5,6 +5,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-preset-gatsby": "^0.1.4",
     "dotenv": "^6.0.0",
     "gatsby": "^2.0.0",
     "gatsby-plugin-manifest": "^2.0.2",
@@ -37,6 +38,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "babel-plugin-root-import": "^6.1.0",
     "babel-plugin-styled-components": "^1.8.0",
     "gulp": "^3.9.1",
     "husky": "^1.1.1",
