@@ -1,15 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import Responsive from 'react-responsive';
 import NavBar from './Navbar';
+import MobileNavbar from './MobileNavbar';
 import Footer from './Footer';
 import { Container } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 
+const Desktop = props => <Responsive {...props} minWidth={768} />;
+const Mobile = props => <Responsive {...props} maxWidth={767} />;
+
 const layout = ({ children }) => (
   <>
     <PageWrapper>
-      <NavBar />
       <StyledContainer className="content">{children}</StyledContainer>
+      <MobileNavbar />
       <Footer />
     </PageWrapper>
   </>

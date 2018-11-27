@@ -16,6 +16,7 @@
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
+    "react-responsive": "^6.0.1",
     "semantic-ui-css": "^2.4.0",
     "semantic-ui-react": "^0.82.5",
     "slash": "^2.0.0",
