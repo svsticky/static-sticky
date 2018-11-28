@@ -1,6 +1,6 @@
 # Contributing
 So you're thinking about contributing to the Sticky Website, great!
-To make sure every contributer is on the same 'page', the CommIT team advises to keep the following guidelines in mind when contributing.
+To make sure every contributor is on the same 'page', the CommIT team advises to keep the following guidelines in mind when contributing.
 
 #### Branching Strategy
 For branching, we apply the same branching strategy as we use in Koala:
