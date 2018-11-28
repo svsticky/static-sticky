@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import NavBar from './Navbar';
 import Footer from './Footer';
 import { Container } from 'semantic-ui-react';
-import 'semantic-ui-css/semantic.min.css';
+import '$/semantic/dist/semantic.min.css';
 
 const layout = ({ children }) => (
   <>
