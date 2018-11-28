@@ -11,10 +11,6 @@ export default class ActivityCollection extends Component {
     };
   }
 
-  state = {
-    fetchedActivities: ['No activities'],
-  };
-
   async componentDidMount() {
     const activities = await fetch('https://koala.svsticky.nl/api/activities');
     const activitiesJSON = await activities.json();
@@ -34,6 +30,8 @@ export default class ActivityCollection extends Component {
       <ActivityCollectionWrapper count={this.props.count}>
         {this.state.loading ? (
           <p>Loading activities...</p>
+        ) : this.state.activities.length === 0 ? (
+          <p>No activities</p>
         ) : (
           this.renderActivities(this.state.activities)
         )}
