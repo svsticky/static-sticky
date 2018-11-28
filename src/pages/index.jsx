@@ -35,15 +35,14 @@ const Index = props => {
 };
 
 export const IndexWrapper = styled.div`
-  &&&
-  .container {
+  &&& .container {
     display: grid;
     grid-template-columns: repeat (4, 1fr);
     grid-template-areas:
-      "banner banner banner banner"
-      "news news news drinks"
-      "news news news jobs"
-      "news news news activity";
+      'banner banner banner banner'
+      'news news news drinks'
+      'news news news jobs'
+      'news news news activity';
     grid-gap: 2em;
   }
   .banner {
