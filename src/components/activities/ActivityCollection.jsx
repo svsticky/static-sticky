@@ -3,13 +3,14 @@ import styled from 'styled-components';
 import Activity from './Activity';
 
 export default class ActivityCollection extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       loading: true,
       activities: [],
     };
   }
+
   state = {
     fetchedActivities: ['No activities'],
   };

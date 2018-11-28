@@ -5,8 +5,8 @@ import { Card, Image, Icon } from 'semantic-ui-react';
 import $ from 'jquery';
 
 class Banner extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.prev = 0;
     this.dir = 1;
   }
