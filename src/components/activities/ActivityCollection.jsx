@@ -18,7 +18,6 @@ export default class ActivityCollection extends Component {
       loading: false,
       activities: activitiesJSON,
     });
-    console.log(activitiesJSON);
   }
 
   renderActivities = activities => {
