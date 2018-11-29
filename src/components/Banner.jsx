@@ -69,7 +69,7 @@ export const BannerWrapper = styled.div`
   }
   .each-slide{
     display: flex;
-    height: 125px;
+    height: 110px;
     justify-content: center;
   }
   .image {
