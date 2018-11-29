@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { Slide } from 'react-slideshow-image';
-import styled from 'styled-components'
-import { graphql, StaticQuery } from 'gatsby'
-import { Card, Image } from 'semantic-ui-react'
+import styled from 'styled-components';
+import { graphql, StaticQuery } from 'gatsby';
+import { Card, Image } from 'semantic-ui-react';
 
 class Banner extends React.Component {
   constructor(props) {
@@ -10,33 +10,27 @@ class Banner extends React.Component {
     this.allLogos = props.data.allContentfulBannerLogo.edges;
     this.state = {
       logos: this.allLogos,
-    }
+    };
   }
 
-  renderLogos = (allLogos) => (
+  renderLogos = allLogos => (
     <div className="card-container">
-    <Card className="card">
-      <Card.Content className="card-content">
+      <Card className="card">
+        <Card.Content className="card-content">
           <Slide {...properties} className="slide">
             {allLogos.map(logo => (
               <div className="each-slide" key={logo.node.id}>
-                <Image src={logo.node.image.file.url}
-                       className="image"
-                       />
+                <Image src={logo.node.image.file.url} className="image" />
               </div>
-          ))}
+            ))}
           </Slide>
         </Card.Content>
       </Card>
     </div>
-    )
+  );
 
   render() {
-    return (
-      <BannerWrapper>
-        {this.renderLogos(this.state.logos)}
-      </BannerWrapper>
-    );
+    return <BannerWrapper>{this.renderLogos(this.state.logos)}</BannerWrapper>;
   }
 }
 
@@ -45,11 +39,10 @@ const properties = {
   transitionDuration: 500,
   infinite: true,
   indicators: false,
-  arrows: true
-}
+  arrows: true,
+};
 
 export const BannerWrapper = styled.div`
-  &&&
   width: 100%;
   .card-container {
     display: flex !important;
@@ -57,17 +50,17 @@ export const BannerWrapper = styled.div`
     align-items: center;
     height: 125px !important;
   }
-  .card{
+  .card {
     flex-grow: 1;
     height: 100% !important;
   }
   .card-content {
     height: 100% !important;
   }
-  .slide{
+  .slide {
     height: 100% !important;
   }
-  .each-slide{
+  .each-slide {
     display: flex;
     height: 110px;
     justify-content: center;
@@ -75,7 +68,7 @@ export const BannerWrapper = styled.div`
   .image {
     height: inherit !important;
   }
-`
+`;
 
 export default props => (
   <StaticQuery
