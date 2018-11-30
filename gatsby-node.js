@@ -12,6 +12,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const boardTemplate = path.resolve('src/templates/BoardTemplate.jsx');
   const newsTemplate = path.resolve('src/templates/NewsTemplate.jsx');
   const disputeTemplate = path.resolve(`src/templates/DisputeTemplate.jsx`);
+  const committeeTemplate = path.resolve(`src/templates/CommitteeTemplate.jsx`);
   const query = await graphql(`
     query PagesQuery {
       allContentfulJobListing {
@@ -58,6 +59,14 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
       allContentfulDispute {
+        edges {
+          node {
+            id
+            slug
+          }
+        }
+      }
+      allContentfulCommittee {
         edges {
           node {
             id
@@ -122,6 +131,14 @@ exports.createPages = async ({ graphql, actions }) => {
 
     query.data.allContentfulDispute.edges.forEach(({ node }) => {
       createTemplatePage(`/disputen/${node.slug}`, disputeTemplate, node.id);
+    });
+
+    query.data.allContentfulCommittee.edges.forEach(({ node }) => {
+      createTemplatePage(
+        `/commissies/${node.slug}`,
+        committeeTemplate,
+        node.id
+      );
     });
   }
 };
