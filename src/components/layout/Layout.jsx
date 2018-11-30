@@ -13,10 +13,15 @@ const Mobile = props => <Responsive {...props} maxWidth={767} />;
 const layout = ({ children }) => (
   <>
     <PageWrapper>
+      <Desktop>
+        <NavBar />
+      </Desktop>
       <StyledContainer className="content">{children}</StyledContainer>
-      <MobileNavbar />
       <Footer />
     </PageWrapper>
+    <Mobile>
+      <MobileNavbar />
+    </Mobile>
   </>
 );
 

@@ -1,17 +1,17 @@
-import React from 'react'
-import { graphql, StaticQuery, Link } from 'gatsby'
-import styled from 'styled-components'
+import React from 'react';
+import { graphql, StaticQuery, Link } from 'gatsby';
+import styled from 'styled-components';
 
 class MobileNavBar extends React.Component {
   state = {
     active: '',
-  }
+  };
 
   handleMenuClick = clicked => {
     clicked === this.state.active
       ? this.setState({ active: '' })
-      : this.setState({ active: clicked })
-  }
+      : this.setState({ active: clicked });
+  };
 
   renderMenuItems = pages =>
     pages.map(menuItem => {
@@ -24,10 +24,10 @@ class MobileNavBar extends React.Component {
           >
             {menuItem.node.title}
           </ParentMenuItem>
-        )
+        );
       }
-      return null
-    })
+      return null;
+    });
 
   renderSubMenuItems = pages =>
     pages.map(menuItem => {
@@ -41,10 +41,10 @@ class MobileNavBar extends React.Component {
           >
             <div className="sub-menu-item">{menuItem.node.title}</div>
           </Link>
-        )
+        );
       }
-      return null
-    })
+      return null;
+    });
 
   render() {
     return (
@@ -60,7 +60,7 @@ class MobileNavBar extends React.Component {
           </div>
         ) : null}
       </MobileNavBarWrapper>
-    )
+    );
   }
 }
 
@@ -105,7 +105,7 @@ const MobileNavBarWrapper = styled.div`
       }
     }
   }
-`
+`;
 // Had to substract this to be able to use styled-components props effectively...
 const ParentMenuItem = styled.div`
   display: flex;
@@ -116,7 +116,7 @@ const ParentMenuItem = styled.div`
   border-radius: 5px;
   background-color: ${props => (props.active ? 'white' : '#20730d')};
   color: ${props => (props.active ? '#20730d' : 'white')};
-`
+`;
 
 export default props => (
   <StaticQuery
@@ -139,4 +139,4 @@ export default props => (
     `}
     render={data => <MobileNavBar data={data} {...props} />}
   />
-)
+);
