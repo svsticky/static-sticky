@@ -20,14 +20,10 @@ const CommitteeView = ({ data }) => {
                 centered
               />
             </Grid.Row>
-            <Grid.Row
-              className="members">
-              <List
-                className="divided relaxed">
+            <Grid.Row className="members">
+              <List className="divided relaxed">
                 {committee.members.map(member => (
-                  <List.Item>
-                    {member}
-                  </List.Item>
+                  <List.Item>{member}</List.Item>
                 ))}
               </List>
             </Grid.Row>
@@ -41,9 +37,7 @@ const CommitteeView = ({ data }) => {
           <h4>Wat wij doen</h4>
           <Markdown>{committee.description.description}</Markdown>
         </Grid.Column>
-        <Grid.Column width={4}>
-          
-        </Grid.Column>
+        <Grid.Column width={4} />
       </Grid>
     </Layout>
   );
@@ -52,8 +46,7 @@ const CommitteeView = ({ data }) => {
 const Sticky = styled.div`
   top: 0p;
   position: sticky;
-  &&&
-  .members {
+  &&& .members {
     margin: 20pt;
   }
 `;
