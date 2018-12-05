@@ -1,12 +1,51 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Card, Image } from 'semantic-ui-react';
+import ReactCardFlip from 'react-card-flip';
 
-const renderInfo = (poster, props) => {
-  const classes = poster ? 'flip-card-back' : 'no-poster';
+export default class Activity extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isFlipped: false,
+    };
+    this.flipCard = this.flipCard.bind(this);
+  }
+
+  flipCard(e) {
+    e.preventDefault();
+    this.setState(prevState => ({ isFlipped: !prevState.isFlipped }));
+  }
+
+  render() {
+    const { poster, name } = this.props.activity;
+    return (
+      <ActivityWrapper
+        onMouseEnter={this.flipCard}
+        onMouseLeave={this.flipCard}
+        onTouchEnd={this.flipCard}
+      >
+        <ReactCardFlip isFlipped={this.state.isFlipped}>
+          <div key="front">{renderPoster(poster, name)}</div>
+          <div key="back">{renderInfo(this.props)}</div>
+        </ReactCardFlip>
+        {/* Render the image again for sizing (position: absolute on the ReactCardFlip removes it from the document flow)
+            Also see: https://github.com/AaronCCWong/react-card-flip/issues/10
+            and https://stackoverflow.com/a/46281339*/}
+        <Hidden>{renderPoster(poster, name)}</Hidden>
+      </ActivityWrapper>
+    );
+  }
+}
+
+const renderPoster = (posterUrl, activityName) => (
+  <Image size="medium" src={posterUrl} alt={'Poster voor ' + activityName} />
+);
+
+const renderInfo = props => {
   const { id, location, name, price } = props.activity;
   return (
-    <Card fluid className={classes + ' info'}>
+    <Card fluid className={'info'}>
       <div className="content">
         <h3>{name}</h3>
         {location ? (
@@ -36,63 +75,12 @@ const renderInfo = (poster, props) => {
   );
 };
 
-const Activity = props => {
-  const { name, poster } = props.activity;
-  return (
-    <ActivityWrapper>
-      {poster ? (
-        <div className="flip-card">
-          <div className="flip-card-inner">
-            <div className="flip-card-front">
-              <Image size="medium" src={poster} alt={'Poster voor ' + name} />
-            </div>
-            {renderInfo(poster, props)}
-          </div>
-        </div>
-      ) : (
-        renderInfo(poster, props)
-      )}
-    </ActivityWrapper>
-  );
-};
+const Hidden = styled.div`
+  z-index: -1;
+  visibility: hidden;
+`;
 
 const ActivityWrapper = styled.div`
-  .flip-card {
-    perspective: 1000px;
-    height: 100%;
-    .flip-card-inner {
-      position: relative;
-      transition: transform 0.3s;
-      transform-style: preserve-3d;
-      height: 100%;
-      .flip-card-front {
-        img {
-          height: 100%;
-          border-radius: 5px;
-          border: 1px solid #ddd;
-          max-width: 100%;
-        }
-      }
-    }
-    &:hover .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-  }
-  .flip-card-front,
-  .flip-card-back {
-    background-color: white;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-  }
-  .flip-card-back {
-    border-radius: 5px;
-    transform: rotateY(180deg);
-  }
-  .no-poster {
-    height: 100%;
-  }
   .info {
     margin: 0 !important;
     display: flex !important;
@@ -110,5 +98,3 @@ const ActivityWrapper = styled.div`
     margin-left: 0.4em;
   }
 `;
-
-export default Activity;
