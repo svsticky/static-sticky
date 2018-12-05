@@ -107,6 +107,9 @@ class NavBar extends React.Component {
 
 const NavBarWrapper = styled.div`
   &&& .navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
     background-color: #20730d;
     border-radius: 0;
     .logo {

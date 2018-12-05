@@ -12,10 +12,10 @@ const Mobile = props => <Responsive {...props} maxWidth={767} />;
 
 const layout = ({ children }) => (
   <>
+    <Desktop>
+      <NavBar />
+    </Desktop>
     <PageWrapper>
-      <Desktop>
-        <NavBar />
-      </Desktop>
       <StyledContainer className="content">{children}</StyledContainer>
       <Footer />
     </PageWrapper>
@@ -26,13 +26,14 @@ const layout = ({ children }) => (
 );
 
 const StyledContainer = styled(Container)`
-  padding: 3em 0;
+  padding: 5em 0;
 `;
 
 const PageWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 
   .content {
     flex: 1;
