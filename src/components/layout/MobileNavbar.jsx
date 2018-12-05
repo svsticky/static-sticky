@@ -1,16 +1,18 @@
 import React from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
 import styled from 'styled-components';
+import { CSSTransition } from 'react-transition-group';
 
 class MobileNavBar extends React.Component {
   state = {
-    active: '',
+    active: null,
+    showSubMenu: false,
   };
 
   handleMenuClick = clicked => {
     clicked === this.state.active
-      ? this.setState({ active: '' })
-      : this.setState({ active: clicked });
+      ? this.setState({ showSubMenu: false })
+      : this.setState({ active: clicked, showSubMenu: true });
   };
 
   renderMenuItems = pages =>
@@ -38,6 +40,7 @@ class MobileNavBar extends React.Component {
         return (
           <Link
             to={'/' + menuItem.node.parentPage.slug + '/' + menuItem.node.slug}
+            key={menuItem.node.title}
           >
             <div className="sub-menu-item">{menuItem.node.title}</div>
           </Link>
@@ -52,13 +55,19 @@ class MobileNavBar extends React.Component {
         <div className="menu">
           {this.renderMenuItems(this.props.data.allContentfulPage.edges)}
         </div>
-        {this.state.active ? (
+        <CSSTransition
+          in={this.state.showSubMenu}
+          timeout={200}
+          classNames="submenu-animation"
+          unmountOnExit
+          onExited={() => this.setState({ active: null })}
+        >
           <div className="sub-menu-wrapper">
             <div className="sub-menu">
               {this.renderSubMenuItems(this.props.data.allContentfulPage.edges)}
             </div>
           </div>
-        ) : null}
+        </CSSTransition>
       </MobileNavBarWrapper>
     );
   }
@@ -105,7 +114,24 @@ const MobileNavBarWrapper = styled.div`
       }
     }
   }
+  .submenu-animation {
+    &-enter {
+      transform: translateY(100%);
+      &-active {
+        transform: translateY(0%);
+        transition: all 200ms ease-out;
+      }
+    }
+    &-exit {
+      transform: translateY(0%);
+      &-active {
+        transform: translateY(100%);
+        transition: all 200ms ease-out;
+      }
+    }
+  }
 `;
+
 // Had to substract this to be able to use styled-components props effectively...
 const ParentMenuItem = styled.div`
   display: flex;
