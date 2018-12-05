@@ -4,7 +4,7 @@ import Layout from '../components/layout/Layout';
 import Banner from '../components/Banner';
 import News from '../components/News';
 import Drinks from '../components/Drinks';
-import IndexWrapper from '../components/Grid';
+import IndexWrapper from '../components/layout/Grid';
 import FeaturedJobs from '../components/jobs/FeaturedJobs';
 import ActivityWidget from '../components/activities/ActivityIndex';
 
