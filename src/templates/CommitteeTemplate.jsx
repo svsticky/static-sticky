@@ -3,10 +3,11 @@ import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Grid, Header, Image, Divider, List } from 'semantic-ui-react';
+import { Grid, Header, Image, List } from 'semantic-ui-react';
 
 const CommitteeView = ({ data }) => {
   const { contentfulCommittee: committee } = data;
+  const photo = committee.photo != null;
 
   return (
     <Layout>
@@ -20,24 +21,37 @@ const CommitteeView = ({ data }) => {
                 centered
               />
             </Grid.Row>
+          </Sticky>
+        </Grid.Column>
+        <Grid.Column width={8}>
+          <Grid.Row>
+            <Header className="huge">{committee.name}</Header>
+          </Grid.Row>
+          <Grid.Row>
+            <Markdown>{committee.description.description}</Markdown>
+          </Grid.Row>
+        </Grid.Column>
+        <Grid.Column width={4}>
+          <Sticky>
             <Grid.Row className="members">
+              <h3>Leden</h3>
               <List className="divided relaxed">
                 {committee.members.map(member => (
                   <List.Item>{member}</List.Item>
                 ))}
               </List>
             </Grid.Row>
+            {photo && (
+              <Grid.Row>
+                <Image
+                  src={committee.photo.file.url}
+                  alt={`${committee.name} photo`}
+                  centered
+                />
+              </Grid.Row>
+            )}
           </Sticky>
         </Grid.Column>
-        <Grid.Column width={8}>
-          <Grid.Row>
-            <Header className="huge">Commissie: {committee.name}</Header>
-          </Grid.Row>
-          {}
-          <h4>Wat wij doen</h4>
-          <Markdown>{committee.description.description}</Markdown>
-        </Grid.Column>
-        <Grid.Column width={4} />
       </Grid>
     </Layout>
   );
@@ -47,7 +61,7 @@ const Sticky = styled.div`
   top: 0p;
   position: sticky;
   &&& .members {
-    margin: 20pt;
+    margin: 10pt;
   }
 `;
 
@@ -64,6 +78,11 @@ export const CommitteeQuery = graphql`
         description
       }
       logo {
+        file {
+          url
+        }
+      }
+      photo {
         file {
           url
         }

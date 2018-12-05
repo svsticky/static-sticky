@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import ContentfulPage from '../../components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
-import { Image, Label, Card } from 'semantic-ui-react';
+import { Image, Card } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const CommitteeIndexPage = ({ data }) => {
@@ -59,11 +59,6 @@ const CommitteeListQuery = graphql`
             file {
               url
             }
-          }
-          members
-          description {
-            id
-            description
           }
           year
         }
