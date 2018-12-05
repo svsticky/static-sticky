@@ -44,7 +44,7 @@ const Activity = props => {
         <div className="flip-card">
           <div className="flip-card-inner">
             <div className="flip-card-front">
-              <Image fluid src={poster} alt={'Poster voor ' + name} />
+              <Image size="medium" src={poster} alt={'Poster voor ' + name} />
             </div>
             {renderInfo(poster, props)}
           </div>
