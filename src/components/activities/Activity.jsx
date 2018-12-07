@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Card, Image } from 'semantic-ui-react';
 import ReactCardFlip from 'react-card-flip';
+import Currency from 'react-currency-formatter';
 
 export default class Activity extends React.Component {
   constructor(props) {
@@ -39,39 +40,40 @@ const renderPoster = (posterUrl, activityName) => (
   <Image size="medium" src={posterUrl} alt={'Poster voor ' + activityName} />
 );
 
-const renderInfo = ({ id, location, name, price }) =>
-  (
-    <Card>
-      <Card.Content>
-        <Card.Header>{name}</Card.Header>
-      </Card.Content>
-      <Card.Content>
-        <Card.Description>
-          {location && (
-            <p>
-              <strong>Locatie: </strong>
-              <em>{location}</em>
-            </p>
-          )}
+const renderInfo = ({ id, location, name, price }) => (
+  <Card>
+    <Card.Content>
+      <Card.Header>{name}</Card.Header>
+    </Card.Content>
+    <Card.Content>
+      <Card.Description>
+        {location && (
           <p>
-            <strong>Prijs: </strong>
-            <em>
-              {price !== 0
-                ? '€' + (price.split('.')[1].length === 2 ? price : price + '0')
-                : 'Gratis!'}
-            </em>
+            <strong>Locatie: </strong>
+            <em>{location}</em>
           </p>
-        </Card.Description>
-      </Card.Content>
-      <Button
-        href={'https://koala.svsticky.nl/activities/' + id}
-        target="_blank"
-        content="Inschrijven"
-        icon="external"
-        labelPosition="right"
-      />
-    </Card>
-  );
+        )}
+        <p>
+          <strong>Prijs: </strong>
+          <em>
+            {price !== 0 ? (
+              <Currency quantity={parseFloat(price)} currency="EUR" />
+            ) : (
+              'Gratis!'
+            )}
+          </em>
+        </p>
+      </Card.Description>
+    </Card.Content>
+    <Button
+      href={'https://koala.svsticky.nl/activities/' + id}
+      target="_blank"
+      content="Inschrijven"
+      icon="external"
+      labelPosition="right"
+    />
+  </Card>
+);
 
 const Hidden = styled.div`
   z-index: -1;
