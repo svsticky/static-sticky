@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
-import ContentfulPage from '../../components/layout/ContentfulPage';
+import ContentfulPage from '$/components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 import { Image, Label } from 'semantic-ui-react';
 import styled from 'styled-components';

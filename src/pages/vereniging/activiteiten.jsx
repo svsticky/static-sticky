@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import ActivityCollection from '../../components/activities/ActivityCollection';
-import ContentfulPage from '../../components/layout/ContentfulPage';
+import ActivityCollection from '$/components/activities/ActivityCollection';
+import ContentfulPage from '$/components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 
 const Activiteiten = props => {

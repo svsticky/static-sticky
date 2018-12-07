@@ -5,6 +5,7 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "axios": "^0.18.0",
+    "babel-preset-gatsby": "^0.1.4",
     "dotenv": "^6.0.0",
     "gatsby": "^2.0.0",
     "gatsby-plugin-manifest": "^2.0.2",
@@ -16,7 +17,9 @@
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
-    "semantic-ui-css": "^2.4.0",
+    "react-responsive": "^6.0.1",
+    "react-transition-group": "^2.5.0",
+    "react-slideshow-image": "^1.0.8",
     "semantic-ui-react": "^0.82.5",
     "slash": "^2.0.0",
     "styled-components": "^3.4.9"
@@ -29,16 +32,22 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
+    "//": "Run configurations to build & watch the semantic folder",
+    "build-semantic": "cd src/semantic && gulp build-css build-assets",
+    "watch-semantic": "cd src/semantic && npm run build-semantic && gulp watch",
+    "build": "npm run build-semantic && gatsby build",
+    "develop": "npm run build-semantic && gatsby develop",
     "format": "npx prettier **/*.{js,jsx} --write",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "babel-plugin-root-import": "^6.1.0",
     "babel-plugin-styled-components": "^1.8.0",
+    "gulp": "^3.9.1",
     "husky": "^1.1.1",
     "precise-commits": "^1.0.2",
-    "prettier": "^1.14.2"
+    "prettier": "^1.14.2",
+    "semantic-ui": "^2.4.2"
   },
   "repository": {
     "type": "git",

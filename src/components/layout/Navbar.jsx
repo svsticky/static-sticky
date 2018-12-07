@@ -9,8 +9,8 @@ import {
   Button,
   Grid,
 } from 'semantic-ui-react';
-import logo from '../../images/logo-sticky-small.png';
-import menu from '../../data/menu.json';
+import logo from '$/images/logo-sticky-small.png';
+import menu from '$/data/menu.json';
 
 class NavBar extends React.Component {
   renderMenuItems = data =>
@@ -107,6 +107,9 @@ class NavBar extends React.Component {
 
 const NavBarWrapper = styled.div`
   &&& .navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
     background-color: #20730d;
     border-radius: 0;
     .logo {
