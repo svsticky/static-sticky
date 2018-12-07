@@ -3,7 +3,7 @@ import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Grid, Header, Image, List } from 'semantic-ui-react';
+import { Grid, Header, Image, List, Button, Icon } from 'semantic-ui-react';
 
 const CommitteeView = ({ data }) => {
   const { contentfulCommittee: committee } = data;
@@ -11,11 +11,16 @@ const CommitteeView = ({ data }) => {
 
   return (
     <Layout>
+      <Button className="labeled icon basic" href="/vereniging/commissies">
+        <Icon name="angle left" />
+        Commissies
+      </Button>
       <Grid columns={3} style={{ 'margin-top': '5px' }} stackable>
         <Grid.Column width={4}>
           <Sticky>
             <Grid.Row>
               <Image
+                className="logo"
                 src={committee.logo.file.url}
                 alt={`${committee.name} logo`}
                 centered
@@ -62,6 +67,13 @@ const Sticky = styled.div`
   position: sticky;
   &&& .members {
     margin: 10pt;
+  }
+  .logo {
+    height: 200pt;
+  }
+  .button {
+    margin-bottom: 10pt;
+    align-content: center;
   }
 `;
 
