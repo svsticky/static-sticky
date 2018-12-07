@@ -1,10 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 import Layout from '../components/layout/Layout';
 import Banner from '../components/Banner';
 import News from '../components/News';
 import Drinks from '../components/Drinks';
-import IndexWrapper from '../components/layout/Grid';
+import IndexWrapper from '../components/layout/GridDryQueries';
 import FeaturedJobs from '../components/jobs/FeaturedJobs';
 import ActivityWidget from '../components/activities/ActivityIndex';
 
