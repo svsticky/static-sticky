@@ -31,7 +31,7 @@ const IndexWrapper = styled.div`
       }
       .activity {
         grid-area: activity;
-        width: 75%
+        width: 40vw;
       }
     }
   } 
