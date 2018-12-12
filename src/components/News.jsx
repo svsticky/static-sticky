@@ -6,12 +6,12 @@ import Pager from 'react-pager';
 class News extends React.Component {
   constructor(props) {
     super(props);
-
+    this.pageAmount = 5; //Change this to change the amount of items per page
     this.handlePageChanged = this.handlePageChanged.bind(this);
     this.newsItems = this.props.data.allContentfulNewsArticles.edges;
 
     this.state = {
-      total: Math.ceil(this.newsItems.length / 5),
+      total: Math.ceil(this.newsItems.length / this.pageAmount),
       current: 0,
       visiblePage: 3,
     };
@@ -24,8 +24,7 @@ class News extends React.Component {
   renderNewsItems = (allItems, pageNum) => (
     <div>
       {allItems
-        .filter(
-          fitem =>
+        .filter(fitem =>
             allItems.indexOf(fitem) >= pageNum * 5 &&
             allItems.indexOf(fitem) < pageNum * 5 + 5
         )
@@ -69,56 +68,75 @@ export const NewsWrapper = styled.div`
     border-bottom: 1px solid #ddd;
   }
   .pagination {
-    font-size: 25px;
-    display: inline-block;
-    padding-left: 0;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-    border-radius: 10px;
+  font-size: 18px;
+  display: inline-block;
+  padding-left: 0;
+  margin: 0px 0;
+  border: 1px solid #ddd;
+  border-radius: 10px;
 
-    > li {
-      display: inline;
+  > li {
+    display: inline;
+    > a,
+    > span {
+      position: relative;
+      float: left;
+      padding: 7px 7px;
+      line-height: 20px;
+      text-decoration: none;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      margin-left: -1px;
+    }
+    &:first-child {
       > a,
       > span {
-        position: relative;
-        float: left;
-        border-left: 1px solid #ddd;
-      }
-      &:first-child {
-        > a,
-        > span {
-          margin-left: 0;
-        }
+        margin-left: 0;
+        .border-left-radius(5px);
       }
     }
-    > li > a,
-    > li > span {
-      &:hover,
-      &:focus {
-        background-color: #ddd;
-      }
-    }
-    > .active > a,
-    > .active > span {
-      &,
-      &:hover,
-      &:focus {
-        z-index: 2;
-        color: #4183c4;
-        cursor: default;
-      }
-    }
-    > .disabled {
-      > span,
-      > span:hover,
-      > span:focus,
+    &:last-child {
       > a,
-      > a:hover,
-      > a:focus {
-        color: #444;
+      > span {
+        .border-right-radius(5px);
       }
     }
   }
+
+  > li > a,
+  > li > span {
+    &:hover,
+    &:focus {
+      color: #ccc;
+      cursor: pointer;
+    }
+  }
+
+  > .active > a,
+  > .active > span {
+    &,
+    &:hover,
+    &:focus {
+      z-index: 2;
+      color: #00F;
+      cursor: default;
+    }
+  }
+
+  > .disabled {
+    > span,
+    > span:hover,
+    > span:focus,
+    > a,
+    > a:hover,
+    > a:focus {
+      color: #333;
+      background-color: @pagination-disabled-bg;
+      border-color: @pagination-disabled-border;
+      cursor: default;
+    }
+  }
+}
 `;
 
 export default props => (
