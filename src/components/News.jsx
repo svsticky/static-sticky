@@ -4,7 +4,7 @@ import { graphql, StaticQuery } from 'gatsby';
 import Pager from 'react-pager';
 
 class News extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.handlePageChanged = this.handlePageChanged.bind(this);
@@ -23,22 +23,27 @@ class News extends React.Component {
 
   renderNewsItems = (allItems, pageNum) => (
     <div>
-      {allItems.filter(fitem => allItems.indexOf(fitem) >= pageNum * 5 &&
-        allItems.indexOf(fitem) < pageNum * 5 + 5).map(item => {
-        return (
-          <div key={item.node.id}>
-            <h3>
-              <a href={'/news/' + item.node.slug}>{item.node.title}</a>
-            </h3>
-            <p>{item.node.dateOfPublishing}</p>
-            <p className="content">
-              {item.node.content.content.slice(0, 300)}
-              ...
-              <a href={'/news/' + item.node.slug}>lees verder</a>
-            </p>
-          </div>
-        );
-      })}
+      {allItems
+        .filter(
+          fitem =>
+            allItems.indexOf(fitem) >= pageNum * 5 &&
+            allItems.indexOf(fitem) < pageNum * 5 + 5
+        )
+        .map(item => {
+          return (
+            <div key={item.node.id}>
+              <h3>
+                <a href={'/news/' + item.node.slug}>{item.node.title}</a>
+              </h3>
+              <p>{item.node.dateOfPublishing}</p>
+              <p className="content">
+                {item.node.content.content.slice(0, 300)}
+                ...
+                <a href={'/news/' + item.node.slug}>lees verder</a>
+              </p>
+            </div>
+          );
+        })}
     </div>
   );
 
@@ -46,13 +51,13 @@ class News extends React.Component {
     return (
       <NewsWrapper>
         {this.renderNewsItems(this.newsItems, this.state.current)}
-          <Pager
-            total={this.state.total}
-            current={this.state.current}
-            visiblePages={this.state.visiblePage}
-            titles={{ first: 'First', last: 'Last'}}
-            onPageChanged={this.handlePageChanged}
-            />
+        <Pager
+          total={this.state.total}
+          current={this.state.current}
+          visiblePages={this.state.visiblePage}
+          titles={{ first: 'First', last: 'Last' }}
+          onPageChanged={this.handlePageChanged}
+        />
       </NewsWrapper>
     );
   }
