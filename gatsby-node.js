@@ -123,15 +123,3 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   }
 };
-
-// from: https://github.com/pnpm/pnpm/issues/991#issuecomment-446330885
-let gatsbyNodeModules = fs.realpathSync('node_modules/gatsby');
-gatsbyNodeModules = path.resolve(gatsbyNodeModules, '..');
-
-exports.onCreateWebpackConfig = ({ stage, actions }) => {
-  actions.setWebpackConfig({
-    resolve: {
-      modules: [gatsbyNodeModules, 'node_modules'],
-    },
-  })
-}
