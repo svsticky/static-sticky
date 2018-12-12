@@ -16,15 +16,15 @@ class Banner extends React.Component {
   renderLogos = allLogos => (
     <div className="card-container">
       <Card className="card">
-          <div className="slide">
-          <Slide {...properties} >
+        <div className="slide">
+          <Slide {...properties}>
             {allLogos.map(logo => (
               <div className="each-slide" key={logo.node.id}>
                 <Image src={logo.node.image.file.url} className="image" />
               </div>
             ))}
           </Slide>
-          </div>
+        </div>
       </Card>
     </div>
   );
@@ -40,7 +40,7 @@ const properties = {
   infinite: true,
   indicators: false,
   arrows: true,
-  autoplay: true
+  autoplay: true,
 };
 
 export const BannerWrapper = styled.div`
