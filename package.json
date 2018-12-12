@@ -4,7 +4,6 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "axios": "^0.18.0",
     "babel-preset-gatsby": "^0.1.4",
     "dotenv": "^6.0.0",
     "gatsby": "^2.0.0",
