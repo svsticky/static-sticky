@@ -13,10 +13,6 @@ class Banner extends React.Component {
     };
   }
 
-  componentDidMount(){
-
-  }
-
   renderLogos = allLogos => (
     <div className="card-container">
       <Card className="card">
@@ -60,7 +56,7 @@ export const BannerWrapper = styled.div`
     height: 100%;
   }
   .slide {
-    height: inherit;
+    height: 100%;
   }
   .each-slide {
     display: flex;
