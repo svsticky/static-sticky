@@ -9,7 +9,7 @@ import { Container } from 'semantic-ui-react';
 
 const layout = ({ children }) => (
   <>
-    <MediaQuery minDeviceWidth={768}>
+    <MediaQuery minDeviceWidth={768} values={{ deviceWidth: 1600 }}>
       <NavBar />
     </MediaQuery>
     <PageWrapper>
