@@ -6,12 +6,11 @@ import Pager from 'react-pager';
 class News extends React.Component {
   constructor(props) {
     super(props);
-    this.itemsPerPage = 5; //Change this to change the amount of items per page
     this.handlePageChanged = this.handlePageChanged.bind(this);
     this.newsItems = this.props.data.allContentfulNewsArticles.edges;
 
     this.state = {
-      pageCount: Math.ceil(this.newsItems.length / this.itemsPerPage),
+      pageCount: Math.ceil(this.newsItems.length / this.props.itemsPerPage),
       current: 0,
       visiblePage: 3,
     };
