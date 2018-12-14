@@ -23,23 +23,21 @@ class News extends React.Component {
 
   renderNewsItems = (allItems, pageNum) => (
     <div>
-      {allItems
-        .slice(pageNum * 5,pageNum * 5 + 5)
-        .map(item => {
-          return (
-            <div key={item.node.id}>
-              <h3>
-                <a href={'/news/' + item.node.slug}>{item.node.title}</a>
-              </h3>
-              <p>{item.node.dateOfPublishing}</p>
-              <p className="content">
-                {item.node.content.content.slice(0, 300)}
-                ...
-                <a href={'/news/' + item.node.slug}>lees verder</a>
-              </p>
-            </div>
-          );
-        })}
+      {allItems.slice(pageNum * 5, pageNum * 5 + 5).map(item => {
+        return (
+          <div key={item.node.id}>
+            <h3>
+              <a href={'/news/' + item.node.slug}>{item.node.title}</a>
+            </h3>
+            <p>{item.node.dateOfPublishing}</p>
+            <p className="content">
+              {item.node.content.content.slice(0, 300)}
+              ...
+              <a href={'/news/' + item.node.slug}>lees verder</a>
+            </p>
+          </div>
+        );
+      })}
     </div>
   );
 
