@@ -6,12 +6,12 @@ import Pager from 'react-pager';
 class News extends React.Component {
   constructor(props) {
     super(props);
-    this.pageAmount = 5; //Change this to change the amount of items per page
+    this.itemsPerPage = 5; //Change this to change the amount of items per page
     this.handlePageChanged = this.handlePageChanged.bind(this);
     this.newsItems = this.props.data.allContentfulNewsArticles.edges;
 
     this.state = {
-      total: Math.ceil(this.newsItems.length / this.pageAmount),
+      pageCount: Math.ceil(this.newsItems.length / this.itemsPerPage),
       current: 0,
       visiblePage: 3,
     };
@@ -24,11 +24,7 @@ class News extends React.Component {
   renderNewsItems = (allItems, pageNum) => (
     <div>
       {allItems
-        .filter(
-          fitem =>
-            allItems.indexOf(fitem) >= pageNum * 5 &&
-            allItems.indexOf(fitem) < pageNum * 5 + 5
-        )
+        .slice(pageNum * 5,pageNum * 5 + 5)
         .map(item => {
           return (
             <div key={item.node.id}>
@@ -52,7 +48,7 @@ class News extends React.Component {
       <NewsWrapper>
         {this.renderNewsItems(this.newsItems, this.state.current)}
         <Pager
-          total={this.state.total}
+          total={this.state.pageCount}
           current={this.state.current}
           visiblePages={this.state.visiblePage}
           titles={{ first: 'First', last: 'Last' }}
