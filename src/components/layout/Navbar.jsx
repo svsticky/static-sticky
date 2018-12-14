@@ -106,13 +106,17 @@ class NavBar extends React.Component {
 }
 
 const NavBarWrapper = styled.div`
-  &&& .navbar {
+  .navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
     background-color: #20730d;
     border-radius: 0;
     .logo {
-      margin: 0.5em;
+      height: 2.5em;
       img {
-        height: 3em;
+        height: 100%;
+        margin: 0.3em;
       }
     }
     .item {
