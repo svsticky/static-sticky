@@ -24,7 +24,9 @@ export default class ActivityCollection extends Component {
       return;
     }
 
-    this.props.updateActivities(activitiesJSON);
+    this.props.updateActivities(
+      activitiesJSON.filter(activity => activity.show_on_website)
+    );
     this.setState({
       loading: false,
     });
