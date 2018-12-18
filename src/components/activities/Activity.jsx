@@ -12,6 +12,7 @@ export default class Activity extends React.Component {
       infoDirection: Direction.right,
     };
     this.animateInfo = this.animateInfo.bind(this);
+    this.toggleInfoVisibility = this.toggleInfoVisibility.bind(this);
     this.revealRef = React.createRef();
   }
 
@@ -23,6 +24,21 @@ export default class Activity extends React.Component {
     });
   }
 
+  toggleInfoVisibility() {
+    this.setState(prevState => {
+      if (prevState.infoTransition === Transition.hide)
+        return {
+          infoTransition: Transition.show,
+          infoDirection: Direction.left,
+        };
+      else
+        return {
+          infoTransition: Transition.hide,
+          infoDirection: Direction.right,
+        };
+    });
+  }
+
   render() {
     const { poster, name } = this.props.activity;
     return (
@@ -31,6 +47,7 @@ export default class Activity extends React.Component {
       <div
         onMouseEnter={e => this.animateInfo(e, Transition.show)}
         onMouseLeave={e => this.animateInfo(e, Transition.hide)}
+        onTouchEnd={this.toggleInfoVisibility}
         ref={this.revealRef}
       >
         <TurnReveal
@@ -46,7 +63,7 @@ export default class Activity extends React.Component {
 }
 
 const renderPoster = (posterUrl, activityName) => (
-  <Image size="medium" src={posterUrl} alt={'Poster voor ' + activityName}/>
+  <Image size="medium" src={posterUrl} alt={'Poster voor ' + activityName} />
 );
 
 const renderInfo = ({ id, location, name, price }) => (
@@ -66,7 +83,7 @@ const renderInfo = ({ id, location, name, price }) => (
           <strong>Prijs: </strong>
           <em>
             {price !== 0 ? (
-              <Currency quantity={parseFloat(price)} currency="EUR"/>
+              <Currency quantity={parseFloat(price)} currency="EUR" />
             ) : (
               'Gratis!'
             )}
@@ -119,17 +136,17 @@ const getClosestEdge = (event, element) => {
     t > 0.5 * height
       ? { edge: Direction.bottom, distance: height - t }
       : {
-        edge: Direction.top,
-        distance: t,
-      };
+          edge: Direction.top,
+          distance: t,
+        };
 
   const closestVerticalEdge =
     l > 0.5 * width
       ? { edge: Direction.right, distance: width - l }
       : {
-        edge: Direction.left,
-        distance: l,
-      };
+          edge: Direction.left,
+          distance: l,
+        };
 
   return closestHorizontalEdge.distance < closestVerticalEdge.distance
     ? closestHorizontalEdge.edge
