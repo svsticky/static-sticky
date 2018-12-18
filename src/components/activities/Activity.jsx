@@ -17,14 +17,17 @@ export default class Activity extends React.Component {
   }
 
   animateInfo(event, transition) {
-    event.preventDefault();
-    this.setState({
-      infoTransition: transition,
-      infoDirection: getClosestEdge(event, this.revealRef.current),
-    });
+    if (event.pointerType === 'mouse') {
+      event.preventDefault();
+      this.setState({
+        infoTransition: transition,
+        infoDirection: getClosestEdge(event, this.revealRef.current),
+      });
+    }
   }
 
-  toggleInfoVisibility() {
+  toggleInfoVisibility(event) {
+    event.preventDefault();
     this.setState(prevState => {
       if (prevState.infoTransition === Transition.hide)
         return {
