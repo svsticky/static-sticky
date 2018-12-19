@@ -1,22 +1,29 @@
+import '$/semantic/dist/semantic.min.css';
 import React from 'react';
 import styled from 'styled-components';
+import MediaQuery from 'react-responsive';
 import NavBar from './Navbar';
+import MobileNavbar from './MobileNavbar';
 import Footer from './Footer';
 import { Container } from 'semantic-ui-react';
-import '$/semantic/dist/semantic.min.css';
 
 const layout = ({ children }) => (
   <>
-    <PageWrapper>
+    <MediaQuery minDeviceWidth={768} values={{ deviceWidth: 1600 }}>
       <NavBar />
+    </MediaQuery>
+    <PageWrapper>
       <StyledContainer className="content">{children}</StyledContainer>
       <Footer />
     </PageWrapper>
+    <MediaQuery maxDeviceWidth={768}>
+      <MobileNavbar />
+    </MediaQuery>
   </>
 );
 
 const StyledContainer = styled(Container)`
-  padding: 3em 0;
+  padding: 5em 0;
 `;
 
 const PageWrapper = styled.div`
