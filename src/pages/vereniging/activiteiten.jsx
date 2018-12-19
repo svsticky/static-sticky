@@ -9,17 +9,16 @@ import { Grid } from 'semantic-ui-react';
 export default class Activities extends Component {
   constructor(props) {
     super(props);
-    this.updateActivities = this.updateActivities.bind(this);
     this.state = {
       activities: [],
     };
   }
 
-  updateActivities(activities) {
+  updateActivities = activities => {
     this.setState({
       activities: activities,
     });
-  }
+  };
 
   render() {
     const page = this.props.data.contentfulPage;
