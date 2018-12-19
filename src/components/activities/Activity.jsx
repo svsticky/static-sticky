@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Card, Image } from 'semantic-ui-react';
 import Currency from 'react-currency-formatter';
-import TurnReveal, { Transition, Direction } from '$/components/TurnReveal';
+import TurnReveal, { Direction, Transition } from '$/components/TurnReveal';
 
 export default class Activity extends React.Component {
   constructor(props) {
@@ -10,8 +10,10 @@ export default class Activity extends React.Component {
     this.state = {
       infoTransition: Transition.hide,
       infoDirection: Direction.right,
+      // We need to detect if the user is using a touch interface, because for some reason mouse events were still firing
+      // on quick consecutive touches. Better solutions are welcome!
+      registeredTouchEvent: false,
     };
-    this.animateInfo = this.animateInfo.bind(this);
     this.revealRef = React.createRef();
   }
 
@@ -23,10 +25,29 @@ export default class Activity extends React.Component {
     });
   };
 
-  onPointerLeave = event => {
-    if (event.pointerType === 'mouse') {
-      this.animateInfo(event, Transition.hide);
-    }
+  toggleInfoVisibility = () => {
+    this.setState(prevState => {
+      if (prevState.infoTransition === Transition.hide)
+        return {
+          infoTransition: Transition.show,
+          infoDirection: Direction.left,
+        };
+      else
+        return {
+          infoTransition: Transition.hide,
+          infoDirection: Direction.right,
+        };
+    });
+  };
+
+  onTouchEnd = event => {
+    event.preventDefault();
+    this.toggleInfoVisibility();
+    this.setState({ registeredTouchEvent: true });
+  };
+
+  onMouse = (event, transition) => {
+    if (!this.state.registeredTouchEvent) this.animateInfo(event, transition);
   };
 
   render() {
@@ -35,8 +56,9 @@ export default class Activity extends React.Component {
       // getBoundingClientRect is undefined on React components, so we need a plain DOM element here.
       // Putting the eventHandlers on the TurnReveal component also doesn't work for some reason.
       <div
-        onPointerEnter={e => this.animateInfo(e, Transition.show)}
-        onPointerLeave={this.onPointerLeave}
+        onMouseEnter={e => this.onMouse(e, Transition.show)}
+        onMouseLeave={e => this.onMouse(e, Transition.hide)}
+        onTouchEnd={this.onTouchEnd}
         ref={this.revealRef}
       >
         <TurnReveal
