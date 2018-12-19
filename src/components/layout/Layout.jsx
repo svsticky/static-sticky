@@ -23,7 +23,8 @@ const PageWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-
+  background-color: #fbf7f7;
+  overflow: auto;
   .content {
     flex: 1;
   }
