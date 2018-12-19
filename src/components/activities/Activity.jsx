@@ -12,35 +12,22 @@ export default class Activity extends React.Component {
       infoDirection: Direction.right,
     };
     this.animateInfo = this.animateInfo.bind(this);
-    this.toggleInfoVisibility = this.toggleInfoVisibility.bind(this);
     this.revealRef = React.createRef();
   }
 
-  animateInfo(event, transition) {
-    if (event.pointerType === 'mouse') {
-      event.preventDefault();
-      this.setState({
-        infoTransition: transition,
-        infoDirection: getClosestEdge(event, this.revealRef.current),
-      });
-    }
-  }
-
-  toggleInfoVisibility(event) {
+  animateInfo = (event, transition) => {
     event.preventDefault();
-    this.setState(prevState => {
-      if (prevState.infoTransition === Transition.hide)
-        return {
-          infoTransition: Transition.show,
-          infoDirection: Direction.left,
-        };
-      else
-        return {
-          infoTransition: Transition.hide,
-          infoDirection: Direction.right,
-        };
+    this.setState({
+      infoTransition: transition,
+      infoDirection: getClosestEdge(event, this.revealRef.current),
     });
-  }
+  };
+
+  onPointerLeave = event => {
+    if (event.pointerType === 'mouse') {
+      this.animateInfo(event, Transition.hide);
+    }
+  };
 
   render() {
     const { poster, name } = this.props.activity;
@@ -48,9 +35,8 @@ export default class Activity extends React.Component {
       // getBoundingClientRect is undefined on React components, so we need a plain DOM element here.
       // Putting the eventHandlers on the TurnReveal component also doesn't work for some reason.
       <div
-        onMouseEnter={e => this.animateInfo(e, Transition.show)}
-        onMouseLeave={e => this.animateInfo(e, Transition.hide)}
-        onTouchEnd={this.toggleInfoVisibility}
+        onPointerEnter={e => this.animateInfo(e, Transition.show)}
+        onPointerLeave={this.onPointerLeave}
         ref={this.revealRef}
       >
         <TurnReveal
