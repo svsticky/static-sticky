@@ -11,7 +11,7 @@ export default class TurnReveal extends React.Component {
 
   render() {
     // on the first render, this.element.current is still null, so we need these default values
-    let hideAngles = {
+    const hideAngles = {
       horizontal: '0',
       vertical: '0',
     };
@@ -22,10 +22,8 @@ export default class TurnReveal extends React.Component {
       const { width, height } = rect;
 
       // recalculate the angles a hideable has to turn to disappear
-      hideAngles = {
-        horizontal: getOutAngle(width) + 'rad',
-        vertical: getOutAngle(height) + 'rad',
-      };
+      hideAngles.horizontal = getOutAngle(width) + 'rad';
+      hideAngles.vertical = getOutAngle(height) + 'rad';
     }
 
     return (
