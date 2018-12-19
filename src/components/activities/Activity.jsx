@@ -2,32 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Card, Image } from 'semantic-ui-react';
 import Currency from 'react-currency-formatter';
-import TurnReveal, { Transition, Direction } from '$/components/TurnReveal';
+import TurnReveal, { Direction, Transition } from '$/components/TurnReveal';
 
 export default class Activity extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      infoTransition: Transition.hide,
-      infoDirection: Direction.right,
-    };
-    this.animateInfo = this.animateInfo.bind(this);
-    this.toggleInfoVisibility = this.toggleInfoVisibility.bind(this);
-    this.revealRef = React.createRef();
-  }
+  state = {
+    infoTransition: Transition.hide,
+    infoDirection: Direction.right,
+    // We need to detect if the user is using a touch interface, because for some reason mouse events were still firing
+    // on quick consecutive touches. Better solutions are welcome!
+    registeredTouchEvent: false,
+  };
 
-  animateInfo(event, transition) {
-    if (event.pointerType === 'mouse') {
-      event.preventDefault();
-      this.setState({
-        infoTransition: transition,
-        infoDirection: getClosestEdge(event, this.revealRef.current),
-      });
-    }
-  }
+  revealRef = React.createRef();
 
-  toggleInfoVisibility(event) {
+  animateInfo = (event, transition) => {
     event.preventDefault();
+    this.setState({
+      infoTransition: transition,
+      infoDirection: getClosestEdge(event, this.revealRef.current),
+    });
+  };
+
+  toggleInfoVisibility = () => {
     this.setState(prevState => {
       if (prevState.infoTransition === Transition.hide)
         return {
@@ -40,7 +36,17 @@ export default class Activity extends React.Component {
           infoDirection: Direction.right,
         };
     });
-  }
+  };
+
+  onTouchEnd = event => {
+    event.preventDefault();
+    this.toggleInfoVisibility();
+    this.setState({ registeredTouchEvent: true });
+  };
+
+  onMouse = (event, transition) => {
+    if (!this.state.registeredTouchEvent) this.animateInfo(event, transition);
+  };
 
   render() {
     const { poster, name } = this.props.activity;
@@ -48,9 +54,9 @@ export default class Activity extends React.Component {
       // getBoundingClientRect is undefined on React components, so we need a plain DOM element here.
       // Putting the eventHandlers on the TurnReveal component also doesn't work for some reason.
       <div
-        onMouseEnter={e => this.animateInfo(e, Transition.show)}
-        onMouseLeave={e => this.animateInfo(e, Transition.hide)}
-        onTouchEnd={this.toggleInfoVisibility}
+        onMouseEnter={e => this.onMouse(e, Transition.show)}
+        onMouseLeave={e => this.onMouse(e, Transition.hide)}
+        onTouchEnd={this.onTouchEnd}
         ref={this.revealRef}
       >
         <TurnReveal

@@ -4,21 +4,17 @@ import ActivityCollection from './ActivityCollection';
 import Activity from './Activity';
 
 export default class ActivityWidget extends Component {
-  constructor(props) {
-    super(props);
-    this.updateActivities = this.updateActivities.bind(this);
-    this.state = {
-      activitiesLoaded: false,
-      activities: [],
-    };
-  }
+  state = {
+    activitiesLoaded: false,
+    activities: [],
+  };
 
-  updateActivities(activities) {
+  updateActivities = activities => {
     this.setState({
       activitiesLoaded: true,
       activities: activities,
     });
-  }
+  };
 
   render() {
     if (this.state.activities.length === 0 && this.state.activitiesLoaded)
