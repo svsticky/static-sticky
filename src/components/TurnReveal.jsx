@@ -4,10 +4,7 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
 export default class TurnReveal extends React.Component {
-  constructor(props) {
-    super(props);
-    this.element = React.createRef();
-  }
+  element = React.createRef();
 
   render() {
     // on the first render, this.element.current is still null, so we need these default values

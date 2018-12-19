@@ -4,13 +4,10 @@ import ActivityCollection from './ActivityCollection';
 import Activity from './Activity';
 
 export default class ActivityWidget extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activitiesLoaded: false,
-      activities: [],
-    };
-  }
+  state = {
+    activitiesLoaded: false,
+    activities: [],
+  };
 
   updateActivities = activities => {
     this.setState({

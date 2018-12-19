@@ -7,12 +7,9 @@ import Activity from '$/components/activities/Activity';
 import { Grid } from 'semantic-ui-react';
 
 export default class Activities extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activities: [],
-    };
-  }
+  state = {
+    activities: [],
+  };
 
   updateActivities = activities => {
     this.setState({

@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 
 export default class ActivityCollection extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loading: true,
-      error: '',
-    };
-  }
+  state = {
+    loading: true,
+    error: '',
+  };
 
   async componentDidMount() {
     let activitiesJSON;

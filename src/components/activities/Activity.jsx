@@ -5,17 +5,15 @@ import Currency from 'react-currency-formatter';
 import TurnReveal, { Direction, Transition } from '$/components/TurnReveal';
 
 export default class Activity extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      infoTransition: Transition.hide,
-      infoDirection: Direction.right,
-      // We need to detect if the user is using a touch interface, because for some reason mouse events were still firing
-      // on quick consecutive touches. Better solutions are welcome!
-      registeredTouchEvent: false,
-    };
-    this.revealRef = React.createRef();
-  }
+  state = {
+    infoTransition: Transition.hide,
+    infoDirection: Direction.right,
+    // We need to detect if the user is using a touch interface, because for some reason mouse events were still firing
+    // on quick consecutive touches. Better solutions are welcome!
+    registeredTouchEvent: false,
+  };
+
+  revealRef = React.createRef();
 
   animateInfo = (event, transition) => {
     event.preventDefault();
