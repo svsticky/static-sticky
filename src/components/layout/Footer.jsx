@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { device } from '../../data/Devices';
 
 const Footer = () => (
   <FooterWrapper>
@@ -28,19 +29,21 @@ const Footer = () => (
 );
 
 const FooterWrapper = styled.div`
-  &&& {
-    background-color: #444;
+  padding-bottom: 4.5em;
+  @media ${device.tablet} {
+    padding: 0;
+  }
+  background-color: #444;
+  display: flex;
+  justify-content: center;
+  align-content: space-between;
+  .footer-list {
+    color: white;
     display: flex;
-    justify-content: center;
-    align-content: space-between;
-    .footer-list {
-      color: white;
-      display: flex;
-      flex-wrap: wrap;
-      padding: 20px;
-      .footer-item {
-        margin: 0.8em 2em;
-      }
+    flex-wrap: wrap;
+    padding: 20px;
+    .footer-item {
+      margin: 0.8em 2em;
     }
   }
 `;

@@ -5,6 +5,7 @@ import NavBar from './Navbar';
 import MobileNavbar from './MobileNavbar';
 import Footer from './Footer';
 import { Container } from 'semantic-ui-react';
+import { device } from '../../data/Devices';
 
 const layout = ({ children }) => (
   <>
@@ -18,7 +19,10 @@ const layout = ({ children }) => (
 );
 
 const StyledContainer = styled(Container)`
-  padding: 5em 0;
+  padding: 1em 0;
+  @media ${device.tablet} {
+    padding: 5em 0;
+  }
 `;
 
 const PageWrapper = styled.div`
