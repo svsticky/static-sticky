@@ -16,15 +16,15 @@ class Banner extends React.Component {
   renderLogos = allLogos => (
     <div className="card-container">
       <Card className="card">
-        <Card.Content className="card-content">
-          <Slide {...properties} className="slide">
+        <div className="slide">
+          <Slide {...properties}>
             {allLogos.map(logo => (
               <div className="each-slide" key={logo.node.id}>
                 <Image src={logo.node.image.file.url} className="image" />
               </div>
             ))}
           </Slide>
-        </Card.Content>
+        </div>
       </Card>
     </div>
   );
@@ -40,6 +40,7 @@ const properties = {
   infinite: true,
   indicators: false,
   arrows: true,
+  autoplay: true,
 };
 
 export const BannerWrapper = styled.div`
@@ -48,25 +49,32 @@ export const BannerWrapper = styled.div`
     display: flex !important;
     justify-content: center;
     align-items: center;
-    height: 125px !important;
+    height: 125px;
   }
   .card {
     flex-grow: 1;
-    height: 100% !important;
-  }
-  .card-content {
-    height: 100% !important;
+    height: 100%;
   }
   .slide {
-    height: 100% !important;
+    height: 100%;
   }
   .each-slide {
     display: flex;
-    height: 110px;
+    align-items: center;
     justify-content: center;
+    align-content: center;
+    height: 125px;
   }
   .image {
-    height: inherit !important;
+    @media (min-width: 990px) {
+      height: inherit;
+    }
+    @media (max-width: 990px) {
+      height: 100px;
+    }
+    @media (max-width: 700px) {
+      height: 80px;
+    }
   }
 `;
 

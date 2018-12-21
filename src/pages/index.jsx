@@ -17,7 +17,7 @@ const Index = props => {
             <Banner />
           </div>
           <div className="news">
-            <News />
+            <News itemsPerPage="5" />
           </div>
           <div className="drinks">
             <Drinks />

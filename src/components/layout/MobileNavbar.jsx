@@ -15,57 +15,51 @@ class MobileNavBar extends React.Component {
       : this.setState({ active: clicked, showSubMenu: true });
   };
 
-  renderMenuItems = pages =>
-    pages.map(menuItem => {
-      if (menuItem.node.parentPage === null) {
-        return (
-          <ParentMenuItem
-            key={menuItem.node.title}
-            onClick={() => this.handleMenuClick(menuItem.node.title)}
-            active={this.state.active === menuItem.node.title}
-          >
-            {menuItem.node.title}
-          </ParentMenuItem>
-        );
-      }
-      return null;
-    });
+  renderMenuItems = pages => {
+    return pages
+      .filter(page => page.node.parentPage === null)
+      .map(page => (
+        <ParentMenuItem
+          key={page.node.title}
+          onClick={() => this.handleMenuClick(page.node.title)}
+          active={this.state.active === page.node.title}
+        >
+          {page.node.title}
+        </ParentMenuItem>
+      ));
+  };
 
-  renderSubMenuItems = pages =>
-    pages.map(menuItem => {
-      if (
-        menuItem.node.parentPage !== null &&
-        menuItem.node.parentPage.title === this.state.active
-      ) {
-        return (
-          <Link
-            to={'/' + menuItem.node.parentPage.slug + '/' + menuItem.node.slug}
-            key={menuItem.node.title}
-          >
-            <div className="sub-menu-item">{menuItem.node.title}</div>
-          </Link>
-        );
-      }
-      return null;
-    });
+  renderSubMenuItems = pages => {
+    return pages
+      .filter(
+        page =>
+          page.node.parentPage !== null &&
+          page.node.parentPage.title === this.state.active
+      )
+      .map(page => (
+        <Link
+          to={'/' + page.node.parentPage.slug + '/' + page.node.slug}
+          key={page.node.title}
+        >
+          <div className="sub-menu-item">{page.node.title}</div>
+        </Link>
+      ));
+  };
 
   render() {
+    const { edges } = this.props.data.allContentfulPage;
     return (
       <MobileNavBarWrapper>
-        <div className="menu">
-          {this.renderMenuItems(this.props.data.allContentfulPage.edges)}
-        </div>
+        <div className="menu">{this.renderMenuItems(edges)}</div>
         <CSSTransition
           in={this.state.showSubMenu}
-          timeout={200}
+          timeout={300}
           classNames="submenu-animation"
           unmountOnExit
           onExited={() => this.setState({ active: null })}
         >
           <div className="sub-menu-wrapper">
-            <div className="sub-menu">
-              {this.renderSubMenuItems(this.props.data.allContentfulPage.edges)}
-            </div>
+            <div className="sub-menu">{this.renderSubMenuItems(edges)}</div>
           </div>
         </CSSTransition>
       </MobileNavBarWrapper>
@@ -119,14 +113,14 @@ const MobileNavBarWrapper = styled.div`
       transform: translateY(100%);
       &-active {
         transform: translateY(0%);
-        transition: all 200ms ease-out;
+        transition: all 300ms ease-out;
       }
     }
     &-exit {
       transform: translateY(0%);
       &-active {
         transform: translateY(100%);
-        transition: all 200ms ease-out;
+        transition: all 300ms ease-out;
       }
     }
   }

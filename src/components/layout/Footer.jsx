@@ -28,17 +28,19 @@ const Footer = () => (
 );
 
 const FooterWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-content: space-between;
-  background-color: #444;
-  color: white;
-  .footer-list {
+  &&& {
+    background-color: #444;
     display: flex;
-    flex-wrap: wrap;
-    padding: 20px;
-    .footer-item {
-      margin: 0.8em 2em;
+    justify-content: center;
+    align-content: space-between;
+    .footer-list {
+      color: white;
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+      .footer-item {
+        margin: 0.8em 2em;
+      }
     }
   }
 `;
