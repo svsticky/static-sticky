@@ -7,9 +7,10 @@ import { Card, Image } from 'semantic-ui-react';
 class Banner extends React.Component {
   constructor(props) {
     super(props);
-    this.allLogos = props.data.allContentfulBannerLogo.edges;
+    this.prev = 0;
+    this.dir = 1;
     this.state = {
-      logos: this.allLogos,
+      logos: props.data.allContentfulBannerLogo.edges,
     };
   }
 

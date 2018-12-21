@@ -5,7 +5,7 @@ import News from '../components/News';
 import Drinks from '../components/Drinks';
 import IndexWrapper from '../components/layout/GridDryQueries';
 import FeaturedJobs from '../components/jobs/FeaturedJobs';
-import ActivityWidget from '../components/activities/ActivityIndex';
+import ActivityWidget from '../components/activities/ActivityWidget';
 
 const Index = props => {
   return (
