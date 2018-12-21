@@ -11,6 +11,7 @@ import {
 } from 'semantic-ui-react';
 import logo from '$/images/logo-sticky-small.png';
 import menu from '$/data/menu.json';
+import { device } from '../../data/Devices';
 
 class NavBar extends React.Component {
   renderMenuItems = data =>
@@ -106,6 +107,10 @@ class NavBar extends React.Component {
 }
 
 const NavBarWrapper = styled.div`
+  display: none;
+  @media ${device.tablet} {
+    display: block;
+  }
   .navbar {
     position: fixed;
     width: 100%;

@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
+import { device } from '../../data/Devices';
 
 class MobileNavBar extends React.Component {
   state = {
@@ -68,6 +69,9 @@ class MobileNavBar extends React.Component {
 }
 
 const MobileNavBarWrapper = styled.div`
+  @media ${device.tablet} {
+    display: none;
+  }
   .menu {
     position: fixed;
     bottom: 0;
