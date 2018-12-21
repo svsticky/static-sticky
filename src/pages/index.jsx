@@ -11,7 +11,6 @@ const Index = props => {
   return (
     <Layout>
       <IndexWrapper>
-        <h1>Homepage</h1>
         <div className="container">
           <div className="banner">
             <Banner />
