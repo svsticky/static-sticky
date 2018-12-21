@@ -1,7 +1,25 @@
 import {device} from '../../data/Devices';
 import styled from 'styled-components'
+
 const IndexWrapper = styled.div`
 {
+  &&&
+  .banner {
+    grid-area: banner;
+  }
+  .news {
+    grid-area: news;
+  }
+  .drinks {
+    grid-area: drinks;
+  }
+  .jobs {
+    grid-area: jobs;
+  }
+  .activity {
+    grid-area: activity;
+  }
+
   @media ${device.mobile}
   {
       &&&
@@ -17,21 +35,9 @@ const IndexWrapper = styled.div`
         "activity";
         grid-gap: 2em;    
       }
-      .banner {
-        grid-area: banner;
-      }
-      .news {
-        grid-area: news;
-      }
-      .drinks {
-        grid-area: drinks;
-      }
-      .jobs {
-        grid-area: jobs;
-      }
       .activity {
         grid-area: activity;
-        width: 40vw;
+        width: 40%;
       }
     }
   } 
@@ -48,21 +54,9 @@ const IndexWrapper = styled.div`
         "news activity";
         grid-gap: 2em;    
       }
-      .banner {
-        grid-area: banner;
-      }
-      .news {
-        grid-area: news;
-      }
-      .drinks {
-        grid-area: drinks;
-      }
-      .jobs {
-        grid-area: jobs;
-      }
       .activity {
         grid-area: activity;
-        width: 75%;
+        width: auto;
       }
     }
   }
@@ -79,21 +73,9 @@ const IndexWrapper = styled.div`
         "news news news activity";
         grid-gap: 2em;    
       }
-      .banner {
-        grid-area: banner;
-      }
-      .news {
-        grid-area: news;
-      }
-      .drinks {
-        grid-area: drinks;
-      }
-      .jobs {
-        grid-area: jobs;
-      }
       .activity {
         grid-area: activity;
-        width: 100%
+        width: auto;
       }
     }
     }          
@@ -111,21 +93,9 @@ const IndexWrapper = styled.div`
         "news news news activity";
         grid-gap: 2em;    
       }
-      .banner {
-        grid-area: banner;
-      }
-      .news {
-        grid-area: news;
-      }
-      .drinks {
-        grid-area: drinks;
-      }
-      .jobs {
-        grid-area: jobs;
-      }
       .activity {
         grid-area: activity;
-        width: 100%
+        width: auto;
       }
     }
     } 
@@ -143,21 +113,9 @@ const IndexWrapper = styled.div`
         "news news news activity";
         grid-gap: 2em;    
       }
-      .banner {
-        grid-area: banner;
-      }
-      .news {
-        grid-area: news;
-      }
-      .drinks {
-        grid-area: drinks;
-      }
-      .jobs {
-        grid-area: jobs;
-      }
-      .activity {
+            .activity {
         grid-area: activity;
-        width: 100%
+        width: auto;
       }
     }
     } 
