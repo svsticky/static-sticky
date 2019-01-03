@@ -58,7 +58,7 @@
   "husky": {
     "hooks": {
       "//": "Best thing i could find that worked on WSL with the Git from Windows",
-      "pre-commit": "npm run format"
+      "pre-commit": "precise-commits"
     }
   }
 }
