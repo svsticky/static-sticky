@@ -4,15 +4,13 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
-    "babel-preset-gatsby": "^0.1.4",
     "dotenv": "^6.0.0",
     "gatsby": "^2.0.0",
-    "gatsby-plugin-manifest": "^2.0.2",
-    "gatsby-plugin-offline": "^2.0.5",
     "gatsby-plugin-react-helmet": "^3.0.0",
     "gatsby-plugin-styled-components": "^3.0.0",
     "gatsby-source-contentful": "^2.0.1",
     "markdown-to-jsx": "^6.7.3",
+    "prop-types": "^15.6.2",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
@@ -36,11 +34,12 @@
     "build": "npm run build-semantic && gatsby build",
     "develop": "npm run build-semantic && gatsby develop",
     "format": "npx prettier **/*.{js,jsx} --write",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "devDependencies": {
     "babel-plugin-root-import": "^6.1.0",
     "babel-plugin-styled-components": "^1.8.0",
+    "babel-preset-gatsby": "^0.1.6",
     "gulp": "^3.9.1",
     "husky": "^1.1.1",
     "precise-commits": "^1.0.2",
