@@ -9,7 +9,7 @@ Study Association Sticky's website is a static website built in React with Gatsb
 5. Fill .env with the required api keys without quotes from [contentful](https://app.contentful.com/) ( Space Settings > API keys ).
 
 ### PNPM
-`gatsby` and `semantic-ui` don't play nicely with `pnpm` (see https://github.com/pnpm/pnpm/issues/991 and https://github.com/Semantic-Org/Semantic-UI/issues/6706 respectively).
+`gatsby` doesn't play nicely with `pnpm` (see https://github.com/pnpm/pnpm/issues/991.
 However, these problems can be resolved wih `pnpm i --shamefully-flatten`. 
 
 ## Development
