@@ -10,13 +10,13 @@ class FeaturedJobs extends React.Component {
 
   renderFeaturedJobs = jobs => {
     const featuredJobs = jobs.filter(job => job.node.featured);
-    const chosenJob = this.getRandom(featuredJobs.length);
-    return (
-      <div>
-        <h3>Uitgelichte vacature</h3>
-        {this.renderFeaturedJob(featuredJobs[chosenJob])}
-      </div>
-    );
+    if (featuredJobs.length > 0) {
+      const chosenJob = this.getRandom(featuredJobs.length - 1);
+      return <div>
+          <h3>Uitgelichte vacature</h3>
+          {this.renderFeaturedJob(featuredJobs[chosenJob])}
+        </div>;
+    }
   };
 
   renderFeaturedJob = job => {
