@@ -6,13 +6,11 @@ Study Association Sticky's website is a static website built in React with Gatsb
    
 2. Install the required version of nodejs by running `nvm install` in the project directory. 
    
-3. Install gatsby-cli globally on your system by running `npm i -g gatsby-cli`.
+3. Install dependencies by running `npm i` in the project directory.
    
-4. Install dependencies by running `npm i` in the project directory.
+4. Create .env file: `cp sample.env .env`.
    
-5. Create .env file: `cp sample.env .env`.
-   
-6. Fill .env with the required api keys without quotes from [contentful](https://app.contentful.com/) ( Space Settings > API keys ).
+5. Fill .env with the required api keys without quotes from [contentful](https://app.contentful.com/) ( Space Settings > API keys ).
 
 ## Development
 Pretty simple, just run `npm run develop` to start a shiny development server with hot reloading.
