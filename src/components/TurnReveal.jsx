@@ -1,7 +1,7 @@
 // Adapted from https://codepen.io/noeldelgado/pen/pGwFx
 
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 
 export default class TurnReveal extends React.Component {
   element = React.createRef();
@@ -69,10 +69,9 @@ const getOutAngle = size => {
 
 const animationProperties = props => {
   const directionTransform = directionTransforms[props.direction];
-  return `
-      transform-origin: ${directionTransform.x} ${directionTransform.y};
-      animation: ${turnAnimation(props)} 300ms ease 0ms 1 forwards;
-  `;
+  return css`
+    transform-origin: ${directionTransform.x} ${directionTransform.y};
+    animation: ${turnAnimation(props)} 300ms ease 0ms 1 forwards;`;
 };
 
 const turnAnimation = ({
