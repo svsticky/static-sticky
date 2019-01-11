@@ -43,7 +43,7 @@ const CommitteeIndexPage = ({ data }) => {
 
 export const Wrapper = styled.div`
   &&& .white {
-    background: rgba(0, 0, 0, 0) !important;
+    background: rgba(0, 0, 0, 0);
   }
 `;
 
