@@ -1,114 +1,163 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, Card, Image } from 'semantic-ui-react';
+import Currency from 'react-currency-formatter';
+import TurnReveal, { Direction, Transition } from '$/components/TurnReveal';
 
-const renderInfo = (poster, props) => {
-  const classes = poster ? 'flip-card-back' : 'no-poster';
-  const { id, location, name, price } = props.activity;
-  return (
-    <Card fluid className={classes + ' info'}>
-      <div className="content">
-        <h3>{name}</h3>
-        {location ? (
+export default class Activity extends React.Component {
+  state = {
+    infoTransition: Transition.hide,
+    infoDirection: Direction.right,
+    // We need to detect if the user is using a touch interface, because for some reason mouse events were still firing
+    // on quick consecutive touches. Better solutions are welcome!
+    registeredTouchEvent: false,
+  };
+
+  revealRef = React.createRef();
+
+  animateInfo = (event, transition) => {
+    event.preventDefault();
+    this.setState({
+      infoTransition: transition,
+      infoDirection: getClosestEdge(event, this.revealRef.current),
+    });
+  };
+
+  toggleInfoVisibility = () => {
+    this.setState(prevState => {
+      if (prevState.infoTransition === Transition.hide)
+        return {
+          infoTransition: Transition.show,
+          infoDirection: Direction.left,
+        };
+      else
+        return {
+          infoTransition: Transition.hide,
+          infoDirection: Direction.right,
+        };
+    });
+  };
+
+  onTouchEnd = event => {
+    event.preventDefault();
+    this.toggleInfoVisibility();
+    this.setState({ registeredTouchEvent: true });
+  };
+
+  onMouse = (event, transition) => {
+    if (!this.state.registeredTouchEvent) this.animateInfo(event, transition);
+  };
+
+  render() {
+    const { poster, name } = this.props.activity;
+    return (
+      // getBoundingClientRect is undefined on React components, so we need a plain DOM element here.
+      // Putting the eventHandlers on the TurnReveal component also doesn't work for some reason.
+      <div
+        onMouseEnter={e => this.onMouse(e, Transition.show)}
+        onMouseLeave={e => this.onMouse(e, Transition.hide)}
+        onTouchEnd={this.onTouchEnd}
+        ref={this.revealRef}
+      >
+        <TurnReveal
+          back={renderPoster(poster, name)}
+          transition={this.state.infoTransition}
+          direction={this.state.infoDirection}
+        >
+          {renderInfo(this.props.activity)}
+        </TurnReveal>
+      </div>
+    );
+  }
+}
+
+const renderPoster = (posterUrl, activityName) => (
+  <Image size="medium" src={posterUrl} alt={'Poster voor ' + activityName} />
+);
+
+const renderInfo = ({ id, location, name, price }) => (
+  <FullSizeCard>
+    <MinHeightContent>
+      <Card.Header>{name}</Card.Header>
+    </MinHeightContent>
+    <Card.Content>
+      <Card.Description>
+        {location && (
           <p>
             <strong>Locatie: </strong>
             <em>{location}</em>
           </p>
-        ) : null}
+        )}
         <p>
           <strong>Prijs: </strong>
           <em>
-            {price !== 0
-              ? '€' + (price.split('.')[1].length === 2 ? price : price + '0')
-              : 'Gratis!'}
+            {price !== 0 ? (
+              <Currency quantity={parseFloat(price)} currency="EUR" />
+            ) : (
+              'Gratis!'
+            )}
           </em>
         </p>
-      </div>
+      </Card.Description>
+    </Card.Content>
+    <ButtonWrapper>
+      {/* without a div around the button the height of the label would not be taken into account */}
       <Button
         href={'https://koala.svsticky.nl/activities/' + id}
         target="_blank"
-      >
-        <p>
-          Inschrijven <i className="item-text icon external" />
-        </p>
-      </Button>
-    </Card>
-  );
-};
+        content="Inschrijven"
+        icon="external"
+        labelPosition="right"
+      />
+    </ButtonWrapper>
+  </FullSizeCard>
+);
 
-const Activity = props => {
-  const { name, poster } = props.activity;
-  return (
-    <ActivityWrapper>
-      {poster ? (
-        <div className="flip-card">
-          <div className="flip-card-inner">
-            <div className="flip-card-front">
-              <Image fluid src={poster} alt={'Poster voor ' + name} />
-            </div>
-            {renderInfo(poster, props)}
-          </div>
-        </div>
-      ) : (
-        renderInfo(poster, props)
-      )}
-    </ActivityWrapper>
-  );
-};
-
-const ActivityWrapper = styled.div`
-  .flip-card {
-    perspective: 1000px;
-    height: 100%;
-    .flip-card-inner {
-      position: relative;
-      transition: transform 0.3s;
-      transform-style: preserve-3d;
-      height: 100%;
-      .flip-card-front {
-        img {
-          height: 100%;
-          border-radius: 5px;
-          border: 1px solid #ddd;
-          max-width: 100%;
-        }
-      }
-    }
-    &:hover .flip-card-inner {
-      transform: rotateY(180deg);
-    }
-  }
-  .flip-card-front,
-  .flip-card-back {
-    background-color: white;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-  }
-  .flip-card-back {
-    border-radius: 5px;
-    transform: rotateY(180deg);
-  }
-  .no-poster {
-    height: 100%;
-  }
-  .info {
-    margin: 0 !important;
-    display: flex !important;
-    flex-direction: column;
-    .content {
-      flex: 1;
-      padding: 1em !important;
-      h3 {
-        border-bottom: 1px solid #ddd;
-        padding-bottom: 0.5em;
-      }
-    }
-  }
-  .icon {
-    margin-left: 0.4em;
+const MinHeightContent = styled(Card.Content)`
+  &&&& {
+    flex-grow: 0;
   }
 `;
 
-export default Activity;
+const FullSizeCard = styled(Card)`
+  &&& {
+    width: 100%;
+  }
+
+  height: 100%;
+  overflow: auto;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+
+  .button {
+    flex: 1;
+  }
+`;
+
+const getClosestEdge = (event, element) => {
+  const { width, height, top, left } = element.getBoundingClientRect();
+  const l = event.pageX - (left + window.pageXOffset);
+  const t = event.pageY - (top + window.pageYOffset);
+
+  const closestHorizontalEdge =
+    t > 0.5 * height
+      ? { edge: Direction.bottom, distance: height - t }
+      : {
+          edge: Direction.top,
+          distance: t,
+        };
+
+  const closestVerticalEdge =
+    l > 0.5 * width
+      ? { edge: Direction.right, distance: width - l }
+      : {
+          edge: Direction.left,
+          distance: l,
+        };
+
+  return closestHorizontalEdge.distance < closestVerticalEdge.distance
+    ? closestHorizontalEdge.edge
+    : closestVerticalEdge.edge;
+};

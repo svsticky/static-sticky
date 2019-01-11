@@ -7,24 +7,25 @@ import { Card, Image } from 'semantic-ui-react';
 class Banner extends React.Component {
   constructor(props) {
     super(props);
-    this.allLogos = props.data.allContentfulBannerLogo.edges;
+    this.prev = 0;
+    this.dir = 1;
     this.state = {
-      logos: this.allLogos,
+      logos: props.data.allContentfulBannerLogo.edges,
     };
   }
 
   renderLogos = allLogos => (
     <div className="card-container">
       <Card className="card">
-        <Card.Content className="card-content">
-          <Slide {...properties} className="slide">
-            {allLogos.map(logo => (
+        <div className="slide">
+          <Slide {...properties}>
+            {shuffleArray(allLogos).map(logo => (
               <div className="each-slide" key={logo.node.id}>
                 <Image src={logo.node.image.file.url} className="image" />
               </div>
             ))}
           </Slide>
-        </Card.Content>
+        </div>
       </Card>
     </div>
   );
@@ -40,7 +41,16 @@ const properties = {
   infinite: true,
   indicators: false,
   arrows: true,
+  autoplay: true,
 };
+
+const shuffleArray = array => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
 export const BannerWrapper = styled.div`
   width: 100%;
@@ -48,25 +58,32 @@ export const BannerWrapper = styled.div`
     display: flex !important;
     justify-content: center;
     align-items: center;
-    height: 125px !important;
+    height: 125px;
   }
   .card {
     flex-grow: 1;
-    height: 100% !important;
-  }
-  .card-content {
-    height: 100% !important;
+    height: 100%;
   }
   .slide {
-    height: 100% !important;
+    height: 100%;
   }
   .each-slide {
     display: flex;
-    height: 110px;
+    align-items: center;
     justify-content: center;
+    align-content: center;
+    height: 125px;
   }
   .image {
-    height: inherit !important;
+    @media (min-width: 990px) {
+      height: inherit;
+    }
+    @media (max-width: 990px) {
+      height: 100px;
+    }
+    @media (max-width: 700px) {
+      height: 80px;
+    }
   }
 `;
 

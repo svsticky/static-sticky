@@ -1,38 +1,37 @@
 import '$/semantic/dist/semantic.min.css';
 import React from 'react';
 import styled from 'styled-components';
-import MediaQuery from 'react-responsive';
 import NavBar from './Navbar';
 import MobileNavbar from './MobileNavbar';
 import Footer from './Footer';
 import { Container } from 'semantic-ui-react';
+import { device } from '../../data/Devices';
 
 const layout = ({ children }) => (
   <>
-    <MediaQuery minDeviceWidth={768}>
-      <NavBar />
-    </MediaQuery>
+    <NavBar />
     <PageWrapper>
       <StyledContainer className="content">{children}</StyledContainer>
       <Footer />
     </PageWrapper>
-    <MediaQuery maxDeviceWidth={768}>
-      <MobileNavbar />
-    </MediaQuery>
+    <MobileNavbar />
   </>
 );
 
 const StyledContainer = styled(Container)`
-  padding: 5em 0;
+  padding: 1em 0;
+  @media ${device.tablet} {
+    padding: 5em 0;
+  }
 `;
 
 const PageWrapper = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: rgb(244, 243, 239);
   overflow: auto;
   background-color: #f8f8f4;
-
   .content {
     flex: 1;
   }
