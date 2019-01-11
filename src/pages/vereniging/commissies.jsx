@@ -11,10 +11,7 @@ const CommitteeIndexPage = ({ data }) => {
   );
   const page = data.contentfulPage;
 
-  return (
-    <ContentfulPage page={page}>
-      <Markdown>{page.content.content}</Markdown>
-      <br />
+  return <ContentfulPage page={page}>
       <Wrapper>
         <div className="ui stackable three column grid">
           {committees.map(committee => (
@@ -36,9 +33,10 @@ const CommitteeIndexPage = ({ data }) => {
             </div>
           ))}
         </div>
+        <br />
       </Wrapper>
-    </ContentfulPage>
-  );
+      <Markdown>{page.content.content}</Markdown>
+    </ContentfulPage>;
 };
 
 export const Wrapper = styled.div`
