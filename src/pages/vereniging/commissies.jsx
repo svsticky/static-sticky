@@ -19,7 +19,7 @@ const CommitteeIndexPage = ({ data }) => {
             <Grid.Column key={committee.id}>
               <Card fluid href={'/commissies/' + committee.slug}>
                 <Image
-                  className="ui image white"
+                  className="white"
                   centered
                   src={committee.logo.file.url}
                   height="300pt"
