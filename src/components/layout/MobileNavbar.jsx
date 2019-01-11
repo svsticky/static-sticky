@@ -3,6 +3,8 @@ import { graphql, StaticQuery, Link } from 'gatsby';
 import styled from 'styled-components';
 import { CSSTransition } from 'react-transition-group';
 import { device } from '../../data/Devices';
+import menu from '$/data/menu.json';
+import logo from '$/images/hoofd.svg';
 
 class MobileNavBar extends React.Component {
   state = {
@@ -23,7 +25,7 @@ class MobileNavBar extends React.Component {
         <ParentMenuItem
           key={page.node.title}
           onClick={() => this.handleMenuClick(page.node.title)}
-          active={this.state.active === page.node.title}
+          active={this.state.active === page.node.title} // For difference in style
         >
           {page.node.title}
         </ParentMenuItem>
@@ -31,7 +33,11 @@ class MobileNavBar extends React.Component {
   };
 
   renderSubMenuItems = pages => {
-    return pages
+    const subpages = [...pages];
+    subpages.sort(
+      (a, b) => b.node.title.localeCompare(a.node.title) // Sorting submenuitems a-z (flex-direction is column-reverse/row-reverse)
+    );
+    return subpages
       .filter(
         page =>
           page.node.parentPage !== null &&
@@ -47,11 +53,32 @@ class MobileNavBar extends React.Component {
       ));
   };
 
+  renderExternalItems = links => {
+    return links.map(link => (
+      <Link to={link.url} key={link.title}>
+        <div className="sub-menu-item">{link.title}</div>
+      </Link>
+    ));
+  };
+
   render() {
-    const { edges } = this.props.data.allContentfulPage;
+    let { edges } = this.props.data.allContentfulPage;
     return (
       <MobileNavBarWrapper>
-        <div className="menu">{this.renderMenuItems(edges)}</div>
+        <div className="menu">
+          <Link className="center-container" to="/">
+            <img src={logo} alt="Sticky Logo" className="sticky-logo" />
+          </Link>
+          {this.renderMenuItems(edges)}
+          <ParentMenuItem
+            className="center-container"
+            onClick={() => {
+              this.handleMenuClick('extern');
+            }}
+          >
+            <i className="external icon" />
+          </ParentMenuItem>
+        </div>
         <CSSTransition
           in={this.state.showSubMenu}
           timeout={300}
@@ -60,7 +87,11 @@ class MobileNavBar extends React.Component {
           onExited={() => this.setState({ active: null })}
         >
           <div className="sub-menu-wrapper">
-            <div className="sub-menu">{this.renderSubMenuItems(edges)}</div>
+            <div className="sub-menu">
+              {this.state.active === 'extern'
+                ? this.renderExternalItems(menu.extern)
+                : this.renderSubMenuItems(edges)}
+            </div>
           </div>
         </CSSTransition>
       </MobileNavBarWrapper>
@@ -72,6 +103,20 @@ const MobileNavBarWrapper = styled.div`
   @media ${device.tablet} {
     display: none;
   }
+  .center-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+  }
+  .sticky-logo {
+    width: 70%;
+  }
+  .external {
+    /* little margin override for default external icon of semantic ui*/
+    margin: 0 0 0.5em 0.3em;
+  }
   .menu {
     position: fixed;
     bottom: 0;
@@ -79,7 +124,7 @@ const MobileNavBarWrapper = styled.div`
     background-color: #20730d;
     z-index: 10;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 2fr 2.5fr 2fr 1fr;
     grid-gap: 0.5em;
     padding: 0.5em;
     border-radius: 5px 5px 0 0;
@@ -104,7 +149,7 @@ const MobileNavBarWrapper = styled.div`
         padding: 0 1em;
         height: 2.5em;
         max-width: 100%;
-        border: 2px solid #20730d;
+        border: 1px solid #20730d;
         border-radius: 5px;
         display: flex;
         align-items: center;
@@ -136,7 +181,7 @@ const ParentMenuItem = styled.div`
   align-items: center;
   justify-content: center;
   height: 3em;
-  border: 2px solid white;
+  border: 1px solid white;
   border-radius: 5px;
   background-color: ${props => (props.active ? 'white' : '#20730d')};
   color: ${props => (props.active ? '#20730d' : 'white')};
