@@ -55,9 +55,14 @@ class MobileNavBar extends React.Component {
 
   renderExternalItems = links => {
     return links.map(link => (
-      <Link to={link.url} key={link.title}>
+      <a
+        href={link.url}
+        key={link.title}
+        target="_blank"
+        rel="noopener noreferrer" // For safety
+      >
         <div className="sub-menu-item">{link.title}</div>
-      </Link>
+      </a>
     ));
   };
 

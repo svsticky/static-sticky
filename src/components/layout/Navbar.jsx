@@ -61,6 +61,7 @@ class NavBar extends React.Component {
         key={externMenuItem.title}
         href={externMenuItem.url}
         target="_blank"
+        rel="noopener noreferrer" // For safety
       >
         <Grid>
           <Grid.Row>
