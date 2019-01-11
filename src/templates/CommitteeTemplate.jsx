@@ -5,8 +5,7 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Grid, Header, Image, List, Button, Icon } from 'semantic-ui-react';
 
-const CommitteeView = ({ data }) => {
-  const { contentfulCommittee: committee } = data;
+const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
   const photo = committee.photo != null;
 
   return (
