@@ -6,8 +6,6 @@ import Layout from '../components/layout/Layout';
 import { Grid, Header, Image, List, Button, Icon } from 'semantic-ui-react';
 
 const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
-  const photo = committee.photo != null;
-
   return (
     <Layout>
       <Button className="labeled icon basic" href="/vereniging/commissies">
@@ -45,7 +43,7 @@ const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
                 ))}
               </List>
             </Grid.Row>
-            {photo && (
+            {committee.photo && (
               <Grid.Row>
                 <Image
                   src={committee.photo.file.url}
