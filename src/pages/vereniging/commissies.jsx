@@ -14,7 +14,7 @@ const CommitteeIndexPage = ({ data }) => {
   return (
     <ContentfulPage page={page}>
       <Wrapper>
-        <Grid doubling columns={3}>
+        <Grid doubling centered columns={3}>
           {committees.map(committee => (
             <Grid.Column key={committee.id}>
               <Card fluid href={'/commissies/' + committee.slug}>
