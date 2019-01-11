@@ -13,36 +13,34 @@ const CommitteeIndexPage = ({ data }) => {
 
   return (
     <ContentfulPage page={page}>
-      <Wrapper>
-        <Grid doubling centered columns={3}>
-          {committees.map(committee => (
-            <Grid.Column key={committee.id}>
-              <Card fluid href={'/commissies/' + committee.slug}>
-                <Image
-                  className="white"
-                  centered
-                  src={committee.logo.file.url}
-                  height="300pt"
-                />
-                <Card.Content>
-                  <Card.Header>{committee.name}</Card.Header>
-                  <Card.Meta>
-                    {committee.year} - {committee.year + 1}
-                  </Card.Meta>
-                </Card.Content>
-              </Card>
-            </Grid.Column>
-          ))}
-        </Grid>
-        <br />
-      </Wrapper>
+      <Grid doubling centered columns={3}>
+        {committees.map(committee => (
+          <Grid.Column key={committee.id}>
+            <Card fluid href={'/commissies/' + committee.slug}>
+              <WhiteBackgroundImage
+                className="white"
+                centered
+                src={committee.logo.file.url}
+                height="300pt"
+              />
+              <Card.Content>
+                <Card.Header>{committee.name}</Card.Header>
+                <Card.Meta>
+                  {committee.year} - {committee.year + 1}
+                </Card.Meta>
+              </Card.Content>
+            </Card>
+          </Grid.Column>
+        ))}
+      </Grid>
+      <br />
       <Markdown>{page.content.content}</Markdown>
     </ContentfulPage>
   );
 };
 
-export const Wrapper = styled.div`
-  &&& .white {
+const WhiteBackgroundImage = styled(Image)`
+  &&& {
     background: rgba(0, 0, 0, 0);
   }
 `;
