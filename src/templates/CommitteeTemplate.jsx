@@ -41,7 +41,7 @@ const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
               <h3>Leden</h3>
               <List className="divided relaxed">
                 {committee.members.map(member => (
-                  <List.Item>{member}</List.Item>
+                  <List.Item key={member}>{member}</List.Item>
                 ))}
               </List>
             </Grid.Row>
