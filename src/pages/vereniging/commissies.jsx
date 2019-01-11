@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import ContentfulPage from '../../components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
-import { Image, Card } from 'semantic-ui-react';
+import { Image, Card, Grid } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const CommitteeIndexPage = ({ data }) => {
@@ -11,11 +11,12 @@ const CommitteeIndexPage = ({ data }) => {
   );
   const page = data.contentfulPage;
 
-  return <ContentfulPage page={page}>
+  return (
+    <ContentfulPage page={page}>
       <Wrapper>
-        <div className="ui stackable three column grid">
+        <Grid stackable columns={3}>
           {committees.map(committee => (
-            <div className="column" key={committee.id}>
+            <Grid.Column key={committee.id}>
               <Card fluid href={'/commissies/' + committee.slug}>
                 <Image
                   className="ui image white"
@@ -30,13 +31,14 @@ const CommitteeIndexPage = ({ data }) => {
                   </Card.Meta>
                 </Card.Content>
               </Card>
-            </div>
+            </Grid.Column>
           ))}
-        </div>
+        </Grid>
         <br />
       </Wrapper>
       <Markdown>{page.content.content}</Markdown>
-    </ContentfulPage>;
+    </ContentfulPage>
+  );
 };
 
 export const Wrapper = styled.div`
