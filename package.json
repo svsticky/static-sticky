@@ -38,7 +38,7 @@
     "build-semantic": "cd src/semantic && gulp build-css build-assets",
     "watch-semantic": "cd src/semantic && npm run build-semantic && gulp watch",
     "build": "npm run build-semantic && gatsby build",
-    "develop": "npm run build-semantic && gatsby develop",
+    "develop": "gatsby develop",
     "format": "npx prettier --write {*,src/**/*}.{js,jsx}",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
