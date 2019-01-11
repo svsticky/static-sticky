@@ -15,7 +15,12 @@ Study Association Sticky's website is a static website built in React with Gatsb
 6. Fill .env with the required api keys without quotes from [contentful](https://app.contentful.com/) ( Space Settings > API keys ).
 
 ## Development
-Pretty simple, just run `gatsby develop` to start a shiny development server with hot reloading.
+We use our own custom Semantic UI theme, which you have to build first: `npm run build-semantic`. 
+If you want to watch for changes in the theme, also run `npm run watch-semantic`.
+
+If you get an error about file watchers, try this https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers
+
+Then just run `npm run develop` to start a shiny development server with hot reloading.
 
 ## Deployment
-Also pretty simple, run `gatsby build` and copy the files to a server. 
+Also pretty simple, run `npm run build` and copy the files to a server. 

@@ -1,110 +1,89 @@
 import React from 'react';
+import { Slide } from 'react-slideshow-image';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
-import { Card, Image, Icon } from 'semantic-ui-react';
-import $ from 'jquery';
+import { Card, Image } from 'semantic-ui-react';
 
 class Banner extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.prev = 0;
     this.dir = 1;
+    this.state = {
+      logos: props.data.allContentfulBannerLogo.edges,
+    };
   }
 
-  autoScroll = () => {
-    let action = this.scroll(this.dir);
-    if (action === this.prev) {
-      this.dir = this.dir * -1;
-    }
-    this.prev = action;
-  };
-
-  scroll = direction => {
-    let far = ($('.card-content').width() / 2) * direction;
-    let pos = $('.card-content').scrollLeft() + far;
-    $('.card-content').animate({ scrollLeft: pos }, 1000);
-    return pos;
-  };
-
   renderLogos = allLogos => (
-    <div>
-      <Card fluid className="card">
-        <Icon
-          className="arrowl"
-          name="chevron circle left"
-          size="large"
-          onClick={() => this.scroll(-1)}
-        />
-        <Card.Content className="card-content">
-          {allLogos.map(logo => {
-            return (
-              <Image
-                className="image"
-                key={logo.node.id}
-                size="small"
-                src={logo.node.image.file.url}
-              />
-            );
-          })}
-        </Card.Content>
-        <Icon
-          className="arrowr"
-          name="chevron circle right"
-          size="large"
-          onClick={() => this.scroll(1)}
-        />
+    <div className="card-container">
+      <Card className="card">
+        <div className="slide">
+          <Slide {...properties}>
+            {shuffleArray(allLogos).map(logo => (
+              <div className="each-slide" key={logo.node.id}>
+                <Image src={logo.node.image.file.url} className="image" />
+              </div>
+            ))}
+          </Slide>
+        </div>
       </Card>
     </div>
   );
 
-  componentDidMount() {
-    setInterval(this.autoScroll, 5000);
-  }
-
   render() {
-    return (
-      <BannerWrapper className="banner">
-        {this.renderLogos(this.props.data.allContentfulBannerLogo.edges)}
-      </BannerWrapper>
-    );
+    return <BannerWrapper>{this.renderLogos(this.state.logos)}</BannerWrapper>;
   }
 }
 
+const properties = {
+  duration: 8000,
+  transitionDuration: 500,
+  infinite: true,
+  indicators: false,
+  arrows: true,
+  autoplay: true,
+};
+
+const shuffleArray = array => {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
 export const BannerWrapper = styled.div`
-  .card {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: no wrap;
+  width: 100%;
+  .card-container {
+    display: flex !important;
+    justify-content: center;
     align-items: center;
-    height: 125pt;
+    height: 125px;
   }
-  .card-content {
-    position: relative;
-    vertical-align: middle;
-    horizontal-align: center;
-    display: inline-block;
-    white-space: nowrap;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    width: 100%;
+  .card {
+    flex-grow: 1;
+    height: 100%;
   }
-  .card-content:hover {
-    overflow-x: auto;
+  .slide {
+    height: 100%;
+  }
+  .each-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    height: 125px;
   }
   .image {
-    margin-left: 2em;
-    margin-right: 2em;
-    margin-bottom: 1em;
-  }
-  .arrowl {
-    position: absolute;
-    left: 10pt;
-    top: 45%;
-  }
-  .arrowr {
-    position: absolute;
-    right: 10pt;
-    top: 45%;
+    @media (min-width: 990px) {
+      height: inherit;
+    }
+    @media (max-width: 990px) {
+      height: 100px;
+    }
+    @media (max-width: 700px) {
+      height: 80px;
+    }
   }
 `;
 

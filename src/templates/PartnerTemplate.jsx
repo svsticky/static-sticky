@@ -31,12 +31,20 @@ const PartnerView = ({ data }) => {
         <div className="partner-content">
           <h2>{partner.name}</h2>
           <Markdown>{partner.description.description}</Markdown>
-          <h2> Vacatures </h2>
-          <div className="partner-joblist">
-            {partner.job_listing.map(jobListing => (
-              <JobItem key={jobListing.id} job={jobListing} partner={partner} />
-            ))}
-          </div>
+          {partner.job_listing && (
+            <div>
+              <h2> Vacatures </h2>
+              <div className="partner-joblist">
+                {partner.job_listing.map(jobListing => (
+                  <JobItem
+                    key={jobListing.id}
+                    job={jobListing}
+                    partner={partner}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </PartnerTemplateWrapper>
     </Layout>

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { device } from '../../data/Devices';
 
 const Footer = () => (
   <FooterWrapper>
@@ -28,12 +29,16 @@ const Footer = () => (
 );
 
 const FooterWrapper = styled.div`
+  padding-bottom: 4.5em;
+  @media ${device.tablet} {
+    padding: 0;
+  }
+  background-color: #444;
   display: flex;
   justify-content: center;
   align-content: space-between;
-  background-color: #444;
-  color: white;
   .footer-list {
+    color: white;
     display: flex;
     flex-wrap: wrap;
     padding: 20px;
