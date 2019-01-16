@@ -12,6 +12,13 @@ class MobileNavBar extends React.Component {
     showSubMenu: false,
   };
 
+  constructor(props) {
+    props.data.allContentfulPage.edges.sort(
+      (a, b) => b.node.title.localeCompare(a.node.title) // Sorting submenuitems a-z (flex-direction is column-reverse/row-reverse)
+    );
+    super(props);
+  }
+
   handleMenuClick = clicked => {
     clicked === this.state.active
       ? this.setState({ showSubMenu: false })
@@ -33,11 +40,7 @@ class MobileNavBar extends React.Component {
   };
 
   renderSubMenuItems = pages => {
-    const subpages = [...pages];
-    subpages.sort(
-      (a, b) => b.node.title.localeCompare(a.node.title) // Sorting submenuitems a-z (flex-direction is column-reverse/row-reverse)
-    );
-    return subpages
+    return pages
       .filter(
         page =>
           page.node.parentPage !== null &&
@@ -67,7 +70,7 @@ class MobileNavBar extends React.Component {
   };
 
   render() {
-    let { edges } = this.props.data.allContentfulPage;
+    const { edges } = this.props.data.allContentfulPage;
     return (
       <MobileNavBarWrapper>
         <div className="menu">
