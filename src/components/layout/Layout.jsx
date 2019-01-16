@@ -31,6 +31,7 @@ const PageWrapper = styled.div`
   flex-direction: column;
   background-color: rgb(244, 243, 239);
   overflow: auto;
+  background-color: #f8f8f4;
   .content {
     flex: 1;
   }
