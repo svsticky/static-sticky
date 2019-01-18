@@ -132,7 +132,7 @@ const MobileNavBarWrapper = styled.div`
     background-color: #20730d;
     z-index: 10;
     display: grid;
-    grid-template-columns: 1fr 2fr 2.5fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
     grid-gap: 0.5em;
     padding: 0.5em;
     border-radius: 5px 5px 0 0;
