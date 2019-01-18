@@ -23,7 +23,6 @@ class News extends React.Component {
 
   renderNewsItems = (allItems, pageNum) => (
     <div>
-      {sortOnDate(allItems)}
       {allItems.slice(pageNum * this.props.itemsPerPage, pageNum * this.props.itemsPerPage + this.props.itemsPerPage).map(item => {
         return (
           <div key={item.node.id} className="newsItem">
@@ -56,14 +55,6 @@ class News extends React.Component {
       </NewsWrapper>
     );
   }
-}
-
-const sortOnDate = array => {
-  array.sort(function(a, b) {
-    a = new Date(a.node.dateOfPublishing);
-    b = new Date(b.node.dateOfPublishing);
-    return a>b ? -1 : a<b ? 1 : 0;
-  });
 }
 
 export const NewsWrapper = styled.div`
@@ -151,7 +142,7 @@ export default props => (
   <StaticQuery
     query={graphql`
       query {
-        allContentfulNewsArticles {
+        allContentfulNewsArticles(sort: { fields: [dateOfPublishing], order: DESC}) {
           edges {
             node {
               id
