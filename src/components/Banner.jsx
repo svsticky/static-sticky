@@ -11,7 +11,14 @@ class Banner extends React.Component {
     this.dir = 1;
     this.state = {
       logos: props.data.allContentfulBannerLogo.edges,
+      visibility: 'hidden',
     };
+  }
+
+  componentDidMount(){
+    this.setState({
+      visibility: 'visible',
+    });
   }
 
   renderLogos = allLogos => (
@@ -31,7 +38,7 @@ class Banner extends React.Component {
   );
 
   render() {
-    return <BannerWrapper>{this.renderLogos(this.state.logos)}</BannerWrapper>;
+    return <BannerWrapper visible={this.state.visibility}>{this.renderLogos(this.state.logos)}</BannerWrapper>;
   }
 }
 
@@ -59,12 +66,14 @@ export const BannerWrapper = styled.div`
     justify-content: center;
     align-items: center;
     height: 125px;
+    width: 100%;
   }
   .card {
     flex-grow: 1;
     height: 100%;
   }
   .slide {
+    visibility: ${props => props.visible};
     height: 100%;
   }
   .each-slide {
