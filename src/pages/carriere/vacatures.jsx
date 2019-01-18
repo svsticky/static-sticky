@@ -54,6 +54,7 @@ const JobsListQuery = graphql`
           featured
           target_studies
           type
+          slug
           partner {
             name
             logo {

@@ -4,13 +4,7 @@ import { Card, Image } from 'semantic-ui-react';
 
 const Job = props => (
   <JobWrapper>
-    <Card
-      fluid
-      className="card"
-      href={
-        '/partners/' + props.partner.name.replace(/\W+/g, '-').toLowerCase()
-      }
-    >
+    <Card fluid className="card" href={'/vacatures/' + props.job.slug}>
       <Card.Content className="content-container">
         <Image
           size="small"
