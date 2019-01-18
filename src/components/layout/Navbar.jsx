@@ -14,6 +14,13 @@ import menu from '$/data/menu.json';
 import { device } from '../../data/Devices';
 
 class NavBar extends React.Component {
+  constructor(props) {
+    props.data.allContentfulPage.edges.sort(
+      (a, b) => b.node.title.localeCompare(a.node.title) // Sorting all the menu items
+    );
+    super(props);
+  }
+
   renderMenuItems = data =>
     data.map(menuItem => {
       if (menuItem.node.parentPage === null) {
