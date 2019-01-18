@@ -4,7 +4,6 @@
   "version": "0.1.0",
   "author": "Commit (https://github.com/orgs/svsticky/teams/commit)",
   "dependencies": {
-    "babel-preset-gatsby": "^0.1.6",
     "dotenv": "^6.2.0",
     "gatsby": "^2.0.89",
     "gatsby-plugin-react-helmet": "^3.0.5",
@@ -36,13 +35,15 @@
     "build": "npm run build-semantic && gatsby build",
     "develop": "gatsby develop",
     "format": "npx prettier --write {*,src/**/*}.{js,jsx}",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "devDependencies": {
     "babel-plugin-root-import": "^6.1.0",
     "babel-plugin-styled-components": "^1.10.0",
+    "babel-preset-gatsby": "^0.1.6",
     "gulp": "^3.9.1",
     "husky": "^1.3.1",
+    "less": "^3.9.0",
     "precise-commits": "^1.0.2",
     "prettier": "^1.15.3",
     "semantic-ui": "^2.4.2"
