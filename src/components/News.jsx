@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import Pager from 'react-pager';
+import Markdown from 'markdown-to-jsx';
 
 class News extends React.Component {
   constructor(props) {
@@ -22,18 +23,19 @@ class News extends React.Component {
 
   renderNewsItems = (allItems, pageNum) => (
     <div>
-      {allItems.slice(pageNum * 5, pageNum * 5 + 5).map(item => {
+      {sortOnDate(allItems)}
+      {allItems.slice(pageNum * this.props.itemsPerPage, pageNum * this.props.itemsPerPage + this.props.itemsPerPage).map(item => {
         return (
-          <div key={item.node.id}>
+          <div key={item.node.id} className="newsItem">
             <h3>
               <a href={'/news/' + item.node.slug}>{item.node.title}</a>
             </h3>
-            <p>{item.node.dateOfPublishing}</p>
-            <p className="content">
-              {item.node.content.content.slice(0, 300)}
+            {item.node.dateOfPublishing}
+            <div className="content">
+              <Markdown>{item.node.content.content.slice(0, 300)}</Markdown>
               ...
               <a href={'/news/' + item.node.slug}>lees verder</a>
-            </p>
+            </div>
           </div>
         );
       })}
@@ -56,10 +58,24 @@ class News extends React.Component {
   }
 }
 
+const sortOnDate = array => {
+  array.sort(function(a, b) {
+    a = new Date(a.node.dateOfPublishing);
+    b = new Date(b.node.dateOfPublishing);
+    return a>b ? -1 : a<b ? 1 : 0;
+  });
+}
+
 export const NewsWrapper = styled.div`
   .content {
     margin-bottom: 1em;
     border-bottom: 1px solid #ddd;
+  }
+  .newsItem {
+    img {width: 250px;
+         border: 3px solid #000;
+         border-radius: 10px;
+         margin: auto;}
   }
   .pagination {
     font-size: 18px;
@@ -125,8 +141,6 @@ export const NewsWrapper = styled.div`
       > a:hover,
       > a:focus {
         color: #333;
-        background-color: @pagination-disabled-bg;
-        border-color: @pagination-disabled-border;
         cursor: default;
       }
     }
