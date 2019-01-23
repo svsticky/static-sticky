@@ -25,13 +25,11 @@ const JobWrapper = styled.div`
   &&& .card {
     display: grid;
     height: 100%;
+    padding: 10px;
   }
   .content-container {
     display: grid;
-    grid-template-rows: 150px 5% 50%;
-    grid-template-columns: 100%;
-    row-gap: 5px;
-    grid-auto-flow: row;
+    grid-template-rows: 150px auto auto;
   }
   .image {
     align-self: center;
