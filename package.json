@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "author": "Commit (https://github.com/orgs/svsticky/teams/commit)",
   "dependencies": {
+    "atomic-layout": "^0.6.0",
     "babel-preset-gatsby": "^0.1.6",
     "dotenv": "^6.2.0",
     "gatsby": "^2.0.89",
