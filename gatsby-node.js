@@ -1,7 +1,5 @@
 const path = require('path');
 const slash = require('slash');
-const axios = require('axios');
-const crypto = require('crypto');
 const fs = require('fs');
 
 exports.createPages = async ({ graphql, actions }) => {

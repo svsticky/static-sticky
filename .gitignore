@@ -2,6 +2,7 @@
 .cache
 node_modules
 package-lock.json
+/src/semantic/dist
 
 # Build directory
 /public

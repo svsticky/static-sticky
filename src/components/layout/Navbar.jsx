@@ -9,8 +9,9 @@ import {
   Button,
   Grid,
 } from 'semantic-ui-react';
-import logo from '../../images/logo-sticky-small.png';
-import menu from '../../data/menu.json';
+import logo from '$/images/logo-sticky-small.png';
+import menu from '$/data/menu.json';
+import { device } from '../../data/Devices';
 
 class NavBar extends React.Component {
   renderMenuItems = data =>
@@ -106,13 +107,21 @@ class NavBar extends React.Component {
 }
 
 const NavBarWrapper = styled.div`
-  &&& .navbar {
+  display: none;
+  @media ${device.tablet} {
+    display: block;
+  }
+  .navbar {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
     background-color: #20730d;
     border-radius: 0;
     .logo {
-      margin: 0.5em;
+      height: 2.5em;
       img {
-        height: 3em;
+        height: 100%;
+        margin: 0.3em;
       }
     }
     .item {
