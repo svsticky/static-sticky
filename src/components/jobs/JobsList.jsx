@@ -29,7 +29,6 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
 const createJobs = jobbies => {
   return jobbies.map(job => (
     <JobItem
-      className="item"
       key={job.node.id}
       job={job.node}
       partner={job.node.partner}

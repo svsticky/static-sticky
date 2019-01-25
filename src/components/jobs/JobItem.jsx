@@ -23,7 +23,6 @@ const Job = props => (
 
 const JobWrapper = styled.div`
   &&& .card {
-    display: grid;
     height: 100%;
     padding: 10px;
   }

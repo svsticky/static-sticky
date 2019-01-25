@@ -32,15 +32,16 @@ const PartnerView = ({ data }) => {
           <h2>{partner.name}</h2>
           <Markdown>{partner.description.description}</Markdown>
           {partner.job_listing && (
-            <div>
-              <h2> Vacatures </h2>
+            <div className="vacatures">
+              <h2> Vacatures bij {partner.name}</h2>
               <div className="partner-joblist">
                 {partner.job_listing.map(jobListing => (
-                  <JobItem
-                    key={jobListing.id}
-                    job={jobListing}
-                    partner={partner}
-                  />
+                    <JobItem
+                      className="item"
+                      key={jobListing.id}
+                      job={jobListing}
+                      partner={partner}
+                      />            
                 ))}
               </div>
             </div>
@@ -78,9 +79,15 @@ const PartnerTemplateWrapper = styled.div`
   .partner-content: {
     margin: 0 0.5em;
   }
-
+  .vacatures {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
   .partner-joblist {
-    margin: 0px 0.5em;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: row;
+    grid-gap: 10px;
   }
 `;
 
