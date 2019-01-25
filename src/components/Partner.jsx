@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'gatsby';
 import { Card, Image } from 'semantic-ui-react';
 
 const Partner = ({ partner }) => (
   <PartnerLogo>
-    <Card
+    <Card as={ Link }
       fluid
       className="card"
       color="grey"
-      href={'/partners/' + partner.slug}
+      to={'/partners/' + partner.slug}
     >
       <Card.Content className="logo-container">
         <Image

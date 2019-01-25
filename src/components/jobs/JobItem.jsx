@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'gatsby';
 import { Card, Image } from 'semantic-ui-react';
 
 const Job = props => (
   <JobWrapper>
-    <Card fluid className="card" href={'/vacatures/' + props.job.slug}>
+    <Card as={ Link } fluid className="card" to={'/vacatures/' + props.job.slug}>
       <Card.Content className="content-container">
         <Image
           size="small"

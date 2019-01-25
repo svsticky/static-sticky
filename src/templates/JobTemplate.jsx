@@ -1,7 +1,7 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Button, Card } from 'semantic-ui-react';
 
@@ -13,8 +13,8 @@ const JobView = ({ data }) => {
       <JobTemplateWrapper>
         <div className="side-info">
           <div>
-            <Card className="logo-container">
-              <img
+            <Card as={ Link } to={'/partners/' + job.partner.slug} className="logo-container">
+              <img as={ Link }
                 src={job.partner.logo.file.url}
                 className="partner-logo"
                 alt="Partner Logo"
@@ -44,7 +44,9 @@ const JobView = ({ data }) => {
         </div>
         <Card fluid className="job-content">
           <h1>{job.job_title}</h1>
-          <Markdown>{job.content.content}</Markdown>
+          <div class="description">
+            <Markdown>{job.content.content}</Markdown>
+          </div>
         </Card>
       </JobTemplateWrapper>
     </Layout>
@@ -100,6 +102,9 @@ const JobTemplateWrapper = styled.div`
   .job-content {
     padding: 1em;
   }
+  .description {
+    img{width: 500px;}
+  }
 `;
 
 export default JobView;
@@ -122,6 +127,7 @@ export const jobQuery = graphql`
         }
       }
       partner {
+        slug
         logo {
           file {
             url
