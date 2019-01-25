@@ -24,7 +24,7 @@ const PartnerView = ({ data }) => {
           <div>
             <h3>Contact</h3>
             <p>
-              <a target="_blank" href={partner.website}>website</a> <br />
+              <a target="_blank" rel="noopener noreferrer" href={partner.website}>website</a> <br />
             </p>
           </div>
         </div>
