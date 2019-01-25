@@ -41,7 +41,7 @@ const PartnerView = ({ data }) => {
                       key={jobListing.id}
                       job={jobListing}
                       partner={partner}
-                      />            
+                      />
                 ))}
               </div>
             </div>
@@ -114,6 +114,7 @@ export const PartnerQuery = graphql`
         job_title
         summary
         featured
+        slug
         partner {
           logo {
             file {
