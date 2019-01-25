@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-export const globalState = React.createContext();
+export const GlobalState = React.createContext();
 
-class globalStateProvider extends Component {
+class GlobalStateProvider extends Component {
   state = {
     lastReadNewsPage: 0,
   };
@@ -15,16 +15,16 @@ class globalStateProvider extends Component {
 
   render() {
     return (
-      <globalState.Provider
+      <GlobalState.Provider
         value={{
           state: this.state,
           actions: this.actions,
         }}
       >
         {this.props.children}
-      </globalState.Provider>
+      </GlobalState.Provider>
     );
   }
 }
 
-export default globalStateProvider;
+export default GlobalStateProvider;
