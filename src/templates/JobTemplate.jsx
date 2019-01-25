@@ -42,7 +42,7 @@ const JobView = ({ data }) => {
             )}
           </div>
         </div>
-        <Card className="job-content">
+        <Card fluid className="job-content">
           <h1>{job.job_title}</h1>
           <Markdown>{job.content.content}</Markdown>
         </Card>
