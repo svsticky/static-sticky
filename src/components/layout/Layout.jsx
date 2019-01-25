@@ -1,5 +1,6 @@
 import '$/semantic/dist/semantic.min.css';
 import React from 'react';
+import Context from '$/data/Context';
 import styled from 'styled-components';
 import NavBar from './Navbar';
 import MobileNavbar from './MobileNavbar';
@@ -8,14 +9,14 @@ import { Container } from 'semantic-ui-react';
 import { device } from '../../data/Devices';
 
 const layout = ({ children }) => (
-  <>
+  <Context>
     <NavBar />
     <PageWrapper>
       <StyledContainer className="content">{children}</StyledContainer>
       <Footer />
     </PageWrapper>
     <MobileNavbar />
-  </>
+  </Context>
 );
 
 const StyledContainer = styled(Container)`
