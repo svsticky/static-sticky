@@ -23,10 +23,7 @@ class FeaturedJobs extends React.Component {
     return (
       <Card
         fluid
-        href={
-          '/partners/' +
-          job.node.partner.name.replace(/\W+/g, '-').toLowerCase()
-        }
+        href={'/vacatures/' + job.node.slug}
       >
         <Card.Content>
           <Image
@@ -69,6 +66,7 @@ export default props => (
               featured
               target_studies
               type
+              slug
               partner {
                 name
                 logo {
