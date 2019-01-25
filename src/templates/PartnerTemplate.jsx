@@ -24,13 +24,15 @@ const PartnerView = ({ data }) => {
           <div>
             <h3>Contact</h3>
             <p>
-              <a href={partner.website}>website</a> <br />
+              <a target="_blank" href={partner.website}>website</a> <br />
             </p>
           </div>
         </div>
         <div className="partner-content">
           <h2>{partner.name}</h2>
-          <Markdown>{partner.description.description}</Markdown>
+          <div className="description">
+            <Markdown>{partner.description.description}</Markdown>
+          </div>
           {partner.job_listing && (
             <div className="vacatures">
               <h2> Vacatures bij {partner.name}</h2>
@@ -78,6 +80,9 @@ const PartnerTemplateWrapper = styled.div`
 
   .partner-content: {
     margin: 0 0.5em;
+  }
+  .description {
+    img{ width: 300px;}
   }
   .vacatures {
     padding-top: 10px;
