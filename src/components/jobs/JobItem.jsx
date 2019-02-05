@@ -1,23 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card, Image } from 'semantic-ui-react';
+import StyledCard from '../atoms/Card';
 
 const Job = props => (
   <JobWrapper>
-    <Card fluid className="card" href={'/vacatures/' + props.job.slug}>
-      <Card.Content className="content-container">
+    <StyledCard className="card">
+      <div className="content-container">
         <Image
           size="small"
           centered
           className="image"
           src={props.job.partner.logo.file.url}
         />
-        <Card.Header className="header">{props.job.job_title}</Card.Header>
-        <Card.Description className="desc">
-          {props.job.summary}
-        </Card.Description>
-      </Card.Content>
-    </Card>
+        <h3 className="header">{props.job.job_title}</h3>
+        <div className="desc">{props.job.summary}</div>
+      </div>
+    </StyledCard>
   </JobWrapper>
 );
 
@@ -25,7 +24,6 @@ const JobWrapper = styled.div`
   &&& .card {
     display: grid;
     height: 100%;
-    padding: 10px;
   }
   .content-container {
     display: grid;
