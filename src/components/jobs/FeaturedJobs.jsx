@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card, Image } from 'semantic-ui-react';
-import { graphql, StaticQuery } from 'gatsby';
+import { graphql, StaticQuery, Link } from 'gatsby';
 
 class FeaturedJobs extends React.Component {
   getRandom = max => {
@@ -21,10 +21,7 @@ class FeaturedJobs extends React.Component {
 
   renderFeaturedJob = job => {
     return (
-      <Card
-        fluid
-        href={'/vacatures/' + job.node.slug}
-      >
+      <Card as={ Link } fluid to={'/vacatures/' + job.node.slug}>
         <Card.Content>
           <Image
             size="small"
