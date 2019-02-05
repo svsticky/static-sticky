@@ -3,13 +3,9 @@ Study Association Sticky's website is a static website built in React with Gatsb
 
 ## Installation
 1. Install Node Version Manager [nvm](https://github.com/creationix/nvm). 
-   
-2. Install the required version of nodejs by running `nvm install` in the project directory. 
-   
-3. Install dependencies by running `npm i` in the project directory.
-   
+2. Install the required version of nodejs by running `nvm install` in the project directory.
+3. Install dependencies with `npm i` or `pnpm` (see below).
 4. Create .env file: `cp sample.env .env`.
-   
 5. Fill .env with the required api keys without quotes from [contentful](https://app.contentful.com/) ( Space Settings > API keys ).
 
 ### PNPM
