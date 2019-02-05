@@ -23,21 +23,26 @@ class News extends React.Component {
 
   renderNewsItems = (allItems, pageNum) => (
     <div>
-      {allItems.slice(pageNum * this.props.itemsPerPage, pageNum * this.props.itemsPerPage + this.props.itemsPerPage).map(item => {
-        return (
-          <div key={item.node.id} className="newsItem">
-            <h3>
-              <a href={'/news/' + item.node.slug}>{item.node.title}</a>
-            </h3>
-            {item.node.dateOfPublishing}
-            <div className="content">
-              <Markdown>{item.node.content.content.slice(0, 300)}</Markdown>
-              ...
-              <a href={'/news/' + item.node.slug}>lees verder</a>
+      {allItems
+        .slice(
+          pageNum * this.props.itemsPerPage,
+          pageNum * this.props.itemsPerPage + this.props.itemsPerPage
+        )
+        .map(item => {
+          return (
+            <div key={item.node.id} className="newsItem">
+              <h3>
+                <a href={'/news/' + item.node.slug}>{item.node.title}</a>
+              </h3>
+              {item.node.dateOfPublishing}
+              <div className="content">
+                <Markdown>{item.node.content.content.slice(0, 300)}</Markdown>
+                ...
+                <a href={'/news/' + item.node.slug}>lees verder</a>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 
@@ -63,10 +68,12 @@ export const NewsWrapper = styled.div`
     border-bottom: 1px solid #ddd;
   }
   .newsItem {
-    img {width: 250px;
-         border: 3px solid #000;
-         border-radius: 10px;
-         margin: auto;}
+    img {
+      width: 250px;
+      border: 3px solid #000;
+      border-radius: 10px;
+      margin: auto;
+    }
   }
   .pagination {
     font-size: 18px;
@@ -142,7 +149,9 @@ export default props => (
   <StaticQuery
     query={graphql`
       query {
-        allContentfulNewsArticles(sort: { fields: [dateOfPublishing], order: DESC}) {
+        allContentfulNewsArticles(
+          sort: { fields: [dateOfPublishing], order: DESC }
+        ) {
           edges {
             node {
               id

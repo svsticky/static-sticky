@@ -15,7 +15,7 @@ class Banner extends React.Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.setState({
       visibility: 'visible',
     });
@@ -38,7 +38,11 @@ class Banner extends React.Component {
   );
 
   render() {
-    return <BannerWrapper visible={this.state.visibility}>{this.renderLogos(this.state.logos)}</BannerWrapper>;
+    return (
+      <BannerWrapper visible={this.state.visibility}>
+        {this.renderLogos(this.state.logos)}
+      </BannerWrapper>
+    );
   }
 }
 

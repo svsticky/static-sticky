@@ -33,8 +33,10 @@ const NewsTemplateWrapper = styled.div`
     font-style: italic;
     margin-bottom: 5px;
   }
-  .content{
-    img {max-width: 40%;}
+  .content {
+    img {
+      max-width: 40%;
+    }
   }
 `;
 
