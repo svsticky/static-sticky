@@ -1,11 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Image } from 'semantic-ui-react';
+import { Icon, Image, Label } from 'semantic-ui-react';
 import StyledCard from '../atoms/Card';
 
 const Job = props => (
   <JobWrapper>
     <StyledCard className="card">
+      <Label
+        color={props.job.isJob ? 'blue' : 'yellow'}
+        ribbon="right"
+        className="ribbon"
+      >
+        <Icon
+          name={props.job.isJob ? 'briefcase' : 'student'}
+          size="large"
+          className="ribbon-icon"
+        />
+        {console.log(props.job.type)}
+      </Label>
       <div className="content-container">
         <Image
           size="small"
@@ -32,10 +44,18 @@ const JobWrapper = styled.div`
   .image {
     align-self: center;
   }
-  .header {
-  }
   .desc {
     align-self: start;
+  }
+  .ribbon {
+    padding: 0.5rem !important;
+    width: 2rem;
+    height: 2.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+    &-icon {
+      // sweet SCSS here <3
+      margin: 0 !important;
+    }
   }
 `;
 
