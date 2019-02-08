@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import JobItem from './JobItem';
+import { Grid } from 'semantic-ui-react';
 
 const displayJobs = (studiesFilter, typesFilter, jobs) => {
   if (studiesFilter.length === 0 && typesFilter.length === 0) {
@@ -28,39 +29,26 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
 
 const createJobs = jobbies => {
   return jobbies.map(job => (
-    <JobItem
-      key={job.node.id}
-      job={job.node}
-      partner={job.node.partner}
-    />
+    <Grid.Column>
+      <JobItem key={job.node.id} job={job.node} partner={job.node.partner} />
+    </Grid.Column>
   ));
 };
 
 const jobslist = props => (
   <JobsList>
     <div className="container">
-      {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
+      <Grid doubling stretched columns={3}>
+        {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
+      </Grid>
     </div>
   </JobsList>
 );
 
 const JobsList = styled.div`
-  &&& .container {
-    display: grid;
-
-    @media (min-width: 990px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    @media (max-width: 990px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @media (max-width: 560px) {
-      grid-template-columns: 1fr;
-    }
-
+  .container {
     grid-gap: 20px;
     padding: 20px;
-    grid-auto-flow: row;
   }
 `;
 

@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { Card, Image } from 'semantic-ui-react';
 
-const Job = props => (
+const JobItem = props => (
   <JobWrapper>
-    <Card as={ Link } fluid className="card" to={'/vacatures/' + props.job.slug}>
+    <Card as={Lin} fluid to={'/vacatures/' + props.job.slug} className="card">
       <Card.Content className="content-container">
         <Image
           size="small"
@@ -24,6 +24,7 @@ const Job = props => (
 
 const JobWrapper = styled.div`
   &&& .card {
+    display: grid;
     height: 100%;
     padding: 10px;
   }
@@ -41,4 +42,4 @@ const JobWrapper = styled.div`
   }
 `;
 
-export default Job;
+export default JobItem;
