@@ -14,8 +14,8 @@ const Partner = ({ partner }) => (
       <Card.Content className="logo-container">
         <Image
           centered
-          size="small"
           className="logo"
+          size="small"
           src={partner.logo.file.url}
           alt="Partner logo"
         />
@@ -27,7 +27,7 @@ const Partner = ({ partner }) => (
 const PartnerLogo = styled.div`
   .card {
     display: flex;
-    height: 100%;
+    height: 175px;
   }
   .logo-container {
     display: flex;
@@ -36,8 +36,6 @@ const PartnerLogo = styled.div`
     padding: 25px;
 
     .logo {
-      width: auto;
-      height: auto;
       margin: 0;
       transition: all 0.15s;
     }
