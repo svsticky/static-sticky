@@ -38,7 +38,7 @@ const createJobs = jobbies => {
 const jobslist = props => (
   <JobsList>
     <div className="container">
-      <Grid doubling stretched columns={3}>
+      <Grid doubling stackable stretched columns={3}>
         {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
       </Grid>
     </div>
