@@ -5,7 +5,7 @@ import { Card, Image } from 'semantic-ui-react';
 
 const JobItem = props => (
   <JobWrapper>
-    <Card as={Lin} fluid to={'/vacatures/' + props.job.slug} className="card">
+    <Card as={ Link } fluid to={'/vacatures/' + props.job.slug} className="card">
       <Card.Content className="content-container">
         <Image
           size="small"
@@ -26,7 +26,7 @@ const JobWrapper = styled.div`
   &&& .card {
     display: grid;
     height: 100%;
-    padding: 10px;
+    padding: 5px;
   }
   .content-container {
     display: grid;
@@ -34,8 +34,6 @@ const JobWrapper = styled.div`
   }
   .image {
     align-self: center;
-  }
-  .header {
   }
   .desc {
     align-self: start;

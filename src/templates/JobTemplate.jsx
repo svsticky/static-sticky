@@ -14,7 +14,7 @@ const JobView = ({ data }) => {
         <div className="side-info">
           <div>
             <Card as={ Link } to={'/partners/' + job.partner.slug} className="logo-container">
-              <img as={ Link }
+              <img
                 src={job.partner.logo.file.url}
                 className="partner-logo"
                 alt="Partner Logo"

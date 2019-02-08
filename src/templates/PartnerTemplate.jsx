@@ -1,6 +1,7 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
+import { Grid } from 'semantic-ui-react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import JobItem from '../components/jobs/JobItem';
@@ -36,16 +37,18 @@ const PartnerView = ({ data }) => {
           {partner.job_listing && (
             <div className="vacatures">
               <h2> Vacatures bij {partner.name}</h2>
-              <div className="partner-joblist">
+                <Grid columns={2} doubling stretched>
                 {partner.job_listing.map(jobListing => (
+                  <Grid.Column>
                     <JobItem
                       className="item"
                       key={jobListing.id}
                       job={jobListing}
                       partner={partner}
                       />
+                  </Grid.Column>
                 ))}
-              </div>
+              </Grid>
             </div>
           )}
         </div>
@@ -87,12 +90,6 @@ const PartnerTemplateWrapper = styled.div`
   .vacatures {
     padding-top: 10px;
     padding-bottom: 10px;
-  }
-  .partner-joblist {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-auto-flow: row;
-    grid-gap: 10px;
   }
 `;
 
