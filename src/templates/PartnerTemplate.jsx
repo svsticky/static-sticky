@@ -27,9 +27,13 @@ const PartnerView = ({ data }) => {
           </div>
           <div>
             <h3>Contact</h3>
-            <p> target="_blank"
- rel="noopener noreferrer"
-                href={partner.website}                website
+            <p>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href={partner.website}
+              >
+                website
               </a>{' '}
               <br />
             </p>
@@ -43,15 +47,15 @@ const PartnerView = ({ data }) => {
           {partner.job_listing && (
             <div className="vacatures">
               <h2> Vacatures bij {partner.name}</h2>
-                <Grid columns={2} doubling stretched>
+              <Grid columns={2} doubling stretched>
                 {partner.job_listing.map(jobListing => (
-                    <Grid.Column>
+                  <Grid.Column>
                     <JobItem
                       className="item"
                       key={jobListing.id}
                       job={jobListing}
                       partner={partner}
-                        />
+                    />
                   </Grid.Column>
                 ))}
               </Grid>
@@ -102,20 +106,37 @@ const PartnerTemplateWrapper = styled.div`
 
       @media ${device.tablet}{
         align-items: center;
-                    height: 10em;
+        height: 10em;
         justify-content: center;
       }
 
       .partner-logo {
-        @media ${device.mobileMax}{
+
+
+
+
+        @media ${device.mobileMax} {
+{
         height: inherit;
-                  margin-right: 5px;
-       @media ${device.tablet}{
-          width: 80%;
-.partner-content: {
+
+                                            margin-right: 5px;
+        }
+
+        @media ${device.tablet} {
+{
+             width: 80%;
+                                            }
+      }
+    }
+  }
+
+  .partner-content: {
     margin: 0 0.5em;
   }
   .description {
+    img {
+      width: 300px;    }
+  }
   .vacatures {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -125,33 +146,35 @@ const PartnerTemplateWrapper = styled.div`
 export default PartnerView;
 
 export const PartnerQuery = graphql`
-  query PartnerQuery($id: String!) {
-    contentfulPartner(id: { eq: $id }) {
- website
-      description {
-        description
-      }
+         query PartnerQuery($id: String!) {
+           contentfulPartner(id: { eq: $id }) {
+             id
+             name
+             website
+             description {
+               description
+             }
 
-      logo {
-        file {
-          url
-        }
-      }
+             logo {
+               file {
+                 url
+               }
+             }
 
-      job_listing {
-        id
-        job_title
-        summary
-        featured
-        slug
-        partner {
-          logo {
-            file {
-              url
-            }
-          }
-        }
-      }
-    }
-  }
-`;
+             job_listing {
+               id
+               job_title
+               summary
+               featured
+               slug
+               partner {
+                 logo {
+                   file {
+                     url
+                   }
+                 }
+               }
+             }
+           }
+         }
+       `;
