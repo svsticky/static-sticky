@@ -131,7 +131,8 @@ const PartnerTemplateWrapper = styled.div`
   }
   .description {
     img {
-      width: 300px;    }
+      width: 300px;
+    }
   }
   .vacatures {
     padding-top: 10px;

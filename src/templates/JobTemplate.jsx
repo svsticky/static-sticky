@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Button, Card } from 'semantic-ui-react';
+import { device } from '../data/Devices';
 
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
@@ -54,8 +55,10 @@ const JobView = ({ data }) => {
 };
 
 const JobTemplateWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
+  @media ${device.tablet} {
+    display: flex;
+    align-items: flex-start;
+  }
 
   h1 {
     border-bottom: 1px solid #ddd;
@@ -64,18 +67,38 @@ const JobTemplateWrapper = styled.div`
   }
 
   .side-info {
-    width: 20em;
-    min-width: 220px;
-    margin: 0 1em;
+    @media ${device.tablet} {
+      width: 20em;
+      min-width: 220px;
+      margin: 0 1em;
+      top: 8em;
+    }
+
+    @media ${device.mobileMax} {
+      width: 100%;
+      height: 100%;
+      top: 0em;
+      background-color: #f8f8f4;
+    }
+
     position: sticky;
-    top: 8em;
     z-index: 10;
+
     .logo-container {
-      height: 10em;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1em;
+
+      @media ${device.tablet} {
+        height: 10em;
+
+        margin-bottom: 1em;
+      }
+      @media ${device.mobileMax} {
+        height: 100%;
+        width: 100%;
+      }
+
       .partner-logo {
         width: 70%;
         height: auto;
@@ -103,7 +126,9 @@ const JobTemplateWrapper = styled.div`
     padding: 1em;
   }
   .description {
-    img{width: 500px;}
+    img {
+      width: 500px;
+    }
   }
 `;
 
