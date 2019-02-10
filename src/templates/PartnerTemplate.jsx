@@ -1,10 +1,11 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
-import { Grid } from 'semantic-ui-react';
+import { Grid, Image } from 'semantic-ui-react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import JobItem from '../components/jobs/JobItem';
+import { device } from '../data/Devices';
 
 const PartnerView = ({ data }) => {
   const { contentfulPartner: partner } = data;
@@ -15,17 +16,22 @@ const PartnerView = ({ data }) => {
         <div className="info">
           <div>
             <div className="logo-container">
-              <img
+              <Image
                 src={partner.logo.file.url}
                 className="partner-logo"
                 alt="Partner logo"
+                size="small"
+                centered
               />
             </div>
           </div>
           <div>
             <h3>Contact</h3>
-            <p>
-              <a target="_blank" rel="noopener noreferrer" href={partner.website}>website</a> <br />
+            <p> target="_blank"
+ rel="noopener noreferrer"
+                href={partner.website}                website
+              </a>{' '}
+              <br />
             </p>
           </div>
         </div>
@@ -39,13 +45,13 @@ const PartnerView = ({ data }) => {
               <h2> Vacatures bij {partner.name}</h2>
                 <Grid columns={2} doubling stretched>
                 {partner.job_listing.map(jobListing => (
-                  <Grid.Column>
+                    <Grid.Column>
                     <JobItem
                       className="item"
                       key={jobListing.id}
                       job={jobListing}
                       partner={partner}
-                      />
+                        />
                   </Grid.Column>
                 ))}
               </Grid>
@@ -58,35 +64,58 @@ const PartnerView = ({ data }) => {
 };
 
 const PartnerTemplateWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
+  @media ${device.tablet}{
+    display: flex;
+    align-items: flex-start;
+  }
 
   .info {
-    width: 20em;
-    min-width: 220px;
-    margin: 0 0.5em;
+    @media ${device.mobileMax}{
+      display: flex;
+      flex-direcion: row;
+      justify-content: start;
+      background-color: white;
+      width: 100%;
+      height: 150px;
+      top: 0em;
+    }
+
+    @media ${device.tablet}{
+      width: 20em;
+      min-width: 220px;
+      margin: 0 0.5em;
+      top: 5em;
+    }
+
     position: sticky;
-    top: 5em;
     z-index: 10;
 
     .logo-container {
-      height: 10em;
       display: flex;
-      align-items: center;
-      justify-content: center;
+
+      @media ${device.mobileMax}{
+        width: 100%;
+        z-index: 10;
+        align-items: start;
+        justify-content: start;
+      }
+
+      @media ${device.tablet}{
+        align-items: center;
+                    height: 10em;
+        justify-content: center;
+      }
 
       .partner-logo {
-        width: 80%;
-      }
-    }
-  }
-
-  .partner-content: {
+        @media ${device.mobileMax}{
+        height: inherit;
+                  margin-right: 5px;
+       @media ${device.tablet}{
+          width: 80%;
+.partner-content: {
     margin: 0 0.5em;
   }
   .description {
-    img{ width: 300px;}
-  }
   .vacatures {
     padding-top: 10px;
     padding-bottom: 10px;
@@ -98,9 +127,7 @@ export default PartnerView;
 export const PartnerQuery = graphql`
   query PartnerQuery($id: String!) {
     contentfulPartner(id: { eq: $id }) {
-      id
-      name
-      website
+ website
       description {
         description
       }
