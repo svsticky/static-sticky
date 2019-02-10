@@ -78,9 +78,9 @@ const PartnerTemplateWrapper = styled.div`
       display: flex;
       flex-direcion: row;
       justify-content: start;
-      background-color: white;
+      background-color: #f8f8f4;
       width: 100%;
-      height: 150px;
+      height: 100%;
       top: 0em;
     }
 
@@ -102,6 +102,8 @@ const PartnerTemplateWrapper = styled.div`
         z-index: 10;
         align-items: start;
         justify-content: start;
+        margin-top: 5px;
+        margin-bottom: 5px;
       }
 
       @media ${device.tablet}{
@@ -112,20 +114,14 @@ const PartnerTemplateWrapper = styled.div`
 
       .partner-logo {
 
-
-
-
         @media ${device.mobileMax} {
-{
-        height: inherit;
-
-                                            margin-right: 5px;
+          height: inherit;
+          margin-right: 5px;
         }
 
         @media ${device.tablet} {
-{
-             width: 80%;
-                                            }
+          width: 80%;                                            }
+        }
       }
     }
   }
