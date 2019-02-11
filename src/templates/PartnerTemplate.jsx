@@ -49,10 +49,9 @@ const PartnerView = ({ data }) => {
               <h2> Vacatures bij {partner.name}</h2>
               <Grid columns={2} doubling stretched>
                 {partner.job_listing.map(jobListing => (
-                  <Grid.Column>
+                  <Grid.Column key={jobListing.id}>
                     <JobItem
                       className="item"
-                      key={jobListing.id}
                       job={jobListing}
                       partner={partner}
                     />

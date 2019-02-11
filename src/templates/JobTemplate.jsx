@@ -3,7 +3,7 @@ import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Button, Card } from 'semantic-ui-react';
+import { Button, Card, Image } from 'semantic-ui-react';
 import { device } from '../data/Devices';
 
 const JobView = ({ data }) => {
@@ -14,38 +14,47 @@ const JobView = ({ data }) => {
       <JobTemplateWrapper>
         <div className="side-info">
           <div>
-            <Card as={ Link } to={'/partners/' + job.partner.slug} className="logo-container">
-              <img
+            <Card
+              as={Link}
+              to={'/partners/' + job.partner.slug}
+              className="logo-container"
+            >
+              <Image
                 src={job.partner.logo.file.url}
                 className="partner-logo"
                 alt="Partner Logo"
+                size="small"
               />
             </Card>
             {job.contactPerson && (
               <Card className="contactperson">
                 <h3>Contact</h3>
                 <p>{job.contactPerson.name}</p>
-                <Button
-                  className="button"
-                  color="primary"
-                  href={'mailto:' + job.contactPerson.email}
-                >
-                  <span className="content">{job.contactPerson.email}</span>
-                </Button>
-                <Button
-                  className="button"
-                  color="primary"
-                  href={'tel:' + job.contactPerson.phone}
-                >
-                  {job.contactPerson.phone}
-                </Button>
+                <div className="button-div">
+                  <Button
+                    className="button"
+                    color="primary"
+                    href={'mailto:' + job.contactPerson.email}
+                  >
+                    <span className="content">{job.contactPerson.email}</span>
+                  </Button>
+                </div>
+                <div className="button-div">
+                  <Button
+                    className="button"
+                    color="primary"
+                    href={'tel:' + job.contactPerson.phone}
+                  >
+                    {job.contactPerson.phone}
+                  </Button>
+                </div>
               </Card>
             )}
           </div>
         </div>
         <Card fluid className="job-content">
           <h1>{job.job_title}</h1>
-          <div class="description">
+          <div className="description">
             <Markdown>{job.content.content}</Markdown>
           </div>
         </Card>
@@ -91,7 +100,6 @@ const JobTemplateWrapper = styled.div`
 
       @media ${device.tablet} {
         height: 10em;
-
         margin-bottom: 1em;
       }
       @media ${device.mobileMax} {
@@ -100,11 +108,11 @@ const JobTemplateWrapper = styled.div`
       }
 
       .partner-logo {
-        width: 70%;
-        height: auto;
+        background-color: white;
       }
     }
     .contactperson {
+      width: 100%;
       padding: 1em;
       .button {
         width: 100%;
@@ -127,8 +135,11 @@ const JobTemplateWrapper = styled.div`
   }
   .description {
     img {
-      width: 500px;
+      width: 300px;
     }
+  }
+  .button-div {
+    margin-bottom: 5px;
   }
 `;
 

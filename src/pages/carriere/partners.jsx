@@ -1,6 +1,5 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
-import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import Partner from '$/components/Partner';
 import ContentfulPage from '$/components/layout/ContentfulPage';
@@ -13,21 +12,16 @@ const PartnerIndexPage = ({ data }) => {
   return (
     <ContentfulPage page={page}>
       <Markdown>{page.content.content}</Markdown>
-      <PartnerList>
-        <Grid stretched doubling stackable columns={4}>
-          {partners.map(partner => (
-            <Grid.Column>
-              <Partner key={partner.node.id} partner={partner.node}/>
-            </Grid.Column>
-          ))}
-        </Grid>
-      </PartnerList>
+      <Grid doubling columns={4}>
+        {partners.map(partner => (
+          <Grid.Column key={partner.node.id}>
+            <Partner partner={partner.node} />
+          </Grid.Column>
+        ))}
+      </Grid>
     </ContentfulPage>
   );
 };
-
-const PartnerList = styled.div`
-`;
 
 export const PartnerListQuery = graphql`
   query PartnerListQuery {

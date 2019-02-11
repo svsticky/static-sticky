@@ -27,25 +27,25 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
   }
 };
 
-const createJobs = jobbies => {
-  return jobbies.map(job => (
-    <Grid.Column>
-      <JobItem key={job.node.id} job={job.node} partner={job.node.partner} />
+const createJobs = jobs => {
+  return jobs.map(job => (
+    <Grid.Column key={job.node.id}>
+      <JobItem job={job.node} partner={job.node.partner} />
     </Grid.Column>
   ));
 };
 
 const jobslist = props => (
-  <JobsList>
+  <JobsWrapper>
     <div className="container">
       <Grid doubling stackable stretched columns={3}>
         {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
       </Grid>
     </div>
-  </JobsList>
+  </JobsWrapper>
 );
 
-const JobsList = styled.div`
+const JobsWrapper = styled.div`
   .container {
     grid-gap: 20px;
     padding: 20px;
