@@ -17,10 +17,10 @@ class Drinks extends React.Component {
   render() {
     return (
       <>
-        <div className="drinksCard">
+        <div>
           <h3>Borreldag</h3>
           <Card>
-              {this.renderDescription(this.props.data.contentfulDrinks)}
+            {this.renderDescription(this.props.data.contentfulDrinks)}
           </Card>
         </div>
       </>

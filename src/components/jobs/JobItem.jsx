@@ -16,7 +16,6 @@ const Job = props => (
           size="large"
           className="ribbon-icon"
         />
-        {console.log(props.job.type)}
       </Label>
       <div className="content-container">
         <Image
