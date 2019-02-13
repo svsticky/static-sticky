@@ -1,5 +1,5 @@
 import React from 'react';
-import Card from '../components/atoms/Card';
+import { Card } from 'semantic-ui-react';
 import { graphql, StaticQuery } from 'gatsby';
 
 class Drinks extends React.Component {
@@ -20,7 +20,7 @@ class Drinks extends React.Component {
         <div className="drinksCard">
           <h3>Borreldag</h3>
           <Card>
-              {this.renderDescription(this.props.data.contentfulDrinks)}
+            {this.renderDescription(this.props.data.contentfulDrinks)}
           </Card>
         </div>
       </>
