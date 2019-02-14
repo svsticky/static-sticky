@@ -15,6 +15,7 @@ const JobView = ({ data }) => {
       <JobTemplateWrapper contact={contact}>
         <div className="side-info">
           <Card
+            fluid
             as={Link}
             to={'/partners/' + job.partner.slug}
             className="logo-container"
@@ -27,7 +28,7 @@ const JobView = ({ data }) => {
             />
           </Card>
           {job.contactPerson && (
-            <Card className="contactperson">
+            <Card fluid className="contactperson">
               <h3 className="contact-header">Contact</h3>
               <p>{job.contactPerson.name}</p>
               <div className="button-flex">
