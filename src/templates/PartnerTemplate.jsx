@@ -67,23 +67,20 @@ const PartnerView = ({ data }) => {
 };
 
 const PartnerTemplateWrapper = styled.div`
-  @media ${device.tablet}{
+  @media ${device.tablet} {
     display: flex;
     align-items: flex-start;
   }
 
   .info {
-    @media ${device.mobileMax}{
+    @media ${device.mobileMax} {
       display: flex;
-      flex-direcion: row;
-      justify-content: start;
       background-color: #f8f8f4;
-      width: 100%;
-      height: 100%;
-      top: 0em;
+      top: 0;
+      padding-top: 0.5rem;
     }
 
-    @media ${device.tablet}{
+    @media ${device.tablet} {
       width: 20em;
       min-width: 220px;
       margin: 0 0.5em;
@@ -96,30 +93,29 @@ const PartnerTemplateWrapper = styled.div`
     .logo-container {
       display: flex;
 
-      @media ${device.mobileMax}{
+      @media ${device.mobileMax} {
         width: 100%;
         z-index: 10;
         align-items: start;
         justify-content: start;
-        margin-top: 5px;
+        margin-top: 0 0.5em;
         margin-bottom: 5px;
       }
 
-      @media ${device.tablet}{
+      @media ${device.tablet} {
         align-items: center;
         height: 10em;
         justify-content: center;
       }
 
       .partner-logo {
-
         @media ${device.mobileMax} {
           height: inherit;
           margin-right: 5px;
         }
 
         @media ${device.tablet} {
-          width: 80%;                                            }
+          width: 80%;
         }
       }
     }
