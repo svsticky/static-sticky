@@ -8,49 +8,48 @@ import { device } from '../data/Devices';
 
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
+  const contact = job.contactPerson ? true : false;
 
   return (
     <Layout>
-      <JobTemplateWrapper>
+      <JobTemplateWrapper contact={contact}>
         <div className="side-info">
-          <div>
-            <Card
-              as={Link}
-              to={'/partners/' + job.partner.slug}
-              className="logo-container"
-            >
-              <Image
-                src={job.partner.logo.file.url}
-                className="partner-logo"
-                alt="Partner Logo"
-                size="small"
-              />
+          <Card
+            as={Link}
+            to={'/partners/' + job.partner.slug}
+            className="logo-container"
+          >
+            <Image
+              src={job.partner.logo.file.url}
+              className="partner-logo"
+              alt="Partner Logo"
+              size="small"
+            />
+          </Card>
+          {job.contactPerson && (
+            <Card className="contactperson">
+              <h3 className="contact-headers">Contact</h3>
+              <p className="contact-headers">{job.contactPerson.name}</p>
+              <div className="button-div">
+                <Button
+                  className="button"
+                  color="primary"
+                  href={'mailto:' + job.contactPerson.email}
+                >
+                  <span className="content">{job.contactPerson.email}</span>
+                </Button>
+              </div>
+              <div className="button-div">
+                <Button
+                  className="button"
+                  color="primary"
+                  href={'tel:' + job.contactPerson.phone}
+                >
+                  {job.contactPerson.phone}
+                </Button>
+              </div>
             </Card>
-            {job.contactPerson && (
-              <Card className="contactperson">
-                <h3>Contact</h3>
-                <p>{job.contactPerson.name}</p>
-                <div className="button-div">
-                  <Button
-                    className="button"
-                    color="primary"
-                    href={'mailto:' + job.contactPerson.email}
-                  >
-                    <span className="content">{job.contactPerson.email}</span>
-                  </Button>
-                </div>
-                <div className="button-div">
-                  <Button
-                    className="button"
-                    color="primary"
-                    href={'tel:' + job.contactPerson.phone}
-                  >
-                    {job.contactPerson.phone}
-                  </Button>
-                </div>
-              </Card>
-            )}
-          </div>
+          )}
         </div>
         <Card fluid className="job-content">
           <h1>{job.job_title}</h1>
@@ -84,8 +83,10 @@ const JobTemplateWrapper = styled.div`
     }
 
     @media ${device.mobileMax} {
-      width: 100%;
-      height: 100%;
+      display: grid;
+      grid-template-columns: ${props => props.contact ? 'repeat(2, 50%)' : '100%'};
+      justify-items: center;
+      grid-column-gap: 5px;
       top: 0em;
       background-color: #f8f8f4;
     }
@@ -102,9 +103,12 @@ const JobTemplateWrapper = styled.div`
         height: 10em;
         margin-bottom: 1em;
       }
+
       @media ${device.mobileMax} {
         height: 100%;
         width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
       }
 
       .partner-logo {
@@ -112,13 +116,17 @@ const JobTemplateWrapper = styled.div`
       }
     }
     .contactperson {
-      width: 100%;
+      @media ${device.mobileMax} {
+        .contact-headers {
+          display: none;
+        }
+      }
+
       padding: 1em;
       .button {
         width: 100%;
         padding-left: 5px;
         font-size: 0.8em;
-        justify-content: start;
         .content {
           word-wrap: break-word;
           margin: 0;

@@ -23,7 +23,7 @@ const PartnerIndexPage = ({ data }) => {
   );
 };
 
-export const PartnerListQuery = graphql`
+const PartnerListQuery = graphql`
   query PartnerListQuery {
     allContentfulPartner {
       edges {
