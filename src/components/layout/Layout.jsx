@@ -11,7 +11,7 @@ const layout = ({ children }) => (
   <>
     <NavBar />
     <PageWrapper>
-      <Container>{children}</Container>
+      <Container className="container">{children}</Container>
       <Footer />
     </PageWrapper>
     <MobileNavbar />
@@ -25,10 +25,13 @@ const PageWrapper = styled.div`
   background-color: rgb(244, 243, 239);
   overflow: auto;
   background-color: #f8f8f4;
-  padding-top: 6rem;
-  @media ${device.mobileMax} {
-    padding-top: 1rem;
+  .container {
+    padding: 6rem 0 1rem 0;
+    @media ${device.mobileMax} {
+      padding: 1rem 0;
+    }
   }
+
   .content {
     flex: 1;
   }

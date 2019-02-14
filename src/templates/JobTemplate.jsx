@@ -52,7 +52,7 @@ const JobView = ({ data }) => {
           )}
         </div>
         <Card fluid className="job-content">
-          <h1>{job.job_title}</h1>
+          <h2>{job.job_title}</h2>
           <div className="description">
             <Markdown>{job.content.content}</Markdown>
           </div>
@@ -68,11 +68,7 @@ const JobTemplateWrapper = styled.div`
     align-items: flex-start;
   }
 
-  @media ${device.mobileMax} {
-    margin: -1rem;
-  }
-
-  h1 {
+  h2 {
     border-bottom: 1px solid #ddd;
     padding-bottom: 0.5em;
     margin-top: 0;
@@ -88,9 +84,9 @@ const JobTemplateWrapper = styled.div`
 
     @media ${device.mobileMax} {
       display: flex;
-      margin: -1rem;
-      background-color: #f8f8f4;
+      margin: -1rem -1rem 0 -1rem;
       padding-top: 0.5rem;
+      background-color: #f8f8f4;
       top: 0;
     }
 
