@@ -68,6 +68,10 @@ const JobTemplateWrapper = styled.div`
     align-items: flex-start;
   }
 
+  @media ${device.mobileMax} {
+    margin: -1rem;
+  }
+
   h1 {
     border-bottom: 1px solid #ddd;
     padding-bottom: 0.5em;

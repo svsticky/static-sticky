@@ -11,19 +11,12 @@ const layout = ({ children }) => (
   <>
     <NavBar />
     <PageWrapper>
-      <StyledContainer className="content">{children}</StyledContainer>
+      <Container>{children}</Container>
       <Footer />
     </PageWrapper>
     <MobileNavbar />
   </>
 );
-
-const StyledContainer = styled(Container)`
-  padding: 1em 0;
-  @media ${device.tablet} {
-    padding: 5em 0;
-  }
-`;
 
 const PageWrapper = styled.div`
   height: 100vh;
@@ -32,6 +25,10 @@ const PageWrapper = styled.div`
   background-color: rgb(244, 243, 239);
   overflow: auto;
   background-color: #f8f8f4;
+  padding-top: 6rem;
+  @media ${device.mobileMax} {
+    padding-top: 1rem;
+  }
   .content {
     flex: 1;
   }
