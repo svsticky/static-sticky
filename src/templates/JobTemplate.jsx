@@ -1,29 +1,36 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Button, Card } from 'semantic-ui-react';
+import { Button, Card, Image } from 'semantic-ui-react';
+import { device } from '../data/Devices';
 
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
+  const contact = job.contactPerson ? true : false;
 
   return (
     <Layout>
-      <JobTemplateWrapper>
+      <JobTemplateWrapper contact={contact}>
         <div className="side-info">
-          <div>
-            <Card className="logo-container">
-              <img
-                src={job.partner.logo.file.url}
-                className="partner-logo"
-                alt="Partner Logo"
-              />
-            </Card>
-            {job.contactPerson && (
-              <Card className="contactperson">
-                <h3>Contact</h3>
-                <p>{job.contactPerson.name}</p>
+          <Card
+            as={Link}
+            to={'/partners/' + job.partner.slug}
+            className="logo-container"
+          >
+            <Image
+              src={job.partner.logo.file.url}
+              className="partner-logo"
+              alt="Partner Logo"
+              size="small"
+            />
+          </Card>
+          {job.contactPerson && (
+            <Card className="contactperson">
+              <h3 className="contact-headers">Contact</h3>
+              <p className="contact-headers">{job.contactPerson.name}</p>
+              <div className="button-div">
                 <Button
                   className="button"
                   color="primary"
@@ -31,6 +38,8 @@ const JobView = ({ data }) => {
                 >
                   <span className="content">{job.contactPerson.email}</span>
                 </Button>
+              </div>
+              <div className="button-div">
                 <Button
                   className="button"
                   color="primary"
@@ -38,13 +47,15 @@ const JobView = ({ data }) => {
                 >
                   {job.contactPerson.phone}
                 </Button>
-              </Card>
-            )}
-          </div>
+              </div>
+            </Card>
+          )}
         </div>
-        <Card className="job-content">
+        <Card fluid className="job-content">
           <h1>{job.job_title}</h1>
-          <Markdown>{job.content.content}</Markdown>
+          <div className="description">
+            <Markdown>{job.content.content}</Markdown>
+          </div>
         </Card>
       </JobTemplateWrapper>
     </Layout>
@@ -52,8 +63,10 @@ const JobView = ({ data }) => {
 };
 
 const JobTemplateWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
+  @media ${device.tablet} {
+    display: flex;
+    align-items: flex-start;
+  }
 
   h1 {
     border-bottom: 1px solid #ddd;
@@ -62,30 +75,58 @@ const JobTemplateWrapper = styled.div`
   }
 
   .side-info {
-    width: 20em;
-    min-width: 220px;
-    margin: 0 1em;
+    @media ${device.tablet} {
+      width: 20em;
+      min-width: 220px;
+      margin: 0 1em;
+      top: 8em;
+    }
+
+    @media ${device.mobileMax} {
+      display: grid;
+      grid-template-columns: ${props => props.contact ? 'repeat(2, 50%)' : '100%'};
+      justify-items: center;
+      grid-column-gap: 5px;
+      top: 0em;
+      background-color: #f8f8f4;
+    }
+
     position: sticky;
-    top: 8em;
     z-index: 10;
+
     .logo-container {
-      height: 10em;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1em;
+
+      @media ${device.tablet} {
+        height: 10em;
+        margin-bottom: 1em;
+      }
+
+      @media ${device.mobileMax} {
+        height: 100%;
+        width: 100%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
       .partner-logo {
-        width: 70%;
-        height: auto;
+        background-color: white;
       }
     }
     .contactperson {
+      @media ${device.mobileMax} {
+        .contact-headers {
+          display: none;
+        }
+      }
+
       padding: 1em;
       .button {
         width: 100%;
         padding-left: 5px;
         font-size: 0.8em;
-        justify-content: start;
         .content {
           word-wrap: break-word;
           margin: 0;
@@ -99,6 +140,14 @@ const JobTemplateWrapper = styled.div`
   }
   .job-content {
     padding: 1em;
+  }
+  .description {
+    img {
+      width: 300px;
+    }
+  }
+  .button-div {
+    margin-bottom: 5px;
   }
 `;
 
@@ -122,6 +171,7 @@ export const jobQuery = graphql`
         }
       }
       partner {
+        slug
         logo {
           file {
             url

@@ -119,7 +119,12 @@ const MobileNavBarWrapper = styled.div`
     color: white;
   }
   .sticky-logo {
-    width: 70%;
+    @media (max-width: 400px) {
+      width: 70%;
+    }
+    @media (min-width: 401px) {
+      width: 30px;
+    }
   }
   .external {
     /* little margin override for default external icon of semantic ui*/

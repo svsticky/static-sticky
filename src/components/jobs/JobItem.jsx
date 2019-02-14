@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card, Icon, Image, Label } from 'semantic-ui-react';
+import { Link } from 'gatsby';
 
-const Job = props => (
+const JobItem = props => (
   <JobWrapper>
-    <Card className="card">
+    <Card as={Link} fluid to={'/vacatures/' + props.job.slug} className="card">
       <Label
         color={props.job.isJob ? 'blue' : 'yellow'}
         ribbon="right"
@@ -16,7 +17,7 @@ const Job = props => (
           className="ribbon-icon"
         />
       </Label>
-      <div className="content-container">
+      <Card.Content className="content-container">
         <Image
           size="small"
           centered
@@ -25,7 +26,7 @@ const Job = props => (
         />
         <h3 className="header">{props.job.job_title}</h3>
         <div className="desc">{props.job.summary}</div>
-      </div>
+      </Card.Content>
     </Card>
   </JobWrapper>
 );
@@ -57,4 +58,4 @@ const JobWrapper = styled.div`
   }
 `;
 
-export default Job;
+export default JobItem;

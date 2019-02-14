@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import JobItem from './JobItem';
+import { Grid } from 'semantic-ui-react';
 
 const displayJobs = (studiesFilter, typesFilter, jobs) => {
   if (studiesFilter.length === 0 && typesFilter.length === 0) {
@@ -26,42 +27,28 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
   }
 };
 
-const createJobs = jobbies => {
-  return jobbies.map(job => (
-    <JobItem
-      className="item"
-      key={job.node.id}
-      job={job.node}
-      partner={job.node.partner}
-    />
+const createJobs = jobs => {
+  return jobs.map(job => (
+    <Grid.Column key={job.node.id}>
+      <JobItem job={job.node} partner={job.node.partner} />
+    </Grid.Column>
   ));
 };
 
 const jobslist = props => (
-  <JobsList>
+  <JobsWrapper>
     <div className="container">
-      {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
+      <Grid doubling stackable stretched columns={3}>
+        {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
+      </Grid>
     </div>
-  </JobsList>
+  </JobsWrapper>
 );
 
-const JobsList = styled.div`
-  &&& .container {
-    display: grid;
-
-    @media (min-width: 990px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    @media (max-width: 990px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @media (max-width: 560px) {
-      grid-template-columns: 1fr;
-    }
-
+const JobsWrapper = styled.div`
+  .container {
     grid-gap: 20px;
     padding: 20px;
-    grid-auto-flow: row;
   }
 `;
 
