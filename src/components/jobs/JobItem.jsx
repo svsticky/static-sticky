@@ -17,35 +17,29 @@ const JobItem = props => (
           className="ribbon-icon"
         />
       </Label>
-      <Card.Content className="content-container">
-        <Image
-          size="small"
-          centered
-          className="image"
-          src={props.job.partner.logo.file.url}
-        />
-        <h3 className="header">{props.job.job_title}</h3>
-        <div className="desc">{props.job.summary}</div>
-      </Card.Content>
+      <div className="image-container">
+        <Image size="small" src={props.job.partner.logo.file.url} />
+      </div>
+      <h4>{props.job.job_title}</h4>
+      <p>{props.job.summary}</p>
     </Card>
   </JobWrapper>
 );
 
 const JobWrapper = styled.div`
-  &&& .card {
-    display: grid;
+  .card {
     height: 100%;
+    display: flex;
+    flex-direction: column;
   }
-  .content-container {
-    display: grid;
-    grid-template-rows: 150px auto auto;
+
+  .image-container {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
-  .image {
-    align-self: center;
-  }
-  .desc {
-    align-self: start;
-  }
+
   .ribbon {
     padding: 0.5rem !important;
     width: 2rem;

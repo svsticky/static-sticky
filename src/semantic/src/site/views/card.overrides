@@ -1,3 +1,21 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+/*-------------------
+        Link
+--------------------*/
+
+.ui.cards a.card,
+.ui.link.cards .card,
+a.ui.card,
+.ui.link.card {
+  color: black;
+}
+
+.ui.cards a.card:hover,
+.ui.link.cards .card:hover,
+a.ui.card:hover,
+.ui.link.card:hover {
+  color: black;
+}
