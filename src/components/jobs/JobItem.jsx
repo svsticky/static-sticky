@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Icon, Image, Label } from 'semantic-ui-react';
-import StyledCard from '../atoms/Card';
+import { Card, Icon, Image, Label } from 'semantic-ui-react';
 
 const Job = props => (
   <JobWrapper>
-    <StyledCard className="card">
+    <Card className="card">
       <Label
         color={props.job.isJob ? 'blue' : 'yellow'}
         ribbon="right"
@@ -27,7 +26,7 @@ const Job = props => (
         <h3 className="header">{props.job.job_title}</h3>
         <div className="desc">{props.job.summary}</div>
       </div>
-    </StyledCard>
+    </Card>
   </JobWrapper>
 );
 
