@@ -79,7 +79,7 @@ const JobTemplateWrapper = styled.div`
       width: 20em;
       min-width: 220px;
       margin: 0 1em;
-      top: 6rem;
+      top: 5rem;
     }
 
     @media ${device.mobileMax} {
