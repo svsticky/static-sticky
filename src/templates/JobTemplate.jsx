@@ -28,24 +28,23 @@ const JobView = ({ data }) => {
           </Card>
           {job.contactPerson && (
             <Card className="contactperson">
-              <h3 className="contact-headers">Contact</h3>
-              <p className="contact-headers">{job.contactPerson.name}</p>
-              <div className="button-div">
+              <h3 className="contact-header">Contact</h3>
+              <p>{job.contactPerson.name}</p>
+              <div className="button-flex">
                 <Button
-                  className="button"
+                  fluid
+                  className="mail-button"
                   color="primary"
                   href={'mailto:' + job.contactPerson.email}
                 >
-                  <span className="content">{job.contactPerson.email}</span>
+                  E-mailen
                 </Button>
-              </div>
-              <div className="button-div">
                 <Button
-                  className="button"
+                  fluid
                   color="primary"
                   href={'tel:' + job.contactPerson.phone}
                 >
-                  {job.contactPerson.phone}
+                  Bellen
                 </Button>
               </div>
             </Card>
@@ -79,16 +78,15 @@ const JobTemplateWrapper = styled.div`
       width: 20em;
       min-width: 220px;
       margin: 0 1em;
-      top: 8em;
+      top: 6rem;
     }
 
     @media ${device.mobileMax} {
-      display: grid;
-      grid-template-columns: ${props => props.contact ? 'repeat(2, 50%)' : '100%'};
-      justify-items: center;
-      grid-column-gap: 5px;
-      top: 0em;
+      display: flex;
+      margin: -1rem;
       background-color: #f8f8f4;
+      padding-top: 0.5rem;
+      top: 0;
     }
 
     position: sticky;
@@ -105,10 +103,8 @@ const JobTemplateWrapper = styled.div`
       }
 
       @media ${device.mobileMax} {
-        height: 100%;
-        width: 100%;
-        padding-top: 5px;
-        padding-bottom: 5px;
+        height: 7rem;
+        margin: 0 0.5em 0 0.5em;
       }
 
       .partner-logo {
@@ -117,37 +113,32 @@ const JobTemplateWrapper = styled.div`
     }
     .contactperson {
       @media ${device.mobileMax} {
-        .contact-headers {
+        margin: 0 0.5em 0 0;
+        .contact-header {
           display: none;
         }
       }
 
       padding: 1em;
-      .button {
-        width: 100%;
-        padding-left: 5px;
-        font-size: 0.8em;
-        .content {
-          word-wrap: break-word;
-          margin: 0;
-          width: 90%;
-        }
-        svg {
-          padding-right: 5px;
-        }
-      }
     }
   }
+  .button-flex {
+    display: flex;
+    .mail-button {
+      margin-right: 0.5rem;
+    }
+  }
+
   .job-content {
     padding: 1em;
+    @media ${device.mobileMax} {
+      margin-top: 1.5rem;
+    }
   }
   .description {
     img {
       width: 300px;
     }
-  }
-  .button-div {
-    margin-bottom: 5px;
   }
 `;
 
