@@ -81,7 +81,7 @@ export const BannerWrapper = styled.div`
            align-items: center;
            justify-content: center;
            align-content: center;
-           height: 110px;
+           height: 100px;
          }
          .image {
            @media (min-width: 990px) {
