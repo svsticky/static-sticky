@@ -26,10 +26,10 @@ export default class Activities extends Component {
           {this.state.activities.length === 0 ? (
             <p>No activities</p>
           ) : (
-            <Grid doubling columns={4} centered>
+            <Grid doubling stackable columns={4} centered>
               {this.state.activities.map(activity => {
                 return (
-                  <Grid.Column key={activity.id}>
+                  <Grid.Column key={activity.id} >
                     <Activity activity={activity} />
                   </Grid.Column>
                 );
