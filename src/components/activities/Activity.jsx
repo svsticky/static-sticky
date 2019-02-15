@@ -53,20 +53,23 @@ export default class Activity extends React.Component {
     return (
       // getBoundingClientRect is undefined on React components, so we need a plain DOM element here.
       // Putting the eventHandlers on the TurnReveal component also doesn't work for some reason.
-      <div
-        onMouseEnter={e => this.onMouse(e, Transition.show)}
-        onMouseLeave={e => this.onMouse(e, Transition.hide)}
-        onTouchEnd={this.onTouchEnd}
-        ref={this.revealRef}
-      >
-        <TurnReveal
-          back={renderPoster(poster, name)}
-          transition={this.state.infoTransition}
-          direction={this.state.infoDirection}
+      <TurnRevealWrapper>
+        <div
+          onMouseEnter={e => this.onMouse(e, Transition.show)}
+          onMouseLeave={e => this.onMouse(e, Transition.hide)}
+          onTouchEnd={this.onTouchEnd}
+          ref={this.revealRef}
+          className='turnreveal-container'
         >
-          {renderInfo(this.props.activity)}
-        </TurnReveal>
-      </div>
+          <TurnReveal
+            back={renderPoster(poster, name)}
+            transition={this.state.infoTransition}
+            direction={this.state.infoDirection}
+          >
+            {renderInfo(this.props.activity)}
+          </TurnReveal>
+        </div>
+      </TurnRevealWrapper>
     );
   }
 }
@@ -134,6 +137,14 @@ const ButtonWrapper = styled.div`
   .button {
     flex: 1;
   }
+`;
+
+const TurnRevealWrapper = styled.div`
+  .turnreveal-container {
+    display: flex;
+    justify-content: center;
+  }
+
 `;
 
 const getClosestEdge = (event, element) => {
