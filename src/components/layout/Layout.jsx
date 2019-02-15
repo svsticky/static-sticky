@@ -27,13 +27,10 @@ const PageWrapper = styled.div`
   background-color: #f8f8f4;
   .container {
     padding: 4rem 0 1rem 0;
+    flex: 1;
     @media ${device.mobileMax} {
       padding: 1rem 0;
     }
-  }
-
-  .content {
-    flex: 1;
   }
 `;
 
