@@ -5,12 +5,7 @@ import { Card, Image } from 'semantic-ui-react';
 
 const Partner = ({ partner }) => (
   <PartnerLogo>
-    <Card as={ Link }
-      fluid
-      className="card"
-      color="grey"
-      to={'/partners/' + partner.slug}
-    >
+    <Card as={Link} fluid className="card" to={'/partners/' + partner.slug}>
       <Card.Content className="logo-container">
         <Image
           centered
