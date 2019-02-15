@@ -123,7 +123,7 @@ const NavBarWrapper = styled.div`
     position: fixed;
     width: 100%;
     z-index: 100;
-    background-color: #20730d;
+    background-color: #20730d !important;
     border-radius: 0;
     .logo {
       height: 2.5em;
@@ -133,7 +133,7 @@ const NavBarWrapper = styled.div`
       }
     }
     .item {
-      color: white;
+      color: white !important;
       &:hover {
         background-color: white;
         color: #20730d;
