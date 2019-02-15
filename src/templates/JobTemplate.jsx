@@ -19,11 +19,10 @@ const JobView = ({ data }) => {
             to={'/partners/' + job.partner.slug}
             className="logo-container"
           >
-            <Image
+            <img
               src={job.partner.logo.file.url}
               className="partner-logo"
               alt="Partner Logo"
-              size="small"
             />
           </Card>
           {job.contactPerson && (
@@ -32,18 +31,14 @@ const JobView = ({ data }) => {
               <p>{job.contactPerson.name}</p>
               <div className="button-flex">
                 <Button
+                  primary
                   fluid
                   className="mail-button"
-                  color="primary"
                   href={'mailto:' + job.contactPerson.email}
                 >
                   E-mailen
                 </Button>
-                <Button
-                  fluid
-                  color="primary"
-                  href={'tel:' + job.contactPerson.phone}
-                >
+                <Button primary fluid href={'tel:' + job.contactPerson.phone}>
                   Bellen
                 </Button>
               </div>
@@ -79,23 +74,23 @@ const JobTemplateWrapper = styled.div`
       min-width: 220px;
       margin: 0 1em;
       top: 5rem;
+      position: sticky;
+      z-index: 10;
     }
 
     @media ${device.mobileMax} {
       display: flex;
-      margin: -1rem -1rem 0 -1rem;
+      margin: -0.8em;
       padding-top: 0.5rem;
       background-color: #f8f8f4;
       top: 0;
     }
 
-    position: sticky;
-    z-index: 10;
-
     .logo-container {
       display: flex;
       align-items: center;
       justify-content: center;
+      flex: 2;
 
       @media ${device.tablet} {
         height: 10em;
@@ -109,11 +104,13 @@ const JobTemplateWrapper = styled.div`
 
       .partner-logo {
         background-color: white;
+        height: 100%;
       }
     }
     .contactperson {
       @media ${device.mobileMax} {
         margin: 0 0.5em 0 0;
+        flex: 3;
         .contact-header {
           display: none;
         }
