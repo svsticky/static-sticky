@@ -122,7 +122,7 @@ const MobileNavBarWrapper = styled.div`
     @media (max-width: 400px) {
       width: 70%;
     }
-    @media (min-width: 401px) {
+    @media (min-width: 400px) {
       width: 30px;
     }
   }
