@@ -3,7 +3,7 @@ import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Button, Card, Image } from 'semantic-ui-react';
+import { Button, Card } from 'semantic-ui-react';
 import { device } from '../data/Devices';
 
 const JobView = ({ data }) => {

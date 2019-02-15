@@ -1,7 +1,7 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
-import { Grid, Image } from 'semantic-ui-react';
+import { Card, Grid, Button } from 'semantic-ui-react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import JobItem from '../components/jobs/JobItem';
@@ -14,32 +14,20 @@ const PartnerView = ({ data }) => {
     <Layout>
       <PartnerTemplateWrapper>
         <div className="info">
-          <div>
-            <div className="logo-container">
-              <Image
-                src={partner.logo.file.url}
-                className="partner-logo"
-                alt="Partner logo"
-                size="small"
-                centered
-              />
-            </div>
-          </div>
-          <div>
-            <h3>Contact</h3>
-            <p>
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href={partner.website}
-              >
-                website
-              </a>{' '}
-              <br />
-            </p>
-          </div>
+          <Card fluid className="logo-container">
+            <img
+              src={partner.logo.file.url}
+              className="partner-logo"
+              alt="Partner logo"
+            />
+          </Card>
+          <Card fluid className="contact">
+            <Button primary href={partner.website}>
+              Website
+            </Button>
+          </Card>
         </div>
-        <div className="partner-content">
+        <Card fluid className="partner-content">
           <h2>{partner.name}</h2>
           <div className="description">
             <Markdown>{partner.description.description}</Markdown>
@@ -60,7 +48,7 @@ const PartnerView = ({ data }) => {
               </Grid>
             </div>
           )}
-        </div>
+        </Card>
       </PartnerTemplateWrapper>
     </Layout>
   );
@@ -76,8 +64,8 @@ const PartnerTemplateWrapper = styled.div`
     @media ${device.mobileMax} {
       display: flex;
       background-color: #f8f8f4;
-      top: 0;
       padding-top: 0.5rem;
+      align-items: stretch;
     }
 
     @media ${device.tablet} {
@@ -85,44 +73,29 @@ const PartnerTemplateWrapper = styled.div`
       min-width: 220px;
       margin: 0 0.5em;
       top: 5em;
+      position: sticky;
     }
-
-    position: sticky;
-    z-index: 10;
 
     .logo-container {
+      flex: 2;
       display: flex;
-
+      margin: 0 0.5em 0 0;
+      align-items: center;
+      justify-content: center;
       @media ${device.mobileMax} {
-        width: 100%;
-        z-index: 10;
-        align-items: start;
-        justify-content: start;
-        margin-top: 0 0.5em;
-        margin-bottom: 5px;
+        height: 8em;
       }
-
       @media ${device.tablet} {
-        align-items: center;
         height: 10em;
-        justify-content: center;
       }
-
       .partner-logo {
-        @media ${device.mobileMax} {
-          height: inherit;
-          margin-right: 5px;
-        }
-
-        @media ${device.tablet} {
-          width: 80%;
-        }
+        width: 90%;
       }
     }
-  }
-
-  .partner-content: {
-    margin: 0 0.5em;
+    .contact {
+      flex: 3;
+      margin-top: 0;
+    }
   }
   .description {
     img {
@@ -138,35 +111,35 @@ const PartnerTemplateWrapper = styled.div`
 export default PartnerView;
 
 export const PartnerQuery = graphql`
-         query PartnerQuery($id: String!) {
-           contentfulPartner(id: { eq: $id }) {
-             id
-             name
-             website
-             description {
-               description
-             }
+  query PartnerQuery($id: String!) {
+    contentfulPartner(id: { eq: $id }) {
+      id
+      name
+      website
+      description {
+        description
+      }
 
-             logo {
-               file {
-                 url
-               }
-             }
+      logo {
+        file {
+          url
+        }
+      }
 
-             job_listing {
-               id
-               job_title
-               summary
-               featured
-               slug
-               partner {
-                 logo {
-                   file {
-                     url
-                   }
-                 }
-               }
-             }
-           }
-         }
-       `;
+      job_listing {
+        id
+        job_title
+        summary
+        featured
+        slug
+        partner {
+          logo {
+            file {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+`;
