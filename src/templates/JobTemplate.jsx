@@ -8,11 +8,10 @@ import { device } from '../data/Devices';
 
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
-  const contact = job.contactPerson ? true : false;
 
   return (
     <Layout>
-      <JobTemplateWrapper contact={contact}>
+      <JobTemplateWrapper>
         <div className="side-info">
           <Card
             fluid
