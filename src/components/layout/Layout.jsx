@@ -11,19 +11,12 @@ const layout = ({ children }) => (
   <>
     <NavBar />
     <PageWrapper>
-      <StyledContainer className="content">{children}</StyledContainer>
+      <Container className="container">{children}</Container>
       <Footer />
     </PageWrapper>
     <MobileNavbar />
   </>
 );
-
-const StyledContainer = styled(Container)`
-  padding: 1em 0;
-  @media ${device.tablet} {
-    padding: 5em 0;
-  }
-`;
 
 const PageWrapper = styled.div`
   height: 100vh;
@@ -31,8 +24,13 @@ const PageWrapper = styled.div`
   flex-direction: column;
   background-color: rgb(244, 243, 239);
   overflow: auto;
-  .content {
+  background-color: #f8f8f4;
+  .container {
+    padding: 4rem 0 1rem 0;
     flex: 1;
+    @media ${device.mobileMax} {
+      padding: 1rem 0;
+    }
   }
 `;
 

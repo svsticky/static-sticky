@@ -14,6 +14,13 @@ import menu from '$/data/menu.json';
 import { device } from '../../data/Devices';
 
 class NavBar extends React.Component {
+  constructor(props) {
+    props.data.allContentfulPage.edges.sort(
+      (a, b) => b.node.title.localeCompare(a.node.title) // Sorting all the menu items
+    );
+    super(props);
+  }
+
   renderMenuItems = data =>
     data.map(menuItem => {
       if (menuItem.node.parentPage === null) {
@@ -61,6 +68,7 @@ class NavBar extends React.Component {
         key={externMenuItem.title}
         href={externMenuItem.url}
         target="_blank"
+        rel="noopener noreferrer" // For safety
       >
         <Grid>
           <Grid.Row>
@@ -115,7 +123,7 @@ const NavBarWrapper = styled.div`
     position: fixed;
     width: 100%;
     z-index: 100;
-    background-color: #20730d;
+    background-color: #20730d !important;
     border-radius: 0;
     .logo {
       height: 2.5em;
@@ -125,7 +133,7 @@ const NavBarWrapper = styled.div`
       }
     }
     .item {
-      color: white;
+      color: white !important;
       &:hover {
         background-color: white;
         color: #20730d;

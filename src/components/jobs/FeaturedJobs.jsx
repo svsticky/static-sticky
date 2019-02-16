@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card, Image } from 'semantic-ui-react';
-import { graphql, StaticQuery } from 'gatsby';
+import { graphql, StaticQuery, Link } from 'gatsby';
 
 class FeaturedJobs extends React.Component {
   getRandom = max => {
@@ -12,22 +12,18 @@ class FeaturedJobs extends React.Component {
     const featuredJobs = jobs.filter(job => job.node.featured);
     if (featuredJobs.length > 0) {
       const chosenJob = this.getRandom(featuredJobs.length - 1);
-      return <div>
+      return (
+        <div>
           <h3>Uitgelichte vacature</h3>
           {this.renderFeaturedJob(featuredJobs[chosenJob])}
-        </div>;
+        </div>
+      );
     }
   };
 
   renderFeaturedJob = job => {
     return (
-      <Card
-        fluid
-        href={
-          '/partners/' +
-          job.node.partner.name.replace(/\W+/g, '-').toLowerCase()
-        }
-      >
+      <Card as={Link} fluid to={'/vacatures/' + job.node.slug}>
         <Card.Content>
           <Image
             size="small"
@@ -69,6 +65,7 @@ export default props => (
               featured
               target_studies
               type
+              slug
               partner {
                 name
                 logo {

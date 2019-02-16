@@ -3,16 +3,14 @@ Study Association Sticky's website is a static website built in React with Gatsb
 
 ## Installation
 1. Install Node Version Manager [nvm](https://github.com/creationix/nvm). 
-   
-2. Install the required version of nodejs by running `nvm install` in the project directory. 
-   
-3. Install gatsby-cli globally on your system by running `npm i -g gatsby-cli`.
-   
-4. Install dependencies by running `npm i` in the project directory.
-   
-5. Create .env file: `cp sample.env .env`.
-   
-6. Fill .env with the required api keys without quotes from [contentful](https://app.contentful.com/) ( Space Settings > API keys ).
+2. Install the required version of nodejs by running `nvm install` in the project directory.
+3. Install dependencies with `npm i` or `pnpm` (see below).
+4. Create .env file: `cp sample.env .env`.
+5. Fill .env with the required api keys without quotes from [contentful](https://app.contentful.com/) ( Space Settings > API keys ).
+
+### PNPM
+`gatsby` doesn't play nicely with `pnpm` (see https://github.com/pnpm/pnpm/issues/991.
+However, these problems can be resolved wih `pnpm i --shamefully-flatten`. 
 
 ## Development
 We use our own custom Semantic UI theme, which you have to build first: `npm run build-semantic`. 

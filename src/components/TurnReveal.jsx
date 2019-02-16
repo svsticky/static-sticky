@@ -71,7 +71,8 @@ const animationProperties = props => {
   const directionTransform = directionTransforms[props.direction];
   return css`
     transform-origin: ${directionTransform.x} ${directionTransform.y};
-    animation: ${turnAnimation(props)} 300ms ease 0ms 1 forwards;`;
+    animation: ${turnAnimation(props)} 300ms ease 0ms 1 forwards;
+  `;
 };
 
 const turnAnimation = ({

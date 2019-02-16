@@ -1,9 +1,11 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
+import { Card, Grid, Button } from 'semantic-ui-react';
 import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import JobItem from '../components/jobs/JobItem';
+import { device } from '../data/Devices';
 
 const PartnerView = ({ data }) => {
   const { contentfulPartner: partner } = data;
@@ -12,75 +14,97 @@ const PartnerView = ({ data }) => {
     <Layout>
       <PartnerTemplateWrapper>
         <div className="info">
-          <div>
-            <div className="logo-container">
-              <img
-                src={partner.logo.file.url}
-                className="partner-logo"
-                alt="Partner logo"
-              />
-            </div>
-          </div>
-          <div>
-            <h3>Contact</h3>
-            <p>
-              <a href={partner.website}>website</a> <br />
-            </p>
-          </div>
+          <Card fluid className="logo-container">
+            <img
+              src={partner.logo.file.url}
+              className="partner-logo"
+              alt="Partner logo"
+            />
+          </Card>
+          <Card fluid className="contact">
+            <Button primary href={partner.website}>
+              Website
+            </Button>
+          </Card>
         </div>
-        <div className="partner-content">
+        <Card fluid className="partner-content">
           <h2>{partner.name}</h2>
-          <Markdown>{partner.description.description}</Markdown>
+          <div className="description">
+            <Markdown>{partner.description.description}</Markdown>
+          </div>
           {partner.job_listing && (
-            <div>
-              <h2> Vacatures </h2>
-              <div className="partner-joblist">
+            <div className="vacatures">
+              <h2> Vacatures bij {partner.name}</h2>
+              <Grid columns={2} doubling stretched>
                 {partner.job_listing.map(jobListing => (
-                  <JobItem
-                    key={jobListing.id}
-                    job={jobListing}
-                    partner={partner}
-                  />
+                  <Grid.Column key={jobListing.id}>
+                    <JobItem
+                      className="item"
+                      job={jobListing}
+                      partner={partner}
+                    />
+                  </Grid.Column>
                 ))}
-              </div>
+              </Grid>
             </div>
           )}
-        </div>
+        </Card>
       </PartnerTemplateWrapper>
     </Layout>
   );
 };
 
 const PartnerTemplateWrapper = styled.div`
-  display: flex;
-  align-items: flex-start;
+  @media ${device.tablet} {
+    display: flex;
+    align-items: flex-start;
+  }
 
   .info {
-    width: 20em;
-    min-width: 220px;
-    margin: 0 0.5em;
-    position: sticky;
-    top: 5em;
-    z-index: 10;
+    @media ${device.mobileMax} {
+      display: flex;
+      background-color: #f8f8f4;
+      padding-top: 0.5rem;
+      align-items: stretch;
+    }
+
+    @media ${device.tablet} {
+      width: 20em;
+      min-width: 220px;
+      margin: 0 0.5em;
+      top: 5em;
+      position: sticky;
+    }
 
     .logo-container {
-      height: 10em;
+      flex: 2;
       display: flex;
+      margin: 0 0.5em 0 0;
       align-items: center;
       justify-content: center;
-
+      @media ${device.mobileMax} {
+        height: 8em;
+      }
+      @media ${device.tablet} {
+        height: 10em;
+      }
       .partner-logo {
-        width: 80%;
+        width: 90%;
       }
     }
+    .contact {
+      flex: 3;
+      margin-top: 0;
+    }
   }
-
-  .partner-content: {
-    margin: 0 0.5em;
+  .description {
+    img {
+      width: 300px;
+    }
   }
-
-  .partner-joblist {
-    margin: 0px 0.5em;
+  .vacatures {
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 `;
 
@@ -107,6 +131,7 @@ export const PartnerQuery = graphql`
         job_title
         summary
         featured
+        slug
         partner {
           logo {
             file {

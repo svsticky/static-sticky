@@ -16,7 +16,9 @@ const NewsView = ({ data }) => {
         <div className="date">
           <p>{article.dateOfPublishing}</p>
         </div>
-        <Markdown>{article.content.content}</Markdown>
+        <div className="content">
+          <Markdown>{article.content.content}</Markdown>
+        </div>
       </NewsTemplateWrapper>
     </Layout>
   );
@@ -30,6 +32,11 @@ const NewsTemplateWrapper = styled.div`
   .date {
     font-style: italic;
     margin-bottom: 5px;
+  }
+  .content {
+    img {
+      max-width: 40%;
+    }
   }
 `;
 

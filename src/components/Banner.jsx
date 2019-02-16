@@ -11,7 +11,14 @@ class Banner extends React.Component {
     this.dir = 1;
     this.state = {
       logos: props.data.allContentfulBannerLogo.edges,
+      visibility: 'hidden',
     };
+  }
+
+  componentDidMount() {
+    this.setState({
+      visibility: 'visible',
+    });
   }
 
   renderLogos = allLogos => (
@@ -31,7 +38,11 @@ class Banner extends React.Component {
   );
 
   render() {
-    return <BannerWrapper>{this.renderLogos(this.state.logos)}</BannerWrapper>;
+    return (
+      <BannerWrapper visible={this.state.visibility}>
+        {this.renderLogos(this.state.logos)}
+      </BannerWrapper>
+    );
   }
 }
 
@@ -45,47 +56,49 @@ const properties = {
 };
 
 const shuffleArray = array => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
-}
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+};
 
 export const BannerWrapper = styled.div`
-  width: 100%;
-  .card-container {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    height: 125px;
-  }
-  .card {
-    flex-grow: 1;
-    height: 100%;
-  }
-  .slide {
-    height: 100%;
-  }
-  .each-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    height: 125px;
-  }
-  .image {
-    @media (min-width: 990px) {
-      height: inherit;
-    }
-    @media (max-width: 990px) {
-      height: 100px;
-    }
-    @media (max-width: 700px) {
-      height: 80px;
-    }
-  }
-`;
+         width: 100%;
+         .card-container {
+           display: flex !important;
+           justify-content: center;
+           align-items: center;
+           height: 125px;
+           width: 100%;
+         }
+         .card {
+           flex-grow: 1;
+           height: 100%;
+         }
+         .slide {
+           visibility: ${props => props.visible};
+           height: 100%;
+         }
+         .each-slide {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           align-content: center;
+           height: 100px;
+         }
+         .image {
+           @media (min-width: 990px) {
+             height: inherit;
+           }
+           @media (max-width: 990px) {
+             height: 100px;
+           }
+           @media (max-width: 700px) {
+             height: 80px;
+           }
+         }
+       `;
 
 export default props => (
   <StaticQuery
