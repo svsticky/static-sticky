@@ -14,7 +14,7 @@ class FeaturedJobs extends React.Component {
       const chosenJob = this.getRandom(featuredJobs.length - 1);
       return (
         <div>
-          <h3>Uitgelichte vacature</h3>
+          <h2>Uitgelichte vacature</h2>
           {this.renderFeaturedJob(featuredJobs[chosenJob])}
         </div>
       );
@@ -23,7 +23,7 @@ class FeaturedJobs extends React.Component {
 
   renderFeaturedJob = job => {
     return (
-      <Card as={ Link } fluid to={'/vacatures/' + job.node.slug}>
+      <Card as={Link} fluid to={'/vacatures/' + job.node.slug}>
         <Card.Content>
           <Image
             size="small"

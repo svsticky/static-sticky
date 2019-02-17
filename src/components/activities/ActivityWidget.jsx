@@ -23,7 +23,7 @@ export default class ActivityWidget extends Component {
     return (
       <ActivityIndexWrapper>
         <div>
-          <h3>Eerstvolgende Activiteit</h3>
+          <h2>Eerstvolgende Activiteit</h2>
           <ActivityCollection updateActivities={this.updateActivities}>
             {<Activity activity={this.state.activities[0]} />}
           </ActivityCollection>

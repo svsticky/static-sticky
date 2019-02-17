@@ -4,6 +4,7 @@ import { graphql, Link, StaticQuery } from 'gatsby';
 import Pager from 'react-pager';
 import Markdown from 'markdown-to-jsx';
 import { GlobalState } from '$/data/Context';
+import { Card } from 'semantic-ui-react';
 
 class News extends React.Component {
   constructor(props) {
@@ -44,25 +45,28 @@ class News extends React.Component {
   render() {
     return (
       <NewsWrapper>
-        <GlobalState.Consumer>
-          {context => (
-            <>
-              {this.renderNewsItems(
-                this.newsItems,
-                context.state.lastReadNewsPage
-              )}
-              <Pager
-                total={this.state.pageCount}
-                current={context.state.lastReadNewsPage}
-                visiblePages={this.state.visiblePage}
-                titles={{ first: 'First', last: 'Last' }}
-                onPageChanged={newpage =>
-                  context.actions.updateLastReadNewsPage(newpage)
-                }
-              />
-            </>
-          )}
-        </GlobalState.Consumer>
+        <h2>Nieuws</h2>
+        <Card fluid>
+          <GlobalState.Consumer>
+            {context => (
+              <>
+                {this.renderNewsItems(
+                  this.newsItems,
+                  context.state.lastReadNewsPage
+                )}
+                <Pager
+                  total={this.state.pageCount}
+                  current={context.state.lastReadNewsPage}
+                  visiblePages={this.state.visiblePage}
+                  titles={{ first: 'First', last: 'Last' }}
+                  onPageChanged={newpage =>
+                    context.actions.updateLastReadNewsPage(newpage)
+                  }
+                />
+              </>
+            )}
+          </GlobalState.Consumer>
+        </Card>
       </NewsWrapper>
     );
   }
