@@ -4,7 +4,7 @@ import { graphql, Link, StaticQuery } from 'gatsby';
 import Pager from 'react-pager';
 import Markdown from 'markdown-to-jsx';
 import { GlobalState } from '$/data/Context';
-import { Card } from 'semantic-ui-react';
+import { Card, List } from 'semantic-ui-react';
 
 class News extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ class News extends React.Component {
   }
 
   renderNewsItems = (allItems, pageNum) => (
-    <div>
+    <List divided relaxed>
       {allItems
         .slice(
           pageNum * this.props.itemsPerPage,
@@ -26,27 +26,38 @@ class News extends React.Component {
         )
         .map(item => {
           return (
-            <div key={item.node.id} className="newsItem">
-              <h3>
-                <Link to={'/news/' + item.node.slug}>{item.node.title}</Link>
-              </h3>
-              {item.node.dateOfPublishing}
-              <div className="content">
-                <Markdown>{item.node.content.content.slice(0, 300)}</Markdown>
-                ...
-                <Link to={'/news/' + item.node.slug}>lees verder</Link>
+            <Link
+              to={'/news/' + item.node.slug}
+              key={item.node.id}
+              className="news-item"
+            >
+              <div className="news-item-content">
+                <h3>{item.node.title}</h3>
+
+                <List.Description>
+                  <Markdown>{item.node.content.content.slice(0, 300)}</Markdown>
+                </List.Description>
               </div>
-            </div>
+              {item.node.frontPageImage && (
+                <div className="news-item-image">
+                  <img
+                    src={item.node.frontPageImage.file.url}
+                    alt={'Front page image of news article: ' + item.node.title}
+                    srcset=""
+                  />
+                </div>
+              )}
+            </Link>
           );
         })}
-    </div>
+    </List>
   );
 
   render() {
     return (
       <NewsWrapper>
         <h2>Nieuws</h2>
-        <Card fluid>
+        <Card fluid className="news-list">
           <GlobalState.Consumer>
             {context => (
               <>
@@ -54,15 +65,17 @@ class News extends React.Component {
                   this.newsItems,
                   context.state.lastReadNewsPage
                 )}
-                <Pager
-                  total={this.state.pageCount}
-                  current={context.state.lastReadNewsPage}
-                  visiblePages={this.state.visiblePage}
-                  titles={{ first: 'First', last: 'Last' }}
-                  onPageChanged={newpage =>
-                    context.actions.updateLastReadNewsPage(newpage)
-                  }
-                />
+                <div className="pager-container">
+                  <Pager
+                    total={this.state.pageCount}
+                    current={context.state.lastReadNewsPage}
+                    visiblePages={this.state.visiblePage}
+                    titles={{ first: 'First', last: 'Last' }}
+                    onPageChanged={newpage =>
+                      context.actions.updateLastReadNewsPage(newpage)
+                    }
+                  />
+                </div>
               </>
             )}
           </GlobalState.Consumer>
@@ -73,25 +86,46 @@ class News extends React.Component {
 }
 
 export const NewsWrapper = styled.div`
-  .content {
-    margin-bottom: 1em;
-    border-bottom: 1px solid #ddd;
+  .news-list {
+    padding: 0.5rem;
   }
-  .newsItem {
-    img {
-      width: 250px;
-      border: 3px solid #000;
-      border-radius: 10px;
-      margin: auto;
+  .news-item {
+    color: black;
+    display: flex;
+    padding: 1rem;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border-bottom: 1px solid #ddd;
+    &-content {
+      flex: 3;
+    }
+    &-image {
+      flex: 1;
+      width: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 80%;
+      }
+    }
+    &:hover {
+      border-radius: 5px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     }
   }
+  .pager-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .pagination {
     font-size: 18px;
     display: inline-block;
     padding-left: 0;
     margin: 0px 0;
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 5px;
 
     > li {
       display: inline;
@@ -168,6 +202,11 @@ export default props => (
               title
               slug
               dateOfPublishing
+              frontPageImage {
+                file {
+                  url
+                }
+              }
               content {
                 content
               }
