@@ -20,6 +20,7 @@ const IndexWrapper = styled.div`
 
   @media ${device.mobile} {
     .container {
+      margin-top: -4rem;
       display: grid;
       grid-template-columns: 1fr;
       grid-template-areas:
