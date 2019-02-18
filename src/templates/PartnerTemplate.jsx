@@ -27,11 +27,13 @@ const PartnerView = ({ data }) => {
             </Button>
           </Card>
         </div>
-        <Card fluid className="partner-content">
+        <div className="partner-content">
           <h2>{partner.name}</h2>
-          <div className="description">
-            <Markdown>{partner.description.description}</Markdown>
-          </div>
+          <Card fluid>
+            <div className="description">
+              <Markdown>{partner.description.description}</Markdown>
+            </div>
+          </Card>
           {partner.job_listing && (
             <div className="vacatures">
               <h2> Vacatures bij {partner.name}</h2>
@@ -48,7 +50,7 @@ const PartnerView = ({ data }) => {
               </Grid>
             </div>
           )}
-        </Card>
+        </div>
       </PartnerTemplateWrapper>
     </Layout>
   );
@@ -66,27 +68,29 @@ const PartnerTemplateWrapper = styled.div`
       background-color: #f8f8f4;
       padding-top: 0.5rem;
       align-items: stretch;
+      margin-bottom: 1rem;
     }
 
     @media ${device.tablet} {
       width: 20em;
+      height: 20em;
       min-width: 220px;
-      margin: 0 0.5em;
-      top: 5em;
+      margin: 3rem 1rem 1rem 1rem;
+      top: 6em;
       position: sticky;
     }
 
     .logo-container {
       flex: 2;
       display: flex;
-      margin: 0 0.5em 0 0;
+      margin: 0 1em 0 0;
       align-items: center;
       justify-content: center;
       @media ${device.mobileMax} {
         height: 8em;
       }
       @media ${device.tablet} {
-        height: 10em;
+        height: 15rem;
       }
       .partner-logo {
         width: 90%;
@@ -94,7 +98,10 @@ const PartnerTemplateWrapper = styled.div`
     }
     .contact {
       flex: 3;
-      margin-top: 0;
+      margin-top: 1rem;
+      @media ${device.mobileMax} {
+        margin-top: 0;
+      }
     }
   }
   .description {
@@ -103,8 +110,18 @@ const PartnerTemplateWrapper = styled.div`
     }
   }
   .vacatures {
+    margin-top: 2rem;
     padding-top: 10px;
     padding-bottom: 10px;
+    @media ${device.mobileMax} {
+      margin-right: 1rem;
+    }
+  }
+  .partner-content {
+    margin-left: 1rem;
+    @media ${device.mobileMax} {
+      margin: 0;
+    }
   }
 `;
 

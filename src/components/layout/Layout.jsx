@@ -26,7 +26,7 @@ const PageWrapper = styled.div`
   overflow: auto;
   background-color: #f8f8f4;
   .container {
-    padding: 5rem 0 1rem 0;
+    padding: 6rem 0 1rem 0;
     flex: 1;
     @media ${device.mobileMax} {
       padding: 1rem 0;
