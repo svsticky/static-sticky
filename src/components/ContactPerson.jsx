@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Card } from 'semantic-ui-react';
 
-const BoardMember = ({ contactPerson }) => (
+const ContactPerson = ({ contactPerson }) => (
   <ContactPersonMember color={contactPerson.color}>
     <div className="card">
       <Card fluid>
@@ -10,7 +10,7 @@ const BoardMember = ({ contactPerson }) => (
           <h3 className="head">{contactPerson.typeOfContact}</h3>
           <p>{contactPerson.name + " (" + contactPerson.role + ")"}</p>
           <p>{"Tel.: " + contactPerson.mobile}</p>
-          <p> Mail: <a href={"mailto:" + contactPerson.email}>{contactPerson.email} </a> </p>          
+          <p> Mail: <a href={"mailto:" + contactPerson.email}>{contactPerson.email} </a> </p>
         </Card.Content>
       </Card>
     </div>
@@ -27,4 +27,4 @@ const ContactPersonMember = styled.div`
   }
 `;
 
-export default BoardMember;
+export default ContactPerson;

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
-import BoardMember from '$/components/BoardMember';
+import ContactPerson from '$/components/ContactPerson';
 import ContentfulPage from '$/components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 
@@ -16,9 +16,12 @@ const ContactPage = props => {
   );
 };
 
-const getContactPersons = contactPersons => { 
+const getContactPersons = contactPersons => {
   return contactPersons.map(contactPerson => (
-    <BoardMember key={contactPerson.node.id} contactPerson={contactPerson.node} />
+    <ContactPerson
+      key={contactPerson.node.id}
+      contactPerson={contactPerson.node}
+    />
   ));
 };
 
@@ -38,18 +41,19 @@ const ContactList = styled.div`
 `;
 
 const boardMemberQuery = graphql`
-query boardMemberQuery {
-  allContentfulBoardMember(sort: { fields: [order]}){
-    edges {
-      node {
-        id
-        topic
-        name
-        role
-        email
-        mobile
-        order
-        typeOfContact         
+  query boardMemberQuery {
+    allContentfulBoardMember(sort: { fields: [order] }) {
+      edges {
+        node {
+          id
+          topic
+          name
+          role
+          email
+          mobile
+          order
+
+          typeOfContact
         }
       }
     }
@@ -68,37 +72,3 @@ export default props => (
     render={data => <ContactPage data={data} {...props} />}
   />
 );
-
-/*
-
-__Algemene aangelegenheden__  
-Silvan Eelman (Voorzitter)  
-Tel.: 06-25536200  
-Email: [voorzitter@svsticky.nl](mailto:voorzitter@svsticky.nl)
-
-__Post en algemene communicatie__  
-Stef Velzel (Secretaris)  
-Tel.: 06-34091372  
-Email: [secretaris@svsticky.nl](mailto:secretaris@svsticky.nl)
-
-__Financiële aangelegenheden__  
-Matthijs Ham (Penningmeester)  
-Tel.: 06-21460221  
-Email: [penningmeester@svsticky.nl](mailto:penningmeester@svsticky.nl)
-
-__Interne aangelegenheden (leden/commissies)__  
-Jari van Wijk (Commissaris Intern)  
-Tel.: 06-14953788  
-Email: [intern@svsticky.nl](mailto:intern@svsticky.nl)
-
-__Partners en sponsors__  
-Glenn Stewart (Commissaris Extern)  
-Tel.: 06-29980693  
-Email: [extern@svsticky.nl](mailto:extern@svsticky.nl)
-
-__Onderwijs__  
-Zoë Coenen (Commissaris Onderwijs)  
-Tel.: 06-23778504  
-Email: [onderwijs@svsticky.nl](mailto:onderwijs@svsticky.nl)
-
-*/
