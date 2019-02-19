@@ -45,12 +45,14 @@ const JobView = ({ data }) => {
             </Card>
           )}
         </div>
-        <Card fluid className="job-content">
+        <div className="job-content">
           <h2>{job.job_title}</h2>
-          <div className="description">
-            <Markdown>{job.content.content}</Markdown>
-          </div>
-        </Card>
+          <Card fluid>
+            <div className="description">
+              <Markdown>{job.content.content}</Markdown>
+            </div>
+          </Card>
+        </div>
       </JobTemplateWrapper>
     </Layout>
   );
@@ -62,18 +64,12 @@ const JobTemplateWrapper = styled.div`
     align-items: flex-start;
   }
 
-  h2 {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 0.5em;
-    margin-top: 0;
-  }
-
   .side-info {
     @media ${device.tablet} {
       width: 20em;
       min-width: 220px;
       margin: 0 1em;
-      top: 5rem;
+      top: 9rem;
       position: sticky;
       z-index: 10;
     }
@@ -127,7 +123,7 @@ const JobTemplateWrapper = styled.div`
   }
 
   .job-content {
-    padding: 1em;
+    margin-left: 1rem;
     @media ${device.mobileMax} {
       margin-top: 1.5rem;
     }

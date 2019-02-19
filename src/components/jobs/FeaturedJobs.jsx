@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Card, Image } from 'semantic-ui-react';
 import { graphql, StaticQuery, Link } from 'gatsby';
+import JobItem from './JobItem';
 
 class FeaturedJobs extends React.Component {
   getRandom = max => {
@@ -22,35 +23,15 @@ class FeaturedJobs extends React.Component {
   };
 
   renderFeaturedJob = job => {
-    return (
-      <Card as={Link} fluid to={'/vacatures/' + job.node.slug}>
-        <Card.Content>
-          <Image
-            size="small"
-            src={job.node.partner.logo.file.url}
-            className="logo"
-          />
-          <Card.Header>{job.node.job_title}</Card.Header>
-          <Card.Description>{job.node.summary}</Card.Description>
-        </Card.Content>
-      </Card>
-    );
+    return <JobItem job={job.node} />;
   };
 
   render() {
-    return (
-      <JobsWrapper>
-        {this.renderFeaturedJobs(this.props.data.allContentfulJobListing.edges)}
-      </JobsWrapper>
+    return this.renderFeaturedJobs(
+      this.props.data.allContentfulJobListing.edges
     );
   }
 }
-
-export const JobsWrapper = styled.div`
-  .logo {
-    margin-bottom: 1em;
-  }
-`;
 
 export default props => (
   <StaticQuery

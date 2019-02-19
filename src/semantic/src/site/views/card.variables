@@ -1,7 +1,7 @@
 /*******************************
     User Variable Overrides
 *******************************/
-@padding: 1rem;
+@padding: 1.5rem;
 @boxShadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
 @transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 

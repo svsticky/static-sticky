@@ -22,7 +22,12 @@ const PartnerView = ({ data }) => {
             />
           </Card>
           <Card fluid className="contact">
-            <Button primary href={partner.website}>
+            <Button
+              primary
+              href={partner.website}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Website
             </Button>
           </Card>
@@ -68,7 +73,7 @@ const PartnerTemplateWrapper = styled.div`
       background-color: #f8f8f4;
       padding-top: 0.5rem;
       align-items: stretch;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
 
     @media ${device.tablet} {

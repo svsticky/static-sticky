@@ -41,6 +41,7 @@ const JobWrapper = styled.div`
   }
 
   .ribbon {
+    left: calc(100% + 2.5rem) !important;
     padding: 0.5rem !important;
     width: 2rem;
     height: 2.5rem;

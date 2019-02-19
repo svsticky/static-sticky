@@ -5,6 +5,7 @@ import Pager from 'react-pager';
 import Markdown from 'markdown-to-jsx';
 import { GlobalState } from '$/data/Context';
 import { Card, List } from 'semantic-ui-react';
+import { device } from '../data/Devices';
 
 class News extends React.Component {
   constructor(props) {
@@ -43,7 +44,6 @@ class News extends React.Component {
                   <img
                     src={item.node.frontPageImage.file.url}
                     alt={'Front page image of news article: ' + item.node.title}
-                    srcset=""
                   />
                 </div>
               )}
@@ -95,12 +95,19 @@ export const NewsWrapper = styled.div`
     padding: 1rem;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     border-bottom: 1px solid #ddd;
+    @media ${device.mobileMax} {
+      flex-direction: column-reverse; /* make sure image is above content, not below */
+    }
     &-content {
       flex: 3;
     }
     &-image {
       flex: 1;
       width: 200px;
+      @media ${device.mobileMax} {
+        width: 100%;
+        margin-bottom: 1rem;
+      }
       display: flex;
       justify-content: center;
       align-items: center;

@@ -2,20 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import Board from '$/components/Board';
-import ContentfulPage from '$/components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
+import Layout from '../../components/layout/Layout';
 
 const BoardPage = props => {
   const boards = props.data.allContentfulBoard.edges;
   const page = props.data.contentfulPage;
   return (
-    <ContentfulPage page={page}>
+    <Layout>
+      <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <h3>Het huidig bestuur</h3>
       <CurrentBoard>{getCurrentBoard(boards)}</CurrentBoard>
       <h3>Oud besturen</h3>
       <BoardsList>{getOldBoards(boards)}</BoardsList>
-    </ContentfulPage>
+    </Layout>
   );
 };
 

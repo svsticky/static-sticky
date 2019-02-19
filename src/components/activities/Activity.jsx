@@ -59,7 +59,7 @@ export default class Activity extends React.Component {
           onMouseLeave={e => this.onMouse(e, Transition.hide)}
           onTouchEnd={this.onTouchEnd}
           ref={this.revealRef}
-          className='turnreveal-container'
+          className="turnreveal-container"
         >
           <TurnReveal
             back={renderPoster(poster, name)}
@@ -75,11 +75,15 @@ export default class Activity extends React.Component {
 }
 
 const renderPoster = (posterUrl, activityName) => (
-  <Image size="medium" src={posterUrl} alt={'Poster voor ' + activityName} />
+  <StyledImage
+    size="medium"
+    src={posterUrl}
+    alt={'Poster voor ' + activityName}
+  />
 );
 
 const renderInfo = ({ id, location, name, price }) => (
-  <FullSizeCard>
+  <FullSizeCard fluid>
     <MinHeightContent>
       <Card.Header>{name}</Card.Header>
     </MinHeightContent>
@@ -106,6 +110,7 @@ const renderInfo = ({ id, location, name, price }) => (
     <ButtonWrapper>
       {/* without a div around the button the height of the label would not be taken into account */}
       <Button
+        primary
         href={'https://koala.svsticky.nl/activities/' + id}
         target="_blank"
         content="Inschrijven"
@@ -122,11 +127,12 @@ const MinHeightContent = styled(Card.Content)`
   }
 `;
 
-const FullSizeCard = styled(Card)`
-  &&& {
-    width: 100%;
-  }
+const StyledImage = styled(Image)`
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
+`;
 
+const FullSizeCard = styled(Card)`
   height: 100%;
   overflow: auto;
 `;
@@ -144,7 +150,6 @@ const TurnRevealWrapper = styled.div`
     display: flex;
     justify-content: center;
   }
-
 `;
 
 const getClosestEdge = (event, element) => {

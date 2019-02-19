@@ -48,18 +48,20 @@ class NavBar extends React.Component {
     });
 
   renderMenuSubItems = subMenuItems =>
-    subMenuItems.map(subMenuItem => (
-      <Dropdown.Item
-        className="item"
-        key={subMenuItem.node.title}
-        as={Link}
-        to={
-          '/' + subMenuItem.node.parentPage.slug + '/' + subMenuItem.node.slug
-        }
-      >
-        <p className="item-text">{subMenuItem.node.title}</p>
-      </Dropdown.Item>
-    ));
+    subMenuItems
+      .sort((a, b) => a.node.title.localeCompare(b.node.title))
+      .map(subMenuItem => (
+        <Dropdown.Item
+          className="item"
+          key={subMenuItem.node.title}
+          as={Link}
+          to={
+            '/' + subMenuItem.node.parentPage.slug + '/' + subMenuItem.node.slug
+          }
+        >
+          <p className="item-text">{subMenuItem.node.title}</p>
+        </Dropdown.Item>
+      ));
 
   renderExternMenuItems = externMenuItems =>
     externMenuItems.map(externMenuItem => (
@@ -93,9 +95,9 @@ class NavBar extends React.Component {
             </Image>
             <div style={{ flex: 1 }} />
             {this.renderMenuItems(this.props.data.allContentfulPage.edges)}
-            <Dropdown item text="Extern" direction="left" key="extern">
+            <Dropdown item text="Links" direction="left" key="links">
               <Dropdown.Menu>
-                {this.renderExternMenuItems(menu.extern)}
+                {this.renderExternMenuItems(menu.links)}
               </Dropdown.Menu>
             </Dropdown>
             <Menu.Item className="link-item">
