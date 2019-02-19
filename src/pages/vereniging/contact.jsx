@@ -11,7 +11,6 @@ const ContactPage = props => {
   return (
     <ContentfulPage page={page}>
       <Markdown>{page.content.content}</Markdown>
-      <h3>Contact</h3>
       <ContactList>{getContactPersons(contactPersons)}</ContactList>
     </ContentfulPage>
   );
