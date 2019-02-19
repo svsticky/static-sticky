@@ -6,7 +6,7 @@ import ContentfulPage from '$/components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 
 const ContactPage = props => {
-  const contactPersons = props.data.allContentfulBoard.edges;
+  const contactPersons = props.data.allContentfulBoardMember.edges;
   const page = props.data.contentfulPage;
   return (
     <ContentfulPage page={page}>
@@ -17,7 +17,7 @@ const ContactPage = props => {
   );
 };
 
-const getContactPersons = ContactPersons => {
+const getContactPersons = contactPersons => {
   const boardmembers = contactPersons.filter(contactPerson => contactPersons.indexOf(contactPerson) !== 0);
 
   return boardmembers.map(contactPerson => (
@@ -42,17 +42,17 @@ const ContactList = styled.div`
 
 const boardMemberQuery = graphql`
 query boardMemberQuery {
-    allContentfulboardMember{
-      edges {
-        node {
-          id
-          topic
-          name
-          role
-          email
-          mobile
-          order
-          typeOfContact         
+  allContentfulBoardMember{
+    edges {
+      node {
+        id
+        topic
+        name
+        role
+        email
+        mobile
+        order
+        typeOfContact         
         }
       }
     }
