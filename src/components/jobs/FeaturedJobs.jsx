@@ -1,7 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Card, Image } from 'semantic-ui-react';
-import { graphql, StaticQuery, Link } from 'gatsby';
+import { graphql, StaticQuery } from 'gatsby';
 import JobItem from './JobItem';
 
 class FeaturedJobs extends React.Component {
