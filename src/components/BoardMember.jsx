@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Card, Image } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 
 const BoardMember = ({ contactPerson }) => (
   <ContactPersonMember color={contactPerson.color}>
@@ -21,9 +21,6 @@ const ContactPersonMember = styled.div`
   .head {
     color: ${props => (props.color ? props.color : '#000')};
     border-bottom: 1px solid #ddd;
-  }
-  .image {
-    margin-top: 1em;
   }
   .card {
     height: 100%;
