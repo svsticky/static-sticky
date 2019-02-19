@@ -49,7 +49,7 @@ export default class Activity extends React.Component {
   };
 
   render() {
-    const { poster, name } = this.props.activity;
+    const { thumbnail, name } = this.props.activity;
     return (
       // getBoundingClientRect is undefined on React components, so we need a plain DOM element here.
       // Putting the eventHandlers on the TurnReveal component also doesn't work for some reason.
@@ -62,7 +62,7 @@ export default class Activity extends React.Component {
           className="turnreveal-container"
         >
           <TurnReveal
-            back={renderPoster(poster, name)}
+            back={renderPoster(thumbnail, name)}
             transition={this.state.infoTransition}
             direction={this.state.infoDirection}
           >
@@ -82,50 +82,46 @@ const renderPoster = (posterUrl, activityName) => (
   />
 );
 
-const renderInfo = ({ id, location, name, price }) => (
+const renderInfo = ({ id, location, name, price, description }) => (
   <FullSizeCard fluid>
-    <MinHeightContent>
-      <Card.Header>{name}</Card.Header>
-    </MinHeightContent>
-    <Card.Content>
-      <Card.Description>
-        {location && (
-          <p>
-            <strong>Locatie: </strong>
-            <em>{location}</em>
-          </p>
-        )}
-        <p>
-          <strong>Prijs: </strong>
-          <em>
-            {price !== 0 ? (
-              <Currency quantity={parseFloat(price)} currency="EUR" />
-            ) : (
-              'Gratis!'
-            )}
-          </em>
-        </p>
-      </Card.Description>
-    </Card.Content>
-    <ButtonWrapper>
-      {/* without a div around the button the height of the label would not be taken into account */}
-      <Button
-        primary
-        href={'https://koala.svsticky.nl/activities/' + id}
-        target="_blank"
-        content="Inschrijven"
-        icon="external"
-        labelPosition="right"
-      />
-    </ButtonWrapper>
+    <FlexContainer>
+      <div className="title">
+        <h3>{name}</h3>
+      </div>
+      {location && (
+        <div className="location">
+          <strong>Locatie: </strong>
+          <em>{location}</em>
+        </div>
+      )}
+      <div className="price">
+        <strong>Prijs: </strong>
+        <em>
+          {price !== 0 ? (
+            <Currency quantity={parseFloat(price)} currency="EUR" />
+          ) : (
+            'Gratis!'
+          )}
+        </em>
+      </div>
+      <div className="description">
+        <em>{description}</em>
+      </div>
+      <div>
+        {/* without a div around the button the height of the label would not be taken into account */}
+        <Button
+          fluid
+          primary
+          href={'https://koala.svsticky.nl/activities/' + id}
+          target="_blank"
+          content="Inschrijven"
+          icon="external"
+          labelPosition="right"
+        />
+      </div>
+    </FlexContainer>
   </FullSizeCard>
 );
-
-const MinHeightContent = styled(Card.Content)`
-  &&&& {
-    flex-grow: 0;
-  }
-`;
 
 const StyledImage = styled(Image)`
   border-radius: 5px;
@@ -137,18 +133,35 @@ const FullSizeCard = styled(Card)`
   overflow: auto;
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-
-  .button {
-    flex: 1;
-  }
-`;
-
 const TurnRevealWrapper = styled.div`
   .turnreveal-container {
     display: flex;
     justify-content: center;
+  }
+`;
+
+const FlexContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .title .location .price .button {
+    flex-shrink: 1;
+  }
+  .title {
+    margin-bottom: 0.5rem;
+  }
+  .description {
+    flex-grow: 1;
+    margin: 1rem 0;
+    overflow-y: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    border-bottom: 1px dotted #ccc; /* IE */
+    &::-webkit-scrollbar {
+      /* WebKit */
+      width: 0;
+      height: 0;
+    }
   }
 `;
 
