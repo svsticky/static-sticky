@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card, Image } from 'semantic-ui-react';
+import { Link } from 'gatsby';
 
 const Board = ({ board }) => (
   <BoardCard color={board.color}>
