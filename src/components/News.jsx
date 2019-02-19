@@ -1,57 +1,68 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql, StaticQuery } from 'gatsby';
+import { graphql, Link, StaticQuery } from 'gatsby';
 import Pager from 'react-pager';
 import Markdown from 'markdown-to-jsx';
+import { GlobalState } from '$/data/Context';
 
 class News extends React.Component {
   constructor(props) {
     super(props);
-    this.handlePageChanged = this.handlePageChanged.bind(this);
     this.newsItems = this.props.data.allContentfulNewsArticles.edges;
 
     this.state = {
       pageCount: Math.ceil(this.newsItems.length / this.props.itemsPerPage),
-      current: 0,
       visiblePage: 3,
     };
   }
 
-  handlePageChanged(newPage) {
-    this.setState({ current: newPage });
-  }
-
   renderNewsItems = (allItems, pageNum) => (
     <div>
-      {allItems.slice(pageNum * this.props.itemsPerPage, pageNum * this.props.itemsPerPage + this.props.itemsPerPage).map(item => {
-        return (
-          <div key={item.node.id} className="newsItem">
-            <h3>
-              <a href={'/news/' + item.node.slug}>{item.node.title}</a>
-            </h3>
-            {item.node.dateOfPublishing}
-            <div className="content">
-              <Markdown>{item.node.content.content.slice(0, 300)}</Markdown>
-              ...
-              <a href={'/news/' + item.node.slug}>lees verder</a>
+      {allItems
+        .slice(
+          pageNum * this.props.itemsPerPage,
+          pageNum * this.props.itemsPerPage + this.props.itemsPerPage
+        )
+        .map(item => {
+          return (
+            <div key={item.node.id} className="newsItem">
+              <h3>
+                <Link to={'/news/' + item.node.slug}>{item.node.title}</Link>
+              </h3>
+              {item.node.dateOfPublishing}
+              <div className="content">
+                <Markdown>{item.node.content.content.slice(0, 300)}</Markdown>
+                ...
+                <Link to={'/news/' + item.node.slug}>lees verder</Link>
+              </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
     </div>
   );
 
   render() {
     return (
       <NewsWrapper>
-        {this.renderNewsItems(this.newsItems, this.state.current)}
-        <Pager
-          total={this.state.pageCount}
-          current={this.state.current}
-          visiblePages={this.state.visiblePage}
-          titles={{ first: 'First', last: 'Last' }}
-          onPageChanged={this.handlePageChanged}
-        />
+        <GlobalState.Consumer>
+          {context => (
+            <>
+              {this.renderNewsItems(
+                this.newsItems,
+                context.state.lastReadNewsPage
+              )}
+              <Pager
+                total={this.state.pageCount}
+                current={context.state.lastReadNewsPage}
+                visiblePages={this.state.visiblePage}
+                titles={{ first: 'First', last: 'Last' }}
+                onPageChanged={newpage =>
+                  context.actions.updateLastReadNewsPage(newpage)
+                }
+              />
+            </>
+          )}
+        </GlobalState.Consumer>
       </NewsWrapper>
     );
   }
@@ -63,10 +74,12 @@ export const NewsWrapper = styled.div`
     border-bottom: 1px solid #ddd;
   }
   .newsItem {
-    img {width: 250px;
-         border: 3px solid #000;
-         border-radius: 10px;
-         margin: auto;}
+    img {
+      width: 250px;
+      border: 3px solid #000;
+      border-radius: 10px;
+      margin: auto;
+    }
   }
   .pagination {
     font-size: 18px;
@@ -93,13 +106,13 @@ export const NewsWrapper = styled.div`
         > a,
         > span {
           margin-left: 0;
-          .border-left-radius(5px);
+          border-radius: 5px 0 0 5px;
         }
       }
       &:last-child {
         > a,
         > span {
-          .border-right-radius(5px);
+          border-radius: 0 5px 5px 0;
         }
       }
     }
@@ -142,7 +155,9 @@ export default props => (
   <StaticQuery
     query={graphql`
       query {
-        allContentfulNewsArticles(sort: { fields: [dateOfPublishing], order: DESC}) {
+        allContentfulNewsArticles(
+          sort: { fields: [dateOfPublishing], order: DESC }
+        ) {
           edges {
             node {
               id

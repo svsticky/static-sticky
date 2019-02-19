@@ -15,7 +15,7 @@ class Banner extends React.Component {
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.setState({
       visibility: 'visible',
     });
@@ -38,7 +38,11 @@ class Banner extends React.Component {
   );
 
   render() {
-    return <BannerWrapper visible={this.state.visibility}>{this.renderLogos(this.state.logos)}</BannerWrapper>;
+    return (
+      <BannerWrapper visible={this.state.visibility}>
+        {this.renderLogos(this.state.logos)}
+      </BannerWrapper>
+    );
   }
 }
 
@@ -60,41 +64,41 @@ const shuffleArray = array => {
 };
 
 export const BannerWrapper = styled.div`
-  width: 100%;
-  .card-container {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    height: 125px;
-    width: 100%;
-  }
-  .card {
-    flex-grow: 1;
-    height: 100%;
-  }
-  .slide {
-    visibility: ${props => props.visible};
-    height: 100%;
-  }
-  .each-slide {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    height: 125px;
-  }
-  .image {
-    @media (min-width: 990px) {
-      height: inherit;
-    }
-    @media (max-width: 990px) {
-      height: 100px;
-    }
-    @media (max-width: 700px) {
-      height: 80px;
-    }
-  }
-`;
+         width: 100%;
+         .card-container {
+           display: flex !important;
+           justify-content: center;
+           align-items: center;
+           height: 125px;
+           width: 100%;
+         }
+         .card {
+           flex-grow: 1;
+           height: 100%;
+         }
+         .slide {
+           visibility: ${props => props.visible};
+           height: 100%;
+         }
+         .each-slide {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           align-content: center;
+           height: 100px;
+         }
+         .image {
+           @media (min-width: 990px) {
+             height: inherit;
+           }
+           @media (max-width: 990px) {
+             height: 100px;
+           }
+           @media (max-width: 700px) {
+             height: 80px;
+           }
+         }
+       `;
 
 export default props => (
   <StaticQuery
