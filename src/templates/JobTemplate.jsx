@@ -104,7 +104,7 @@ const JobTemplateWrapper = styled.div`
 
       .partner-logo {
         background-color: white;
-        height: 100%;
+        width: 80%;
       }
     }
     .contactperson {
