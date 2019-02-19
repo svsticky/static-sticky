@@ -114,6 +114,7 @@ const renderInfo = ({ id, location, name, price, description }) => (
           primary
           href={'https://koala.svsticky.nl/activities/' + id}
           target="_blank"
+          rel="noopener noreferrer"
           content="Inschrijven"
           icon="external"
           labelPosition="right"

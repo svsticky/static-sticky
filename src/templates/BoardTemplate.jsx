@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Image, Button } from 'semantic-ui-react';
 
@@ -48,20 +48,22 @@ const buildHeader = board => {
 const showButton = board => {
   const prev = (
     <Button
+      as={Link}
       labelPosition="left"
       icon="left chevron"
       content="vorig bestuur"
-      href={'/besturen/' + (board.number - 1)}
+      to={'/besturen/' + (board.number - 1)}
       className="button"
     />
   );
 
   const next = (
     <Button
+      as={Link}
       labelPosition="right"
       icon="right chevron"
       content="volgend bestuur"
-      href={'/besturen/' + (board.number + 1)}
+      to={'/besturen/' + (board.number + 1)}
       className="button"
     />
   );

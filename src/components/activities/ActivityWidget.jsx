@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import ActivityCollection from './ActivityCollection';
 import Activity from './Activity';
+import { Link } from 'gatsby';
 
 export default class ActivityWidget extends Component {
   state = {
@@ -28,7 +29,7 @@ export default class ActivityWidget extends Component {
             {<Activity activity={this.state.activities[0]} />}
           </ActivityCollection>
           <p className="activity-page-link">
-            <a href="/vereniging/activiteiten">Meer activiteiten</a>
+            <Link to="/vereniging/activiteiten">Meer activiteiten</Link>
           </p>
         </div>
       </ActivityIndexWrapper>
