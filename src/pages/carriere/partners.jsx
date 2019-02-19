@@ -2,15 +2,16 @@ import React from 'react';
 import { Grid } from 'semantic-ui-react';
 import { graphql, StaticQuery } from 'gatsby';
 import Partner from '$/components/Partner';
-import ContentfulPage from '$/components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
+import Layout from '../../components/layout/Layout';
 
 const PartnerIndexPage = ({ data }) => {
   const partners = data.allContentfulPartner.edges;
   const page = data.contentfulPage;
 
   return (
-    <ContentfulPage page={page}>
+    <Layout>
+      <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <Grid doubling columns={4}>
         {partners.map(partner => (
@@ -19,7 +20,7 @@ const PartnerIndexPage = ({ data }) => {
           </Grid.Column>
         ))}
       </Grid>
-    </ContentfulPage>
+    </Layout>
   );
 };
 

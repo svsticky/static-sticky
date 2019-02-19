@@ -36,19 +36,19 @@ const createJobs = jobs => {
 };
 
 const jobslist = props => (
-  <JobsWrapper>
+  <JobsListWrapper>
     <div className="container">
       <Grid doubling stackable stretched columns={3}>
         {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
       </Grid>
     </div>
-  </JobsWrapper>
+  </JobsListWrapper>
 );
 
-const JobsWrapper = styled.div`
+const JobsListWrapper = styled.div`
   .container {
     grid-gap: 20px;
-    padding: 20px;
+    margin: -3rem 0.5rem 0 0.5rem;
   }
 `;
 

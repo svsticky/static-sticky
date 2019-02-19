@@ -2,8 +2,8 @@ import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import JobsList from '$/components/jobs/JobsList';
 import JobFilter from '$/components/jobs/JobFilter';
-import ContentfulPage from '$/components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
+import Layout from '../../components/layout/Layout';
 
 class JobIndexPage extends React.Component {
   constructor(props) {
@@ -25,7 +25,8 @@ class JobIndexPage extends React.Component {
 
   render() {
     return (
-      <ContentfulPage page={this.page}>
+      <Layout>
+        <h2>{this.page.title}</h2>
         <Markdown>{this.page.content.content}</Markdown>
         <JobFilter
           updateStudiesFilter={this.updateStudiesFilter}
@@ -38,7 +39,7 @@ class JobIndexPage extends React.Component {
           studiesFilter={this.state.studiesFilter}
           typesFilter={this.state.typesFilter}
         />
-      </ContentfulPage>
+      </Layout>
     );
   }
 }

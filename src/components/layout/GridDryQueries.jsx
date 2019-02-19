@@ -2,6 +2,9 @@ import { device } from '../../data/Devices';
 import styled from 'styled-components';
 
 const IndexWrapper = styled.div`
+  .logo {
+    grid-area: logo;
+  }
   .banner {
     grid-area: banner;
   }
@@ -18,11 +21,13 @@ const IndexWrapper = styled.div`
     grid-area: activity;
   }
 
-  @media ${device.mobile} {
+  @media ${device.mobileMax} {
     .container {
+      margin-top: -1rem;
       display: grid;
       grid-template-columns: 1fr;
       grid-template-areas:
+        'logo'
         'banner'
         'news'
         'news'
@@ -31,75 +36,46 @@ const IndexWrapper = styled.div`
         'activity';
       grid-gap: 2em;
     }
-    .activity {
-      grid-area: activity;
-      width: 40%;
+    .logo {
+      background-color: #20730d;
+      margin: -1rem;
+      padding: 3rem;
+      img {
+        height: 4rem;
+      }
     }
   }
+
   @media ${device.tablet} {
     .container {
+      margin-top: -6rem;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr 1fr;
       grid-template-areas:
         'banner banner'
-        'news drinks'
-        'news jobs'
-        'news activity';
-      grid-gap: 2em;
+        'news news'
+        'drinks activity'
+        'jobs activity';
+      grid-gap: 3em;
     }
-    .activity {
-      grid-area: activity;
-      width: auto;
+    .logo {
+      display: none;
     }
   }
   @media ${device.laptop} {
     .container {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 3fr 1fr;
       grid-template-areas:
-        'banner banner banner banner'
-        'news news news drinks'
-        'news news news jobs'
-        'news news news activity';
-      grid-gap: 2em;
+        'banner banner'
+        'news drinks'
+        'news jobs'
+        'news activity'
+        'news ...';
+      grid-gap: 3em;
     }
-    .activity {
-      grid-area: activity;
-      width: auto;
-    }
-  }
-
-  @media ${device.desktop} {
-    .container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-areas:
-        'banner banner banner banner'
-        'news news news drinks'
-        'news news news jobs'
-        'news news news activity';
-      grid-gap: 2em;
-    }
-    .activity {
-      grid-area: activity;
-      width: auto;
-    }
-  }
-
-  @media ${device.desktopL} {
-    .container {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-areas:
-        'banner banner banner banner'
-        'news news news drinks'
-        'news news news jobs'
-        'news news news activity';
-      grid-gap: 2em;
-    }
-    .activity {
-      grid-area: activity;
-      width: auto;
+    .logo {
+      display: none;
     }
   }
 `;

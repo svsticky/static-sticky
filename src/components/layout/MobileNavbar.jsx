@@ -31,8 +31,8 @@ class MobileNavBar extends React.Component {
       .map(page => (
         <ParentMenuItem
           key={page.node.title}
-          onClick={() => this.handleMenuClick(page.node.title)}
-          active={this.state.active === page.node.title} // For difference in style
+          onClick={() => this.handleMenuClick(page.node.slug)}
+          active={this.state.active === page.node.slug} // For difference in style
         >
           {page.node.title}
         </ParentMenuItem>
@@ -40,33 +40,60 @@ class MobileNavBar extends React.Component {
   };
 
   renderSubMenuItems = pages => {
-    return pages
-      .filter(
-        page =>
-          page.node.parentPage !== null &&
-          page.node.parentPage.title === this.state.active
-      )
-      .map(page => (
-        <Link
-          to={'/' + page.node.parentPage.slug + '/' + page.node.slug}
-          key={page.node.title}
-        >
-          <div className="sub-menu-item">{page.node.title}</div>
-        </Link>
-      ));
+    return (
+      <>
+        {pages
+          .filter(
+            page =>
+              page.node.parentPage !== null &&
+              page.node.parentPage.slug === this.state.active
+          )
+          .map(page => (
+            <Link
+              to={'/' + page.node.parentPage.slug + '/' + page.node.slug}
+              key={page.node.title}
+            >
+              <div className="sub-menu-item">{page.node.title}</div>
+            </Link>
+          ))}
+        {this.state.active
+          ? this.renderExternalItems(menu[this.state.active.toLowerCase()])
+          : null}
+      </>
+    );
   };
 
   renderExternalItems = links => {
-    return links.map(link => (
-      <a
-        href={link.url}
-        key={link.title}
-        target="_blank"
-        rel="noopener noreferrer" // For safety
-      >
-        <div className="sub-menu-item">{link.title}</div>
-      </a>
-    ));
+    return (
+      <>
+        {this.state.active === 'links' ? (
+          <a
+            href="https://koala.svsticky.nl/"
+            key="Koala"
+            target="_blank"
+            rel="noopener noreferrer" // For safety
+          >
+            <div className="sub-menu-item">
+              Koala
+              <i className="item-text icon external" />
+            </div>
+          </a>
+        ) : null}
+        {links.map(link => (
+          <a
+            href={link.url}
+            key={link.title}
+            target="_blank"
+            rel="noopener noreferrer" // For safety
+          >
+            <div className="sub-menu-item">
+              {link.title}
+              <i className="item-text icon external" />
+            </div>
+          </a>
+        ))}
+      </>
+    );
   };
 
   render() {
@@ -81,7 +108,7 @@ class MobileNavBar extends React.Component {
           <ParentMenuItem
             className="center-container"
             onClick={() => {
-              this.handleMenuClick('extern');
+              this.handleMenuClick('links');
             }}
           >
             <i className="external icon" />
@@ -95,11 +122,7 @@ class MobileNavBar extends React.Component {
           onExited={() => this.setState({ active: null })}
         >
           <div className="sub-menu-wrapper">
-            <div className="sub-menu">
-              {this.state.active === 'extern'
-                ? this.renderExternalItems(menu.extern)
-                : this.renderSubMenuItems(edges)}
-            </div>
+            <div className="sub-menu">{this.renderSubMenuItems(edges)}</div>
           </div>
         </CSSTransition>
       </MobileNavBarWrapper>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { graphql, StaticQuery } from 'gatsby';
-import ContentfulPage from '$/components/layout/ContentfulPage';
+import { graphql, StaticQuery, Link } from 'gatsby';
+import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
-import { Image, Label } from 'semantic-ui-react';
+import { Card, Grid } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const DisputeIndexPage = ({ data }) => {
@@ -12,36 +12,38 @@ const DisputeIndexPage = ({ data }) => {
   const page = data.contentfulPage;
 
   return (
-    <ContentfulPage page={page}>
+    <Layout>
+      <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
-      <br />
-      <Centered>
+      <Grid doubling columns={4}>
         {disputes.map(dispute => (
-          <div key={dispute.id}>
-            {dispute.logo === null ? (
-              <Label size="huge">{dispute.name}</Label>
-            ) : (
-              <Image
-                size="medium"
-                src={dispute.logo.file.url}
-                alt={`${dispute.name} logo`}
-                centered
-                href={'/disputen/' + dispute.slug}
-              />
-            )}
-          </div>
+          <Grid.Column key={dispute.id}>
+            <Card
+              as={Link}
+              to={'/disputen/' + dispute.slug}
+              fluid
+              style={{ height: '100%' }}
+            >
+              <ImageContainer>
+                <img src={dispute.logo.file.url} alt={`${dispute.name} logo`} />
+              </ImageContainer>
+            </Card>
+          </Grid.Column>
         ))}
-      </Centered>
-    </ContentfulPage>
+      </Grid>
+    </Layout>
   );
 };
 
-const Centered = styled.div`
+const ImageContainer = styled.div`
   display: flex;
-  flex-direction: row;
+  justify-content: center;
   align-items: center;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  height: 100%;
+  width: 100%;
+  img {
+    width: 80%;
+  }
 `;
 
 const DisputeListQuery = graphql`

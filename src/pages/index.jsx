@@ -1,17 +1,22 @@
 import React from 'react';
 import Layout from '../components/layout/Layout';
+import logo from '$/images/logo-sticky-small.png';
 import Banner from '../components/Banner';
 import News from '../components/News';
 import Drinks from '../components/Drinks';
 import IndexWrapper from '../components/layout/GridDryQueries';
 import FeaturedJobs from '../components/jobs/FeaturedJobs';
 import ActivityWidget from '../components/activities/ActivityWidget';
+import ImageContainer from '../helpers/ImageContainer';
 
 const Index = props => {
   return (
     <Layout>
       <IndexWrapper>
         <div className="container">
+          <ImageContainer className="logo">
+            <img src={logo} alt="Sticky Logo" />
+          </ImageContainer>
           <div className="banner">
             <Banner />
           </div>

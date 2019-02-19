@@ -18,8 +18,8 @@ class Drinks extends React.Component {
     return (
       <>
         <div>
-          <h3>Borreldag</h3>
-          <Card>
+          <h2>Borreldag</h2>
+          <Card fluid>
             {this.renderDescription(this.props.data.contentfulDrinks)}
           </Card>
         </div>
