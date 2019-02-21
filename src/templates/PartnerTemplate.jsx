@@ -154,6 +154,7 @@ export const PartnerQuery = graphql`
         summary
         featured
         slug
+        isJob
         partner {
           logo {
             file {

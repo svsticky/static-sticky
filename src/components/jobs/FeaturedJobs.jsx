@@ -45,6 +45,7 @@ export default props => (
               target_studies
               type
               slug
+              isJob
               partner {
                 name
                 logo {
