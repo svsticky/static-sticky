@@ -17,12 +17,42 @@ const studieFilterOptions = [
 ];
 
 const typeFilterOptions = [
-  { key: 1, text: 'Afstudeeropdracht', value: 'Afstudeeropdracht' },
-  { key: 2, text: 'Bijbaan', value: 'Bijbaan' },
-  { key: 3, text: 'Full-time', value: 'Full-time' },
-  { key: 4, text: 'Part-time', value: 'Part-time' },
-  { key: 5, text: 'Stage', value: 'Stage' },
-  { key: 6, text: 'Traineeship', value: 'Traineeship' },
+  {
+    key: 1,
+    text: 'Afstudeeropdracht',
+    value: 'Afstudeeropdracht',
+    label: { color: 'yellow', icon: 'student' },
+  },
+  {
+    key: 2,
+    text: 'Bijbaan',
+    value: 'Bijbaan',
+    label: { color: 'blue', icon: 'briefcase' },
+  },
+  {
+    key: 3,
+    text: 'Full-time',
+    value: 'Full-time',
+    label: { color: 'blue', icon: 'briefcase' },
+  },
+  {
+    key: 4,
+    text: 'Part-time',
+    value: 'Part-time',
+    label: { color: 'blue', icon: 'briefcase' },
+  },
+  {
+    key: 5,
+    text: 'Stage',
+    value: 'Stage',
+    label: { color: 'yellow', icon: 'student' },
+  },
+  {
+    key: 6,
+    text: 'Traineeship',
+    value: 'Traineeship',
+    label: { color: 'blue', icon: 'briefcase' },
+  },
 ];
 
 //The problem lies in the first dropdown -> onChange. Somehow it won't allow to filter
@@ -46,7 +76,6 @@ const JobFilter = props => (
       <div className="filter1">
         <Dropdown
           fluid
-          search
           multiple
           selection
           options={studieFilterOptions}
@@ -59,7 +88,6 @@ const JobFilter = props => (
       <div className="filter2">
         <Dropdown
           fluid
-          search
           multiple
           selection
           options={typeFilterOptions}
@@ -100,6 +128,14 @@ const JobFilterWrapper = styled.div`
   .filter2 {
     grid-column: 2;
     grid-row: 2;
+  }
+  .item {
+    .label {
+      i {
+        margin: 0;
+        width: 1rem;
+      }
+    }
   }
 `;
 

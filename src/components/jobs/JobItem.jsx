@@ -49,6 +49,7 @@ const JobWrapper = styled.div`
     &-icon {
       // sweet SCSS here <3
       margin: 0 !important;
+      width: 1.5rem !important;
     }
   }
 `;
