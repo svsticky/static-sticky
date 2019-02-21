@@ -15,11 +15,11 @@ const BoardView = ({ data }) => {
           <div>
             <h3 className="header">{buildHeader(board)}</h3>
           </div>
+          <Card fluid>
           <div>
             { board.motto && <p className="motto">O.d.z "{board.motto}"</p>}
             <p className="years">{board.years}</p>
           </div>
-          <Card fluid>
           <div className="photo-members">
             <div>
               <Image rounded size="large" src={board.photo.file.url} />
@@ -33,8 +33,8 @@ const BoardView = ({ data }) => {
               ))}
             </div>
           </div>
-          <div className="button-group">{showButton(board)}</div>
           </Card>
+          <div className="button-group">{showButton(board)}</div>
         </div>
       </BoardTemplateWrapper>
     </Layout>
@@ -51,7 +51,6 @@ const buildHeader = board => {
 const showButton = board => {
   const prev = (
     <Button
-      primary
       as={ Link }
       labelPosition="left"
       icon="left chevron"
@@ -63,7 +62,6 @@ const showButton = board => {
 
   const next = (
     <Button
-      primary
       as={ Link }
       labelPosition="right"
       icon="right chevron"
@@ -94,10 +92,10 @@ const BoardTemplateWrapper = styled.div`
     border-bottom: 1px solid #ddd;
   }
   .years {
-    padding-top: ${props => (props.motto ? '0px' : '1em')};
+    padding-top: ${props => (props.motto ? '0em' : '1em')};
+    margin-bottom: 1em;
   }
   .motto {
-    margin-top: 1em;
     font-style: italic;
   }
   .photo-members {
@@ -123,12 +121,14 @@ const BoardTemplateWrapper = styled.div`
     //font-weight: bold;
   }
   .button-group {
+    display: flex;
+    justify-content: center;
     @media ${device.mobileMax} {
       align-self: center;
     }
   }
   .button {
-    background-color: #000078;
+    background-color: ${props => (props.color ? props.color : '#aaa')};
     color: #fff;
     margin-top: 1em;
     margin-right: 1em;
