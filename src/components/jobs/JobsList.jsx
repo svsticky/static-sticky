@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import JobItem from './JobItem';
 import { Grid } from 'semantic-ui-react';
+import { device } from '../../data/Devices';
 
 const displayJobs = (studiesFilter, typesFilter, jobs) => {
   if (studiesFilter.length === 0 && typesFilter.length === 0) {
@@ -47,8 +48,10 @@ const jobslist = props => (
 
 const JobsListWrapper = styled.div`
   .container {
-    grid-gap: 20px;
-    margin: -3rem 0.5rem 0 0.5rem;
+    grid-gap: 2rem;
+    @media ${device.tablet} {
+      margin: -4rem 0.5rem;
+    }
   }
 `;
 

@@ -74,8 +74,7 @@ const JobFilter = props => (
 );
 
 const JobFilterWrapper = styled.div`
-&&&
-  .container{
+  &&& .container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 20% 70%;
@@ -84,22 +83,22 @@ const JobFilterWrapper = styled.div`
     padding: 5px;
     grid-auto-flow: row;
     align-content: center;
-
+    border-bottom: 1px solid #ddd;
   }
-  .text1{
+  .text1 {
     grid-column: 1;
-    grid-row: 1
+    grid-row: 1;
   }
-  .text2{
+  .text2 {
     grid-column: 2;
     grid-row: 1;
   }
-  .filter1{
+  .filter1 {
     grid-column: 1;
     grid-row: 2;
   }
-  .filter2{
-    grid-column 2;
+  .filter2 {
+    grid-column: 2;
     grid-row: 2;
   }
 `;

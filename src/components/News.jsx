@@ -86,9 +86,6 @@ class News extends React.Component {
 }
 
 export const NewsWrapper = styled.div`
-  .news-list {
-    padding: 0.5rem;
-  }
   .news-item {
     color: black;
     display: flex;
