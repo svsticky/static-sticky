@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { Grid } from 'semantic-ui-react';
 import { graphql, StaticQuery } from 'gatsby';
 import Board from '$/components/Board';
 import Markdown from 'markdown-to-jsx';
@@ -13,9 +13,13 @@ const BoardPage = props => {
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <h3>Het huidig bestuur</h3>
-      <CurrentBoard>{getCurrentBoard(boards)}</CurrentBoard>
+      <Grid stretched stackable doubling columns={3}>
+        {getCurrentBoard(boards)}
+      </Grid>
       <h3>Oud besturen</h3>
-      <BoardsList>{getOldBoards(boards)}</BoardsList>
+      <Grid stretched stackable doubling columns={3}>
+        {getOldBoards(boards)}
+      </Grid>
     </Layout>
   );
 };
@@ -23,46 +27,22 @@ const BoardPage = props => {
 const getCurrentBoard = boards => {
   const currentBoard = boards[0];
 
-  return <Board key={currentBoard.node.id} board={currentBoard.node} />;
+  return (
+  <Grid.Column>
+    <Board key={currentBoard.node.id} board={currentBoard.node} />
+  </Grid.Column>
+  );
 };
 
 const getOldBoards = boards => {
   const oldBoards = boards.filter(board => boards.indexOf(board) !== 0);
 
   return oldBoards.map(board => (
-    <Board key={board.node.id} board={board.node} />
+    <Grid.Column key={board.node.id}>
+      <Board board={board.node} />
+    </Grid.Column>
   ));
 };
-
-const CurrentBoard = styled.div`
-  margin-top: 1em;
-  display: grid;
-  @media (min-width: 990px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 990px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 560px) {
-    grid-template-columns: 1fr;
-  }
-  grid-gap: 1em;
-`;
-
-const BoardsList = styled.div`
-  margin-top: 1em;
-  display: grid;
-  @media (min-width: 990px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 990px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 560px) {
-    grid-template-columns: 1fr;
-  }
-  grid-gap: 1em;
-`;
 
 const BoardsQuery = graphql`
   query BoardsQuery {

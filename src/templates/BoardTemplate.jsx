@@ -1,29 +1,31 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Image, Button } from 'semantic-ui-react';
+import { Image, Button, Card } from 'semantic-ui-react';
+import { device } from '../data/Devices';
 
 const BoardView = ({ data }) => {
   const board = data.contentfulBoard;
 
   return (
     <Layout>
-      <BoardTemplateWrapper color={board.color}>
+      <BoardTemplateWrapper motto={board.motto} color={board.color}>
         <div>
           <div>
             <h3 className="header">{buildHeader(board)}</h3>
           </div>
           <div>
-            <p className="motto">O.d.z "{board.motto}"</p>
-            <p>{board.years}</p>
+            { board.motto && <p className="motto">O.d.z "{board.motto}"</p>}
+            <p className="years">{board.years}</p>
           </div>
+          <Card fluid>
           <div className="photo-members">
             <div>
-              <Image rounded size="medium" src={board.photo.file.url} />
+              <Image rounded size="large" src={board.photo.file.url} />
             </div>
-            <div>
-              <p>Bestuursleden:</p>
+            <div className="all-members">
+              <h3>Bestuursleden:</h3>
               {board.members.map(member => (
                 <p key={member} className="member">
                   {member}
@@ -32,6 +34,7 @@ const BoardView = ({ data }) => {
             </div>
           </div>
           <div className="button-group">{showButton(board)}</div>
+          </Card>
         </div>
       </BoardTemplateWrapper>
     </Layout>
@@ -48,20 +51,24 @@ const buildHeader = board => {
 const showButton = board => {
   const prev = (
     <Button
+      primary
+      as={ Link }
       labelPosition="left"
       icon="left chevron"
-      content="vorig bestuur"
-      href={'/besturen/' + (board.number - 1)}
+      content= {"Bestuur " + (board.number - 1)}
+      to={'/besturen/' + (board.number - 1)}
       className="button"
     />
   );
 
   const next = (
     <Button
+      primary
+      as={ Link }
       labelPosition="right"
       icon="right chevron"
-      content="volgend bestuur"
-      href={'/besturen/' + (board.number + 1)}
+      content={"Bestuur " + (board.number + 1)}
+      to={'/besturen/' + (board.number + 1)}
       className="button"
     />
   );
@@ -86,8 +93,8 @@ const BoardTemplateWrapper = styled.div`
     color: ${props => (props.color ? props.color : '#000')};
     border-bottom: 1px solid #ddd;
   }
-  .image {
-    margin-right: 1em;
+  .years {
+    padding-top: ${props => (props.motto ? '0px' : '1em')};
   }
   .motto {
     margin-top: 1em;
@@ -95,18 +102,36 @@ const BoardTemplateWrapper = styled.div`
   }
   .photo-members {
     display: flex;
-    flex-direction: row;
-    align-items: center;
+    @media ${device.mobileMax} {
+      flex-direction: column;
+    }
+    @media ${device.tablet} {
+      flex-direction: row;
+      align-items: center;
+    }
+
+  }
+  .all-members {
+    @media ${device.tablet} {
+      margin-left: 1em;
+    }
+    @media ${device.mobileMax} {
+      margin-top: 1em;
+    }
   }
   .member {
-    font-weight: bold;
+    //font-weight: bold;
   }
   .button-group {
-    margin-top: 1em;
+    @media ${device.mobileMax} {
+      align-self: center;
+    }
   }
   .button {
     background-color: #000078;
     color: #fff;
+    margin-top: 1em;
+    margin-right: 1em;
   }
 `;
 
