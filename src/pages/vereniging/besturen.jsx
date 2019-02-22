@@ -1,9 +1,11 @@
 import React from 'react';
 import { Grid } from 'semantic-ui-react';
+import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import Board from '$/components/Board';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
+import { device } from '../../data/Devices';
 
 const BoardPage = props => {
   const boards = props.data.allContentfulBoard.edges;
@@ -13,9 +15,7 @@ const BoardPage = props => {
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <h3>Het huidig bestuur</h3>
-      <Grid stretched stackable doubling columns={3}>
         {getCurrentBoard(boards)}
-      </Grid>
       <h3>Oud besturen</h3>
       <Grid stretched stackable doubling columns={3}>
         {getOldBoards(boards)}
@@ -28,9 +28,11 @@ const getCurrentBoard = boards => {
   const currentBoard = boards[0];
 
   return (
-  <Grid.Column>
-    <Board key={currentBoard.node.id} board={currentBoard.node} />
-  </Grid.Column>
+    <CurrentBoardWrapper>
+      <div className="current-board">
+        <Board key={currentBoard.node.id} board={currentBoard.node} />
+      </div>
+    </CurrentBoardWrapper>
   );
 };
 
@@ -44,6 +46,19 @@ const getOldBoards = boards => {
   ));
 };
 
+const CurrentBoardWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  .current-board {
+    @media ${device.tablet} {
+      flex: 0.6; //Just what I liked...
+    }
+    @media ${device.mobileMax} {
+      flex: 1;
+    }
+  }
+`;
+
 const BoardsQuery = graphql`
   query BoardsQuery {
     allContentfulBoard(sort: { fields: [number], order: DESC }) {
@@ -53,6 +68,7 @@ const BoardsQuery = graphql`
           years
           number
           motto
+          current
           members
           color
           photo {

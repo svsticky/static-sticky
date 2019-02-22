@@ -2,9 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { Card, Image } from 'semantic-ui-react';
 import { Link } from 'gatsby';
+import { device } from '../data/Devices';
+
 
 const Board = ({ board }) => (
-  <BoardCard color={board.color}>
+  <BoardCard color={board.color} current={board.current}>
     <div className="card">
       <Card fluid as={ Link } to={'/besturen/' + board.number}>
         <Image
@@ -31,7 +33,14 @@ const BoardCard = styled.div`
     height: 100%;
   }
   .image {
-    height: 200px;
+    height: 100%;
+
+    @media ${device.tablet} {
+      max-height: ${props => (props.current ? '100%' : '200px')};
+    }
+    @media ${device.mobileMax} {
+      max-height: ${props => (props.current ? '300px' : '200px')};
+    }
   }
 `;
 
