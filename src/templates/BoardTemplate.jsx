@@ -13,28 +13,30 @@ const BoardView = ({ data }) => {
       <BoardTemplateWrapper motto={board.motto} color={board.color}>
         <div>
           <div>
-            <h3 className="header">{buildHeader(board)}</h3>
+            <h2 className="header">{buildHeader(board)}</h2>
           </div>
           <Card fluid>
-          <div>
-            { board.motto && <p className="motto">O.d.z "{board.motto}"</p>}
-            <p className="years">{board.years}</p>
-          </div>
-          <div className="photo-members">
-            <div>
-              <Image rounded size="large" src={board.photo.file.url} />
+            <div className="photo-members">
+              <div>
+                <Image rounded size="large" src={board.photo.file.url} />
+              </div>
+              <div className="all-members">
+                <div>
+                  <p className="years">
+                    <strong>{board.years}</strong>
+                  </p>
+                  {board.motto && <em>O.d.z "{board.motto}"</em>}
+                </div>
+                <h3>Bestuursleden:</h3>
+                {board.members.map(member => (
+                  <p key={member} className="member">
+                    {member}
+                  </p>
+                ))}
+              </div>
             </div>
-            <div className="all-members">
-              <h3>Bestuursleden:</h3>
-              {board.members.map(member => (
-                <p key={member} className="member">
-                  {member}
-                </p>
-              ))}
-            </div>
-          </div>
           </Card>
-          <div className="button-group">{showButton(board)}</div>
+          <div className="flex-container">{showButton(board)}</div>
         </div>
       </BoardTemplateWrapper>
     </Layout>
@@ -51,37 +53,40 @@ const buildHeader = board => {
 const showButton = board => {
   const prev = (
     <Button
-      as={ Link }
+      as={Link}
       labelPosition="left"
       icon="left chevron"
-      content= {"Bestuur " + (board.number - 1)}
+      content={'Bestuur ' + (board.number - 1)}
       to={'/besturen/' + (board.number - 1)}
-      className="button"
+      className="button-prev"
+      color={board.color}
     />
   );
 
   const next = (
     <Button
-      as={ Link }
+      as={Link}
       labelPosition="right"
       icon="right chevron"
-      content={"Bestuur " + (board.number + 1)}
+      content={'Bestuur ' + (board.number + 1)}
       to={'/besturen/' + (board.number + 1)}
-      className="button"
+      className="button-next"
+      color={board.color}
     />
   );
 
-  if (board.number === 1) {
-    return next;
-  }
-  if (board.current) {
-    return prev;
-  }
   return (
-    <>
-      {prev}
-      {next}
-    </>
+    <div className="button-group">
+      {board.number !== 1 ? prev : null}
+      <Button
+        as={Link}
+        content={'Terug naar overzicht'}
+        to={'vereniging/besturen'}
+        className="button-index"
+        color={board.color}
+      />
+      {!board.current ? next : null}
+    </div>
   );
 };
 
@@ -89,14 +94,10 @@ const BoardTemplateWrapper = styled.div`
   padding: 1em;
   .header {
     color: ${props => (props.color ? props.color : '#000')};
-    border-bottom: 1px solid #ddd;
   }
   .years {
-    padding-top: ${props => (props.motto ? '0em' : '1em')};
-    margin-bottom: 1em;
-  }
-  .motto {
-    font-style: italic;
+    margin-bottom: 0;
+    color: ${props => (props.color ? props.color : '#000')};
   }
   .photo-members {
     display: flex;
@@ -107,31 +108,49 @@ const BoardTemplateWrapper = styled.div`
       flex-direction: row;
       align-items: center;
     }
-
   }
   .all-members {
     @media ${device.tablet} {
-      margin-left: 1em;
+      margin-left: 2rem;
     }
     @media ${device.mobileMax} {
       margin-top: 1em;
     }
+    h3 {
+      color: ${props => (props.color ? props.color : '#000')};
+    }
   }
-  .member {
-    //font-weight: bold;
+  .flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .button-group {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    @media ${device.mobileMax} {
-      align-self: center;
+    align-items: center;
+    .button {
+      @media ${device.mobileMax} {
+        &-prev {
+          order: 2;
+          width: 11rem;
+        }
+        &-index {
+          order: -1;
+          width: 23rem;
+        }
+        &-next {
+          order: 3;
+          width: 11rem;
+        }
+      }
     }
   }
   .button {
     background-color: ${props => (props.color ? props.color : '#aaa')};
     color: #fff;
-    margin-top: 1em;
-    margin-right: 1em;
+    margin: 0.5rem;
   }
 `;
 
