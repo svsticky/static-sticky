@@ -9,7 +9,7 @@ const ContactPerson = ({ contactPerson }) => (
         <Card.Content>
           <h3 className="head">{contactPerson.typeOfContact}</h3>
           <p>{contactPerson.name + " (" + contactPerson.role + ")"}</p>
-          <p>{"Tel.: " + contactPerson.mobile}</p>
+          <p> Tel.: <a href={"tel:" + contactPerson.mobile}>{contactPerson.mobile} </a> </p>
           <p> Mail: <a href={"mailto:" + contactPerson.email}>{contactPerson.email} </a> </p>
         </Card.Content>
       </Card>
