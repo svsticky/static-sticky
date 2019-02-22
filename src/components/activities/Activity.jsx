@@ -85,9 +85,9 @@ const renderPoster = (posterUrl, activityName) => (
 const renderInfo = ({ id, location, name, price, description }) => (
   <FullSizeCard fluid>
     <FlexContainer>
-      <div className="title">
+      <Title>
         <h3>{name}</h3>
-      </div>
+      </Title>
       {location && (
         <div className="location">
           <strong>Locatie: </strong>
@@ -104,9 +104,11 @@ const renderInfo = ({ id, location, name, price, description }) => (
           )}
         </em>
       </div>
-      <div className="description">
-        <em>{description}</em>
-      </div>
+      <Description>
+        <em>
+          <div dangerouslySetInnerHTML={{ __html: description }} />
+        </em>
+      </Description>
       <div>
         {/* without a div around the button the height of the label would not be taken into account */}
         <Button
@@ -145,24 +147,23 @@ const FlexContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  .title .location .price .button {
-    flex-shrink: 1;
-  }
-  .title {
-    margin-bottom: 0.5rem;
-  }
-  .description {
-    flex-grow: 1;
-    margin: 1rem 0;
-    overflow-y: scroll;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;
-    border-bottom: 1px dotted #ccc; /* IE */
-    &::-webkit-scrollbar {
-      /* WebKit */
-      width: 0;
-      height: 0;
-    }
+`;
+
+const Title = styled.div`
+  margin-bottom: 0.5rem;
+`;
+
+const Description = styled.div`
+  flex-grow: 1;
+  margin: 1rem 0;
+  overflow-y: scroll;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  border-bottom: 1px dotted #ccc; /* IE */
+  &::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
   }
 `;
 
