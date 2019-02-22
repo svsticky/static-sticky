@@ -91,66 +91,66 @@ const showButton = board => {
 };
 
 const BoardTemplateWrapper = styled.div`
-  padding: 1em;
-  .header {
-    color: ${props => (props.color ? props.color : '#000')};
-  }
-  .years {
-    margin-bottom: 0;
-    color: ${props => (props.color ? props.color : '#000')};
-  }
-  .photo-members {
-    display: flex;
-    @media ${device.mobileMax} {
-      flex-direction: column;
-    }
-    @media ${device.tablet} {
-      flex-direction: row;
-      align-items: center;
-    }
-  }
-  .all-members {
-    @media ${device.tablet} {
-      margin-left: 2rem;
-    }
-    @media ${device.mobileMax} {
-      margin-top: 1em;
-    }
-    h3 {
+  &&& {
+    padding: 1em;
+    .header {
       color: ${props => (props.color ? props.color : '#000')};
     }
-  }
-  .flex-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .button-group {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    .button {
+    .years {
+      margin-bottom: 0;
+      color: ${props => (props.color ? props.color : '#000')};
+    }
+    .photo-members {
+      display: flex;
       @media ${device.mobileMax} {
-        &-prev {
-          order: 2;
-          width: 11rem;
-        }
-        &-index {
-          order: -1;
-          width: 23rem;
-        }
-        &-next {
-          order: 3;
-          width: 11rem;
+        flex-direction: column;
+      }
+      @media ${device.tablet} {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+    .all-members {
+      @media ${device.tablet} {
+        margin-left: 2rem;
+      }
+      @media ${device.mobileMax} {
+        margin-top: 1em;
+      }
+      h3 {
+        color: ${props => (props.color ? props.color : '#000')};
+      }
+    }
+    .flex-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      .button {
+        background-color: ${props => (props.color ? props.color : '#aaa')};
+        color: #fff;
+        margin: 0.5rem;
+        @media ${device.mobileMax} {
+          &-prev {
+            order: 2;
+            width: 11rem;
+          }
+          &-index {
+            order: -1;
+            width: 23rem;
+          }
+          &-next {
+            order: 3;
+            width: 11rem;
+          }
         }
       }
     }
-  }
-  .button {
-    background-color: ${props => (props.color ? props.color : '#aaa')};
-    color: #fff;
-    margin: 0.5rem;
   }
 `;
 

@@ -35,7 +35,7 @@ const BoardCard = styled.div`
     .board-card {
       padding: 0 !important;
       @media ${device.mobileMax} {
-        width: ${props => (props.current ? '100%' : '300px')};
+        width: 300px;
         height: auto;
         margin: auto;
       }
