@@ -24,24 +24,31 @@ const Board = ({ board }) => (
 );
 
 const BoardCard = styled.div`
-  .head {
-    color: ${props => (props.color ? props.color : '#000')};
-    margin-bottom: 0;
-  }
-  .card-container {
-    height: 100%;
-  }
-  .board-card {
-    padding: 0;
-  }
-  .image {
-    width: 100%;
-
-    @media ${device.tablet} {
-      max-height: ${props => (props.current ? '100%' : '220px')};
+  &&& {
+    .head {
+      color: ${props => (props.color ? props.color : '#000')};
+      margin-bottom: 0;
     }
-    @media ${device.mobileMax} {
-      max-height: ${props => (props.current ? '300px' : '200px')};
+    .card-container {
+      height: 100%;
+    }
+    .board-card {
+      padding: 0 !important;
+      @media ${device.mobileMax} {
+        width: ${props => (props.current ? '100%' : '300px')};
+        height: auto;
+        margin: auto;
+      }
+    }
+    .image {
+      width: 100%;
+
+      @media ${device.tablet} {
+        max-height: ${props => (props.current ? '100%' : '220px')};
+      }
+      @media ${device.mobileMax} {
+        max-height: ${props => (props.current ? '300px' : '200px')};
+      }
     }
   }
 `;
