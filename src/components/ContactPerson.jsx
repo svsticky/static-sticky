@@ -23,7 +23,6 @@ const ContactPerson = ({ contactPerson }) => (
 const ContactPersonMember = styled.div`
   .head {
     color: ${props => (props.color ? props.color : '#000')};
-    border-bottom: 1px solid #ddd;
   }
   .card {
     height: 100%;
