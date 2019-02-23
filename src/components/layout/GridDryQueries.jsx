@@ -39,9 +39,9 @@ const IndexWrapper = styled.div`
     .logo {
       background-color: #20730d;
       margin: -1rem;
-      padding: 3rem;
+      padding: 0.8rem 0 1rem 0;
       img {
-        height: 4rem;
+        height: 7rem;
       }
     }
   }

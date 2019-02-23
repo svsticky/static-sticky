@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../components/layout/Layout';
-import logo from '$/images/logo-sticky-small.png';
+import logo from '../images/sticky-logo-text.svg';
 import Banner from '../components/Banner';
 import News from '../components/News';
 import Drinks from '../components/Drinks';

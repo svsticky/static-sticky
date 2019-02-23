@@ -9,7 +9,7 @@ import {
   Button,
   Grid,
 } from 'semantic-ui-react';
-import logo from '$/images/logo-sticky-small.png';
+import logo from '$/images/sticky-logo.svg';
 import menu from '$/data/menu.json';
 import { device } from '../../data/Devices';
 
@@ -88,7 +88,7 @@ class NavBar extends React.Component {
   render() {
     return (
       <NavBarWrapper>
-        <Menu className="navbar">
+        <Menu size="large" className="navbar">
           <Container>
             <Image as={Link} to="/" className="logo">
               <img src={logo} alt="Sticky logo" />
@@ -128,10 +128,10 @@ const NavBarWrapper = styled.div`
     background-color: #20730d !important;
     border-radius: 0;
     .logo {
-      height: 2.5em;
+      height: 3em;
+      padding-top: 0.3rem;
       img {
         height: 100%;
-        margin: 0.3em;
       }
     }
     .item {
