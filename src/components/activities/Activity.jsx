@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button, Card, Image } from 'semantic-ui-react';
 import Currency from 'react-currency-formatter';
+import SanitizeHTML from 'sanitize-html';
 import TurnReveal, { Direction, Transition } from '$/components/TurnReveal';
 
 export default class Activity extends React.Component {
@@ -105,9 +106,7 @@ const renderInfo = ({ id, location, name, price, description }) => (
         </em>
       </div>
       <Description>
-        <em>
-          <div dangerouslySetInnerHTML={{ __html: description }} />
-        </em>
+        <em dangerouslySetInnerHTML={{ __html: SanitizeHTML(description) }} />
       </Description>
       <div>
         {/* without a div around the button the height of the label would not be taken into account */}
