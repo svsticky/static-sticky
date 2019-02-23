@@ -48,7 +48,6 @@ const IndexWrapper = styled.div`
 
   @media ${device.tablet} {
     .container {
-      margin-top: -6rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-areas:

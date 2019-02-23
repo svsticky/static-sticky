@@ -8,9 +8,12 @@ const ContactPerson = ({ contactPerson }) => (
       <Card fluid>
         <Card.Content>
           <h3 className="head">{contactPerson.typeOfContact}</h3>
-          <p>{contactPerson.name + " (" + contactPerson.role + ")"}</p>
-          <p>{"Tel.: " + contactPerson.mobile}</p>
-          <p> Mail: <a href={"mailto:" + contactPerson.email}>{contactPerson.email} </a> </p>
+          <p>{contactPerson.name + ' (' + contactPerson.role + ')'}</p>
+          <p>{'Tel.: ' + contactPerson.mobile}</p>
+          <p>
+            Mail:
+            <a href={'mailto:' + contactPerson.email}>{contactPerson.email}</a>
+          </p>
         </Card.Content>
       </Card>
     </div>

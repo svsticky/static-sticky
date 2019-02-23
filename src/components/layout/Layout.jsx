@@ -9,27 +9,27 @@ import { device } from '../../data/Devices';
 
 const layout = ({ children }) => (
   <>
-    <NavBar />
     <PageWrapper>
-      <Container className="container">{children}</Container>
+      <NavBar />
+      <Container className="layout-container">{children}</Container>
       <Footer />
+      <MobileNavbar />
     </PageWrapper>
-    <MobileNavbar />
   </>
 );
 
 const PageWrapper = styled.div`
   height: 100vh;
+  overflow: auto;
   display: flex;
   flex-direction: column;
-  background-color: rgb(244, 243, 239);
-  overflow: auto;
   background-color: #f8f8f4;
-  .container {
+  .layout-container {
+    flex-grow: 1;
     padding: 6rem 0 2rem 0;
     flex: 1;
     @media ${device.mobileMax} {
-      padding: 1rem 0;
+      padding: 2rem 0 5rem 0;
     }
   }
 `;
