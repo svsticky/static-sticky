@@ -3,6 +3,7 @@ import { Slide } from 'react-slideshow-image';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import { Card, Image } from 'semantic-ui-react';
+import { device } from '../data/Devices';
 
 class Banner extends React.Component {
   constructor(props) {
@@ -64,41 +65,37 @@ const shuffleArray = array => {
 };
 
 export const BannerWrapper = styled.div`
-         width: 100%;
-         .card-container {
-           display: flex !important;
-           justify-content: center;
-           align-items: center;
-           height: 125px;
-           width: 100%;
-         }
-         .card {
-           flex-grow: 1;
-           height: 100%;
-         }
-         .slide {
-           visibility: ${props => props.visible};
-           height: 100%;
-         }
-         .each-slide {
-           display: flex;
-           align-items: center;
-           justify-content: center;
-           align-content: center;
-           height: 100px;
-         }
-         .image {
-           @media (min-width: 990px) {
-             height: inherit;
-           }
-           @media (max-width: 990px) {
-             height: 100px;
-           }
-           @media (max-width: 700px) {
-             height: 80px;
-           }
-         }
-       `;
+  width: 100%;
+  .card-container {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    height: 10rem;
+    width: 100%;
+  }
+  .card {
+    flex-grow: 1;
+    height: 100%;
+    padding: 1rem;
+  }
+  .slide {
+    visibility: ${props => props.visible};
+    height: 100%;
+  }
+  .each-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 8rem;
+  }
+  .image {
+    height: 100%;
+    @media ${device.mobileMax} {
+      width: 90%;
+      height: auto;
+    }
+  }
+`;
 
 export default props => (
   <StaticQuery
