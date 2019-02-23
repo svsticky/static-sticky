@@ -86,111 +86,113 @@ class News extends React.Component {
 }
 
 export const NewsWrapper = styled.div`
-  .news-list {
-    padding: 0.5rem;
-  }
-  .news-item {
-    color: black;
-    display: flex;
-    padding: 1rem;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    border-bottom: 1px solid #ddd;
-    @media ${device.mobileMax} {
-      flex-direction: column-reverse; /* make sure image is above content, not below */
+  &&& {
+    .news-list {
+      padding: 0.5rem;
     }
-    &-content {
-      flex: 3;
-    }
-    &-image {
-      flex: 1;
-      width: 200px;
+    .news-item {
+      color: black;
+      display: flex;
+      padding: 1rem;
+      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      border-bottom: 1px solid #ddd;
       @media ${device.mobileMax} {
-        width: 100%;
-        margin-bottom: 1rem;
+        flex-direction: column-reverse; /* make sure image is above content, not below */
       }
+      &-content {
+        flex: 3;
+      }
+      &-image {
+        flex: 1;
+        width: 200px;
+        @media ${device.mobileMax} {
+          width: 100%;
+          margin-bottom: 1rem;
+        }
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 80%;
+        }
+      }
+      &:hover {
+        border-radius: 5px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      }
+    }
+    .pager-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      img {
-        width: 80%;
-      }
     }
-    &:hover {
+
+    .pagination {
+      font-size: 18px;
+      display: inline-block;
+      padding-left: 0;
+      margin: 0px 0;
+      border: 1px solid #ddd;
       border-radius: 5px;
-      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    }
-  }
-  .pager-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
 
-  .pagination {
-    font-size: 18px;
-    display: inline-block;
-    padding-left: 0;
-    margin: 0px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-
-    > li {
-      display: inline;
-      > a,
-      > span {
-        position: relative;
-        float: left;
-        padding: 7px 7px;
-        line-height: 20px;
-        text-decoration: none;
-        background-color: #fff;
-        border: 1px solid #ddd;
-        margin-left: -1px;
-      }
-      &:first-child {
+      > li {
+        display: inline;
         > a,
         > span {
-          margin-left: 0;
-          border-radius: 5px 0 0 5px;
+          position: relative;
+          float: left;
+          padding: 7px 7px;
+          line-height: 20px;
+          text-decoration: none;
+          background-color: #fff;
+          border: 1px solid #ddd;
+          margin-left: -1px;
+        }
+        &:first-child {
+          > a,
+          > span {
+            margin-left: 0;
+            border-radius: 5px 0 0 5px;
+          }
+        }
+        &:last-child {
+          > a,
+          > span {
+            border-radius: 0 5px 5px 0;
+          }
         }
       }
-      &:last-child {
+
+      > li > a,
+      > li > span {
+        &:hover,
+        &:focus {
+          color: #ccc;
+          cursor: pointer;
+        }
+      }
+
+      > .active > a,
+      > .active > span {
+        &,
+        &:hover,
+        &:focus {
+          z-index: 2;
+          color: #00f;
+          cursor: default;
+        }
+      }
+
+      > .disabled {
+        > span,
+        > span:hover,
+        > span:focus,
         > a,
-        > span {
-          border-radius: 0 5px 5px 0;
+        > a:hover,
+        > a:focus {
+          color: #333;
+          cursor: default;
         }
-      }
-    }
-
-    > li > a,
-    > li > span {
-      &:hover,
-      &:focus {
-        color: #ccc;
-        cursor: pointer;
-      }
-    }
-
-    > .active > a,
-    > .active > span {
-      &,
-      &:hover,
-      &:focus {
-        z-index: 2;
-        color: #00f;
-        cursor: default;
-      }
-    }
-
-    > .disabled {
-      > span,
-      > span:hover,
-      > span:focus,
-      > a,
-      > a:hover,
-      > a:focus {
-        color: #333;
-        cursor: default;
       }
     }
   }
