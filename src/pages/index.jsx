@@ -5,9 +5,9 @@ import Banner from '../components/Banner';
 import News from '../components/News';
 import Drinks from '../components/Drinks';
 import IndexWrapper from '../components/layout/GridDryQueries';
-import FeaturedJobs from '../components/jobs/FeaturedJobs';
+import FeaturedJobWidget from '../components/jobs/FeaturedJobWidget';
 import ActivityWidget from '../components/activities/ActivityWidget';
-import ImageContainer from '../helpers/ImageContainer';
+import { ImageContainer } from '../helpers';
 
 const Index = props => {
   return (
@@ -27,7 +27,7 @@ const Index = props => {
             <Drinks />
           </div>
           <div className="jobs">
-            <FeaturedJobs />
+            <FeaturedJobWidget />
           </div>
           <div className="activity">
             <ActivityWidget />

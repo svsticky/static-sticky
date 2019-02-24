@@ -1,40 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'gatsby';
-import { Card, Image } from 'semantic-ui-react';
+import { ImageContainer, LinkLogoCard } from '../helpers';
 
 const Partner = ({ partner }) => (
-  <PartnerLogo>
-    <Card as={Link} fluid className="card" to={'/partners/' + partner.slug}>
-      <Card.Content className="logo-container">
-        <Image
-          centered
-          className="logo"
-          size="small"
-          src={partner.logo.file.url}
-          alt="Partner logo"
-        />
-      </Card.Content>
-    </Card>
-  </PartnerLogo>
+  <LinkLogoCard url={'/partners/' + partner.slug}>
+    <ImageContainer src={partner.logo.file.url} alt="Partner Logo" />
+  </LinkLogoCard>
 );
-
-const PartnerLogo = styled.div`
-  .card {
-    display: flex;
-    height: 175px;
-  }
-  .logo-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 25px;
-
-    .logo {
-      margin: 0;
-      transition: all 0.15s;
-    }
-  }
-`;
 
 export default Partner;
