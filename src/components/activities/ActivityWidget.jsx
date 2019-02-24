@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import ActivityCollection from './ActivityCollection';
 import Activity from './Activity';
+import { Link } from 'gatsby';
+import { Button } from 'semantic-ui-react';
 
 export default class ActivityWidget extends Component {
   state = {
@@ -21,23 +22,21 @@ export default class ActivityWidget extends Component {
       return <div />;
 
     return (
-      <ActivityIndexWrapper>
-        <div>
-          <h2>Eerstvolgende Activiteit</h2>
-          <ActivityCollection updateActivities={this.updateActivities}>
-            {<Activity activity={this.state.activities[0]} />}
-          </ActivityCollection>
-          <p className="activity-page-link">
-            <a href="/vereniging/activiteiten">Meer activiteiten</a>
-          </p>
-        </div>
-      </ActivityIndexWrapper>
+      <>
+        <h2>Eerstvolgende Activiteit</h2>
+        <ActivityCollection updateActivities={this.updateActivities}>
+          {<Activity activity={this.state.activities[0]} />}
+        </ActivityCollection>
+        <Button
+          fluid
+          primary
+          as={Link}
+          to="/vereniging/activiteiten"
+          style={{ marginTop: '1rem' }}
+        >
+          Meer activiteiten
+        </Button>
+      </>
     );
   }
 }
-
-const ActivityIndexWrapper = styled.div`
-  .activity-page-link {
-    margin-top: 0.5em;
-  }
-`;
