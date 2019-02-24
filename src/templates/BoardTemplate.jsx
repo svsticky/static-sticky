@@ -1,37 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Image, Button } from 'semantic-ui-react';
+import { Image, Button, Card } from 'semantic-ui-react';
+import { device } from '../data/Devices';
 
 const BoardView = ({ data }) => {
   const board = data.contentfulBoard;
 
   return (
     <Layout>
-      <BoardTemplateWrapper color={board.color}>
+      <BoardTemplateWrapper motto={board.motto} color={board.color}>
         <div>
           <div>
-            <h3 className="header">{buildHeader(board)}</h3>
+            <h2 className="header">{buildHeader(board)}</h2>
           </div>
-          <div>
-            <p className="motto">O.d.z "{board.motto}"</p>
-            <p>{board.years}</p>
-          </div>
-          <div className="photo-members">
-            <div>
-              <Image rounded size="medium" src={board.photo.file.url} />
+          <Card fluid>
+            <div className="photo-members">
+              <div>
+                <Image rounded size="large" src={board.photo.file.url} />
+              </div>
+              <div className="all-members">
+                <div>
+                  <p className="years">
+                    <strong>{board.years}</strong>
+                  </p>
+                  {board.motto && <em>O.d.z "{board.motto}"</em>}
+                </div>
+                <h3>Bestuursleden:</h3>
+                {board.members.map(member => (
+                  <p key={member} className="member">
+                    {member}
+                  </p>
+                ))}
+              </div>
             </div>
-            <div>
-              <p>Bestuursleden:</p>
-              {board.members.map(member => (
-                <p key={member} className="member">
-                  {member}
-                </p>
-              ))}
-            </div>
-          </div>
-          <div className="button-group">{showButton(board)}</div>
+          </Card>
+          <div className="flex-container">{showButton(board)}</div>
         </div>
       </BoardTemplateWrapper>
     </Layout>
@@ -48,65 +53,104 @@ const buildHeader = board => {
 const showButton = board => {
   const prev = (
     <Button
+      as={Link}
       labelPosition="left"
       icon="left chevron"
-      content="vorig bestuur"
-      href={'/besturen/' + (board.number - 1)}
-      className="button"
+      content={'Bestuur ' + (board.number - 1)}
+      to={'/besturen/' + (board.number - 1)}
+      className="button-prev"
+      color={board.color}
     />
   );
 
   const next = (
     <Button
+      as={Link}
       labelPosition="right"
       icon="right chevron"
-      content="volgend bestuur"
-      href={'/besturen/' + (board.number + 1)}
-      className="button"
+      content={'Bestuur ' + (board.number + 1)}
+      to={'/besturen/' + (board.number + 1)}
+      className="button-next"
+      color={board.color}
     />
   );
 
-  if (board.number === 1) {
-    return next;
-  }
-  if (board.current) {
-    return prev;
-  }
   return (
-    <>
-      {prev}
-      {next}
-    </>
+    <div className="button-group">
+      {board.number !== 1 ? prev : null}
+      <Button
+        as={Link}
+        content={'Terug naar overzicht'}
+        to={'vereniging/besturen'}
+        className="button-index"
+        color={board.color}
+      />
+      {!board.current ? next : null}
+    </div>
   );
 };
 
 const BoardTemplateWrapper = styled.div`
-  padding: 1em;
-  .header {
-    color: ${props => (props.color ? props.color : '#000')};
-    border-bottom: 1px solid #ddd;
-  }
-  .image {
-    margin-right: 1em;
-  }
-  .motto {
-    margin-top: 1em;
-    font-style: italic;
-  }
-  .photo-members {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-  }
-  .member {
-    font-weight: bold;
-  }
-  .button-group {
-    margin-top: 1em;
-  }
-  .button {
-    background-color: #000078;
-    color: #fff;
+  &&& {
+    padding: 1em;
+    .header {
+      color: ${props => (props.color ? props.color : '#000')};
+    }
+    .years {
+      margin-bottom: 0;
+      color: ${props => (props.color ? props.color : '#000')};
+    }
+    .photo-members {
+      display: flex;
+      @media ${device.mobileMax} {
+        flex-direction: column;
+      }
+      @media ${device.tablet} {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+    .all-members {
+      @media ${device.tablet} {
+        margin-left: 2rem;
+      }
+      @media ${device.mobileMax} {
+        margin-top: 1em;
+      }
+      h3 {
+        color: ${props => (props.color ? props.color : '#000')};
+      }
+    }
+    .flex-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      .button {
+        background-color: ${props => (props.color ? props.color : '#aaa')};
+        color: #fff;
+        margin: 0.5rem;
+        @media ${device.mobileMax} {
+          &-prev {
+            order: 2;
+            width: 11rem;
+          }
+          &-index {
+            order: -1;
+            width: 23rem;
+          }
+          &-next {
+            order: 3;
+            width: 11rem;
+          }
+        }
+      }
+    }
   }
 `;
 

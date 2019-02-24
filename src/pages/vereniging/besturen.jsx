@@ -1,9 +1,11 @@
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import Board from '$/components/Board';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
+import { device } from '../../data/Devices';
 
 const BoardPage = props => {
   const boards = props.data.allContentfulBoard.edges;
@@ -13,9 +15,11 @@ const BoardPage = props => {
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <h3>Het huidig bestuur</h3>
-      <CurrentBoard>{getCurrentBoard(boards)}</CurrentBoard>
+        {getCurrentBoard(boards)}
       <h3>Oud besturen</h3>
-      <BoardsList>{getOldBoards(boards)}</BoardsList>
+      <Grid stretched stackable doubling columns={3}>
+        {getOldBoards(boards)}
+      </Grid>
     </Layout>
   );
 };
@@ -23,45 +27,36 @@ const BoardPage = props => {
 const getCurrentBoard = boards => {
   const currentBoard = boards[0];
 
-  return <Board key={currentBoard.node.id} board={currentBoard.node} />;
+  return (
+    <CurrentBoardWrapper>
+      <div className="current-board">
+        <Board key={currentBoard.node.id} board={currentBoard.node} />
+      </div>
+    </CurrentBoardWrapper>
+  );
 };
 
 const getOldBoards = boards => {
   const oldBoards = boards.filter(board => boards.indexOf(board) !== 0);
 
   return oldBoards.map(board => (
-    <Board key={board.node.id} board={board.node} />
+    <Grid.Column key={board.node.id}>
+      <Board board={board.node} />
+    </Grid.Column>
   ));
 };
 
-const CurrentBoard = styled.div`
-  margin-top: 1em;
-  display: grid;
-  @media (min-width: 990px) {
-    grid-template-columns: repeat(3, 1fr);
+const CurrentBoardWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  .current-board {
+    @media ${device.tablet} {
+      flex: 0.6; //Just what I liked...
+    }
+    @media ${device.mobileMax} {
+      flex: 1;
+    }
   }
-  @media (max-width: 990px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 560px) {
-    grid-template-columns: 1fr;
-  }
-  grid-gap: 1em;
-`;
-
-const BoardsList = styled.div`
-  margin-top: 1em;
-  display: grid;
-  @media (min-width: 990px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  @media (max-width: 990px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 560px) {
-    grid-template-columns: 1fr;
-  }
-  grid-gap: 1em;
 `;
 
 const BoardsQuery = graphql`
@@ -73,6 +68,7 @@ const BoardsQuery = graphql`
           years
           number
           motto
+          current
           members
           color
           photo {
