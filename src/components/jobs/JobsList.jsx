@@ -28,7 +28,9 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
 };
 
 const createJobs = jobs => {
-  return jobs.map(job => <JobItem job={job.node} partner={job.node.partner} />);
+  return jobs.map(job => (
+    <JobItem job={job.node} partner={job.node.partner} key={job.node.id} />
+  ));
 };
 
 const jobslist = props => (
