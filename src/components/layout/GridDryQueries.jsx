@@ -61,7 +61,8 @@ const IndexWrapper = styled.div`
       display: none;
     }
   }
-  @media ${device.laptop} {
+
+  @media ${device.smallMonitor} {
     .container {
       display: grid;
       grid-template-columns: 3fr 1fr;

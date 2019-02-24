@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import JobItem from './JobItem';
-import { Grid } from 'semantic-ui-react';
 import { device } from '../../data/Devices';
 
 const displayJobs = (studiesFilter, typesFilter, jobs) => {
