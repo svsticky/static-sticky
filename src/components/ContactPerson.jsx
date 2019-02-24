@@ -8,9 +8,15 @@ const ContactPerson = ({ contactPerson }) => (
       <Card fluid>
         <Card.Content>
           <h3 className="head">{contactPerson.typeOfContact}</h3>
-          <p>{contactPerson.name + " (" + contactPerson.role + ")"}</p>
-          <p> Tel.: <a href={"tel:" + contactPerson.mobile}>{contactPerson.mobile} </a> </p>
-          <p> Mail: <a href={"mailto:" + contactPerson.email}>{contactPerson.email} </a> </p>
+          <p>{contactPerson.name + ' (' + contactPerson.role + ')'}</p>
+          <p>
+            Tel.:
+            <a href={'tel:' + contactPerson.mobile}>{contactPerson.mobile}</a>
+          </p>
+          <p>
+            Mail:{' '}
+            <a href={'mailto:' + contactPerson.email}>{contactPerson.email}</a>
+          </p>
         </Card.Content>
       </Card>
     </div>
@@ -20,7 +26,6 @@ const ContactPerson = ({ contactPerson }) => (
 const ContactPersonMember = styled.div`
   .head {
     color: ${props => (props.color ? props.color : '#000')};
-    border-bottom: 1px solid #ddd;
   }
   .card {
     height: 100%;

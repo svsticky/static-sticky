@@ -1,9 +1,9 @@
 import React from 'react';
-import { graphql, StaticQuery, Link } from 'gatsby';
+import { graphql, StaticQuery } from 'gatsby';
 import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
-import { Card, Grid } from 'semantic-ui-react';
-import styled from 'styled-components';
+import Dispute from '../../components/Dispute';
+import { FlexListContainer } from '../../helpers';
 
 const DisputeIndexPage = ({ data }) => {
   const disputes = data.allContentfulDispute.edges.map(
@@ -15,36 +15,14 @@ const DisputeIndexPage = ({ data }) => {
     <Layout>
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
-      <Grid doubling columns={4}>
+      <FlexListContainer>
         {disputes.map(dispute => (
-          <Grid.Column key={dispute.id}>
-            <Card
-              as={Link}
-              to={'/disputen/' + dispute.slug}
-              fluid
-              style={{ height: '100%' }}
-            >
-              <ImageContainer>
-                <img src={dispute.logo.file.url} alt={`${dispute.name} logo`} />
-              </ImageContainer>
-            </Card>
-          </Grid.Column>
+          <Dispute dispute={dispute} key={dispute.name} />
         ))}
-      </Grid>
+      </FlexListContainer>
     </Layout>
   );
 };
-
-const ImageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  img {
-    width: 80%;
-  }
-`;
 
 const DisputeListQuery = graphql`
   query DisputeListQuery {

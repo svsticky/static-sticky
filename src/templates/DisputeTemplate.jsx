@@ -10,7 +10,7 @@ const DisputeView = ({ data }) => {
 
   return (
     <Layout>
-      <Grid columns={2} style={{ 'margin-top': '5px' }} stackable>
+      <Grid columns={2} stackable>
         <Grid.Column width={3}>
           <Sticky>
             <Grid.Row>

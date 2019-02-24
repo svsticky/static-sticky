@@ -39,16 +39,15 @@ const IndexWrapper = styled.div`
     .logo {
       background-color: #20730d;
       margin: -1rem;
-      padding: 3rem;
+      padding: 0.8rem 0 1rem 0;
       img {
-        height: 4rem;
+        height: 7rem;
       }
     }
   }
 
   @media ${device.tablet} {
     .container {
-      margin-top: -6rem;
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
@@ -62,7 +61,8 @@ const IndexWrapper = styled.div`
       display: none;
     }
   }
-  @media ${device.laptop} {
+
+  @media ${device.smallMonitor} {
     .container {
       display: grid;
       grid-template-columns: 3fr 1fr;

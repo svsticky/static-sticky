@@ -1,9 +1,9 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
 import { graphql, StaticQuery } from 'gatsby';
 import Partner from '$/components/Partner';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
+import { FlexListContainer } from '../../helpers';
 
 const PartnerIndexPage = ({ data }) => {
   const partners = data.allContentfulPartner.edges;
@@ -13,13 +13,11 @@ const PartnerIndexPage = ({ data }) => {
     <Layout>
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
-      <Grid doubling columns={4}>
+      <FlexListContainer>
         {partners.map(partner => (
-          <Grid.Column key={partner.node.id}>
-            <Partner partner={partner.node} />
-          </Grid.Column>
+          <Partner partner={partner.node} key={partner.node.name} />
         ))}
-      </Grid>
+      </FlexListContainer>
     </Layout>
   );
 };

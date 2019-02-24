@@ -2,17 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import ContactPerson from '$/components/ContactPerson';
-import ContentfulPage from '$/components/layout/ContentfulPage';
+import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
 
 const ContactPage = props => {
   const contactPersons = props.data.allContentfulBoardMember.edges;
   const page = props.data.contentfulPage;
   return (
-    <ContentfulPage page={page}>
+    <Layout>
+      <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <ContactList>{getContactPersons(contactPersons)}</ContactList>
-    </ContentfulPage>
+    </Layout>
   );
 };
 
