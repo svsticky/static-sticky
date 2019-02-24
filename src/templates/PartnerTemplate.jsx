@@ -21,8 +21,9 @@ const PartnerView = ({ data }) => {
               alt="Partner logo"
             />
           </Card>
-          <Card fluid className="contact">
+          <div className="contact">
             <Button
+              fluid
               primary
               href={partner.website}
               target="_blank"
@@ -30,7 +31,7 @@ const PartnerView = ({ data }) => {
             >
               Website
             </Button>
-          </Card>
+          </div>
         </div>
         <div className="partner-content">
           <h2>{partner.name}</h2>
@@ -39,20 +40,20 @@ const PartnerView = ({ data }) => {
               <Markdown>{partner.description.description}</Markdown>
             </div>
           </Card>
+
           {partner.job_listing && (
             <div className="vacatures">
               <h2> Vacatures bij {partner.name}</h2>
-              <Grid columns={2} doubling stretched>
+              <div className="partner-job-list">
                 {partner.job_listing.map(jobListing => (
-                  <Grid.Column key={jobListing.id}>
-                    <JobItem
-                      className="item"
-                      job={jobListing}
-                      partner={partner}
-                    />
-                  </Grid.Column>
+                  <JobItem
+                    className="item"
+                    job={jobListing}
+                    partner={partner}
+                    key={jobListing.id}
+                  />
                 ))}
-              </Grid>
+              </div>
             </div>
           )}
         </div>
@@ -62,70 +63,72 @@ const PartnerView = ({ data }) => {
 };
 
 const PartnerTemplateWrapper = styled.div`
-  @media ${device.tablet} {
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .info {
-    @media ${device.mobileMax} {
-      display: flex;
-      background-color: #f8f8f4;
-      padding-top: 0.5rem;
-      align-items: stretch;
-      margin-bottom: 2rem;
-    }
-
+  &&& {
     @media ${device.tablet} {
-      width: 20em;
-      height: 20em;
-      min-width: 220px;
-      margin: 3rem 1rem 1rem 1rem;
-      top: 6em;
-      position: sticky;
+      display: flex;
+      align-items: flex-start;
     }
 
-    .logo-container {
-      flex: 2;
-      display: flex;
-      margin: 0 1em 0 0;
-      align-items: center;
-      justify-content: center;
+    .info {
       @media ${device.mobileMax} {
-        height: 8em;
+        display: flex;
+        background-color: #f8f8f4;
+        margin: -1rem 0 2rem 0;
       }
+
       @media ${device.tablet} {
-        height: 15rem;
+        margin: 3rem 1rem;
+        top: 7em;
+        position: sticky;
       }
-      .partner-logo {
-        width: 90%;
+
+      .logo-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        height: 8rem;
+        width: 8rem;
+        margin-right: 1rem;
+        img {
+          height: auto;
+          max-height: 90%;
+          max-width: 90%;
+        }
+        @media ${device.tablet} {
+          margin-right: 0;
+          width: 12rem;
+          height: 11rem;
+        }
+      }
+      .contact {
+        flex: 1;
       }
     }
-    .contact {
-      flex: 3;
-      margin-top: 1rem;
+    .description {
+      img {
+        width: 20rem;
+      }
+    }
+    .partner-job-list {
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: -1rem;
+      justify-content: center;
+      @media ${device.laptop} {
+        justify-content: flex-start;
+        margin-right: -1rem;
+      }
+    }
+    .vacatures {
+      margin-top: 3rem;
+    }
+    .partner-content {
+      margin-left: 2rem;
       @media ${device.mobileMax} {
-        margin-top: 0;
+        margin: 0;
       }
-    }
-  }
-  .description {
-    img {
-      width: 300px;
-    }
-  }
-  .vacatures {
-    margin-top: 2rem;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    @media ${device.mobileMax} {
-      margin-right: 1rem;
-    }
-  }
-  .partner-content {
-    margin-left: 1rem;
-    @media ${device.mobileMax} {
-      margin: 0;
     }
   }
 `;

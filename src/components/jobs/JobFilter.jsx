@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Dropdown } from 'semantic-ui-react';
+import { device } from '../../data/Devices';
 
 const studieFilterOptions = [
   { key: 1, text: 'Informatica', value: 'Informatica' },
@@ -58,82 +59,75 @@ const typeFilterOptions = [
 //The problem lies in the first dropdown -> onChange. Somehow it won't allow to filter
 const JobFilter = props => (
   <JobFilterWrapper>
-    <div className="container">
-      <div className="text1">
+    <div className="filter-one">
+      <div className="filter-label">
         {props.studiesFilter.length > 0 ? (
           <span>{props.studiesFilter.length} studie(s) geselecteerd:</span>
         ) : (
           <span>Selecteer op studie(s)</span>
         )}
       </div>
-      <div className="text2">
+      <Dropdown
+        clearable
+        fluid
+        multiple
+        selection
+        options={studieFilterOptions}
+        placeholder="Filter op studie"
+        onChange={(e, data) => {
+          props.updateStudiesFilter(data.value);
+        }}
+      />
+    </div>
+    <div className="filter-two">
+      <div className="filter-label">
         {props.typesFilter.length > 0 ? (
           <span>{props.typesFilter.length} type(n) geselecteerd:</span>
         ) : (
           <span>Selecteer op type(n)</span>
         )}
       </div>
-      <div className="filter1">
-        <Dropdown
-          fluid
-          multiple
-          selection
-          options={studieFilterOptions}
-          placeholder="Filter op studie"
-          onChange={(e, data) => {
-            props.updateStudiesFilter(data.value);
-          }}
-        />
-      </div>
-      <div className="filter2">
-        <Dropdown
-          fluid
-          multiple
-          selection
-          options={typeFilterOptions}
-          placeholder="Filter op type"
-          onChange={(e, data) => {
-            props.updateTypesFilter(data.value);
-          }}
-        />
-      </div>
+      <Dropdown
+        clearable
+        fluid
+        multiple
+        selection
+        options={typeFilterOptions}
+        placeholder="Filter op type"
+        onChange={(e, data) => {
+          props.updateTypesFilter(data.value);
+        }}
+      />
     </div>
   </JobFilterWrapper>
 );
 
 const JobFilterWrapper = styled.div`
-  &&& .container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 20% 70%;
-    grid-column-gap: 20px;
-    grid-row-gap: 10px;
-    padding: 5px;
-    grid-auto-flow: row;
-    align-content: center;
+  &&& {
+    display: flex;
+    justify-content: stretch;
+    padding: 1rem 0;
     border-bottom: 1px solid #ddd;
-  }
-  .text1 {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  .text2 {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  .filter1 {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  .filter2 {
-    grid-column: 2;
-    grid-row: 2;
-  }
-  .item {
-    .label {
-      i {
-        margin: 0;
-        width: 1rem;
+    .filter {
+      &-one {
+        flex: 1;
+        margin: 0 1rem 0 0;
+      }
+      &-two {
+        flex: 1;
+      }
+      &-label {
+        margin-bottom: 0.3rem;
+      }
+    }
+    i {
+      margin: 0;
+      width: 1rem;
+    }
+    @media ${device.mobileMax} {
+      flex-direction: column;
+      .filter-one {
+        margin: 0 0 1rem 0;
       }
     }
   }

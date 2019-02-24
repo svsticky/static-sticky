@@ -27,29 +27,32 @@ const JobItem = props => (
 );
 
 const JobWrapper = styled.div`
-  .card {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-  }
+  &&& {
+    width: 22rem;
+    padding: 1rem;
+    .card {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
 
-  .image-container {
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+    .image-container {
+      height: 7em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
 
-  .ribbon {
-    left: calc(100% + 2.5rem) !important;
-    padding: 0.5rem !important;
-    width: 2rem;
-    height: 2.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
-    &-icon {
-      // sweet SCSS here <3
-      margin: 0 !important;
-      width: 1.5rem !important;
+    .ribbon {
+      left: calc(100% + 2.5rem);
+      padding: 0.5rem;
+      width: 2rem;
+      height: 2.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+      &-icon {
+        margin: 0;
+        width: 1.5rem;
+      }
     }
   }
 `;

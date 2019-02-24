@@ -29,28 +29,27 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
 };
 
 const createJobs = jobs => {
-  return jobs.map(job => (
-    <Grid.Column key={job.node.id}>
-      <JobItem job={job.node} partner={job.node.partner} />
-    </Grid.Column>
-  ));
+  return jobs.map(job => <JobItem job={job.node} partner={job.node.partner} />);
 };
 
 const jobslist = props => (
   <JobsListWrapper>
-    <div className="container">
-      <Grid doubling stackable stretched columns={3}>
-        {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
-      </Grid>
+    <div className="flex-container">
+      {displayJobs(props.studiesFilter, props.typesFilter, props.jobs)}
     </div>
   </JobsListWrapper>
 );
 
 const JobsListWrapper = styled.div`
-  .container {
-    grid-gap: 2rem;
-    @media ${device.tablet} {
-      margin: -4rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem 0;
+    @media ${device.desktop} {
+      margin: 1rem -4rem;
+      justify-content: center;
     }
   }
 `;
