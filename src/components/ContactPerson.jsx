@@ -14,7 +14,7 @@ const ContactPerson = ({ contactPerson }) => (
             <a href={'tel:' + contactPerson.mobile}>{contactPerson.mobile}</a>
           </p>
           <p>
-            Mail:{' '}
+            Mail:
             <a href={'mailto:' + contactPerson.email}>{contactPerson.email}</a>
           </p>
         </Card.Content>

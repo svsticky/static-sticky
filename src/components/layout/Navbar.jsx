@@ -104,6 +104,7 @@ class NavBar extends React.Component {
               <Button
                 href="http://koala.svsticky.nl"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="button"
               >
                 Koala

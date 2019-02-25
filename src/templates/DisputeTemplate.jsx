@@ -27,7 +27,10 @@ const DisputeView = ({ data }) => {
                 <Grid.Row>
                   <h3>Contact</h3>
                   <p>
-                    <a href={dispute.website}>website</a> <br />
+                    <a href={dispute.website} rel="noopener noreferrer">
+                      website
+                    </a>
+                    <br />
                   </p>
                 </Grid.Row>
               </div>
