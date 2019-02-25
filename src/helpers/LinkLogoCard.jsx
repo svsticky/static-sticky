@@ -6,7 +6,7 @@ import { device } from '../data/Devices';
 
 export const LinkLogoCard = props => {
   return (
-    <StyledLinkLogoCard>
+    <StyledLinkLogoCard listItem={props.listItem}>
       <Card as={Link} to={props.url} className="card">
         {props.children}
       </Card>
@@ -15,7 +15,7 @@ export const LinkLogoCard = props => {
 };
 
 const StyledLinkLogoCard = styled.div`
-  padding: 1rem 1rem 0 0;
+  padding: ${props => (props.listItem ? '1rem 1rem 0 0' : '0')};
   .card {
     height: 11rem;
     width: 11rem;

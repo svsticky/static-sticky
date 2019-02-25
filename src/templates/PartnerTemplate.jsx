@@ -6,6 +6,7 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import JobItem from '../components/jobs/JobItem';
 import { device } from '../data/Devices';
+import { LinkLogoCard, ImageContainer } from '../helpers';
 
 const PartnerView = ({ data }) => {
   const { contentfulPartner: partner } = data;
@@ -14,14 +15,10 @@ const PartnerView = ({ data }) => {
     <Layout>
       <PartnerTemplateWrapper>
         <div className="info">
-          <Card fluid className="logo-container">
-            <img
-              src={partner.logo.file.url}
-              className="partner-logo"
-              alt="Partner logo"
-            />
-          </Card>
-          <div className="contact">
+          <LinkLogoCard url={'/partners/' + partner.slug}>
+            <ImageContainer src={partner.logo.file.url} alt="Partner Logo" />
+          </LinkLogoCard>
+          <div fluid className="contact">
             <Button
               fluid
               primary
@@ -77,33 +74,21 @@ const PartnerTemplateWrapper = styled.div`
       }
 
       @media ${device.tablet} {
+        display: block;
         margin: 3rem 1rem;
         top: 7em;
         position: sticky;
       }
-
-      .logo-container {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    }
+    .contact {
+      margin: 1rem 0 0 0;
+      @media ${device.mobileMax} {
+        margin: 0 0 0 1rem;
         padding: 1rem;
-        height: 8rem;
-        width: 8rem;
-        margin-right: 1rem;
-        img {
-          height: auto;
-          max-height: 90%;
-          max-width: 90%;
-        }
-        @media ${device.tablet} {
-          margin-right: 0;
-          width: 12rem;
-          height: 11rem;
-        }
-      }
-      .contact {
-        flex: 1;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        background: white;
+        width: 100%;
       }
     }
     .description {
@@ -116,9 +101,8 @@ const PartnerTemplateWrapper = styled.div`
       flex-wrap: wrap;
       margin-left: -1rem;
       justify-content: center;
-      @media ${device.laptop} {
+      @media ${device.smallMonitor} {
         justify-content: flex-start;
-        margin-right: -1rem;
       }
     }
     .vacatures {
@@ -127,7 +111,7 @@ const PartnerTemplateWrapper = styled.div`
     .partner-content {
       margin-left: 2rem;
       @media ${device.mobileMax} {
-        margin: 0;
+        margin: 3rem 0 0 0;
       }
     }
   }
@@ -141,6 +125,7 @@ export const PartnerQuery = graphql`
       id
       name
       website
+      slug
       description {
         description
       }

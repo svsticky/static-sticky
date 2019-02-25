@@ -1,10 +1,11 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Button, Card } from 'semantic-ui-react';
 import { device } from '../data/Devices';
+import Partner from '../components/Partner';
 
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
@@ -13,35 +14,22 @@ const JobView = ({ data }) => {
     <Layout>
       <JobTemplateWrapper>
         <div className="side-info">
-          <Card
-            fluid
-            as={Link}
-            to={'/partners/' + job.partner.slug}
-            className="logo-container"
-          >
-            <img
-              src={job.partner.logo.file.url}
-              className="partner-logo"
-              alt="Partner Logo"
-            />
-          </Card>
+          <Partner partner={job.partner} />
           {job.contactPerson && (
-            <Card fluid className="contactperson">
+            <Card fluid className="contact">
               <h3 className="contact-header">Contact</h3>
               <p>{job.contactPerson.name}</p>
-              <div className="button-flex">
-                <Button
-                  primary
-                  fluid
-                  className="mail-button"
-                  href={'mailto:' + job.contactPerson.email}
-                >
-                  E-mailen
-                </Button>
-                <Button primary fluid href={'tel:' + job.contactPerson.phone}>
-                  Bellen
-                </Button>
-              </div>
+              <Button primary href={'mailto:' + job.contactPerson.email} fluid>
+                E-mailen
+              </Button>
+              <Button
+                primary
+                href={'tel:' + job.contactPerson.phone}
+                fluid
+                className="call-button"
+              >
+                Bellen
+              </Button>
             </Card>
           )}
         </div>
@@ -59,78 +47,51 @@ const JobView = ({ data }) => {
 };
 
 const JobTemplateWrapper = styled.div`
-  @media ${device.tablet} {
-    display: flex;
-    align-items: flex-start;
-  }
-
-  .side-info {
+  &&& {
     @media ${device.tablet} {
-      width: 20em;
-      min-width: 220px;
-      margin: 0 1em;
-      top: 9rem;
-      position: sticky;
-      z-index: 10;
+      display: flex;
+      align-items: flex-start;
     }
 
-    @media ${device.mobileMax} {
+    .side-info {
       display: flex;
-      margin: -0.8em;
-      padding-top: 0.5rem;
       background-color: #f8f8f4;
       top: 0;
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 2;
-
+      margin-top: -1rem;
       @media ${device.tablet} {
-        height: 10em;
-        margin-bottom: 1em;
-      }
-
-      @media ${device.mobileMax} {
-        height: 7rem;
-        margin: 0 0.5em 0 0.5em;
-      }
-
-      .partner-logo {
-        background-color: white;
-        width: 80%;
+        display: block;
+        top: 9rem;
+        position: sticky;
+        z-index: 10;
       }
     }
-    .contactperson {
-      @media ${device.mobileMax} {
-        margin: 0 0.5em 0 0;
-        flex: 3;
-        .contact-header {
-          display: none;
+    .partner {
+      padding: 0;
+    }
+    .contact {
+      margin: 0 0 0 1rem;
+      &-header {
+        display: none;
+        @media ${device.tablet} {
+          display: block;
         }
       }
+    }
+    .call-button {
+      margin-top: 0.5rem;
+      border-radius: 5px;
+    }
 
-      padding: 1em;
+    .job-content {
+      margin-left: 2rem;
+      @media ${device.mobileMax} {
+        margin: 2rem 0 0 0;
+      }
     }
-  }
-  .button-flex {
-    display: flex;
-    .mail-button {
-      margin-right: 0.5rem;
-    }
-  }
-
-  .job-content {
-    margin-left: 1rem;
-    @media ${device.mobileMax} {
-      margin-top: 1.5rem;
-    }
-  }
-  .description {
-    img {
-      width: 300px;
+    .description {
+      img {
+        width: 300px;
+      }
     }
   }
 `;
