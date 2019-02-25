@@ -118,7 +118,7 @@ const PartnerTemplateWrapper = styled.div`
       margin-top: 3rem;
     }
     .partner-content {
-      margin-left: 2rem;
+      margin: 0 -3.5rem 0 2rem;
       @media ${device.mobileMax} {
         margin: 3rem 0 0 0;
       }
