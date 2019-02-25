@@ -14,7 +14,10 @@ const JobView = ({ data }) => {
     <Layout>
       <JobTemplateWrapper>
         <div className="side-info">
-          <LinkLogoCard url={'/partners/' + job.partner.slug}>
+          <LinkLogoCard
+            url={'/partners/' + job.partner.slug}
+            className="partner"
+          >
             <ImageContainer
               src={job.partner.logo.file.url}
               alt="Partner Logo"
@@ -72,6 +75,9 @@ const JobTemplateWrapper = styled.div`
     }
     .contact {
       margin: 0 0 0 1rem;
+      @media ${device.tablet} {
+        margin: 1rem 0 0 0;
+      }
       &-header {
         display: none;
         @media ${device.tablet} {
@@ -85,7 +91,7 @@ const JobTemplateWrapper = styled.div`
     }
 
     .job-content {
-      margin-left: 2rem;
+      margin-left: 3rem;
       @media ${device.mobileMax} {
         margin: 2rem 0 0 0;
       }

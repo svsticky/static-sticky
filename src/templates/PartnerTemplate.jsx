@@ -6,7 +6,7 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import JobItem from '../components/jobs/JobItem';
 import { device } from '../data/Devices';
-import { LinkLogoCard, ImageContainer } from '../helpers';
+import { ImageContainer } from '../helpers';
 
 const PartnerView = ({ data }) => {
   const { contentfulPartner: partner } = data;
@@ -15,9 +15,9 @@ const PartnerView = ({ data }) => {
     <Layout>
       <PartnerTemplateWrapper>
         <div className="info">
-          <LinkLogoCard url={'/partners/' + partner.slug}>
+          <Card className="partner">
             <ImageContainer src={partner.logo.file.url} alt="Partner Logo" />
-          </LinkLogoCard>
+          </Card>
           <div fluid className="contact">
             <Button
               fluid
@@ -80,15 +80,24 @@ const PartnerTemplateWrapper = styled.div`
         position: sticky;
       }
     }
+    .partner {
+      width: 10rem;
+      height: 10rem;
+      @media ${device.tablet} {
+        width: 15rem;
+        height: 15rem;
+      }
+      margin: 0;
+    }
     .contact {
       margin: 1rem 0 0 0;
       @media ${device.mobileMax} {
+        flex: 1;
         margin: 0 0 0 1rem;
         padding: 1rem;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
         border-radius: 5px;
         background: white;
-        width: 100%;
       }
     }
     .description {
