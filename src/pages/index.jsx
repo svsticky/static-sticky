@@ -7,16 +7,15 @@ import Drinks from '../components/Drinks';
 import IndexWrapper from '../components/layout/GridDryQueries';
 import FeaturedJobWidget from '../components/jobs/FeaturedJobWidget';
 import ActivityWidget from '../components/activities/ActivityWidget';
-import { ImageContainer } from '../helpers';
 
 const Index = props => {
   return (
     <Layout>
       <IndexWrapper>
         <div className="container">
-          <ImageContainer className="logo">
+          <div className="logo">
             <img src={logo} alt="Sticky Logo" />
-          </ImageContainer>
+          </div>
           <div className="banner">
             <Banner />
           </div>

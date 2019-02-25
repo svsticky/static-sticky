@@ -5,7 +5,7 @@ import { graphql } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Button, Card } from 'semantic-ui-react';
 import { device } from '../data/Devices';
-import Partner from '../components/Partner';
+import { LinkLogoCard, ImageContainer } from '../helpers';
 
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
@@ -14,7 +14,12 @@ const JobView = ({ data }) => {
     <Layout>
       <JobTemplateWrapper>
         <div className="side-info">
-          <Partner partner={job.partner} />
+          <LinkLogoCard url={'/partners/' + job.partner.slug}>
+            <ImageContainer
+              src={job.partner.logo.file.url}
+              alt="Partner Logo"
+            />
+          </LinkLogoCard>
           {job.contactPerson && (
             <Card fluid className="contact">
               <h3 className="contact-header">Contact</h3>
@@ -65,9 +70,6 @@ const JobTemplateWrapper = styled.div`
         z-index: 10;
       }
     }
-    .partner {
-      padding: 0;
-    }
     .contact {
       margin: 0 0 0 1rem;
       &-header {
@@ -79,7 +81,7 @@ const JobTemplateWrapper = styled.div`
     }
     .call-button {
       margin-top: 0.5rem;
-      border-radius: 5px;
+      border-radius: 5px !important;
     }
 
     .job-content {
@@ -90,7 +92,7 @@ const JobTemplateWrapper = styled.div`
     }
     .description {
       img {
-        width: 300px;
+        width: 20rem;
       }
     }
   }

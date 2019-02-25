@@ -15,13 +15,15 @@ export const LinkLogoCard = props => {
 };
 
 const StyledLinkLogoCard = styled.div`
-  padding: ${props => (props.listItem ? '1rem 1rem 0 0' : '0')};
-  .card {
-    height: 11rem;
-    width: 11rem;
-    @media ${device.tablet} {
-      height: 15rem;
-      width: 15rem;
+  &&& {
+    padding: ${props => (props.listItem ? '1rem 1rem 0 0' : '0')};
+    .card {
+      height: 11rem;
+      width: 11rem;
+      @media ${device.tablet} {
+        height: 15rem;
+        width: 15rem;
+      }
     }
   }
 `;
