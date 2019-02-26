@@ -135,9 +135,11 @@ const FullSizeCard = styled(Card)`
 `;
 
 const TurnRevealWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+
   .turnreveal-container {
-    display: flex;
-    justify-content: center;
+    width: fit-content;
   }
 `;
 
