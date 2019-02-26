@@ -58,7 +58,6 @@ export default class Activity extends React.Component {
         <div
           onMouseEnter={e => this.onMouse(e, Transition.show)}
           onMouseLeave={e => this.onMouse(e, Transition.hide)}
-          onTouchEnd={this.onTouchEnd}
           ref={this.revealRef}
           className="turnreveal-container"
         >
