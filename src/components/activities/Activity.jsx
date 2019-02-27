@@ -9,9 +9,6 @@ export default class Activity extends React.Component {
   state = {
     infoTransition: Transition.hide,
     infoDirection: Direction.right,
-    // We need to detect if the user is using a touch interface, because for some reason mouse events were still firing
-    // on quick consecutive touches. Better solutions are welcome!
-    registeredTouchEvent: false,
   };
 
   revealRef = React.createRef();
@@ -24,31 +21,6 @@ export default class Activity extends React.Component {
     });
   };
 
-  toggleInfoVisibility = () => {
-    this.setState(prevState => {
-      if (prevState.infoTransition === Transition.hide)
-        return {
-          infoTransition: Transition.show,
-          infoDirection: Direction.left,
-        };
-      else
-        return {
-          infoTransition: Transition.hide,
-          infoDirection: Direction.right,
-        };
-    });
-  };
-
-  onTouchEnd = event => {
-    event.preventDefault();
-    this.toggleInfoVisibility();
-    this.setState({ registeredTouchEvent: true });
-  };
-
-  onMouse = (event, transition) => {
-    if (!this.state.registeredTouchEvent) this.animateInfo(event, transition);
-  };
-
   render() {
     const { thumbnail, name } = this.props.activity;
     return (
@@ -56,8 +28,8 @@ export default class Activity extends React.Component {
       // Putting the eventHandlers on the TurnReveal component also doesn't work for some reason.
       <TurnRevealWrapper>
         <div
-          onMouseEnter={e => this.onMouse(e, Transition.show)}
-          onMouseLeave={e => this.onMouse(e, Transition.hide)}
+          onMouseEnter={e => this.animateInfo(e, Transition.show)}
+          onMouseLeave={e => this.animateInfo(e, Transition.hide)}
           ref={this.revealRef}
           className="turnreveal-container"
         >
