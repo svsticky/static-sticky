@@ -14,9 +14,9 @@ const BoardPage = props => {
     <Layout>
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
-      <h3>Het huidig bestuur</h3>
+      <h3>Het huidige bestuur</h3>
       {getCurrentBoard(boards)}
-      <h3>Oud besturen</h3>
+      <h3>Oud-besturen</h3>
       <Grid stretched stackable doubling columns={3}>
         {getOldBoards(boards)}
       </Grid>

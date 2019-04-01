@@ -53,7 +53,11 @@ const boardMemberQuery = graphql`
           email
           mobile
           order
-
+          photo {
+            file {
+              url
+            }
+          }
           typeOfContact
         }
       }

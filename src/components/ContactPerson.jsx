@@ -6,18 +6,37 @@ const ContactPerson = ({ contactPerson }) => (
   <ContactPersonMember color={contactPerson.color}>
     <div className="card">
       <Card fluid>
-        <Card.Content>
-          <h3 className="head">{contactPerson.typeOfContact}</h3>
-          <p>{contactPerson.name + ' (' + contactPerson.role + ')'}</p>
-          <p>
-            Tel.:
-            <a href={'tel:' + contactPerson.mobile}>{contactPerson.mobile}</a>
-          </p>
-          <p>
-            Mail:
-            <a href={'mailto:' + contactPerson.email}>{contactPerson.email}</a>
-          </p>
-        </Card.Content>
+        <h3 className="head">{contactPerson.typeOfContact}</h3>
+        <div className="flex-card">
+          <Card.Content>
+            {contactPerson.photo === null ? (
+              <p>No Photo</p>
+            ) : (
+              <img
+                className="member-photo"
+                alt="board-member"
+                src={contactPerson.photo.file.url}
+              />
+            )}
+          </Card.Content>
+          <Card.Content>
+            <p>{contactPerson.name + ' (' + contactPerson.role + ')'}</p>
+            <p>
+              Tel.:
+              <a href={'tel:' + contactPerson.mobile}>
+                {' '}
+                {contactPerson.mobile}
+              </a>
+            </p>
+            <p>
+              Mail:
+              <a href={'mailto:' + contactPerson.email}>
+                {' '}
+                {contactPerson.email}
+              </a>
+            </p>
+          </Card.Content>
+        </div>
       </Card>
     </div>
   </ContactPersonMember>
@@ -29,6 +48,16 @@ const ContactPersonMember = styled.div`
   }
   .card {
     height: 100%;
+  }
+  .flex-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+  }
+  .member-photo {
+    max-width: 100px;
+    border-radius: 90px;
+    margin-right: 5px;
   }
 `;
 
