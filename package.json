@@ -39,6 +39,7 @@
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\""
   },
   "devDependencies": {
+    "@babel/core": "^7.3.4",
     "babel-plugin-root-import": "^6.1.0",
     "babel-plugin-styled-components": "^1.10.0",
     "babel-preset-gatsby": "^0.1.6",
