@@ -1,4 +1,5 @@
 dependencies:
+  acorn: 6.1.1
   atomic-layout: 0.7.1
   dotenv: 6.2.0
   gatsby: 2.3.23
@@ -14835,6 +14836,7 @@ packages:
       integrity: sha512-EuLjqX3Q15iVM0UtZa5Ju536uRmklKd2kKhdE5D5fIh8RZmh+pJ8c6wj2oGo0TA+T/Ii2o79cIHCTMfciW8jlA==
 specifiers:
   '@babel/core': ^7.3.4
+  acorn: ^6.1.1
   atomic-layout: ^0.7.1
   babel-plugin-root-import: ^6.1.0
   babel-plugin-styled-components: ^1.10.0
