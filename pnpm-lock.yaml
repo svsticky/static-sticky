@@ -1,5 +1,5 @@
 dependencies:
-  atomic-layout: 0.6.2
+  atomic-layout: 0.7.1
   dotenv: 6.2.0
   gatsby: 2.3.23
   gatsby-plugin-react-helmet: 3.0.12
@@ -2209,15 +2209,13 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
-  /atomic-layout/0.6.2:
-    dependencies:
-      react-responsive: 6.1.1
+  /atomic-layout/0.7.1:
     dev: false
     peerDependencies:
-      react: ^15.x.x || ^16.x.x
-      styled-components: ^3.x.x || ^4.x.x
+      react: '>= 16.8'
+      styled-components: '>= 4'
     resolution:
-      integrity: sha512-7ghqWF8LsuOoEpqj8hYTH04lwyth3Q8LSMwfiiRUKS1H4+qkXUTYlXlV8q5GSCQUd8WqHOqKjhv/tICmBodaMA==
+      integrity: sha512-PIL5YAWnEBMl32h7ayaCCHbu6PI1r1SXt7RT2cJLNSwuXlBa8XXxjiMnbTqny09IUutmDLmZU47rYKz12hjEZA==
   /autoprefixer/6.7.7:
     dependencies:
       browserslist: 1.7.7
@@ -3903,10 +3901,6 @@ packages:
       webpack: ^4.0.0
     resolution:
       integrity: sha512-+ZHAZm/yqvJ2kDtPne3uX0C+Vr3Zn5jFn2N4HywtS5ujwvsVkyg0VArEXpl3BgczDA8anieki1FIzhchX4yrDw==
-  /css-mediaquery/0.1.2:
-    dev: false
-    resolution:
-      integrity: sha1-aiw3NEkoYYYxxUvTPO3TAdoYvqA=
   /css-select-base-adapter/0.1.1:
     dev: false
     resolution:
@@ -7539,10 +7533,6 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-86U6sVVVf4b5NYSZ0yvv88dRgBSSXXmHaiq5pP4KDj5JVzdwKgBjEtUPOm8hcoytezFwbU+7gotXNhpHdystlg==
-  /hyphenate-style-name/1.0.3:
-    dev: false
-    resolution:
-      integrity: sha512-EcuixamT82oplpoJ2XU4pDtKGWQ7b00CD9f1ug9IaQ3p1bkHMiKCZ9ut9QDI6qsa6cpUuB+A/I+zLtdNK4n2DQ==
   /iconv-lite/0.4.23:
     dependencies:
       safer-buffer: 2.1.2
@@ -9302,12 +9292,6 @@ packages:
       node: '>= 0.10.0'
     resolution:
       integrity: sha1-xvNINKDY28OzfCfui7yyfHd1WC4=
-  /matchmediaquery/0.3.0:
-    dependencies:
-      css-mediaquery: 0.1.2
-    dev: false
-    resolution:
-      integrity: sha512-u0dlv+VENJ+3YepvwSPBieuvnA6DWfaYa/ctwysAR13y4XLJNyt7bEVKzNj/Nvjo+50d88Pj+xL9xaSo6JmX/w==
   /math-expression-evaluator/1.2.17:
     dev: false
     resolution:
@@ -11852,18 +11836,6 @@ packages:
       react-dom: "^15.0.0 ||\_^16.0.0"
     resolution:
       integrity: sha512-d5QqLaqa7BXt9V4Usls5EqoQN+xycktetT/cAZhSyiE/DB8aMxTbzpqn/ezoJwAHl0Mp6L3bjrTenIynobIryQ==
-  /react-responsive/6.1.1:
-    dependencies:
-      hyphenate-style-name: 1.0.3
-      matchmediaquery: 0.3.0
-      prop-types: 15.7.2
-    dev: false
-    engines:
-      node: '>= 0.10'
-    peerDependencies:
-      react: ^16.3.0
-    resolution:
-      integrity: sha512-Po6pOEz70Agp+2lUmTxAnhfdkk0zp0IFgo/6bGcxv/S4Pa1sz0YG06WzkrIcASbyKSQ8x6AkcggeozXW3zj3kA==
   /react-side-effect/1.1.5:
     dependencies:
       exenv: 1.2.2
@@ -14863,7 +14835,7 @@ packages:
       integrity: sha512-EuLjqX3Q15iVM0UtZa5Ju536uRmklKd2kKhdE5D5fIh8RZmh+pJ8c6wj2oGo0TA+T/Ii2o79cIHCTMfciW8jlA==
 specifiers:
   '@babel/core': ^7.3.4
-  atomic-layout: ^0.6.0
+  atomic-layout: ^0.7.1
   babel-plugin-root-import: ^6.1.0
   babel-plugin-styled-components: ^1.10.0
   babel-preset-gatsby: ^0.1.6
@@ -14878,9 +14850,9 @@ specifiers:
   markdown-to-jsx: ^6.9.0
   precise-commits: ^1.0.2
   prettier: ^1.15.3
-  react: ^16.7.0
+  react: ^16.8.6
   react-currency-formatter: ^1.1.0
-  react-dom: ^16.7.0
+  react-dom: ^16.8.6
   react-helmet: ^5.2.0
   react-pager: ^1.3.3
   react-slideshow-image: ^1.0.10
