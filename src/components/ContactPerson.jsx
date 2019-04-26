@@ -6,37 +6,39 @@ const ContactPerson = ({ contactPerson }) => (
   <ContactPersonMember color={contactPerson.color}>
     <div className="card">
       <Card fluid>
-        <h3 className="head">{contactPerson.typeOfContact}</h3>
-        <div className="flex-card">
-          <div>
-            {contactPerson.photo === null ? (
-              <p>No Photo</p>
-            ) : (
-              <img
-                className="member-photo"
-                alt="board-member"
-                src={contactPerson.photo.file.url}
-              />
-            )}
+        <Card.Content>
+          <h3 className="head">{contactPerson.typeOfContact}</h3>
+          <div className="flex-card">
+            <div>
+              {contactPerson.photo === null ? (
+                <p>No Photo</p>
+              ) : (
+                <img
+                  className="member-photo"
+                  alt="board-member"
+                  src={contactPerson.photo.file.url}
+                />
+              )}
+            </div>
+            <div>
+              <p>{contactPerson.name + ' (' + contactPerson.role + ')'}</p>
+              <p>
+                Tel.:
+                <a href={'tel:' + contactPerson.mobile}>
+                  {' '}
+                  {contactPerson.mobile}
+                </a>
+              </p>
+              <p>
+                Mail:
+                <a href={'mailto:' + contactPerson.email}>
+                  {' '}
+                  {contactPerson.email}
+                </a>
+              </p>
+            </div>
           </div>
-          <div>
-            <p>{contactPerson.name + ' (' + contactPerson.role + ')'}</p>
-            <p>
-              Tel.:
-              <a href={'tel:' + contactPerson.mobile}>
-                {' '}
-                {contactPerson.mobile}
-              </a>
-            </p>
-            <p>
-              Mail:
-              <a href={'mailto:' + contactPerson.email}>
-                {' '}
-                {contactPerson.email}
-              </a>
-            </p>
-          </div>
-        </div>
+        </Card.Content>
       </Card>
     </div>
   </ContactPersonMember>
