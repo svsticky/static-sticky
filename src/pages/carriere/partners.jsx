@@ -4,21 +4,28 @@ import Partner from '$/components/Partner';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
 import { FlexListContainer } from '../../helpers';
+import { Helmet } from 'react-helmet';
 
 const PartnerIndexPage = ({ data }) => {
   const partners = data.allContentfulPartner.edges;
   const page = data.contentfulPage;
 
   return (
-    <Layout>
-      <h2>{page.title}</h2>
-      <Markdown>{page.content.content}</Markdown>
-      <FlexListContainer>
-        {partners.map(partner => (
-          <Partner partner={partner.node} key={partner.node.name} />
-        ))}
-      </FlexListContainer>
-    </Layout>
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{page.title}</title>
+      </Helmet>
+      <Layout>
+        <h2>{page.title}</h2>
+        <Markdown>{page.content.content}</Markdown>
+        <FlexListContainer>
+          {partners.map(partner => (
+            <Partner partner={partner.node} key={partner.node.name} />
+          ))}
+        </FlexListContainer>
+      </Layout>
+    </>
   );
 };
 

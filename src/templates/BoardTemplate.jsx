@@ -4,42 +4,49 @@ import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Image, Button, Card } from 'semantic-ui-react';
 import { device } from '../data/Devices';
+import { Helmet } from 'react-helmet';
 
 const BoardView = ({ data }) => {
   const board = data.contentfulBoard;
 
   return (
-    <Layout>
-      <BoardTemplateWrapper motto={board.motto} color={board.color}>
-        <div>
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{board.name}</title>
+      </Helmet>
+      <Layout>
+        <BoardTemplateWrapper motto={board.motto} color={board.color}>
           <div>
-            <h2 className="header">{buildHeader(board)}</h2>
-          </div>
-          <Card fluid>
-            <div className="photo-members">
-              <div>
-                <Image rounded size="large" src={board.photo.file.url} />
-              </div>
-              <div className="all-members">
-                <div>
-                  <p className="years">
-                    <strong>{board.years}</strong>
-                  </p>
-                  {board.motto && <em>O.d.z "{board.motto}"</em>}
-                </div>
-                <h3>Bestuursleden:</h3>
-                {board.members.map(member => (
-                  <p key={member} className="member">
-                    {member}
-                  </p>
-                ))}
-              </div>
+            <div>
+              <h2 className="header">{buildHeader(board)}</h2>
             </div>
-          </Card>
-          <div className="flex-container">{showButton(board)}</div>
-        </div>
-      </BoardTemplateWrapper>
-    </Layout>
+            <Card fluid>
+              <div className="photo-members">
+                <div>
+                  <Image rounded size="large" src={board.photo.file.url} />
+                </div>
+                <div className="all-members">
+                  <div>
+                    <p className="years">
+                      <strong>{board.years}</strong>
+                    </p>
+                    {board.motto && <em>O.d.z "{board.motto}"</em>}
+                  </div>
+                  <h3>Bestuursleden:</h3>
+                  {board.members.map(member => (
+                    <p key={member} className="member">
+                      {member}
+                    </p>
+                  ))}
+                </div>
+              </div>
+            </Card>
+            <div className="flex-container">{showButton(board)}</div>
+          </div>
+        </BoardTemplateWrapper>
+      </Layout>
+    </>
   );
 };
 

@@ -5,6 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import Activity from '$/components/activities/Activity';
 import { Grid } from 'semantic-ui-react';
 import Layout from '../../components/layout/Layout';
+import { Helmet } from 'react-helmet';
 
 export default class Activities extends Component {
   state = {
@@ -20,25 +21,31 @@ export default class Activities extends Component {
   render() {
     const page = this.props.data.contentfulPage;
     return (
-      <Layout>
-        <h2>{page.title}</h2>
-        <Markdown>{page.content.content}</Markdown>
-        <ActivityCollection updateActivities={this.updateActivities}>
-          {this.state.activities.length === 0 ? (
-            <p>No activities</p>
-          ) : (
-            <Grid doubling stackable columns={4} centered>
-              {this.state.activities.map(activity => {
-                return (
-                  <Grid.Column key={activity.id}>
-                    <Activity activity={activity} />
-                  </Grid.Column>
-                );
-              })}
-            </Grid>
-          )}
-        </ActivityCollection>
-      </Layout>
+      <>
+        <Helmet>
+          <meta charSet="utf-8" />
+          <title>{page.title}</title>
+        </Helmet>
+        <Layout>
+          <h2>{page.title}</h2>
+          <Markdown>{page.content.content}</Markdown>
+          <ActivityCollection updateActivities={this.updateActivities}>
+            {this.state.activities.length === 0 ? (
+              <p>No activities</p>
+            ) : (
+              <Grid doubling stackable columns={4} centered>
+                {this.state.activities.map(activity => {
+                  return (
+                    <Grid.Column key={activity.id}>
+                      <Activity activity={activity} />
+                    </Grid.Column>
+                  );
+                })}
+              </Grid>
+            )}
+          </ActivityCollection>
+        </Layout>
+      </>
     );
   }
 }

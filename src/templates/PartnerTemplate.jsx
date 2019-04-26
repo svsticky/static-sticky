@@ -7,55 +7,62 @@ import Layout from '../components/layout/Layout';
 import JobItem from '../components/jobs/JobItem';
 import { device } from '../data/Devices';
 import { ImageContainer } from '../helpers';
+import { Helmet } from 'react-helmet';
 
 const PartnerView = ({ data }) => {
   const { contentfulPartner: partner } = data;
 
   return (
-    <Layout>
-      <PartnerTemplateWrapper>
-        <div className="info">
-          <Card className="partner">
-            <ImageContainer src={partner.logo.file.url} alt="Partner Logo" />
-          </Card>
-          <div fluid className="contact">
-            <Button
-              fluid
-              primary
-              href={partner.website}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Website
-            </Button>
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{partner.name}</title>
+      </Helmet>
+      <Layout>
+        <PartnerTemplateWrapper>
+          <div className="info">
+            <Card className="partner">
+              <ImageContainer src={partner.logo.file.url} alt="Partner Logo" />
+            </Card>
+            <div fluid className="contact">
+              <Button
+                fluid
+                primary
+                href={partner.website}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Website
+              </Button>
+            </div>
           </div>
-        </div>
-        <div className="partner-content">
-          <h2>{partner.name}</h2>
-          <Card fluid>
-            <div className="description">
-              <Markdown>{partner.description.description}</Markdown>
-            </div>
-          </Card>
-
-          {partner.job_listing && (
-            <div className="vacatures">
-              <h2> Vacatures bij {partner.name}</h2>
-              <div className="partner-job-list">
-                {partner.job_listing.map(jobListing => (
-                  <JobItem
-                    className="item"
-                    job={jobListing}
-                    partner={partner}
-                    key={jobListing.id}
-                  />
-                ))}
+          <div className="partner-content">
+            <h2>{partner.name}</h2>
+            <Card fluid>
+              <div className="description">
+                <Markdown>{partner.description.description}</Markdown>
               </div>
-            </div>
-          )}
-        </div>
-      </PartnerTemplateWrapper>
-    </Layout>
+            </Card>
+
+            {partner.job_listing && (
+              <div className="vacatures">
+                <h2> Vacatures bij {partner.name}</h2>
+                <div className="partner-job-list">
+                  {partner.job_listing.map(jobListing => (
+                    <JobItem
+                      className="item"
+                      job={jobListing}
+                      partner={partner}
+                      key={jobListing.id}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </PartnerTemplateWrapper>
+      </Layout>
+    </>
   );
 };
 

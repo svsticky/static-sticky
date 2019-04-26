@@ -4,16 +4,23 @@ import { graphql, StaticQuery } from 'gatsby';
 import ContactPerson from '$/components/ContactPerson';
 import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
+import { Helmet } from 'react-helmet';
 
 const ContactPage = props => {
   const contactPersons = props.data.allContentfulBoardMember.edges;
   const page = props.data.contentfulPage;
   return (
-    <Layout>
-      <h2>{page.title}</h2>
-      <Markdown>{page.content.content}</Markdown>
-      <ContactList>{getContactPersons(contactPersons)}</ContactList>
-    </Layout>
+    <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>{page.title}</title>
+      </Helmet>
+      <Layout>
+        <h2>{page.title}</h2>
+        <Markdown>{page.content.content}</Markdown>
+        <ContactList>{getContactPersons(contactPersons)}</ContactList>
+      </Layout>
+    </>
   );
 };
 
