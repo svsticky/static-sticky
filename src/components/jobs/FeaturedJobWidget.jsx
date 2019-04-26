@@ -17,6 +17,8 @@ class FeaturedJobs extends React.Component {
           {this.renderFeaturedJob(featuredJobs[chosenJob])}
         </div>
       );
+    } else {
+      return <div />;
     }
   };
 
