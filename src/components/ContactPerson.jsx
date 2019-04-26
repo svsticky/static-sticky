@@ -8,7 +8,7 @@ const ContactPerson = ({ contactPerson }) => (
       <Card fluid>
         <h3 className="head">{contactPerson.typeOfContact}</h3>
         <div className="flex-card">
-          <Card.Content>
+          <div>
             {contactPerson.photo === null ? (
               <p>No Photo</p>
             ) : (
@@ -18,8 +18,8 @@ const ContactPerson = ({ contactPerson }) => (
                 src={contactPerson.photo.file.url}
               />
             )}
-          </Card.Content>
-          <Card.Content>
+          </div>
+          <div>
             <p>{contactPerson.name + ' (' + contactPerson.role + ')'}</p>
             <p>
               Tel.:
@@ -35,7 +35,7 @@ const ContactPerson = ({ contactPerson }) => (
                 {contactPerson.email}
               </a>
             </p>
-          </Card.Content>
+          </div>
         </div>
       </Card>
     </div>
