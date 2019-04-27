@@ -6,28 +6,21 @@ import Board from '$/components/Board';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
 import { device } from '../../data/Devices';
-import { Helmet } from 'react-helmet';
 
 const BoardPage = props => {
   const boards = props.data.allContentfulBoard.edges;
   const page = props.data.contentfulPage;
   return (
-    <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>{page.title}</title>
-      </Helmet>
-      <Layout>
-        <h2>{page.title}</h2>
-        <Markdown>{page.content.content}</Markdown>
-        <h3>Het huidig bestuur</h3>
-        {getCurrentBoard(boards)}
-        <h3>Oud besturen</h3>
-        <Grid stretched stackable doubling columns={3}>
-          {getOldBoards(boards)}
-        </Grid>
-      </Layout>
-    </>
+    <Layout title={page.title}>
+      <h2>{page.title}</h2>
+      <Markdown>{page.content.content}</Markdown>
+      <h3>Het huidig bestuur</h3>
+      {getCurrentBoard(boards)}
+      <h3>Oud besturen</h3>
+      <Grid stretched stackable doubling columns={3}>
+        {getOldBoards(boards)}
+      </Grid>
+    </Layout>
   );
 };
 

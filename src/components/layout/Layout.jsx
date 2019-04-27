@@ -6,9 +6,14 @@ import MobileNavbar from './MobileNavbar';
 import Footer from './Footer';
 import { Container } from 'semantic-ui-react';
 import { device } from '../../data/Devices';
+import { Helmet } from 'react-helmet';
 
-const layout = ({ children }) => (
+const layout = ({ children, title }) => (
   <>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>{title}</title>
+    </Helmet>
     <PageWrapper>
       <NavBar />
       <Container className="layout-container">{children}</Container>

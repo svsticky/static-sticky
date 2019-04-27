@@ -6,62 +6,51 @@ import Layout from '../components/layout/Layout';
 import { Button, Card } from 'semantic-ui-react';
 import { device } from '../data/Devices';
 import { LinkLogoCard, ImageContainer } from '../helpers';
-import { Helmet } from 'react-helmet';
 
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
 
   return (
-    <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>{job.job_title}</title>
-      </Helmet>
-      <Layout>
-        <JobTemplateWrapper>
-          <div className="side-info">
-            <LinkLogoCard
-              url={'/partners/' + job.partner.slug}
-              className="partner"
-            >
-              <ImageContainer
-                src={job.partner.logo.file.url}
-                alt="Partner Logo"
-              />
-            </LinkLogoCard>
-            {job.contactPerson && (
-              <Card fluid className="contact">
-                <h3 className="contact-header">Contact</h3>
-                <p>{job.contactPerson.name}</p>
-                <Button
-                  primary
-                  href={'mailto:' + job.contactPerson.email}
-                  fluid
-                >
-                  E-mailen
-                </Button>
-                <Button
-                  primary
-                  href={'tel:' + job.contactPerson.phone}
-                  fluid
-                  className="call-button"
-                >
-                  Bellen
-                </Button>
-              </Card>
-            )}
-          </div>
-          <div className="job-content">
-            <h2>{job.job_title}</h2>
-            <Card fluid>
-              <div className="description">
-                <Markdown>{job.content.content}</Markdown>
-              </div>
+    <Layout title={job.job_title}>
+      <JobTemplateWrapper>
+        <div className="side-info">
+          <LinkLogoCard
+            url={'/partners/' + job.partner.slug}
+            className="partner"
+          >
+            <ImageContainer
+              src={job.partner.logo.file.url}
+              alt="Partner Logo"
+            />
+          </LinkLogoCard>
+          {job.contactPerson && (
+            <Card fluid className="contact">
+              <h3 className="contact-header">Contact</h3>
+              <p>{job.contactPerson.name}</p>
+              <Button primary href={'mailto:' + job.contactPerson.email} fluid>
+                E-mailen
+              </Button>
+              <Button
+                primary
+                href={'tel:' + job.contactPerson.phone}
+                fluid
+                className="call-button"
+              >
+                Bellen
+              </Button>
             </Card>
-          </div>
-        </JobTemplateWrapper>
-      </Layout>
-    </>
+          )}
+        </div>
+        <div className="job-content">
+          <h2>{job.job_title}</h2>
+          <Card fluid>
+            <div className="description">
+              <Markdown>{job.content.content}</Markdown>
+            </div>
+          </Card>
+        </div>
+      </JobTemplateWrapper>
+    </Layout>
   );
 };
 

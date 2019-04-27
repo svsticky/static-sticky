@@ -4,28 +4,21 @@ import styled from 'styled-components';
 import { graphql } from 'gatsby';
 import { Card } from 'semantic-ui-react';
 import Layout from '../components/layout/Layout';
-import { Helmet } from 'react-helmet';
 
 const NewsView = ({ data }) => {
   const article = data.contentfulNewsArticles;
 
   return (
-    <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>{article.title}</title>
-      </Helmet>
-      <Layout>
-        <NewsTemplateWrapper>
-          <h2 className="header">{article.title}</h2>
-          <Card fluid>
-            <div className="content">
-              <Markdown>{article.content.content}</Markdown>
-            </div>
-          </Card>
-        </NewsTemplateWrapper>
-      </Layout>
-    </>
+    <Layout title={article.title}>
+      <NewsTemplateWrapper>
+        <h2 className="header">{article.title}</h2>
+        <Card fluid>
+          <div className="content">
+            <Markdown>{article.content.content}</Markdown>
+          </div>
+        </Card>
+      </NewsTemplateWrapper>
+    </Layout>
   );
 };
 

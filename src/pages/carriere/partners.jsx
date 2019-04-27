@@ -4,7 +4,6 @@ import Partner from '$/components/Partner';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
 import { FlexListContainer } from '../../helpers';
-import { Helmet } from 'react-helmet';
 
 const PartnerIndexPage = ({ data }) => {
   const partners = data.allContentfulPartner.edges;
@@ -12,11 +11,7 @@ const PartnerIndexPage = ({ data }) => {
 
   return (
     <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>{page.title}</title>
-      </Helmet>
-      <Layout>
+      <Layout title={page.title}>
         <h2>{page.title}</h2>
         <Markdown>{page.content.content}</Markdown>
         <FlexListContainer>

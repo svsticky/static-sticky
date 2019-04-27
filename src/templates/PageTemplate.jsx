@@ -2,21 +2,15 @@ import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import { graphql } from 'gatsby';
 import ContentfulPage from '../components/layout/ContentfulPage';
-import { Helmet } from 'react-helmet';
 
 export default ({ data }) => {
   const page = data.contentfulPage;
+  console.log(page.title);
 
   return (
-    <>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>{page.title}</title>
-      </Helmet>
-      <ContentfulPage page={page}>
-        <Markdown>{page.content.content}</Markdown>
-      </ContentfulPage>
-    </>
+    <ContentfulPage page={page}>
+      <Markdown>{page.content.content}</Markdown>
+    </ContentfulPage>
   );
 };
 

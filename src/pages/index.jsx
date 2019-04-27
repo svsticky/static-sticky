@@ -7,15 +7,10 @@ import Drinks from '../components/Drinks';
 import IndexWrapper from '../components/layout/GridDryQueries';
 import FeaturedJobWidget from '../components/jobs/FeaturedJobWidget';
 import ActivityWidget from '../components/activities/ActivityWidget';
-import { Helmet } from 'react-helmet';
 
 const Index = props => {
   return (
-    <Layout>
-      <Helmet>
-        <meta charSet="utf-8" />
-        <title>Sticky</title>
-      </Helmet>
+    <Layout title="Sticky">
       <IndexWrapper>
         <div className="container">
           <div className="logo">
