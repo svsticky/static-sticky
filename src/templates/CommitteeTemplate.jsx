@@ -1,7 +1,7 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Button, Header, Icon, Image, List } from 'semantic-ui-react';
 import { Composition } from 'atomic-layout';
@@ -9,7 +9,11 @@ import { Composition } from 'atomic-layout';
 const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
   return (
     <Layout>
-      <Button className="labeled icon basic" href="/vereniging/commissies">
+      <Button
+        as={Link}
+        className="labeled icon basic"
+        to="/vereniging/commissies"
+      >
         <Icon name="angle left" />
         Commissies
       </Button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql, StaticQuery } from 'gatsby';
+import { graphql, StaticQuery, Link } from 'gatsby';
 import ContentfulPage from '../../components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 import { Image, Card, Grid } from 'semantic-ui-react';
@@ -16,7 +16,7 @@ const CommitteeIndexPage = ({ data }) => {
       <Grid doubling centered columns={3}>
         {committees.map(committee => (
           <Grid.Column key={committee.id}>
-            <Card fluid href={'/commissies/' + committee.slug}>
+            <Card as={Link} fluid to={'/commissies/' + committee.slug}>
               <WhiteBackgroundImage
                 className="white"
                 centered
