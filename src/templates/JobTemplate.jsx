@@ -11,7 +11,7 @@ const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
 
   return (
-    <Layout>
+    <Layout title={job.job_title}>
       <JobTemplateWrapper>
         <div className="side-info">
           <LinkLogoCard

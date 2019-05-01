@@ -9,7 +9,7 @@ const DisputeView = ({ data }) => {
   const { contentfulDispute: dispute } = data;
 
   return (
-    <Layout>
+    <Layout title={data.name}>
       <Grid columns={2} stackable>
         <Grid.Column width={3}>
           <Sticky>

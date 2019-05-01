@@ -25,7 +25,7 @@ class JobIndexPage extends React.Component {
 
   render() {
     return (
-      <Layout>
+      <Layout title={this.page.title}>
         <h2>{this.page.title}</h2>
         <Markdown>{this.page.content.content}</Markdown>
         <JobFilter
