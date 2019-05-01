@@ -10,7 +10,7 @@ import ActivityWidget from '../components/activities/ActivityWidget';
 
 const Index = props => {
   return (
-    <Layout>
+    <Layout title="Sticky">
       <IndexWrapper>
         <div className="container">
           <div className="logo">

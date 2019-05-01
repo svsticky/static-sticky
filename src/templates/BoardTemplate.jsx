@@ -9,7 +9,7 @@ const BoardView = ({ data }) => {
   const board = data.contentfulBoard;
 
   return (
-    <Layout>
+    <Layout title={board.name}>
       <BoardTemplateWrapper motto={board.motto} color={board.color}>
         <div>
           <div>

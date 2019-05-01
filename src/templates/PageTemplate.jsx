@@ -5,6 +5,7 @@ import ContentfulPage from '../components/layout/ContentfulPage';
 
 export default ({ data }) => {
   const page = data.contentfulPage;
+  console.log(page.title);
 
   return (
     <ContentfulPage page={page}>

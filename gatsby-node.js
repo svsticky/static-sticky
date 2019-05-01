@@ -32,6 +32,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            title
             slug
             parentPage {
               slug
@@ -114,6 +115,9 @@ exports.createPages = async ({ graphql, actions }) => {
           createPage({
             path: `/${url}`,
             component: slash(localPath),
+            context: {
+              title: node.title,
+            },
           });
       });
     });

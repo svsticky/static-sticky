@@ -12,7 +12,7 @@ const DisputeIndexPage = ({ data }) => {
   const page = data.contentfulPage;
 
   return (
-    <Layout>
+    <Layout title={page.title}>
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <FlexListContainer>

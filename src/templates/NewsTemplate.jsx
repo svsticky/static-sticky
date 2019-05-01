@@ -9,7 +9,7 @@ const NewsView = ({ data }) => {
   const article = data.contentfulNewsArticles;
 
   return (
-    <Layout>
+    <Layout title={article.title}>
       <NewsTemplateWrapper>
         <h2 className="header">{article.title}</h2>
         <Card fluid>

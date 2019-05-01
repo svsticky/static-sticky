@@ -12,7 +12,7 @@ const PartnerView = ({ data }) => {
   const { contentfulPartner: partner } = data;
 
   return (
-    <Layout>
+    <Layout title={partner.name}>
       <PartnerTemplateWrapper>
         <div className="info">
           <Card className="partner">

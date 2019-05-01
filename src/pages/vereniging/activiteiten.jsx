@@ -20,7 +20,7 @@ export default class Activities extends Component {
   render() {
     const page = this.props.data.contentfulPage;
     return (
-      <Layout>
+      <Layout title={page.title}>
         <h2>{page.title}</h2>
         <Markdown>{page.content.content}</Markdown>
         <ActivityCollection updateActivities={this.updateActivities}>

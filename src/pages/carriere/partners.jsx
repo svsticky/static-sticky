@@ -10,15 +10,17 @@ const PartnerIndexPage = ({ data }) => {
   const page = data.contentfulPage;
 
   return (
-    <Layout>
-      <h2>{page.title}</h2>
-      <Markdown>{page.content.content}</Markdown>
-      <FlexListContainer>
-        {partners.map(partner => (
-          <Partner partner={partner.node} key={partner.node.name} />
-        ))}
-      </FlexListContainer>
-    </Layout>
+    <>
+      <Layout title={page.title}>
+        <h2>{page.title}</h2>
+        <Markdown>{page.content.content}</Markdown>
+        <FlexListContainer>
+          {partners.map(partner => (
+            <Partner partner={partner.node} key={partner.node.name} />
+          ))}
+        </FlexListContainer>
+      </Layout>
+    </>
   );
 };
 

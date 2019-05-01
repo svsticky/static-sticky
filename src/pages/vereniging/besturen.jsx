@@ -11,7 +11,7 @@ const BoardPage = props => {
   const boards = props.data.allContentfulBoard.edges;
   const page = props.data.contentfulPage;
   return (
-    <Layout>
+    <Layout title={page.title}>
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <h3>Het huidige bestuur</h3>

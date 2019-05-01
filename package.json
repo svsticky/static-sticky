@@ -6,7 +6,8 @@
   "dependencies": {
     "dotenv": "^6.2.0",
     "gatsby": "^2.1.19",
-    "gatsby-plugin-react-helmet": "^3.0.7",
+    "gatsby-plugin-favicon": "^3.1.5",
+    "gatsby-plugin-react-helmet": "^3.0.11",
     "gatsby-plugin-styled-components": "^3.0.6",
     "gatsby-source-contentful": "^2.0.33",
     "markdown-to-jsx": "^6.9.1",
