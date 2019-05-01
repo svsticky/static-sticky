@@ -109,16 +109,9 @@ exports.createPages = async ({ graphql, actions }) => {
       }
 
       const localPath = path.resolve('src', 'pages', url + '.jsx');
-      fs.access(localPath, err => {
+      // Check asynchronously if we have a the page locally.
+      fs.access(localPath, fs.R_OK, err => {
         if (err) createTemplatePage(`/${url}`, pageTemplate, node.id);
-        else
-          createPage({
-            path: `/${url}`,
-            component: slash(localPath),
-            context: {
-              title: node.title,
-            },
-          });
       });
     });
 
