@@ -39,7 +39,6 @@ class News extends React.Component {
                     <i>{item.node.dateOfPublishing}</i>
                   </p>
                 </div>
-
                 <List.Description>
                   <Markdown>{item.node.content.content.slice(0, 300)}</Markdown>
                 </List.Description>
@@ -110,6 +109,7 @@ export const NewsWrapper = styled.div`
       &-header {
         display: flex;
         justify-content: start;
+        align-items: baseline;
         .date {
           margin-left: 0.5em;
         }
