@@ -33,8 +33,12 @@ class News extends React.Component {
               className="news-item"
             >
               <div className="news-item-content">
-                <h3>{item.node.title}</h3>
-
+                <div className="news-item-header">
+                  <h3>{item.node.title}</h3>
+                  <p className="date">
+                    <i>{item.node.dateOfPublishing}</i>
+                  </p>
+                </div>
                 <List.Description>
                   <Markdown>{item.node.content.content.slice(0, 300)}</Markdown>
                 </List.Description>
@@ -101,6 +105,14 @@ export const NewsWrapper = styled.div`
       }
       &-content {
         flex: 3;
+      }
+      &-header {
+        display: flex;
+        justify-content: start;
+        align-items: baseline;
+        .date {
+          margin-left: 0.5em;
+        }
       }
       &-image {
         flex: 1;

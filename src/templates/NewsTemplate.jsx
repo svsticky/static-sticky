@@ -11,7 +11,12 @@ const NewsView = ({ data }) => {
   return (
     <Layout title={article.title}>
       <NewsTemplateWrapper>
-        <h2 className="header">{article.title}</h2>
+        <div className="header">
+          <h2>{article.title}</h2>
+          <p className="date">
+            <i>{article.dateOfPublishing}</i>
+          </p>
+        </div>
         <Card fluid>
           <div className="content">
             <Markdown>{article.content.content}</Markdown>
@@ -24,11 +29,12 @@ const NewsView = ({ data }) => {
 
 const NewsTemplateWrapper = styled.div`
   .header {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 5px;
-  }
-  .date {
-    font-style: italic;
-    margin-bottom: 5px;
+    .date {
+      font-size: 20px;
+    }
   }
   .content {
     img {
