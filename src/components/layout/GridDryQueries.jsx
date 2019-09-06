@@ -37,7 +37,7 @@ const IndexWrapper = styled.div`
       grid-gap: 2em;
     }
     .logo {
-      background-color: #20730d;
+      background-color: #c53f78;
       margin: -1rem;
       padding: 0.8rem 0 1rem 0;
       display: flex;

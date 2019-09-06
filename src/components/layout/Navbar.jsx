@@ -126,7 +126,7 @@ const NavBarWrapper = styled.div`
     position: fixed;
     width: 100%;
     z-index: 100;
-    background-color: #20730d !important;
+    background-color: #c53f78 !important;
     border-radius: 0;
     .logo {
       height: 3em;
@@ -139,10 +139,10 @@ const NavBarWrapper = styled.div`
       color: white !important;
       &:hover {
         background-color: white;
-        color: #20730d;
+        color: #c53f78;
       }
       .item-text {
-        color: #20730d;
+        color: #c53f78;
       }
       .icon-item-text {
         padding-right: 20pt;
@@ -150,11 +150,11 @@ const NavBarWrapper = styled.div`
     }
     .link-item {
       &:hover {
-        background-color: #20730d;
+        background-color: #c53f78;
       }
       .button {
         background-color: white;
-        color: #20730d;
+        color: #c53f78;
         &:hover {
           background-color: lightgrey;
         }
