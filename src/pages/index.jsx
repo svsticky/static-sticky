@@ -7,11 +7,12 @@ import Drinks from '../components/Drinks';
 import IndexWrapper from '../components/layout/GridDryQueries';
 import FeaturedJobWidget from '../components/jobs/FeaturedJobWidget';
 import ActivityWidget from '../components/activities/ActivityWidget';
+import { boardColor } from '../data/boardColor';
 
 const Index = props => {
   return (
     <Layout title="Sticky">
-      <IndexWrapper>
+      <IndexWrapper boardcolor={boardColor}>
         <div className="container">
           <div className="logo">
             <img src={logo} alt="Sticky Logo" />

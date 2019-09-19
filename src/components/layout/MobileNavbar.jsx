@@ -5,6 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import { device } from '../../data/Devices';
 import menu from '$/data/menu.json';
 import logo from '$/images/hoofd.svg';
+import { boardColor } from '../../data/boardColor';
 
 class MobileNavBar extends React.Component {
   state = {
@@ -112,7 +113,7 @@ class MobileNavBar extends React.Component {
   render() {
     const { edges } = this.props.data.allContentfulPage;
     return (
-      <MobileNavBarWrapper>
+      <MobileNavBarWrapper boardcolor={boardColor}>
         <div className="menu">
           <Link className="center-container" to="/">
             <img src={logo} alt="Sticky Logo" className="sticky-logo" />
@@ -170,7 +171,7 @@ const MobileNavBarWrapper = styled.div`
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #20730d;
+    background-color: ${props => props.boardcolor};
     z-index: 10;
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
@@ -192,13 +193,13 @@ const MobileNavBarWrapper = styled.div`
       display: flex;
       flex-flow: row-reverse wrap-reverse;
       .sub-menu-item {
-        color: #20730d;
+        color: ${props => props.boardcolor};
         margin: 0.25em;
         text-align: center;
         padding: 0 1em;
         height: 2.5em;
         max-width: 100%;
-        border: 1px solid #20730d;
+        border: 1px solid ${props => props.boardcolor};
         border-radius: 5px;
         display: flex;
         align-items: center;
@@ -232,8 +233,8 @@ const ParentMenuItem = styled.div`
   height: 3em;
   border: 1px solid white;
   border-radius: 5px;
-  background-color: ${props => (props.active ? 'white' : '#20730d')};
-  color: ${props => (props.active ? '#20730d' : 'white')};
+  background-color: ${props => (props.active ? 'white' : props.boardcolor)};
+  color: ${props => (props.active ? props.boardcolor : 'white')};
 `;
 
 export default props => (
