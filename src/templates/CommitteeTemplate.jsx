@@ -3,7 +3,7 @@ import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Button, Header, Icon, Image, List } from 'semantic-ui-react';
+import { Button, Header, Icon, Image } from 'semantic-ui-react';
 import { Composition } from 'atomic-layout';
 
 const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
@@ -43,14 +43,8 @@ const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
               <Header className="huge">{committee.name}</Header>
               <Markdown>{committee.description.description}</Markdown>
             </Info>
-            <Members>
-              <Sticky>{renderMembers(committee)}</Sticky>
-            </Members>
             <LogoAboveMembers>
-              <Sticky>
-                {renderLogo(committee)}
-                {renderMembers(committee)}
-              </Sticky>
+              <Sticky>{renderLogo(committee)}</Sticky>
             </LogoAboveMembers>
           </>
         )}
@@ -66,24 +60,6 @@ const renderLogo = committee => (
     centered
     size="medium"
   />
-);
-
-const renderMembers = committee => (
-  <>
-    <h3>Leden</h3>
-    <List className="divided relaxed">
-      {committee.members.map(member => (
-        <List.Item key={member}>{member}</List.Item>
-      ))}
-    </List>
-    {committee.photo && (
-      <Image
-        src={committee.photo.file.url}
-        alt={`${committee.name} photo`}
-        centered
-      />
-    )}
-  </>
 );
 
 const Sticky = styled.div`

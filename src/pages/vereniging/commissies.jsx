@@ -13,7 +13,7 @@ const CommitteeIndexPage = ({ data }) => {
 
   return (
     <ContentfulPage page={page}>
-      <Grid doubling centered columns={3}>
+      <Grid doubling stackable centered columns={3}>
         {committees.map(committee => (
           <Grid.Column key={committee.id}>
             <Card as={Link} fluid to={'/commissies/' + committee.slug}>
@@ -25,9 +25,6 @@ const CommitteeIndexPage = ({ data }) => {
               />
               <Card.Content>
                 <Card.Header>{committee.name}</Card.Header>
-                <Card.Meta>
-                  {committee.year} - {committee.year + 1}
-                </Card.Meta>
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -47,7 +44,7 @@ const WhiteBackgroundImage = styled(Image)`
 
 const CommitteeListQuery = graphql`
   query CommitteeListQuery {
-    allContentfulCommittee(filter: { year: { eq: 2018 } }) {
+    allContentfulCommittee {
       edges {
         node {
           id
