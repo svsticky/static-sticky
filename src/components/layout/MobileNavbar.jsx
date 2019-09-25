@@ -170,7 +170,7 @@ const MobileNavBarWrapper = styled.div`
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #20730d;
+    background-color: #c53f78;
     z-index: 10;
     display: grid;
     grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
@@ -192,13 +192,13 @@ const MobileNavBarWrapper = styled.div`
       display: flex;
       flex-flow: row-reverse wrap-reverse;
       .sub-menu-item {
-        color: #20730d;
+        color: #c53f78;
         margin: 0.25em;
         text-align: center;
         padding: 0 1em;
         height: 2.5em;
         max-width: 100%;
-        border: 1px solid #20730d;
+        border: 1px solid #c53f78;
         border-radius: 5px;
         display: flex;
         align-items: center;
@@ -232,8 +232,8 @@ const ParentMenuItem = styled.div`
   height: 3em;
   border: 1px solid white;
   border-radius: 5px;
-  background-color: ${props => (props.active ? 'white' : '#20730d')};
-  color: ${props => (props.active ? '#20730d' : 'white')};
+  background-color: ${props => (props.active ? 'white' : '#c53f78')};
+  color: ${props => (props.active ? '#c53f78' : 'white')};
 `;
 
 export default props => (
