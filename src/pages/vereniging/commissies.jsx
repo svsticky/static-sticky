@@ -55,7 +55,6 @@ const CommitteeListQuery = graphql`
               url
             }
           }
-          year
         }
       }
     }
