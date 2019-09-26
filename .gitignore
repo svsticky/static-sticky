@@ -65,6 +65,7 @@ public
 yarn-error.log
 .pnp/
 .pnp.js
+pnpm-lock.yaml
 # Yarn Integrity file
 .yarn-integrity
 # semantic dist

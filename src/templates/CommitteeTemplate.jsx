@@ -74,7 +74,6 @@ export const CommitteeQuery = graphql`
     contentfulCommittee(id: { eq: $id }) {
       id
       name
-      year
       description {
         description
       }
