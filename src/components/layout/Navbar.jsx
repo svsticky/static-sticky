@@ -110,6 +110,16 @@ class NavBar extends React.Component {
                 Koala
               </Button>
             </Menu.Item>
+            <Menu.Item className="link-item">
+              <Button
+                href="http://photos.svsticky.nl"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="button"
+              >
+                Foto's
+              </Button>
+            </Menu.Item>
           </Container>
         </Menu>
       </NavBarWrapper>

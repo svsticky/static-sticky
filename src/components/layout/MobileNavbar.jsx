@@ -67,17 +67,30 @@ class MobileNavBar extends React.Component {
     return (
       <>
         {this.state.active === 'links' ? (
-          <a
-            href="https://koala.svsticky.nl/"
-            key="Koala"
-            target="_blank"
-            rel="noopener noreferrer" // For safety
-          >
-            <div className="sub-menu-item">
-              Koala
-              <i className="item-text icon external" />
-            </div>
-          </a>
+          <>
+            <a
+              href="https://koala.svsticky.nl/"
+              key="Koala"
+              target="_blank"
+              rel="noopener noreferrer" // For safety
+            >
+              <div className="sub-menu-item">
+                Koala
+                <i className="item-text icon external" />
+              </div>
+            </a>
+            <a
+              href="https://photos.svsticky.nl/"
+              key="Photos"
+              target="_blank"
+              rel="noopener noreferrer" // For safety
+            >
+              <div className="sub-menu-item">
+                Foto's
+                <i className="item-text icon external" />
+              </div>
+            </a>
+          </>
         ) : null}
         {links.map(link => (
           <a
