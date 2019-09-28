@@ -68,6 +68,6 @@
     ]
   },
   "browserslist": [
-      "defaults"
+    "defaults"
   ]
 }
