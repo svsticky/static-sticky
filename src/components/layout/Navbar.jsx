@@ -87,7 +87,7 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <NavBarWrapper>
+      <NavBarWrapper color={this.props.data.contentfulBoard.color}>
         <Menu size="large" className="navbar">
           <Container>
             <Image as={Link} to="/" className="logo">
@@ -136,7 +136,7 @@ const NavBarWrapper = styled.div`
     position: fixed;
     width: 100%;
     z-index: 100;
-    background-color: #c53f78 !important;
+    background-color: ${props => props.color} !important;
     border-radius: 0;
     .logo {
       height: 3em;
@@ -149,10 +149,10 @@ const NavBarWrapper = styled.div`
       color: white !important;
       &:hover {
         background-color: white;
-        color: #c53f78;
+        color: ${props => props.color};
       }
       .item-text {
-        color: #c53f78;
+        color: ${props => props.color};
       }
       .icon-item-text {
         padding-right: 20pt;
@@ -160,11 +160,11 @@ const NavBarWrapper = styled.div`
     }
     .link-item {
       &:hover {
-        background-color: #c53f78;
+        background-color: ${props => props.color};
       }
       .button {
         background-color: white;
-        color: #c53f78;
+        color: ${props => props.color};
         &:hover {
           background-color: lightgrey;
         }
@@ -189,6 +189,9 @@ export default props => (
               }
             }
           }
+        }
+        contentfulBoard(current: { eq: true }) {
+          color
         }
       }
     `}

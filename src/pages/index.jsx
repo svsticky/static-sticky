@@ -7,11 +7,12 @@ import Drinks from '../components/Drinks';
 import IndexWrapper from '../components/layout/GridDryQueries';
 import FeaturedJobWidget from '../components/jobs/FeaturedJobWidget';
 import ActivityWidget from '../components/activities/ActivityWidget';
+import { graphql } from 'gatsby';
 
 const Index = props => {
   return (
     <Layout title="Sticky">
-      <IndexWrapper>
+      <IndexWrapper color={props.data.contentfulBoard.color}>
         <div className="container">
           <div className="logo">
             <img src={logo} alt="Sticky Logo" />
@@ -37,3 +38,11 @@ const Index = props => {
   );
 };
 export default Index;
+
+export const indexQuery = graphql`
+  query colorQuery {
+    contentfulBoard(current: { eq: true }) {
+      color
+    }
+  }
+`;
