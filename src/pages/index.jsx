@@ -12,7 +12,13 @@ import { graphql } from 'gatsby';
 const Index = props => {
   return (
     <Layout title="Sticky">
-      <IndexWrapper color={props.data.contentfulBoard.color}>
+      <IndexWrapper
+        color={
+          !props.data.contentfulBoard
+            ? '#000000'
+            : props.data.contentfulBoard.color
+        }
+      >
         <div className="container">
           <div className="logo">
             <img src={logo} alt="Sticky Logo" />
