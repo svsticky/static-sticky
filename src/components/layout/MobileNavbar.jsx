@@ -112,7 +112,13 @@ class MobileNavBar extends React.Component {
   render() {
     const { edges } = this.props.data.allContentfulPage;
     return (
-      <MobileNavBarWrapper color={this.props.data.contentfulBoard.color}>
+      <MobileNavBarWrapper
+        color={
+          !this.props.data.contentfulBoard
+            ? '#000000'
+            : this.props.data.contentfulBoard.color
+        }
+      >
         <div className="menu">
           <Link className="center-container" to="/">
             <img src={logo} alt="Sticky Logo" className="sticky-logo" />

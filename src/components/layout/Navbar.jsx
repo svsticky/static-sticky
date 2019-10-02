@@ -87,7 +87,13 @@ class NavBar extends React.Component {
 
   render() {
     return (
-      <NavBarWrapper color={this.props.data.contentfulBoard.color}>
+      <NavBarWrapper
+        color={
+          !this.props.data.contentfulBoard
+            ? '#000000'
+            : this.props.data.contentfulBoard.color
+        }
+      >
         <Menu size="large" className="navbar">
           <Container>
             <Image as={Link} to="/" className="logo">
