@@ -19,6 +19,7 @@ module.exports = {
       resolve: 'gatsby-plugin-favicon',
       options: {
         logo: './src/images/favicon.svg',
+        theme_color: '#C53F78',
       },
     },
   ],
