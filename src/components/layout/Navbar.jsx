@@ -118,12 +118,12 @@ class NavBar extends React.Component {
             </Menu.Item>
             <Menu.Item className="link-item">
               <Button
-                href="http://photos.svsticky.nl"
+                href="https://intro.svsticky.nl/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="button"
               >
-                Foto's
+                Sign up
               </Button>
             </Menu.Item>
           </Container>
