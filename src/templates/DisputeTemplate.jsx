@@ -11,11 +11,11 @@ const DisputeView = ({ data }) => {
   return (
     <Layout title={data.name}>
       <Grid columns={2} stackable>
-        <Grid.Column width={3}>
+        <Grid.Column width={4}>
           <Sticky>
             <Grid.Row>
               <Image
-                size="small"
+                size="medium"
                 src={dispute.logo.file.url}
                 alt={`${dispute.name} logo`}
                 centered
@@ -38,7 +38,7 @@ const DisputeView = ({ data }) => {
           </Sticky>
         </Grid.Column>
         <Grid.Column width={9}>
-          <Header>{dispute.name}</Header>
+          <Header className="huge">{dispute.name}</Header>
           <Markdown>{dispute.description.description}</Markdown>
         </Grid.Column>
       </Grid>
