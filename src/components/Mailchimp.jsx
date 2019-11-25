@@ -6,7 +6,7 @@ class Mailchimp extends React.Component {
     return (
       <>
         <div>
-          <h2>Mailchimp signup form</h2>
+          <h2>Inschrijven voor mailinglijsten</h2>
           <Card fluid>
             <div>
               <form
@@ -14,65 +14,55 @@ class Mailchimp extends React.Component {
                 method="post"
                 target="_blank"
                 class="ui form"
+                name="mc-embedded-subscribe-form"
               >
                 <div class="field">
-                  <label>Email Address </label>
+                  <label>E-mail adres</label>
                   <input
                     type="email"
-                    name="email-address"
-                    placeholder="name@organisation.nl"
+                    placeholder="naam@svsticky.nl"
+                    name="EMAIL"
                   />
                 </div>
                 <div class="field">
-                  <label htmlFor="mce-FIRSTNAME">First Name </label>
-                  <input type="text" name="FIRSTNAME" className />
+                  <label>Voornaam</label>
+                  <input type="text" name="FIRSTNAME" placeholder="Pietje" />
                 </div>
-                <div className="mc-field-group">
-                  <label htmlFor="mce-LASTNAME">Last Name </label>
-                  <input type="text" name="LASTNAME" className />
+                <div class="field">
+                  <label>Achternaam</label>
+                  <input type="text" name="LASTNAME" placeholder="Puk" />
                 </div>
-                <div className="mc-field-group input-group">
-                  <strong>Sticky Mailing </strong>
-                  <ul>
-                    <li>
+                <div class="grouped fields">
+                  <div class="field">
+                    <div class="ui checkbox">
                       <input
                         type="checkbox"
                         defaultValue={1}
                         name="group[13][1]"
                       />
-                      <label htmlFor="mce-group[13]-13-0">
-                        MaandagMorgenMail
-                      </label>
-                    </li>
-                    <li>
+                      <label>MaandagMorgenMail</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui checkbox">
                       <input
                         type="checkbox"
                         defaultValue={2}
                         name="group[13][2]"
                       />
-                      <label htmlFor="mce-group[13]-13-1">
-                        Bedrijfsmailing
-                      </label>
-                    </li>
-                    <li>
-                      <input
-                        type="checkbox"
-                        defaultValue={4}
-                        name="group[13][4]"
-                      />
-                      <label htmlFor="mce-group[13]-13-2">ALV Mailing</label>
-                    </li>
-                    <li>
+                      <label>Bedrijfsmailing</label>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <div class="ui checkbox">
                       <input
                         type="checkbox"
                         defaultValue={8}
                         name="group[13][8]"
                       />
-                      <label htmlFor="mce-group[13]-13-3">
-                        Lezingen en workshops
-                      </label>
-                    </li>
-                  </ul>
+                      <label>Lezingen en workshops</label>
+                    </div>
+                  </div>
                 </div>
                 <div className="clear">
                   <div className="response" style={{ display: 'none' }} />
@@ -96,6 +86,8 @@ class Mailchimp extends React.Component {
                     defaultValue="Subscribe"
                     name="subscribe"
                     className="button"
+                    class="ui button"
+                    value="Inschrijven"
                   />
                 </div>
               </form>
