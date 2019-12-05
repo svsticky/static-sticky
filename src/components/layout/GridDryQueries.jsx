@@ -14,10 +14,6 @@ const IndexWrapper = styled.div`
   .drinks {
     grid-area: drinks;
   }
-  .mailchimp {
-    grid-area: mailchimp;
-  }
-
   .jobs {
     grid-area: jobs;
   }
@@ -37,8 +33,7 @@ const IndexWrapper = styled.div`
         'news'
         'drinks'
         'jobs'
-        'activity'
-        'mailchimp';
+        'activity';
       grid-gap: 2em;
     }
     .logo {
@@ -61,8 +56,7 @@ const IndexWrapper = styled.div`
         'banner banner'
         'news news'
         'drinks activity'
-        'jobs activity'
-        'mailchimp ...';
+        'jobs activity';
       grid-gap: 3em;
     }
     .logo {
@@ -79,7 +73,7 @@ const IndexWrapper = styled.div`
         'news drinks'
         'news jobs'
         'news activity'
-        'news mailchimp';
+        'news ...';
       grid-gap: 3em;
     }
     .logo {
