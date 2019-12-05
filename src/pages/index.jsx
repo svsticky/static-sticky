@@ -4,7 +4,6 @@ import logo from '../images/sticky-logo-text.svg';
 import Banner from '../components/Banner';
 import News from '../components/News';
 import Drinks from '../components/Drinks';
-import Mailchimp from '../components/Mailchimp';
 import IndexWrapper from '../components/layout/GridDryQueries';
 import FeaturedJobWidget from '../components/jobs/FeaturedJobWidget';
 import ActivityWidget from '../components/activities/ActivityWidget';
@@ -32,9 +31,6 @@ const Index = props => {
           </div>
           <div className="drinks">
             <Drinks />
-          </div>
-          <div className="mailchimp">
-            <Mailchimp />
           </div>
           <div className="jobs">
             <FeaturedJobWidget />
