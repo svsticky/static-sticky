@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { device } from '../../data/Devices';
 import { Link } from 'gatsby';
+import { Menu, Button } from 'semantic-ui-react';
 
 const Footer = () => (
   <FooterWrapper>
@@ -9,16 +10,29 @@ const Footer = () => (
       <div className="footer-list">
         <div className="footer-item">
           <h3>Paginas</h3>
-          <Link to="/vereniging/contact" style={{ color: 'White' }}>
+          <Button
+            as={Link}
+            to="/vereniging/contact"
+            className="ui compact mini basic inverted buttons"
+          >
             Contact
-          </Link>
+          </Button>
           <br />
-          <Link to="/vereniging/commissies">Commissies</Link>
+          <Button
+            as={Link}
+            to="/vereniging/mailchimp"
+            className="ui compact mini basic inverted buttons"
+          >
+            Mailinglijsten
+          </Button>
           <br />
-          <Link to="/vereniging/disputen">Disputen</Link>
-          <br />
-          <Link to="/vereniging/mailchimp">Mailinglijsten</Link>
-          <br />
+          <Button
+            as={Link}
+            to="/carriere/samenwerking"
+            className="ui compact mini basic inverted buttons"
+          >
+            Samenwerking
+          </Button>
         </div>
         <div className="footer-item">
           <h3>Bezoekadres</h3>
