@@ -1,11 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import { device } from '../../data/Devices';
+import { Link } from 'gatsby';
 
 const Footer = () => (
   <FooterWrapper>
     <div className="footer-container">
       <div className="footer-list">
+        <div className="footer-item">
+          <h3>Paginas</h3>
+          <Link to="/vereniging/contact" style={{ color: 'White' }}>
+            Contact
+          </Link>
+          <br />
+          <Link to="/vereniging/commissies">Commissies</Link>
+          <br />
+          <Link to="/vereniging/disputen">Disputen</Link>
+          <br />
+          <Link to="/vereniging/mailchimp">Mailinglijsten</Link>
+          <br />
+        </div>
         <div className="footer-item">
           <h3>Bezoekadres</h3>
           Kamer 2.81 <br />
