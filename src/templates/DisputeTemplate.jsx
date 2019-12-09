@@ -1,15 +1,25 @@
 import React from 'react';
 import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Grid, Header, Image, Divider } from 'semantic-ui-react';
+import { Grid, Header, Image, Divider, Button, Icon } from 'semantic-ui-react';
 
 const DisputeView = ({ data }) => {
   const { contentfulDispute: dispute } = data;
 
   return (
     <Layout title={data.name}>
+      <Button
+        as={Link}
+        className="labeled icon basic"
+        to="/vereniging/disputen"
+      >
+        <Icon name="angle left" />
+        Disputen
+      </Button>
+      <Divider hidden />
+
       <Grid columns={2} stackable>
         <Grid.Column width={4}>
           <Sticky>

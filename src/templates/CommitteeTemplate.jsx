@@ -16,6 +16,7 @@ const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
         <Icon name="angle left" />
         Commissies
       </Button>
+      <Divider hidden />
 
       <Grid columns={2} stackable>
         <Grid.Column width={4}>
