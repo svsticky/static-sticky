@@ -15,7 +15,7 @@ export default ({ data }) => {
 
 export const pageQuery = graphql`
   query pageQuery($id: String!) {
-    contentfulPage(id: { eq: $id }) {
+    contentfulPage(id: { eq: $id }, node_locale: { eq: "nl" }) {
       title
       content {
         content

@@ -3,6 +3,7 @@ const slash = require('slash');
 const fs = require('fs');
 
 exports.createPages = async ({ graphql, actions }) => {
+  let locale = 'nl';
   const { createPage } = actions;
   const jobTemplate = path.resolve('src/templates/JobTemplate.jsx');
   const partnerTemplate = path.resolve('src/templates/PartnerTemplate.jsx');
@@ -11,9 +12,12 @@ exports.createPages = async ({ graphql, actions }) => {
   const newsTemplate = path.resolve('src/templates/NewsTemplate.jsx');
   const disputeTemplate = path.resolve(`src/templates/DisputeTemplate.jsx`);
   const committeeTemplate = path.resolve(`src/templates/CommitteeTemplate.jsx`);
+
+  // filter: { node_locale: { eq: "en-US" } }
+
   const query = await graphql(`
     query PagesQuery {
-      allContentfulJobListing {
+      allContentfulJobListing(filter: { node_locale: { eq: ${locale} } }) {
         edges {
           node {
             id
@@ -21,7 +25,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allContentfulPartner {
+      allContentfulPartner(filter: { node_locale: { eq: ${locale} } }) {
         edges {
           node {
             id
@@ -29,7 +33,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allContentfulPage {
+      allContentfulPage(filter: { node_locale: { eq: ${locale} } }) {
         edges {
           node {
             id
@@ -41,7 +45,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allContentfulBoard {
+      allContentfulBoard(filter: { node_locale: { eq: ${locale} } }) {
         edges {
           node {
             id
@@ -49,7 +53,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allContentfulNewsArticles {
+      allContentfulNewsArticles(filter: { node_locale: { eq: ${locale} } }) {
         edges {
           node {
             id
@@ -57,7 +61,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allContentfulDispute {
+      allContentfulDispute(filter: { node_locale: { eq: ${locale} } }) {
         edges {
           node {
             id
@@ -65,7 +69,7 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
-      allContentfulCommittee {
+      allContentfulCommittee(filter: { node_locale: { eq: ${locale} } }) {
         edges {
           node {
             id

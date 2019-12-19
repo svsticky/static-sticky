@@ -108,7 +108,7 @@ export default JobView;
 
 export const jobQuery = graphql`
   query jobQuery($id: String!) {
-    contentfulJobListing(id: { eq: $id }) {
+    contentfulJobListing(id: { eq: $id }, node_locale: { eq: "nl" }) {
       job_title
       content {
         content

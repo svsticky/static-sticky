@@ -65,7 +65,7 @@ export default DisputeView;
 
 export const DisputeQuery = graphql`
   query DisputeQuery($id: String!) {
-    contentfulDispute(id: { eq: $id }) {
+    contentfulDispute(id: { eq: $id }, node_locale: { eq: "nl" }) {
       id
       name
       website
