@@ -156,7 +156,7 @@ const BoardTemplateWrapper = styled.div`
 
 export const boardQuery = graphql`
   query boardQuery($id: String!) {
-    contentfulBoard(id: { eq: $id }) {
+    contentfulBoard(id: { eq: $id }, node_locale: { eq: "nl" }) {
       id
       name
       years

@@ -183,7 +183,7 @@ export default props => (
   <StaticQuery
     query={graphql`
       query {
-        allContentfulPage {
+        allContentfulPage(filter: { node_locale: { eq: "nl" } }) {
           edges {
             node {
               id
