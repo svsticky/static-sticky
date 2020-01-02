@@ -130,7 +130,7 @@ export default PartnerView;
 
 export const PartnerQuery = graphql`
   query PartnerQuery($id: String!) {
-    contentfulPartner(id: { eq: $id }, node_locale: { eq: "nl" }) {
+    contentfulPartner(id: { eq: $id }) {
       id
       name
       website
