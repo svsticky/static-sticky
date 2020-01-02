@@ -15,7 +15,8 @@ import { device } from '../../data/Devices';
 
 class NavBar extends React.Component {
   constructor(props) {
-    const language = localStorage.getItem('language') || 'nl'; // Default fallback to Dutch
+    const language = window.location.href.split('/')[3] || 'nl'; // Default fallback to Dutch
+    localStorage.setItem('language', language);
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
       content => content.node.node_locale === language // Only get the current language
     );
@@ -27,7 +28,13 @@ class NavBar extends React.Component {
 
   changeLanguage = lg => {
     localStorage.setItem('language', lg);
-    window.location.reload(false);
+    let url = window.location.href;
+    let oldLg = url.split('/')[3];
+    let newUrl;
+    if (oldLg) newUrl = url.replace(oldLg, lg);
+    else newUrl = url + lg;
+
+    window.location.href = newUrl;
   };
 
   renderMenuItems = data =>
@@ -64,9 +71,7 @@ class NavBar extends React.Component {
           className="item"
           key={subMenuItem.node.title}
           as={Link}
-          to={
-            '/' + subMenuItem.node.parentPage.slug + '/' + subMenuItem.node.slug
-          }
+          to={`/${subMenuItem.node.node_locale}/${subMenuItem.node.parentPage.slug}/${subMenuItem.node.slug}`}
         >
           <p className="item-text">{subMenuItem.node.title}</p>
         </Dropdown.Item>

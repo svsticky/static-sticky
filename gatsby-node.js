@@ -4,6 +4,7 @@ const fs = require('fs');
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
+  const indexTemplate = path.resolve('src/pages/index.jsx');
   const jobTemplate = path.resolve('src/templates/JobTemplate.jsx');
   const partnerTemplate = path.resolve('src/templates/PartnerTemplate.jsx');
   const pageTemplate = path.resolve('src/templates/PageTemplate.jsx');
@@ -96,6 +97,11 @@ exports.createPages = async ({ graphql, actions }) => {
   if (query.errors) {
     throw new Error(JSON.stringify(query.errors));
   } else {
+    // Create home pages
+    createTemplatePage(`/nl`, indexTemplate, null);
+
+    createTemplatePage(`/en-US`, indexTemplate, null);
+
     // Create jobpages
     query.data.allContentfulJobListing.edges.forEach(({ node }) => {
       createTemplatePage(

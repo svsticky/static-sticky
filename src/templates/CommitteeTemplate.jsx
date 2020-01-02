@@ -63,7 +63,7 @@ export default CommitteeView;
 
 export const CommitteeQuery = graphql`
   query CommitteeQuery($id: String!) {
-    contentfulCommittee(id: { eq: $id }, node_locale: { eq: "nl" }) {
+    contentfulCommittee(id: { eq: $id }) {
       id
       name
       description {
