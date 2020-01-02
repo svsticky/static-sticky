@@ -45,11 +45,12 @@ const NewsTemplateWrapper = styled.div`
 
 export const newsQuery = graphql`
   query newsQuery($id: String!) {
-    contentfulNewsArticles(id: { eq: $id }, node_locale: { eq: "nl" }) {
+    contentfulNewsArticles(id: { eq: $id }) {
       id
       title
       dateOfPublishing
       slug
+      node_locale
       content {
         content
       }

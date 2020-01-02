@@ -30,7 +30,7 @@ class News extends React.Component {
         .map(item => {
           return (
             <Link
-              to={'/news/' + item.node.slug}
+              to={`/${item.node.node_locale}/news/${item.node.slug}`}
               key={item.node.id}
               className="news-item"
             >

@@ -17,6 +17,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            node_locale
             slug
           }
         }
@@ -25,6 +26,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            node_locale
             slug
           }
         }
@@ -33,6 +35,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            node_locale
             title
             slug
             parentPage {
@@ -45,6 +48,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            node_locale
             number
           }
         }
@@ -53,6 +57,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            node_locale
             slug
           }
         }
@@ -61,6 +66,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            node_locale
             slug
           }
         }
@@ -69,6 +75,7 @@ exports.createPages = async ({ graphql, actions }) => {
         edges {
           node {
             id
+            node_locale
             slug
           }
         }
@@ -91,21 +98,37 @@ exports.createPages = async ({ graphql, actions }) => {
   } else {
     // Create jobpages
     query.data.allContentfulJobListing.edges.forEach(({ node }) => {
-      createTemplatePage(`/vacatures/${node.slug}`, jobTemplate, node.id);
+      createTemplatePage(
+        `/${node.node_locale}/vacatures/${node.slug}`,
+        jobTemplate,
+        node.id
+      );
     });
 
     // Create partnerpages
     query.data.allContentfulPartner.edges.forEach(({ node }) => {
-      createTemplatePage(`/partners/${node.slug}`, partnerTemplate, node.id);
+      createTemplatePage(
+        `/${node.node_locale}/partners/${node.slug}`,
+        partnerTemplate,
+        node.id
+      );
     });
 
     // Create boardpages
     query.data.allContentfulBoard.edges.forEach(({ node }) => {
-      createTemplatePage(`besturen/${node.number}`, boardTemplate, node.id);
+      createTemplatePage(
+        `/${node.node_locale}/besturen/${node.number}`,
+        boardTemplate,
+        node.id
+      );
     });
 
     query.data.allContentfulNewsArticles.edges.forEach(({ node }) => {
-      createTemplatePage(`/news/${node.slug}`, newsTemplate, node.id);
+      createTemplatePage(
+        `/${node.node_locale}/news/${node.slug}`,
+        newsTemplate,
+        node.id
+      );
     });
 
     // Create general pages
@@ -120,17 +143,27 @@ exports.createPages = async ({ graphql, actions }) => {
       const localPath = path.resolve('src', 'pages', url + '.jsx');
       // Check asynchronously if we have a the page locally.
       fs.access(localPath, fs.R_OK, err => {
-        if (err) createTemplatePage(`/${url}`, pageTemplate, node.id);
+        if (err)
+          createTemplatePage(
+            `/${node.node_locale}/${url}`,
+            pageTemplate,
+            node.id
+          );
       });
     });
 
     query.data.allContentfulDispute.edges.forEach(({ node }) => {
-      createTemplatePage(`/disputen/${node.slug}`, disputeTemplate, node.id);
+      console.log(node);
+      createTemplatePage(
+        `/${node.node_locale}/disputen/${node.slug}`,
+        disputeTemplate,
+        node.id
+      );
     });
 
     query.data.allContentfulCommittee.edges.forEach(({ node }) => {
       createTemplatePage(
-        `/commissies/${node.slug}`,
+        `/${node.node_locale}/commissies/${node.slug}`,
         committeeTemplate,
         node.id
       );
