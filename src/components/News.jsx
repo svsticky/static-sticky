@@ -10,8 +10,10 @@ import { device } from '../data/Devices';
 class News extends React.Component {
   constructor(props) {
     super(props);
-    this.newsItems = this.props.data.allContentfulNewsArticles.edges;
-
+    const language = localStorage.getItem('language') || 'nl'; // Default fallback to Dutch
+    this.newsItems = this.props.data.allContentfulNewsArticles.edges.filter(
+      content => content.node.node_locale === language // Only get the current language
+    );
     this.state = {
       pageCount: Math.ceil(this.newsItems.length / this.props.itemsPerPage),
       visiblePage: 3,
@@ -223,6 +225,7 @@ export default props => (
               title
               slug
               dateOfPublishing
+              node_locale
               frontPageImage {
                 file {
                   url
