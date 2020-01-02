@@ -15,11 +15,20 @@ import { device } from '../../data/Devices';
 
 class NavBar extends React.Component {
   constructor(props) {
+    const language = localStorage.getItem('language') || 'nl';
+    props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
+      content => content.node.node_locale === language
+    );
     props.data.allContentfulPage.edges.sort(
       (a, b) => b.node.title.localeCompare(a.node.title) // Sorting all the menu items
     );
     super(props);
   }
+
+  changeLanguage = lg => {
+    localStorage.setItem('language', lg);
+    window.location.reload(false);
+  };
 
   renderMenuItems = data =>
     data.map(menuItem => {
@@ -126,6 +135,22 @@ class NavBar extends React.Component {
                 Sign up
               </Button>
             </Menu.Item>
+            <Dropdown item text="Language">
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  className="item"
+                  onClick={() => this.changeLanguage('nl')}
+                >
+                  <p className="item-text">NL</p>
+                </Dropdown.Item>
+                <Dropdown.Item
+                  className="item"
+                  onClick={() => this.changeLanguage('en-US')}
+                >
+                  <p className="item-text">EN</p>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </Container>
         </Menu>
       </NavBarWrapper>
@@ -183,12 +208,13 @@ export default props => (
   <StaticQuery
     query={graphql`
       query {
-        allContentfulPage(filter: { node_locale: { eq: "nl" } }) {
+        allContentfulPage {
           edges {
             node {
               id
               title
               slug
+              node_locale
               parentPage {
                 title
                 slug
