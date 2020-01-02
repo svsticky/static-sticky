@@ -15,9 +15,9 @@ import { device } from '../../data/Devices';
 
 class NavBar extends React.Component {
   constructor(props) {
-    const language = localStorage.getItem('language') || 'nl';
+    const language = localStorage.getItem('language') || 'nl'; // Default fallback to Dutch
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
-      content => content.node.node_locale === language
+      content => content.node.node_locale === language // Only get the current language
     );
     props.data.allContentfulPage.edges.sort(
       (a, b) => b.node.title.localeCompare(a.node.title) // Sorting all the menu items

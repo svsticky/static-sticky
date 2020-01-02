@@ -13,11 +13,20 @@ class MobileNavBar extends React.Component {
   };
 
   constructor(props) {
+    const language = localStorage.getItem('language') || 'nl'; // Default fallback to Dutch
+    props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
+      content => content.node.node_locale === language // Only get the current language
+    );
     props.data.allContentfulPage.edges.sort(
       (a, b) => b.node.title.localeCompare(a.node.title) // Sorting submenuitems a-z (flex-direction is column-reverse/row-reverse)
     );
     super(props);
   }
+
+  changeLanguage = lg => {
+    localStorage.setItem('language', lg);
+    window.location.reload(false);
+  };
 
   handleMenuClick = clicked => {
     clicked === this.state.active
@@ -68,6 +77,18 @@ class MobileNavBar extends React.Component {
       <>
         {this.state.active === 'links' ? (
           <>
+            <div
+              className="sub-menu-item"
+              onClick={() => this.changeLanguage('en-US')}
+            >
+              EN
+            </div>
+            <div
+              className="sub-menu-item"
+              onClick={() => this.changeLanguage('nl')}
+            >
+              NL
+            </div>
             <a
               href="https://koala.svsticky.nl/"
               key="Koala"
@@ -252,6 +273,7 @@ export default props => (
               id
               title
               slug
+              node_locale
               parentPage {
                 title
                 slug
