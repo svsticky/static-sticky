@@ -3,11 +3,11 @@ require('dotenv').config();
 module.exports = {
   siteMetadata: {
     title: 'Gatsby Default Starter',
+    languages: ['nl', 'en-US'],
   },
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-styled-components',
-    'gatsby-plugin-react-helmet',
     {
       resolve: 'gatsby-source-contentful',
       options: {

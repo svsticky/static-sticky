@@ -1,6 +1,7 @@
 const path = require('path');
 const slash = require('slash');
 const fs = require('fs');
+const languages = require('./gatsby-config.js').siteMetadata.languages;
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -12,6 +13,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const newsTemplate = path.resolve('src/templates/NewsTemplate.jsx');
   const disputeTemplate = path.resolve(`src/templates/DisputeTemplate.jsx`);
   const committeeTemplate = path.resolve(`src/templates/CommitteeTemplate.jsx`);
+  const staticFolder = `src/pages`;
   const query = await graphql(`
     query PagesQuery {
       allContentfulJobListing {
@@ -94,13 +96,31 @@ exports.createPages = async ({ graphql, actions }) => {
     });
   }
 
+  function createStaticPages(folder, location) {
+    fs.readdirSync(folder).forEach(file => {
+      if (fs.statSync(`${folder}/${file}`).isDirectory())
+        return createStaticPages(`${folder}/${file}`, file, createPage);
+
+      let baseUrl = `${location}/${file}`.split('.')[0]; // Get the path before file extension
+      if (baseUrl === '/index') baseUrl = '';
+      else if (baseUrl === '/404') return;
+
+      // Create a page for each language
+      languages.forEach(lang => {
+        createTemplatePage(
+          `${lang}/${baseUrl}`,
+          path.resolve(`${folder}/${file}`),
+          null
+        );
+      });
+    });
+  }
+
   if (query.errors) {
     throw new Error(JSON.stringify(query.errors));
   } else {
-    // Create home pages
-    createTemplatePage(`/nl`, indexTemplate, null);
-
-    createTemplatePage(`/en-US`, indexTemplate, null);
+    // Create all static pages
+    createStaticPages(staticFolder, '', createTemplatePage);
 
     // Create jobpages
     query.data.allContentfulJobListing.edges.forEach(({ node }) => {
@@ -159,7 +179,6 @@ exports.createPages = async ({ graphql, actions }) => {
     });
 
     query.data.allContentfulDispute.edges.forEach(({ node }) => {
-      console.log(node);
       createTemplatePage(
         `/${node.node_locale}/disputen/${node.slug}`,
         disputeTemplate,
