@@ -7,6 +7,7 @@ import { device } from '../data/Devices';
 
 const BoardView = ({ data }) => {
   const board = data.contentfulBoard;
+  board.language = window.location.href.split('/')[3];
 
   return (
     <Layout title={board.name}>
@@ -56,8 +57,8 @@ const showButton = board => {
       as={Link}
       labelPosition="left"
       icon="left chevron"
-      content={'Bestuur ' + (board.number - 1)}
-      to={'/besturen/' + (board.number - 1)}
+      content={`Bestuur ${board.number - 1}`}
+      to={`/${board.language}/besturen/${board.number - 1}`}
       className="button-prev"
       color={board.color}
     />
@@ -68,8 +69,8 @@ const showButton = board => {
       as={Link}
       labelPosition="right"
       icon="right chevron"
-      content={'Bestuur ' + (board.number + 1)}
-      to={'/besturen/' + (board.number + 1)}
+      content={`Bestuur ${board.number + 1}`}
+      to={`/${board.language}/besturen/${board.number + 1}`}
       className="button-next"
       color={board.color}
     />
@@ -81,7 +82,7 @@ const showButton = board => {
       <Button
         as={Link}
         content={'Terug naar overzicht'}
-        to={'vereniging/besturen'}
+        to={`/${board.language}/vereniging/besturen`}
         className="button-index"
         color={board.color}
       />
