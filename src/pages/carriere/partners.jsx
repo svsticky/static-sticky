@@ -6,7 +6,10 @@ import Layout from '../../components/layout/Layout';
 import { FlexListContainer } from '../../helpers';
 
 const PartnerIndexPage = ({ data }) => {
-  const partners = data.allContentfulPartner.edges;
+  const language = localStorage.getItem('language');
+  const partners = data.allContentfulPartner.edges.filter(
+    content => content.node.node_locale === language // Only get the current language
+  );
   const page = data.contentfulPage;
 
   return (
@@ -30,6 +33,7 @@ const PartnerListQuery = graphql`
       edges {
         node {
           id
+          node_locale
           name
           slug
           logo {

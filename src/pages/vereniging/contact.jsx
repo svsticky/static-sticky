@@ -6,7 +6,10 @@ import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
 
 const ContactPage = props => {
-  const contactPersons = props.data.allContentfulBoardMember.edges;
+  const language = localStorage.getItem('language');
+  const contactPersons = props.data.allContentfulBoardMember.edges.filter(
+    content => content.node.node_locale === language // Only get the current language
+  );
   const page = props.data.contentfulPage;
   return (
     <Layout title={page.title}>
@@ -53,6 +56,7 @@ const boardMemberQuery = graphql`
           email
           mobile
           order
+          node_locale
           photo {
             file {
               url

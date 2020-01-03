@@ -11,7 +11,7 @@ const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
       <Button
         as={Link}
         className="labeled icon basic"
-        to="/vereniging/commissies"
+        to={`/${committee.node_locale}/vereniging/commissies`}
       >
         <Icon name="angle left" />
         Commissies
@@ -66,6 +66,7 @@ export const CommitteeQuery = graphql`
     contentfulCommittee(id: { eq: $id }) {
       id
       name
+      node_locale
       description {
         description
       }

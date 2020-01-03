@@ -6,8 +6,12 @@ import { Image, Card, Grid } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const CommitteeIndexPage = ({ data }) => {
-  const committees = data.allContentfulCommittee.edges.map(
+  const language = localStorage.getItem('language');
+  const committeesNode = data.allContentfulCommittee.edges.map(
     committeeEdge => committeeEdge.node
+  );
+  const committees = committeesNode.filter(
+    content => content.node_locale === language
   );
   const page = data.contentfulPage;
 
@@ -16,7 +20,11 @@ const CommitteeIndexPage = ({ data }) => {
       <Grid doubling stackable centered columns={3}>
         {committees.map(committee => (
           <Grid.Column key={committee.id}>
-            <Card as={Link} fluid to={'/commissies/' + committee.slug}>
+            <Card
+              as={Link}
+              fluid
+              to={`/${committee.node_locale}/commissies/${committee.slug}`}
+            >
               <WhiteBackgroundImage
                 className="white"
                 centered
@@ -48,6 +56,7 @@ const CommitteeListQuery = graphql`
       edges {
         node {
           id
+          node_locale
           name
           slug
           logo {
@@ -60,6 +69,7 @@ const CommitteeListQuery = graphql`
     }
     contentfulPage(slug: { eq: "commissies" }) {
       title
+      node_locale
       content {
         content
       }
