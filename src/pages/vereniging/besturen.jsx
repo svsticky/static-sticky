@@ -8,7 +8,10 @@ import Layout from '../../components/layout/Layout';
 import { device } from '../../data/Devices';
 
 const BoardPage = props => {
-  const boards = props.data.allContentfulBoard.edges;
+  const language = localStorage.getItem('language') || 'nl';
+  const boards = props.data.allContentfulBoard.edges.filter(
+    content => content.node.node_locale === language // Only get the current language
+  );
   const page = props.data.contentfulPage;
   return (
     <Layout title={page.title}>
@@ -65,6 +68,7 @@ const BoardsQuery = graphql`
       edges {
         node {
           id
+          node_locale
           years
           number
           motto
@@ -81,6 +85,7 @@ const BoardsQuery = graphql`
     }
     contentfulPage(slug: { eq: "besturen" }) {
       title
+      node_locale
       content {
         content
       }

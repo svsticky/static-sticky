@@ -10,7 +10,7 @@ const Board = ({ board }) => (
       <Card
         fluid
         as={Link}
-        to={'/besturen/' + board.number}
+        to={`/${board.node_locale}/besturen/${board.number}`}
         className="board-card"
       >
         <Image centered rounded className="image" src={board.photo.file.url} />
