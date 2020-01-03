@@ -15,7 +15,7 @@ const JobView = ({ data }) => {
       <JobTemplateWrapper>
         <div className="side-info">
           <LinkLogoCard
-            url={'/partners/' + job.partner.slug}
+            url={`/${job.node_locale}/partners/${job.partner.slug}`}
             className="partner"
           >
             <ImageContainer
@@ -110,6 +110,7 @@ export const jobQuery = graphql`
   query jobQuery($id: String!) {
     contentfulJobListing(id: { eq: $id }) {
       job_title
+      node_locale
       content {
         content
       }

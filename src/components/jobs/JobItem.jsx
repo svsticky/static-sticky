@@ -5,7 +5,12 @@ import { Link } from 'gatsby';
 
 const JobItem = props => (
   <JobWrapper>
-    <Card as={Link} fluid to={'/vacatures/' + props.job.slug} className="card">
+    <Card
+      as={Link}
+      fluid
+      to={`${props.job.node_locale}/vacatures/${props.job.slug}`}
+      className="card"
+    >
       <Label
         color={props.job.isJob ? 'blue' : 'yellow'}
         ribbon="right"

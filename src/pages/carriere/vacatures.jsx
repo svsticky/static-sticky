@@ -7,11 +7,15 @@ import Layout from '../../components/layout/Layout';
 
 class JobIndexPage extends React.Component {
   constructor(props) {
+    const language = localStorage.getItem('language');
     super(props);
     this.state = {
       studiesFilter: [],
       typesFilter: [],
     };
+    this.jobs = this.props.data.allContentfulJobListing.edges.filter(
+      content => content.node.node_locale === language // Only get the current language
+    );
     this.page = props.data.contentfulPage;
   }
 
@@ -35,7 +39,7 @@ class JobIndexPage extends React.Component {
           typesFilter={this.state.typesFilter}
         />
         <JobsList
-          jobs={this.props.data.allContentfulJobListing.edges}
+          jobs={this.jobs}
           studiesFilter={this.state.studiesFilter}
           typesFilter={this.state.typesFilter}
         />
@@ -57,6 +61,7 @@ const JobsListQuery = graphql`
           type
           isJob
           slug
+          node_locale
           partner {
             name
             logo {

@@ -6,8 +6,12 @@ import Dispute from '../../components/Dispute';
 import { FlexListContainer } from '../../helpers';
 
 const DisputeIndexPage = ({ data }) => {
-  const disputes = data.allContentfulDispute.edges.map(
+  const language = localStorage.getItem('language');
+  const disputeEdges = data.allContentfulDispute.edges.map(
     disputeEdge => disputeEdge.node
+  );
+  const disputes = disputeEdges.filter(
+    content => content.node_locale === language // Only get the current language
   );
   const page = data.contentfulPage;
 
@@ -32,6 +36,7 @@ const DisputeListQuery = graphql`
           id
           name
           slug
+          node_locale
           logo {
             file {
               url
