@@ -110,7 +110,11 @@ class NavBar extends React.Component {
       >
         <Menu size="large" className="navbar">
           <Container>
-            <Image as={Link} to="/" className="logo">
+            <Image
+              as={Link}
+              to={`/${this.props.data.allContentfulPage.edges[0].node.node_locale}`}
+              className="logo"
+            >
               <img src={logo} alt="Sticky logo" />
             </Image>
             <div style={{ flex: 1 }} />
