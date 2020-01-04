@@ -171,7 +171,7 @@ exports.createPages = async ({ graphql, actions }) => {
       fs.access(localPath, fs.R_OK, err => {
         if (err)
           createTemplatePage(
-            `/${node.node_locale}/${url}`,
+            `${node.node_locale}/${url}`,
             pageTemplate,
             node.id
           );
