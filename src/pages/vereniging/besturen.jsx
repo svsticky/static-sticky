@@ -8,7 +8,7 @@ import Layout from '../../components/layout/Layout';
 import { device } from '../../data/Devices';
 
 const BoardPage = props => {
-  const language = localStorage.getItem('language') || 'nl';
+  const language = window.location.href.split('/')[3];
   const boards = props.data.allContentfulBoard.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );

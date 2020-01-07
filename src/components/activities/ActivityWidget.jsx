@@ -21,6 +21,8 @@ export default class ActivityWidget extends Component {
     if (this.state.activities.length === 0 && this.state.activitiesLoaded)
       return <div />;
 
+    const language = window.location.href.split('/')[3];
+
     return (
       <>
         <h2>Eerstvolgende Activiteit</h2>
@@ -31,7 +33,7 @@ export default class ActivityWidget extends Component {
           fluid
           primary
           as={Link}
-          to="/vereniging/activiteiten"
+          to={`${language}/vereniging/activiteiten`}
           style={{ marginTop: '1rem' }}
         >
           Meer activiteiten

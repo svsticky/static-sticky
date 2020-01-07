@@ -8,7 +8,10 @@ class FeaturedJobs extends React.Component {
   };
 
   renderFeaturedJobs = jobs => {
-    const featuredJobs = jobs.filter(job => job.node.featured);
+    const language = window.location.href.split('/')[3];
+    const featuredJobs = jobs.filter(
+      job => job.node.featured && job.node.node_locale === language
+    );
     if (featuredJobs.length > 0) {
       const chosenJob = this.getRandom(featuredJobs.length - 1);
       return (
@@ -48,6 +51,7 @@ export default props => (
               type
               slug
               isJob
+              node_locale
               partner {
                 name
                 logo {

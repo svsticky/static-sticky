@@ -10,7 +10,7 @@ import { device } from '../data/Devices';
 class News extends React.Component {
   constructor(props) {
     super(props);
-    const language = localStorage.getItem('language') || 'nl'; // Default fallback to Dutch
+    const language = window.location.href.split('/')[3];
     this.newsItems = this.props.data.allContentfulNewsArticles.edges.filter(
       content => content.node.node_locale === language // Only get the current language
     );

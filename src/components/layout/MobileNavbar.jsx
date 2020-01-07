@@ -13,7 +13,7 @@ class MobileNavBar extends React.Component {
   };
 
   constructor(props) {
-    const language = localStorage.getItem('language') || 'nl'; // Default fallback to Dutch
+    const language = window.location.href.split('/')[3] || 'nl'; // Default fallback to Dutch
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
       content => content.node.node_locale === language // Only get the current language
     );
@@ -24,8 +24,12 @@ class MobileNavBar extends React.Component {
   }
 
   changeLanguage = lg => {
-    localStorage.setItem('language', lg);
-    window.location.reload(false);
+    let url = window.location.href;
+    let oldLg = url.split('/')[3];
+    let newUrl;
+    if (oldLg) newUrl = url.replace(oldLg, lg);
+    else newUrl = url + lg;
+    window.location.href = newUrl;
   };
 
   handleMenuClick = clicked => {

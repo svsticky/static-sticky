@@ -7,7 +7,7 @@ import Layout from '../../components/layout/Layout';
 
 class JobIndexPage extends React.Component {
   constructor(props) {
-    const language = localStorage.getItem('language');
+    const language = window.location.href.split('/')[3];
     super(props);
     this.state = {
       studiesFilter: [],

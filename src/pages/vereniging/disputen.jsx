@@ -6,7 +6,7 @@ import Dispute from '../../components/Dispute';
 import { FlexListContainer } from '../../helpers';
 
 const DisputeIndexPage = ({ data }) => {
-  const language = localStorage.getItem('language');
+  const language = window.location.href.split('/')[3];
   const disputeEdges = data.allContentfulDispute.edges.map(
     disputeEdge => disputeEdge.node
   );

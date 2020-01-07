@@ -16,7 +16,6 @@ import { device } from '../../data/Devices';
 class NavBar extends React.Component {
   constructor(props) {
     const language = window.location.href.split('/')[3] || 'nl'; // Default fallback to Dutch
-    localStorage.setItem('language', language);
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
       content => content.node.node_locale === language // Only get the current language
     );
@@ -27,13 +26,11 @@ class NavBar extends React.Component {
   }
 
   changeLanguage = lg => {
-    localStorage.setItem('language', lg);
     let url = window.location.href;
     let oldLg = url.split('/')[3];
     let newUrl;
     if (oldLg) newUrl = url.replace(oldLg, lg);
     else newUrl = url + lg;
-
     window.location.href = newUrl;
   };
 
