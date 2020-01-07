@@ -1,7 +1,7 @@
 const path = require('path');
 const slash = require('slash');
 const fs = require('fs');
-const languages = require('./gatsby-config.js').siteMetadata.languages;
+const metadata = require('./gatsby-config.js').siteMetadata;
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions;
@@ -99,14 +99,14 @@ exports.createPages = async ({ graphql, actions }) => {
   function createStaticPages(folder, location) {
     fs.readdirSync(folder).forEach(file => {
       if (fs.statSync(`${folder}/${file}`).isDirectory())
-        return createStaticPages(`${folder}/${file}`, file, createPage);
+        return createStaticPages(`${folder}/${file}`, file);
 
       let baseUrl = `${location}/${file}`.split('.')[0]; // Get the path before file extension
       if (baseUrl === '/index') baseUrl = '';
       else if (baseUrl === '/404') return;
 
       // Create a page for each language
-      languages.forEach(lang => {
+      metadata.languages.forEach(lang => {
         createTemplatePage(
           `${lang}/${baseUrl}`,
           path.resolve(`${folder}/${file}`),
