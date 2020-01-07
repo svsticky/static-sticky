@@ -1,26 +1,32 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { graphql, StaticQuery } from 'gatsby';
+import { getTranslation } from '../data/i18n';
 
 class Drinks extends React.Component {
-  renderDescription = drinks => {
+  renderDescription = (drinks, lg) => {
     return (
       <>
-        Elke week is er een gratis borrel! Deze periode is de borreldag: <br />
+        {getTranslation(lg, 'drinks.description')} <br />
         <b>
-          Elke {drinks.day} vanaf {drinks.time} in de {drinks.location}!
+          {getTranslation(lg, 'drinks.when', [
+            drinks.day,
+            drinks.time,
+            drinks.location,
+          ])}
         </b>
       </>
     );
   };
 
   render() {
+    const language = window.location.href.split('/')[3];
     return (
       <>
         <div>
-          <h2>Borreldag</h2>
+          <h2>{getTranslation(language, 'drinks.title')}</h2>
           <Card fluid>
-            {this.renderDescription(this.props.data.contentfulDrinks)}
+            {this.renderDescription(this.props.data.contentfulDrinks, language)}
           </Card>
         </div>
       </>
