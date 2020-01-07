@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Dropdown } from 'semantic-ui-react';
 import { device } from '../../data/Devices';
+import { getTranslation } from '../../data/i18n';
 
 const studieFilterOptions = [
   { key: 1, text: 'Informatica', value: 'Informatica' },
@@ -62,9 +63,13 @@ const JobFilter = props => (
     <div className="filter-one">
       <div className="filter-label">
         {props.studiesFilter.length > 0 ? (
-          <span>{props.studiesFilter.length} studie(s) geselecteerd:</span>
+          <span>
+            {getTranslation(props.locale, 'vacancy.chosen.study', [
+              props.studiesFilter.length,
+            ])}
+          </span>
         ) : (
-          <span>Selecteer op studie(s)</span>
+          <span>{getTranslation(props.locale, 'vacancy.choose.study')}</span>
         )}
       </div>
       <Dropdown
@@ -73,7 +78,7 @@ const JobFilter = props => (
         multiple
         selection
         options={studieFilterOptions}
-        placeholder="Filter op studie"
+        placeholder={getTranslation(props.locale, 'vacancy.choose.study')}
         onChange={(e, data) => {
           props.updateStudiesFilter(data.value);
         }}
@@ -82,9 +87,13 @@ const JobFilter = props => (
     <div className="filter-two">
       <div className="filter-label">
         {props.typesFilter.length > 0 ? (
-          <span>{props.typesFilter.length} type(n) geselecteerd:</span>
+          <span>
+            {getTranslation(props.locale, 'vacancy.chosen.type', [
+              props.typesFilter.length,
+            ])}
+          </span>
         ) : (
-          <span>Selecteer op type(n)</span>
+          <span>{getTranslation(props.locale, 'vacancy.choose.type')}</span>
         )}
       </div>
       <Dropdown
@@ -93,7 +102,7 @@ const JobFilter = props => (
         multiple
         selection
         options={typeFilterOptions}
-        placeholder="Filter op type"
+        placeholder={getTranslation(props.locale, 'vacancy.choose.type')}
         onChange={(e, data) => {
           props.updateTypesFilter(data.value);
         }}

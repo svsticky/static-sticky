@@ -3,6 +3,7 @@ import ActivityCollection from './ActivityCollection';
 import Activity from './Activity';
 import { Link } from 'gatsby';
 import { Button } from 'semantic-ui-react';
+import { getTranslation } from '../../data/i18n';
 
 export default class ActivityWidget extends Component {
   state = {
@@ -25,7 +26,7 @@ export default class ActivityWidget extends Component {
 
     return (
       <>
-        <h2>Eerstvolgende Activiteit</h2>
+        <h2>{getTranslation(language, 'activities.next')}</h2>
         <ActivityCollection updateActivities={this.updateActivities}>
           {<Activity activity={this.state.activities[0]} />}
         </ActivityCollection>
@@ -36,7 +37,7 @@ export default class ActivityWidget extends Component {
           to={`${language}/vereniging/activiteiten`}
           style={{ marginTop: '1rem' }}
         >
-          Meer activiteiten
+          {getTranslation(language, 'activities.more')}
         </Button>
       </>
     );

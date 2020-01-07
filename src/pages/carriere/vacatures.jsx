@@ -4,17 +4,18 @@ import JobsList from '$/components/jobs/JobsList';
 import JobFilter from '$/components/jobs/JobFilter';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
+import { getTranslation } from '../../data/i18n';
 
 class JobIndexPage extends React.Component {
   constructor(props) {
-    const language = window.location.href.split('/')[3];
     super(props);
+    this.language = window.location.href.split('/')[3];
     this.state = {
       studiesFilter: [],
       typesFilter: [],
     };
     this.jobs = this.props.data.allContentfulJobListing.edges.filter(
-      content => content.node.node_locale === language // Only get the current language
+      content => content.node.node_locale === this.language // Only get the current language
     );
     this.page = props.data.contentfulPage;
   }
@@ -28,15 +29,17 @@ class JobIndexPage extends React.Component {
   };
 
   render() {
+    const title = getTranslation(this.language, 'vacancy.title');
     return (
-      <Layout title={this.page.title}>
-        <h2>{this.page.title}</h2>
+      <Layout title={title}>
+        <h2>{title}</h2>
         <Markdown>{this.page.content.content}</Markdown>
         <JobFilter
           updateStudiesFilter={this.updateStudiesFilter}
           studiesFilter={this.state.studiesFilter}
           updateTypesFilter={this.updateTypesFilter}
           typesFilter={this.state.typesFilter}
+          locale={this.language}
         />
         <JobsList
           jobs={this.jobs}
