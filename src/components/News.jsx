@@ -6,13 +6,14 @@ import Markdown from 'markdown-to-jsx';
 import { GlobalState } from '$/data/Context';
 import { Card, List } from 'semantic-ui-react';
 import { device } from '../data/Devices';
+import { getTranslation } from '../data/i18n';
 
 class News extends React.Component {
   constructor(props) {
     super(props);
-    const language = window.location.href.split('/')[3];
+    this.language = window.location.href.split('/')[3];
     this.newsItems = this.props.data.allContentfulNewsArticles.edges.filter(
-      content => content.node.node_locale === language // Only get the current language
+      content => content.node.node_locale === this.language // Only get the current language
     );
     this.state = {
       pageCount: Math.ceil(this.newsItems.length / this.props.itemsPerPage),
@@ -62,7 +63,7 @@ class News extends React.Component {
   render() {
     return (
       <NewsWrapper>
-        <h2>Nieuws</h2>
+        <h2>{getTranslation(this.language, 'news.title')}</h2>
         <Card fluid className="news-list">
           <GlobalState.Consumer>
             {context => (

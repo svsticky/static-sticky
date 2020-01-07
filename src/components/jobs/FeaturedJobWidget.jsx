@@ -1,6 +1,7 @@
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import JobItem from './JobItem';
+import { getTranslation } from '../../data/i18n';
 
 class FeaturedJobs extends React.Component {
   getRandom = max => {
@@ -16,7 +17,7 @@ class FeaturedJobs extends React.Component {
       const chosenJob = this.getRandom(featuredJobs.length - 1);
       return (
         <div>
-          <h2>Uitgelichte Vacature</h2>
+          <h2>{getTranslation(language, 'vacancy.title')}</h2>
           {this.renderFeaturedJob(featuredJobs[chosenJob])}
         </div>
       );
