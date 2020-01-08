@@ -13,7 +13,8 @@ class MobileNavBar extends React.Component {
   };
 
   constructor(props) {
-    const language = window.location.href.split('/')[3] || 'nl'; // Default fallback to Dutch
+    const language =
+      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
       content => content.node.node_locale === language // Only get the current language
     );

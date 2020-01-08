@@ -6,7 +6,8 @@ import Layout from '../../components/layout/Layout';
 import { FlexListContainer } from '../../helpers';
 
 const PartnerIndexPage = ({ data }) => {
-  const language = window.location.href.split('/')[3];
+  const language =
+    typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
   const partners = data.allContentfulPartner.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );

@@ -20,7 +20,8 @@ class Drinks extends React.Component {
   };
 
   render() {
-    const language = window.location.href.split('/')[3];
+    const language =
+      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
     return (
       <>
         <div>

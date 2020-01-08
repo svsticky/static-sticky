@@ -6,7 +6,8 @@ import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
 
 const ContactPage = props => {
-  const language = window.location.href.split('/')[3];
+  const language =
+    typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
   const contactPersons = props.data.allContentfulBoardMember.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );

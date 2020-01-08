@@ -7,7 +7,8 @@ import { device } from '../data/Devices';
 
 const BoardView = ({ data }) => {
   const board = data.contentfulBoard;
-  board.language = window.location.href.split('/')[3];
+  board.language =
+    typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
 
   return (
     <Layout title={board.name}>
