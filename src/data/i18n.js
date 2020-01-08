@@ -9,11 +9,12 @@ const languages = {
 export const getTranslation = (lg, key, words) => {
   const vars = key.split('.');
   let text;
-  if (vars.length === 1) text = languages[lg][key];
-  else {
-    let trans = languages[lg];
+  if (vars.length === 1) {
+    text = languages[lg][key];
+  } else {
+    let trans = languages[lg] || '';
     for (let i = 0; i < vars.length; i++) {
-      trans = trans[vars[i]];
+      trans = trans[vars[i]] || '';
     }
     text = trans;
   }
@@ -23,5 +24,7 @@ export const getTranslation = (lg, key, words) => {
       text = text.replace(`{${i}}`, words[i]);
     }
     return text;
-  } else return text;
+  } else {
+    return text;
+  }
 };
