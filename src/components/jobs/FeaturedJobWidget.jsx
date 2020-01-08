@@ -9,7 +9,8 @@ class FeaturedJobs extends React.Component {
   };
 
   renderFeaturedJobs = jobs => {
-    const language = window.location.href.split('/')[3];
+    const language =
+      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
     const featuredJobs = jobs.filter(
       job => job.node.featured && job.node.node_locale === language
     );
@@ -17,7 +18,7 @@ class FeaturedJobs extends React.Component {
       const chosenJob = this.getRandom(featuredJobs.length - 1);
       return (
         <div>
-          <h2>{getTranslation(language, 'vacancy.title')}</h2>
+          <h2>{getTranslation(language, 'vacancy.featured')}</h2>
           {this.renderFeaturedJob(featuredJobs[chosenJob])}
         </div>
       );

@@ -9,7 +9,8 @@ import { getTranslation } from '../../data/i18n';
 class JobIndexPage extends React.Component {
   constructor(props) {
     super(props);
-    this.language = window.location.href.split('/')[3];
+    this.language =
+      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
     this.state = {
       studiesFilter: [],
       typesFilter: [],

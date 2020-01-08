@@ -22,7 +22,8 @@ export default class ActivityWidget extends Component {
     if (this.state.activities.length === 0 && this.state.activitiesLoaded)
       return <div />;
 
-    const language = window.location.href.split('/')[3];
+    const language =
+      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
 
     return (
       <>

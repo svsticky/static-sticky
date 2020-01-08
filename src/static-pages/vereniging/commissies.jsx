@@ -6,7 +6,8 @@ import { Image, Card, Grid } from 'semantic-ui-react';
 import styled from 'styled-components';
 
 const CommitteeIndexPage = ({ data }) => {
-  const language = window.location.href.split('/')[3];
+  const language =
+    typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
   const committeesNode = data.allContentfulCommittee.edges.map(
     committeeEdge => committeeEdge.node
   );

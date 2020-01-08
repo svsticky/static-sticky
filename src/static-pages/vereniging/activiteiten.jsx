@@ -21,7 +21,8 @@ export default class Activities extends Component {
   render() {
     console.log('test');
     const page = this.props.data.contentfulPage;
-    const language = window.location.href.split('/')[3];
+    const language =
+      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
     const title = getTranslation(language, 'activities.title');
     return (
       <Layout title={title}>
