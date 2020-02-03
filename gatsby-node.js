@@ -86,6 +86,17 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
+  function createLanguageRedirect(node, url) {
+    if (node.node_locale === metadata.defaultLocale) {
+      createRedirect({
+        fromPath: `${url}/${node.slug}`,
+        isPermanent: true,
+        redirectInBrowser: true,
+        toPath: `/${metadata.defaultLocale}${url}/${node.slug}`,
+      });
+    }
+  }
+
   function createTemplatePage(url, templatePath, id) {
     createPage({
       path: url,
@@ -112,13 +123,12 @@ exports.createPages = async ({ graphql, actions }) => {
           path.resolve(`${folder}/${file}`),
           null
         );
-      });
 
-      createRedirect({
-        fromPath: `/${baseUrl}`,
-        isPermanent: true,
-        redirectInBrowser: true,
-        toPath: `/${metadata.defaultLocale}/${baseUrl}`,
+        let node = {
+          node_locale: lang,
+          slug: baseUrl,
+        };
+        createLanguageRedirect(node, '');
       });
     });
   }
@@ -137,14 +147,7 @@ exports.createPages = async ({ graphql, actions }) => {
         node.id
       );
 
-      if (node.node_locale === metadata.defaultLocale) {
-        createRedirect({
-          fromPath: `/vacatures/${node.slug}`,
-          isPermanent: true,
-          redirectInBrowser: true,
-          toPath: `/${metadata.defaultLocale}/vacatures/${node.slug}`,
-        });
-      }
+      createLanguageRedirect(node, '/vacatures');
     });
 
     // Create partnerpages
@@ -155,14 +158,7 @@ exports.createPages = async ({ graphql, actions }) => {
         node.id
       );
 
-      if (node.node_locale === metadata.defaultLocale) {
-        createRedirect({
-          fromPath: `/partners/${node.slug}`,
-          isPermanent: true,
-          redirectInBrowser: true,
-          toPath: `/${metadata.defaultLocale}/partners/${node.slug}`,
-        });
-      }
+      createLanguageRedirect(node, '/partners');
     });
 
     // Create boardpages
@@ -173,14 +169,7 @@ exports.createPages = async ({ graphql, actions }) => {
         node.id
       );
 
-      if (node.node_locale === metadata.defaultLocale) {
-        createRedirect({
-          fromPath: `/besturen/${node.number}`,
-          isPermanent: true,
-          redirectInBrowser: true,
-          toPath: `/${metadata.defaultLocale}/besturen/${node.number}`,
-        });
-      }
+      createLanguageRedirect(node, '/besturen');
     });
 
     query.data.allContentfulNewsArticles.edges.forEach(({ node }) => {
@@ -190,14 +179,7 @@ exports.createPages = async ({ graphql, actions }) => {
         node.id
       );
 
-      if (node.node_locale === metadata.defaultLocale) {
-        createRedirect({
-          fromPath: `/partners/${node.slug}`,
-          isPermanent: true,
-          redirectInBrowser: true,
-          toPath: `/${metadata.defaultLocale}/news/${node.slug}`,
-        });
-      }
+      createLanguageRedirect(node, '/news');
     });
 
     // Create general pages
@@ -219,14 +201,8 @@ exports.createPages = async ({ graphql, actions }) => {
             node.id
           );
 
-          if (node.node_locale === metadata.defaultLocale) {
-            createRedirect({
-              fromPath: `/${url}`,
-              isPermanent: true,
-              redirectInBrowser: true,
-              toPath: `/${metadata.defaultLocale}/${url}`,
-            });
-          }
+          node.slug = url;
+          createLanguageRedirect(node, '');
         }
       });
     });
@@ -238,14 +214,7 @@ exports.createPages = async ({ graphql, actions }) => {
         node.id
       );
 
-      if (node.node_locale === metadata.defaultLocale) {
-        createRedirect({
-          fromPath: `/disputen/${node.slug}`,
-          isPermanent: true,
-          redirectInBrowser: true,
-          toPath: `/${metadata.defaultLocale}/disputen/${node.slug}`,
-        });
-      }
+      createLanguageRedirect(node, '/disputen');
     });
 
     query.data.allContentfulCommittee.edges.forEach(({ node }) => {
@@ -255,14 +224,7 @@ exports.createPages = async ({ graphql, actions }) => {
         node.id
       );
 
-      if (node.node_locale === metadata.defaultLocale) {
-        createRedirect({
-          fromPath: `/commissies/${node.slug}`,
-          isPermanent: true,
-          redirectInBrowser: true,
-          toPath: `/${metadata.defaultLocale}/commissies/${node.slug}`,
-        });
-      }
+      createLanguageRedirect(node, '/commissies');
     });
   }
 };
