@@ -6,6 +6,7 @@ import Layout from '../components/layout/Layout';
 import { Button, Card } from 'semantic-ui-react';
 import { device } from '../data/Devices';
 import { LinkLogoCard, ImageContainer } from '../helpers';
+import { getTranslation } from '../data/i18n';
 
 const JobView = ({ data }) => {
   const job = data.contentfulJobListing;
@@ -28,7 +29,7 @@ const JobView = ({ data }) => {
               <h3 className="contact-header">Contact</h3>
               <p>{job.contactPerson.name}</p>
               <Button primary href={'mailto:' + job.contactPerson.email} fluid>
-                E-mailen
+                {getTranslation(job.node_locale, 'vacancy.mail')}
               </Button>
               <Button
                 primary
@@ -36,7 +37,7 @@ const JobView = ({ data }) => {
                 fluid
                 className="call-button"
               >
-                Bellen
+                {getTranslation(job.node_locale, 'vacancy.call')}
               </Button>
             </Card>
           )}

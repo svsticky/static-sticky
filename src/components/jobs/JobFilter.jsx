@@ -4,10 +4,14 @@ import { Dropdown } from 'semantic-ui-react';
 import { device } from '../../data/Devices';
 import { getTranslation } from '../../data/i18n';
 
-const studieFilterOptions = [
-  { key: 1, text: 'Informatica', value: 'Informatica' },
-  { key: 2, text: 'Informatiekunde', value: 'Informatiekunde' },
-  { key: 3, text: 'Gametechnologie', value: 'Gametechnologie' },
+const studieFilterOptions = lg => [
+  { key: 1, text: getTranslation(lg, 'studies.inca'), value: 'Informatica' },
+  {
+    key: 2,
+    text: getTranslation(lg, 'studies.inku'),
+    value: 'Informatiekunde',
+  },
+  { key: 3, text: getTranslation(lg, 'studies.gt'), value: 'Gametechnologie' },
   { key: 4, text: 'Artificial Intelligence', value: 'Artificial Intelligence' },
   { key: 5, text: 'Business Informatics', value: 'Business Informatics' },
   { key: 6, text: 'Computing Science', value: 'Computing Science' },
@@ -18,40 +22,40 @@ const studieFilterOptions = [
   },
 ];
 
-const typeFilterOptions = [
+const typeFilterOptions = lg => [
   {
     key: 1,
-    text: 'Afstudeeropdracht',
+    text: getTranslation(lg, 'vacancy.filter.grad'),
     value: 'Afstudeeropdracht',
     label: { color: 'yellow', icon: 'student' },
   },
   {
     key: 2,
-    text: 'Bijbaan',
+    text: getTranslation(lg, 'vacancy.filter.side'),
     value: 'Bijbaan',
     label: { color: 'blue', icon: 'briefcase' },
   },
   {
     key: 3,
-    text: 'Full-time',
+    text: getTranslation(lg, 'vacancy.filter.full'),
     value: 'Full-time',
     label: { color: 'blue', icon: 'briefcase' },
   },
   {
     key: 4,
-    text: 'Part-time',
+    text: getTranslation(lg, 'vacancy.filter.part'),
     value: 'Part-time',
     label: { color: 'blue', icon: 'briefcase' },
   },
   {
     key: 5,
-    text: 'Stage',
+    text: getTranslation(lg, 'vacancy.filter.intern'),
     value: 'Stage',
     label: { color: 'yellow', icon: 'student' },
   },
   {
     key: 6,
-    text: 'Traineeship',
+    text: getTranslation(lg, 'vacancy.filter.trainee'),
     value: 'Traineeship',
     label: { color: 'blue', icon: 'briefcase' },
   },
@@ -77,7 +81,7 @@ const JobFilter = props => (
         fluid
         multiple
         selection
-        options={studieFilterOptions}
+        options={studieFilterOptions(props.locale)}
         placeholder={getTranslation(props.locale, 'vacancy.choose.study')}
         onChange={(e, data) => {
           props.updateStudiesFilter(data.value);
@@ -101,7 +105,7 @@ const JobFilter = props => (
         fluid
         multiple
         selection
-        options={typeFilterOptions}
+        options={typeFilterOptions(props.locale)}
         placeholder={getTranslation(props.locale, 'vacancy.choose.type')}
         onChange={(e, data) => {
           props.updateTypesFilter(data.value);

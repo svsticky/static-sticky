@@ -7,6 +7,7 @@ import Layout from '../components/layout/Layout';
 import JobItem from '../components/jobs/JobItem';
 import { device } from '../data/Devices';
 import { ImageContainer } from '../helpers';
+import { getTranslation } from '../data/i18n';
 
 const PartnerView = ({ data }) => {
   const { contentfulPartner: partner } = data;
@@ -40,7 +41,11 @@ const PartnerView = ({ data }) => {
 
           {partner.job_listing && (
             <div className="vacatures">
-              <h2> Vacatures bij {partner.name}</h2>
+              <h2>
+                {getTranslation(partner.node_locale, 'vacancy.at', [
+                  partner.name,
+                ])}
+              </h2>
               <div className="partner-job-list">
                 {partner.job_listing.map(jobListing => (
                   <JobItem
@@ -133,6 +138,7 @@ export const PartnerQuery = graphql`
     contentfulPartner(id: { eq: $id }) {
       id
       name
+      node_locale
       website
       slug
       description {
@@ -152,6 +158,7 @@ export const PartnerQuery = graphql`
         featured
         slug
         isJob
+        node_locale
         partner {
           logo {
             file {

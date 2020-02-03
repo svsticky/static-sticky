@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card } from 'semantic-ui-react';
+import { getTranslation } from '../data/i18n';
 
 const ContactPerson = ({ contactPerson }) => (
   <ContactPersonMember color={contactPerson.color}>
@@ -11,7 +12,9 @@ const ContactPerson = ({ contactPerson }) => (
           <div className="flex-card">
             <div>
               {contactPerson.photo === null ? (
-                <p>No Photo</p>
+                <p>
+                  {getTranslation(contactPerson.node_locale, 'board.no_photo')}
+                </p>
               ) : (
                 <img
                   className="member-photo"

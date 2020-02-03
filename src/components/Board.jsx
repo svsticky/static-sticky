@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Card, Image } from 'semantic-ui-react';
 import { Link } from 'gatsby';
 import { device } from '../data/Devices';
+import { getTranslation } from '../data/i18n';
 
 const Board = ({ board }) => (
   <BoardCard color={board.color} current={board.current}>
@@ -15,7 +16,9 @@ const Board = ({ board }) => (
       >
         <Image centered rounded className="image" src={board.photo.file.url} />
         <Card.Content>
-          <h3 className="head">Bestuur {board.number}</h3>
+          <h3 className="head">
+            {getTranslation(board.node_locale, 'board.number', [board.number])}
+          </h3>
           <p>{board.years}</p>
         </Card.Content>
       </Card>

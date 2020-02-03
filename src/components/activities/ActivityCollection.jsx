@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getTranslation } from '../../data/i18n';
 
 export default class ActivityCollection extends Component {
   state = {
@@ -30,7 +31,10 @@ export default class ActivityCollection extends Component {
   }
 
   render() {
-    if (this.state.loading) return <p>Loading activities...</p>;
+    const language =
+      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
+    if (this.state.loading)
+      return <p>{getTranslation(language, 'activities.loading')}</p>;
     else if (this.state.error) return <p>{this.state.error}</p>;
     else return this.props.children;
   }

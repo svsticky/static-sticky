@@ -4,6 +4,7 @@ import { Button, Card, Image } from 'semantic-ui-react';
 import Currency from 'react-currency-formatter';
 import SanitizeHTML from 'sanitize-html';
 import TurnReveal, { Direction, Transition } from '$/components/TurnReveal';
+import { getTranslation } from '../../data/i18n';
 
 export default class Activity extends React.Component {
   state = {
@@ -23,6 +24,8 @@ export default class Activity extends React.Component {
 
   render() {
     const { thumbnail, name } = this.props.activity;
+    const language =
+      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
     return (
       // getBoundingClientRect is undefined on React components, so we need a plain DOM element here.
       // Putting the eventHandlers on the TurnReveal component also doesn't work for some reason.
@@ -34,11 +37,11 @@ export default class Activity extends React.Component {
           className="turnreveal-container"
         >
           <TurnReveal
-            back={renderPoster(thumbnail, name)}
+            back={renderPoster(thumbnail, name, language)}
             transition={this.state.infoTransition}
             direction={this.state.infoDirection}
           >
-            {renderInfo(this.props.activity)}
+            {renderInfo(this.props.activity, language)}
           </TurnReveal>
         </div>
       </TurnRevealWrapper>
@@ -46,15 +49,15 @@ export default class Activity extends React.Component {
   }
 }
 
-const renderPoster = (posterUrl, activityName) => (
+const renderPoster = (posterUrl, activityName, lg) => (
   <StyledImage
     size="medium"
     src={posterUrl}
-    alt={'Poster voor ' + activityName}
+    alt={getTranslation(lg, 'activities.poster', [activityName])}
   />
 );
 
-const renderInfo = ({ id, location, name, price, description }) => (
+const renderInfo = ({ id, location, name, price, description }, lg) => (
   <FullSizeCard fluid>
     <FlexContainer>
       <Title>
@@ -62,17 +65,17 @@ const renderInfo = ({ id, location, name, price, description }) => (
       </Title>
       {location && (
         <div className="location">
-          <strong>Locatie: </strong>
+          <strong>{getTranslation(lg, 'activities.location')}</strong>
           <em>{location}</em>
         </div>
       )}
       <div className="price">
-        <strong>Prijs: </strong>
+        <strong>{getTranslation(lg, 'activities.price')}</strong>
         <em>
           {price !== 0 ? (
             <Currency quantity={parseFloat(price)} currency="EUR" />
           ) : (
-            'Gratis!'
+            getTranslation(lg, 'activities.free')
           )}
         </em>
       </div>
