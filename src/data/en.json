@@ -5,7 +5,7 @@
 		"when": "Every {0} starting at {1} in the {2}!"
 	},
 	"board": {
-		"number": "Board {}",
+		"number": "Board {0}",
 		"no_photo": "No picture",
 		"current": "The current board",
 		"old": "Old boards"

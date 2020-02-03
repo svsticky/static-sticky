@@ -5,7 +5,7 @@
     "when": "Elke {0} vanaf {1} in de {2}!"
 	},
 	"board": {
-		"number": "Bestuur {}",
+		"number": "Bestuur {0}",
 		"no_photo": "Geen foto",
 		"current": "Het huidige bestuur",
 		"old": "Oud-besturen"
