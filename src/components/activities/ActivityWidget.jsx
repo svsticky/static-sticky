@@ -35,7 +35,7 @@ export default class ActivityWidget extends Component {
           fluid
           primary
           as={Link}
-          to={`${language}/vereniging/activiteiten`}
+          to={`/${language}/vereniging/activiteiten`}
           style={{ marginTop: '1rem' }}
         >
           {getTranslation(language, 'activities.more')}
