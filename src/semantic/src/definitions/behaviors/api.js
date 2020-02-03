@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - API
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - API
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -10,6 +10,12 @@
 
 (function($, window, document, undefined) {
   'use strict';
+
+  $.isWindow =
+    $.isWindow ||
+    function(obj) {
+      return obj != null && obj === obj.window;
+    };
 
   var window =
     typeof window != 'undefined' && window.Math == Math
@@ -315,6 +321,12 @@
             return module.cancelled || false;
           },
           succesful: function() {
+            module.verbose(
+              'This behavior will be deleted due to typo. Use "was successful" instead.'
+            );
+            return module.was.successful();
+          },
+          successful: function() {
             return module.request && module.request.state() == 'resolved';
           },
           failure: function() {
@@ -471,7 +483,7 @@
                 elapsedTime = new Date().getTime() - requestStartTime,
                 timeLeft = settings.loadingDuration - elapsedTime,
                 translatedResponse = $.isFunction(settings.onResponse)
-                  ? module.is.expectingJSON()
+                  ? module.is.expectingJSON() && !settings.rawResponse
                     ? settings.onResponse.call(
                         context,
                         $.extend(true, {}, response)
@@ -543,7 +555,7 @@
             complete: function(firstParameter, secondParameter) {
               var xhr, response;
               // have to guess callback parameters based on request success
-              if (module.was.succesful()) {
+              if (module.was.successful()) {
                 response = firstParameter;
                 xhr = secondParameter;
               } else {
@@ -583,7 +595,7 @@
                   );
                   // make sure we have an error to display to console
                   if (
-                    xhr.status != 200 &&
+                    (xhr.status < 200 || xhr.status >= 300) &&
                     httpMessage !== undefined &&
                     httpMessage !== ''
                   ) {
@@ -1013,7 +1025,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];
@@ -1111,6 +1123,9 @@
     // aliases for mock
     response: false,
     responseAsync: false,
+
+    // whether onResponse should work with response value without force converting into an object
+    rawResponse: false,
 
     // callbacks before request
     beforeSend: function(settings) {

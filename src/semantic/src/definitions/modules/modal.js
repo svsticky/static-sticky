@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Modal
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Modal
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -10,6 +10,12 @@
 
 (function($, window, document, undefined) {
   'use strict';
+
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
 
   window =
     typeof window != 'undefined' && window.Math == Math
@@ -60,6 +66,9 @@
         element = this,
         instance = $module.data(moduleNamespace),
         ignoreRepeatedEvents = false,
+        initialMouseDownInModal,
+        initialMouseDownInScrollbar,
+        initialBodyMargin = '',
         elementEventNamespace,
         id,
         observer,
@@ -70,6 +79,13 @@
 
           module.create.id();
           module.create.dimmer();
+
+          if (settings.allowMultiple) {
+            module.create.innerDimmer();
+          }
+          if (!settings.centered) {
+            $module.addClass('top aligned');
+          }
           module.refreshModals();
 
           module.bind.events();
@@ -89,7 +105,6 @@
           dimmer: function() {
             var defaultSettings = {
                 debug: settings.debug,
-                variation: settings.centered ? false : 'top aligned',
                 dimmerName: 'modals',
               },
               dimmerSettings = $.extend(
@@ -115,6 +130,11 @@
             id = (Math.random().toString(16) + '000000000').substr(2, 8);
             elementEventNamespace = '.' + id;
             module.verbose('Creating unique id for element', id);
+          },
+          innerDimmer: function() {
+            if ($module.find(selector.dimmer).length == 0) {
+              $module.prepend('<div class="ui inverted dimmer"></div>');
+            }
           },
         },
 
@@ -221,7 +241,9 @@
             });
           },
           preventScroll: function(event) {
-            event.preventDefault();
+            if (event.target.className.indexOf('dimmer') !== -1) {
+              event.preventDefault();
+            }
           },
           deny: function() {
             if (
@@ -239,22 +261,57 @@
           close: function() {
             module.hide();
           },
-          click: function(event) {
+          mousedown: function(event) {
+            var $target = $(event.target);
+            initialMouseDownInModal =
+              $target.closest(selector.modal).length > 0;
+            if (initialMouseDownInModal) {
+              module.verbose('Mouse down event registered inside the modal');
+            }
+            initialMouseDownInScrollbar =
+              module.is.scrolling() &&
+              $(window).outerWidth() - settings.scrollbarWidth <= event.clientX;
+            if (initialMouseDownInScrollbar) {
+              module.verbose(
+                'Mouse down event registered inside the scrollbar'
+              );
+            }
+          },
+          mouseup: function(event) {
             if (!settings.closable) {
               module.verbose('Dimmer clicked but closable setting is disabled');
+              return;
+            }
+            if (initialMouseDownInModal) {
+              module.debug(
+                'Dimmer clicked but mouse down was initially registered inside the modal'
+              );
+              return;
+            }
+            if (initialMouseDownInScrollbar) {
+              module.debug(
+                'Dimmer clicked but mouse down was initially registered inside the scrollbar'
+              );
               return;
             }
             var $target = $(event.target),
               isInModal = $target.closest(selector.modal).length > 0,
               isInDOM = $.contains(document.documentElement, event.target);
-            if (!isInModal && isInDOM && module.is.active()) {
+            if (
+              !isInModal &&
+              isInDOM &&
+              module.is.active() &&
+              $module.hasClass(className.front)
+            ) {
               module.debug('Dimmer clicked, hiding all modals');
-              module.remove.clickaway();
               if (settings.allowMultiple) {
-                module.hide();
-              } else {
-                module.hideAll();
+                if (!module.hideAll()) {
+                  return;
+                }
+              } else if (!module.hide()) {
+                return;
               }
+              module.remove.clickaway();
             }
           },
           debounce: function(method, delay) {
@@ -267,7 +324,9 @@
             if (keyCode == escapeKey) {
               if (settings.closable) {
                 module.debug('Escape key pressed hiding modal');
-                module.hide();
+                if ($module.hasClass(className.front)) {
+                  module.hide();
+                }
               } else {
                 module.debug(
                   'Escape key pressed, but closable is set to false'
@@ -306,7 +365,7 @@
         hide: function(callback) {
           callback = $.isFunction(callback) ? callback : function() {};
           module.refreshModals();
-          module.hideModal(callback);
+          return module.hideModal(callback);
         },
 
         showModal: function(callback) {
@@ -328,8 +387,18 @@
             if (!settings.allowMultiple && module.others.active()) {
               module.hideOthers(module.showModal);
             } else {
-              if (settings.allowMultiple && settings.detachable) {
-                $module.detach().appendTo($dimmer);
+              ignoreRepeatedEvents = false;
+              if (settings.allowMultiple) {
+                if (module.others.active()) {
+                  $otherModals
+                    .filter('.' + className.active)
+                    .find(selector.dimmer)
+                    .addClass('active');
+                }
+
+                if (settings.detachable) {
+                  $module.detach().appendTo($dimmer);
+                }
               }
               settings.onShow.call(element);
               if (
@@ -366,12 +435,16 @@
           }
         },
 
-        hideModal: function(callback, keepDimmed) {
+        hideModal: function(callback, keepDimmed, hideOthersToo) {
+          var $previousModal = $otherModals
+            .filter('.' + className.active)
+            .last();
           callback = $.isFunction(callback) ? callback : function() {};
           module.debug('Hiding modal');
           if (settings.onHide.call(element, $(this)) === false) {
             module.verbose('Hide callback returned false cancelling hide');
-            return;
+            ignoreRepeatedEvents = false;
+            return false;
           }
 
           if (module.is.animating() || module.is.active()) {
@@ -388,14 +461,31 @@
                 duration: settings.duration,
                 useFailSafe: true,
                 onStart: function() {
-                  if (!module.others.active() && !keepDimmed) {
+                  if (
+                    !module.others.active() &&
+                    !module.others.animating() &&
+                    !keepDimmed
+                  ) {
                     module.hideDimmer();
                   }
-                  if (settings.keyboardShortcuts) {
+                  if (settings.keyboardShortcuts && !module.others.active()) {
                     module.remove.keyboardShortcuts();
                   }
                 },
                 onComplete: function() {
+                  module.unbind.scrollLock();
+                  if (settings.allowMultiple) {
+                    $previousModal.addClass(className.front);
+                    $module.removeClass(className.front);
+
+                    if (hideOthersToo) {
+                      $allModals.find(selector.dimmer).removeClass('active');
+                    } else {
+                      $previousModal
+                        .find(selector.dimmer)
+                        .removeClass('active');
+                    }
+                  }
                   settings.onHidden.call(element);
                   module.remove.dimmerStyles();
                   module.restore.focus();
@@ -413,6 +503,7 @@
             $dimmable.dimmer('is animating') ||
             !$dimmable.dimmer('is active')
           ) {
+            module.save.bodyMargin();
             module.debug('Showing dimmer');
             $dimmable.dimmer('show');
           } else {
@@ -427,6 +518,7 @@
           ) {
             module.unbind.scrollLock();
             $dimmable.dimmer('hide', function() {
+              module.restore.bodyMargin();
               module.remove.clickaway();
               module.remove.screenHeight();
             });
@@ -443,8 +535,17 @@
           callback = $.isFunction(callback) ? callback : function() {};
           if ($visibleModals.length > 0) {
             module.debug('Hiding all visible modals');
-            module.hideDimmer();
-            $visibleModals.modal('hide modal', callback);
+            var hideOk = true;
+            //check in reverse order trying to hide most top displayed modal first
+            $($visibleModals.get().reverse()).each(function(index, element) {
+              if (hideOk) {
+                hideOk = $(element).modal('hide modal', callback, false, true);
+              }
+            });
+            if (hideOk) {
+              module.hideDimmer();
+            }
+            return hideOk;
           }
         },
 
@@ -483,13 +584,34 @@
               $focusedElement = $(document.activeElement).blur();
             }
           },
+          bodyMargin: function() {
+            initialBodyMargin = $body.css('margin-right');
+            var bodyMarginRightPixel = parseInt(
+                initialBodyMargin.replace(/[^\d.]/g, '')
+              ),
+              bodyScrollbarWidth =
+                window.innerWidth - document.documentElement.clientWidth,
+              diffPos = bodyMarginRightPixel + bodyScrollbarWidth;
+            $body.css('margin-right', diffPos + 'px');
+            $body.find(selector.bodyFixed).css('padding-right', diffPos + 'px');
+          },
         },
 
         restore: {
           focus: function() {
-            if ($focusedElement && $focusedElement.length > 0) {
+            if (
+              $focusedElement &&
+              $focusedElement.length > 0 &&
+              settings.restoreFocus
+            ) {
               $focusedElement.focus();
             }
+          },
+          bodyMargin: function() {
+            $body.css('margin-right', initialBodyMargin);
+            $body
+              .find(selector.bodyFixed)
+              .css('padding-right', initialBodyMargin);
           },
         },
 
@@ -501,7 +623,8 @@
             $module.removeClass(className.legacy);
           },
           clickaway: function() {
-            $dimmer.off('click' + elementEventNamespace);
+            $dimmer.off('mousedown' + elementEventNamespace);
+            $dimmer.off('mouseup' + elementEventNamespace);
           },
           dimmerStyles: function() {
             $dimmer.removeClass(className.inverted);
@@ -594,7 +717,12 @@
 
         set: {
           autofocus: function() {
-            var $inputs = $module.find('[tabindex], :input').filter(':visible'),
+            var $inputs = $module
+                .find('[tabindex], :input')
+                .filter(':visible')
+                .filter(function() {
+                  return $(this).closest('.disabled').length === 0;
+                }),
               $autofocus = $inputs.filter('[autofocus]'),
               $input =
                 $autofocus.length > 0 ? $autofocus.first() : $inputs.first();
@@ -603,7 +731,11 @@
             }
           },
           clickaway: function() {
-            $dimmer.on('click' + elementEventNamespace, module.event.click);
+            $dimmer.on(
+              'mousedown' + elementEventNamespace,
+              module.event.mousedown
+            );
+            $dimmer.on('mouseup' + elementEventNamespace, module.event.mouseup);
           },
           dimmerSettings: function() {
             if ($.fn.dimmer === undefined) {
@@ -615,7 +747,6 @@
                 dimmerName: 'modals',
                 closable: 'auto',
                 useFlex: module.can.useFlex(),
-                variation: settings.centered ? false : 'top aligned',
                 duration: {
                   show: settings.duration,
                   hide: settings.duration,
@@ -651,7 +782,9 @@
               height = module.cache.height;
             $module.css({
               marginTop:
-                settings.centered && module.can.fit() ? -(height / 2) : 0,
+                !$module.hasClass('aligned') && module.can.fit()
+                  ? -(height / 2)
+                  : 0,
               marginLeft: -(width / 2),
             });
             module.verbose('Setting modal offset for legacy mode');
@@ -659,7 +792,7 @@
           screenHeight: function() {
             if (module.can.fit()) {
               $body.css('height', '');
-            } else {
+            } else if (!$module.hasClass('bottom')) {
               module.debug(
                 'Modal is taller than page content, resizing page height'
               );
@@ -667,7 +800,10 @@
             }
           },
           active: function() {
-            $module.addClass(className.active);
+            $module.addClass(className.active + ' ' + className.front);
+            $otherModals
+              .filter('.' + className.active)
+              .removeClass(className.front);
           },
           scrolling: function() {
             $dimmable.addClass(className.scrolling);
@@ -684,9 +820,13 @@
                 module.remove.scrolling();
                 module.bind.scrollLock();
               }
-            } else {
+            } else if (!$module.hasClass('bottom')) {
               module.verbose('Modal cannot fit on screen setting to scrolling');
               module.set.scrolling();
+            } else {
+              module.verbose(
+                'Bottom aligned modal not fitting on screen is unsupported for scrolling'
+              );
             }
           },
           undetached: function() {
@@ -847,7 +987,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];
@@ -892,6 +1032,7 @@
     detachable: true,
     closable: true,
     autofocus: true,
+    restoreFocus: true,
 
     inverted: false,
     blurring: false,
@@ -914,6 +1055,7 @@
 
     // padding with edge of page
     padding: 50,
+    scrollbarWidth: 10,
 
     // called before show animation
     onShow: function() {},
@@ -944,6 +1086,9 @@
       approve: '.actions .positive, .actions .approve, .actions .ok',
       deny: '.actions .negative, .actions .deny, .actions .cancel',
       modal: '.ui.modal',
+      dimmer: '> .ui.dimmer',
+      bodyFixed:
+        '> .ui.fixed.menu, > .ui.right.toast-container, > .ui.right.sidebar',
     },
     error: {
       dimmer: 'UI Dimmer, a required component is not included in this page',
@@ -959,6 +1104,7 @@
       loading: 'loading',
       scrolling: 'scrolling',
       undetached: 'undetached',
+      front: 'front',
     },
   };
 })(jQuery, window, document);

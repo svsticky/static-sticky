@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Tab
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Tab
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -10,6 +10,17 @@
 
 (function($, window, document, undefined) {
   'use strict';
+
+  $.isWindow =
+    $.isWindow ||
+    function(obj) {
+      return obj != null && obj === obj.window;
+    };
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
 
   window =
     typeof window != 'undefined' && window.Math == Math
@@ -38,6 +49,7 @@
         metadata = settings.metadata,
         selector = settings.selector,
         error = settings.error,
+        regExp = settings.regExp,
         eventNamespace = '.' + settings.namespace,
         moduleNamespace = 'module-' + settings.namespace,
         $module = $(this),
@@ -235,6 +247,13 @@
           },
         },
 
+        escape: {
+          string: function(text) {
+            text = String(text);
+            return text.replace(regExp.escape, '\\$&');
+          },
+        },
+
         set: {
           auto: function() {
             var url =
@@ -362,6 +381,7 @@
               }
             } else if (tabPath.search('/') == -1 && tabPath !== '') {
               // look for in page anchor
+              tabPath = module.escape.string(tabPath);
               $anchor = $('#' + tabPath + ', a[name="' + tabPath + '"]');
               currentPath = $anchor.closest('[data-tab]').data(metadata.tab);
               $tab = module.get.tabElement(currentPath);
@@ -631,7 +651,13 @@
           },
           defaultPath: function(tabPath) {
             var $defaultNav = $allModules
-                .filter('[data-' + metadata.tab + '^="' + tabPath + '/"]')
+                .filter(
+                  '[data-' +
+                    metadata.tab +
+                    '^="' +
+                    module.escape.string(tabPath) +
+                    '/"]'
+                )
                 .eq(0),
               defaultTab = $defaultNav.data(metadata.tab) || false;
             if (defaultTab) {
@@ -650,7 +676,11 @@
           navElement: function(tabPath) {
             tabPath = tabPath || activeTabPath;
             return $allModules.filter(
-              '[data-' + metadata.tab + '="' + tabPath + '"]'
+              '[data-' +
+                metadata.tab +
+                '="' +
+                module.escape.string(tabPath) +
+                '"]'
             );
           },
           tabElement: function(tabPath) {
@@ -659,10 +689,18 @@
             tabPathArray = module.utilities.pathToArray(tabPath);
             lastTab = module.utilities.last(tabPathArray);
             $fullPathTab = $tabs.filter(
-              '[data-' + metadata.tab + '="' + tabPath + '"]'
+              '[data-' +
+                metadata.tab +
+                '="' +
+                module.escape.string(tabPath) +
+                '"]'
             );
             $simplePathTab = $tabs.filter(
-              '[data-' + metadata.tab + '="' + lastTab + '"]'
+              '[data-' +
+                metadata.tab +
+                '="' +
+                module.escape.string(lastTab) +
+                '"]'
             );
             return $fullPathTab.length > 0 ? $fullPathTab : $simplePathTab;
           },
@@ -678,7 +716,7 @@
             });
           },
           last: function(array) {
-            return $.isArray(array) ? array[array.length - 1] : false;
+            return Array.isArray(array) ? array[array.length - 1] : false;
           },
           pathToArray: function(pathName) {
             if (pathName === undefined) {
@@ -689,7 +727,7 @@
               : [pathName];
           },
           arrayToPath: function(pathArray) {
-            return $.isArray(pathArray) ? pathArray.join('/') : false;
+            return Array.isArray(pathArray) ? pathArray.join('/') : false;
           },
         },
 
@@ -847,7 +885,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];
@@ -928,6 +966,10 @@
         'onTabLoad has been renamed to onLoad in 2.0. Please adjust your code',
       state:
         "History requires Asual's Address library <https://github.com/asual/jquery-address>",
+    },
+
+    regExp: {
+      escape: /[-[\]{}()*+?.,\\^$|#\s:=@]/g,
     },
 
     metadata: {

@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Embed
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Embed
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -10,6 +10,12 @@
 
 (function($, window, document, undefined) {
   'use strict';
+
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
 
   window =
     typeof window != 'undefined' && window.Math == Math
@@ -41,7 +47,6 @@
         templates = settings.templates,
         eventNamespace = '.' + namespace,
         moduleNamespace = 'module-' + namespace,
-        $window = $(window),
         $module = $(this),
         $placeholder = $module.find(selector.placeholder),
         $icon = $module.find(selector.icon),
@@ -499,7 +504,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];

@@ -29,7 +29,7 @@ try {
 version =
   npmPackage &&
   npmPackage.version !== undefined &&
-  npmPackage.name == 'semantic-ui'
+  npmPackage.name == 'fomantic-ui'
     ? npmPackage.version
     : config.version;
 
@@ -38,9 +38,9 @@ version =
 *******************************/
 
 module.exports = {
-  title: 'Semantic UI',
-  repository: 'https://github.com/Semantic-Org/Semantic-UI',
-  url: 'http://www.semantic-ui.com/',
+  title: 'Fomantic UI',
+  repository: 'https://github.com/fomantic/Fomantic-UI',
+  url: 'http://fomantic-ui.com/',
 
   banner:
     '' +

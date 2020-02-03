@@ -1,6 +1,6 @@
 /*******************************
-         Install Task
-*******************************/
+ *         Install Task
+ *******************************/
 
 /*
    Install tasks
@@ -21,13 +21,12 @@ var gulp = require('gulp'),
   fs = require('fs'),
   mkdirp = require('mkdirp'),
   path = require('path'),
-  runSequence = require('run-sequence'),
   // gulp dependencies
   chmod = require('gulp-chmod'),
   del = require('del'),
   jsonEditor = require('gulp-json-editor'),
   plumber = require('gulp-plumber'),
-  prompt = require('prompt-sui'),
+  inquirer = require('inquirer'),
   rename = require('gulp-rename'),
   replace = require('gulp-replace'),
   requireDotFile = require('require-dot-file'),
@@ -56,11 +55,11 @@ module.exports = function(callback) {
   console.clear();
 
   /* Test NPM install
-manager = {
-  name : 'NPM',
-  root : path.normalize(__dirname + '/../')
-};
-*/
+  manager = {
+    name : 'NPM',
+    root : path.normalize(__dirname + '/../')
+  };
+  */
 
   /* Don't do end user config if SUI is a sub-module */
   if (install.isSubModule()) {
@@ -69,8 +68,8 @@ manager = {
   }
 
   /*-----------------
-    Update SUI
------------------*/
+      Update SUI
+  -----------------*/
 
   // run update scripts if semantic.json exists
   if (currentConfig && manager.name === 'NPM') {
@@ -162,9 +161,11 @@ manager = {
           'Update complete! Run "\x1b[92mgulp build\x1b[0m" to rebuild dist/ files.'
         );
 
+        callback();
         return;
       } else {
         console.log('Current version of Semantic UI already installed');
+        callback();
         return;
       }
     } else {
@@ -177,11 +178,11 @@ manager = {
   }
 
   /*--------------
- Determine Root
----------------*/
+   Determine Root
+  ---------------*/
 
   // PM that supports Build Tools (NPM Only Now)
-  if (manager.name == 'NPM') {
+  if (manager.name === 'NPM') {
     rootQuestions[0].message = rootQuestions[0].message
       .replace(
         '{packageMessage}',
@@ -200,10 +201,10 @@ manager = {
   }
 
   /*--------------
-   Create SUI
----------------*/
+     Create SUI
+  ---------------*/
 
-  gulp.task('run setup', function() {
+  gulp.task('run setup', function(callback) {
     // If auto-install is switched on, we skip the configuration section and simply reuse the configuration from semantic.json
     if (install.shouldAutoInstall()) {
       answers = {
@@ -212,23 +213,23 @@ manager = {
         useRoot: true,
         semanticRoot: currentConfig.base,
       };
+      callback();
     } else {
-      return gulp.src('gulpfile.js').pipe(
-        prompt.prompt(questions.setup, function(setupAnswers) {
-          // hoist
-          answers = setupAnswers;
-        })
-      );
+      return inquirer.prompt(questions.setup).then(setupAnswers => {
+        // hoist
+        answers = setupAnswers;
+      });
     }
   });
 
   gulp.task('create install files', function(callback) {
     /*--------------
-   Exit Conditions
-  ---------------*/
+     Exit Conditions
+    ---------------*/
 
     // if config exists and user specifies not to proceed
     if (answers.overwrite !== undefined && answers.overwrite == 'no') {
+      callback();
       return;
     }
     console.clear();
@@ -240,8 +241,8 @@ manager = {
     console.log('------------------------------');
 
     /*--------------
-        Paths
-  ---------------*/
+          Paths
+    ---------------*/
 
     var installPaths = {
       config: files.config,
@@ -251,8 +252,8 @@ manager = {
       themeConfigFolder: folders.themeConfig,
     };
     /*--------------
-    NPM Install
-  ---------------*/
+      NPM Install
+    ---------------*/
 
     // Check if PM install
     if (manager && (answers.useRoot || answers.customRoot)) {
@@ -260,6 +261,7 @@ manager = {
       if (answers.customRoot) {
         if (answers.customRoot === '') {
           console.log('Unable to proceed, invalid project root');
+          callback();
           return;
         }
         manager.root = answers.customRoot;
@@ -353,8 +355,8 @@ manager = {
     }
 
     /*--------------
-     Site Theme
-  ---------------*/
+       Site Theme
+    ---------------*/
 
     // Copy _site templates folder to destination
     if (fs.existsSync(installPaths.site)) {
@@ -372,8 +374,8 @@ manager = {
     );
 
     /*--------------
-    Theme Config
-  ---------------*/
+      Theme Config
+    ---------------*/
 
     gulp.task('create theme.config', function() {
       var // determine path to site theme folder from theme config
@@ -413,8 +415,8 @@ manager = {
     });
 
     /*--------------
-    Semantic.json
-  ---------------*/
+      Semantic.json
+    ---------------*/
 
     gulp.task('create semantic.json', function() {
       var jsonConfig = install.createJSON(answers);
@@ -439,15 +441,15 @@ manager = {
           .src(source.config)
           .pipe(plumber())
           .pipe(rename({ extname: '' })) // remove .template from ext
-          .pipe(jsonEditor(jsonConfig))
+          .pipe(jsonEditor(jsonConfig, { end_with_newline: true }))
           .pipe(gulp.dest(installPaths.configFolder));
       }
     });
 
-    runSequence('create theme.config', 'create semantic.json', callback);
+    gulp.series('create theme.config', 'create semantic.json')(callback);
   });
 
-  gulp.task('clean up install', function() {
+  gulp.task('clean up install', function(callback) {
     // Completion Message
     if (installFolder && !install.shouldAutoInstall()) {
       console.log(
@@ -455,33 +457,33 @@ manager = {
           answers.semanticRoot +
           '\x1b[0m and run "\x1b[92mgulp build\x1b[0m" to build'
       );
-      process.exit(0);
+      callback();
     } else {
       console.log('');
       console.log('');
-    }
 
-    // If auto-install is switched on, we skip the configuration section and simply build the dependencies
-    if (install.shouldAutoInstall()) {
-      return gulp.start('build');
-    } else {
-      return gulp.src('gulpfile.js').pipe(
-        prompt.prompt(questions.cleanup, function(answers) {
-          if (answers.cleanup == 'yes') {
+      // If auto-install is switched on, we skip the configuration section and simply build the dependencies
+      if (install.shouldAutoInstall()) {
+        gulp.series('build')(callback);
+      } else {
+        // We don't return the inquirer promise on purpose because we handle the callback ourselves
+        inquirer.prompt(questions.cleanup).then(answers => {
+          if (answers.cleanup === 'yes') {
             del(install.setupFiles);
           }
-          if (answers.build == 'yes') {
-            gulp.start('build');
+          if (answers.build === 'yes') {
+            gulp.series('build')(callback);
+          } else {
+            callback();
           }
-        })
-      );
+        });
+      }
     }
   });
 
-  runSequence(
+  gulp.series(
     'run setup',
     'create install files',
-    'clean up install',
-    callback
-  );
+    'clean up install'
+  )(callback);
 };

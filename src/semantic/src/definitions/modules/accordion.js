@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Accordion
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Accordion
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -10,6 +10,12 @@
 
 (function($, window, document, undefined) {
   'use strict';
+
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
 
   window =
     typeof window != 'undefined' && window.Math == Math
@@ -25,14 +31,6 @@
       query = arguments[0],
       methodInvoked = typeof query == 'string',
       queryArguments = [].slice.call(arguments, 1),
-      requestAnimationFrame =
-        window.requestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.msRequestAnimationFrame ||
-        function(callback) {
-          setTimeout(callback, 0);
-        },
       returnedValue;
     $allModules.each(function() {
       var settings = $.isPlainObject(parameters)
@@ -170,6 +168,7 @@
                 debug: settings.debug,
                 verbose: settings.verbose,
                 duration: settings.duration,
+                skipInlineHidden: true,
               });
             } else {
               $activeContent
@@ -228,6 +227,7 @@
                   debug: settings.debug,
                   verbose: settings.verbose,
                   duration: settings.duration,
+                  skipInlineHidden: true,
                 });
               } else {
                 $activeContent
@@ -307,6 +307,7 @@
                   debug: settings.debug,
                   verbose: settings.verbose,
                   duration: settings.duration,
+                  skipInlineHidden: true,
                 });
               } else {
                 $openContents
@@ -511,7 +512,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];

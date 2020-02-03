@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Popup
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Popup
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -10,6 +10,12 @@
 
 (function($, window, document, undefined) {
   'use strict';
+
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
 
   window =
     typeof window != 'undefined' && window.Math == Math
@@ -24,7 +30,8 @@
       $window = $(window),
       $body = $('body'),
       moduleSelector = $allModules.selector || '',
-      hasTouch = true,
+      clickEvent =
+        'ontouchstart' in document.documentElement ? 'touchstart' : 'click',
       time = new Date().getTime(),
       performance = [],
       query = arguments[0],
@@ -159,7 +166,10 @@
               ? settings.delay.show
               : settings.delay;
             clearTimeout(module.hideTimer);
-            if (!openedWithTouch) {
+            if (
+              !openedWithTouch ||
+              (openedWithTouch && settings.addTouchEvents)
+            ) {
               module.showTimer = setTimeout(module.show, delay);
             }
           },
@@ -172,7 +182,9 @@
           },
           touchstart: function(event) {
             openedWithTouch = true;
-            module.show();
+            if (settings.addTouchEvents) {
+              module.show();
+            }
           },
           resize: function() {
             if (module.is.visible()) {
@@ -377,7 +389,7 @@
         },
         supports: {
           svg: function() {
-            return typeof SVGGraphicsElement === 'undefined';
+            return typeof SVGGraphicsElement !== 'undefined';
           },
         },
         animate: {
@@ -408,12 +420,6 @@
           hide: function(callback) {
             callback = $.isFunction(callback) ? callback : function() {};
             module.debug('Hiding pop-up');
-            if (settings.onHide.call($popup, element) === false) {
-              module.debug(
-                'onHide callback returned false, cancelling popup animation'
-              );
-              return;
-            }
             if (
               settings.transition &&
               $.fn.transition !== undefined &&
@@ -968,9 +974,9 @@
           events: function() {
             module.debug('Binding popup events to module');
             if (settings.on == 'click') {
-              $module.on('click' + eventNamespace, module.toggle);
+              $module.on(clickEvent + eventNamespace, module.toggle);
             }
-            if (settings.on == 'hover' && hasTouch) {
+            if (settings.on == 'hover') {
               $module.on(
                 'touchstart' + eventNamespace,
                 module.event.touchstart
@@ -1026,7 +1032,7 @@
           },
           clickaway: function() {
             module.verbose('Binding popup close event to document');
-            $document.on('click' + elementNamespace, function(event) {
+            $document.on(clickEvent + elementNamespace, function(event) {
               module.verbose('Clicked away from popup');
               module.event.hideGracefully.call(element, event);
             });
@@ -1281,7 +1287,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];

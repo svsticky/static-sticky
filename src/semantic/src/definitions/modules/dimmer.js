@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Dimmer
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Dimmer
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -10,6 +10,12 @@
 
 (function($, window, document, undefined) {
   'use strict';
+
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
 
   window =
     typeof window != 'undefined' && window.Math == Math
@@ -143,7 +149,7 @@
         },
 
         create: function() {
-          var $element = $(settings.template.dimmer());
+          var $element = $(settings.template.dimmer(settings));
           if (settings.dimmerName) {
             module.debug('Creating named dimmer', settings.dimmerName);
             $element.addClass(settings.dimmerName);
@@ -185,7 +191,9 @@
           if (!module.is.dimmed()) {
             module.show();
           } else {
-            module.hide();
+            if (module.is.closable()) {
+              module.hide();
+            }
           }
         },
 
@@ -255,10 +263,8 @@
                 queue: false,
                 duration: module.get.duration(),
                 useFailSafe: true,
-                onStart: function() {
-                  module.remove.dimmed();
-                },
                 onComplete: function() {
+                  module.remove.dimmed();
                   module.remove.variation();
                   module.remove.active();
                   callback();
@@ -266,8 +272,8 @@
               });
             } else {
               module.verbose('Hiding dimmer with javascript');
-              module.remove.dimmed();
               $dimmer.stop().fadeOut(module.get.duration(), function() {
+                module.remove.dimmed();
                 module.remove.active();
                 $dimmer.removeAttr('style');
                 callback();
@@ -572,7 +578,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];
@@ -639,6 +645,10 @@
       show: 500,
       hide: 500,
     },
+    // whether the dynamically created dimmer should have a loader
+    displayLoader: false,
+    loaderText: false,
+    loaderVariation: '',
 
     onChange: function() {},
     onShow: function() {},
@@ -659,6 +669,7 @@
       legacy: 'legacy',
       pageDimmer: 'page',
       show: 'show',
+      loader: 'ui loader',
     },
 
     selector: {
@@ -667,8 +678,20 @@
     },
 
     template: {
-      dimmer: function() {
-        return $('<div />').attr('class', 'ui dimmer');
+      dimmer: function(settings) {
+        var d = $('<div/>').addClass('ui dimmer'),
+          l;
+        if (settings.displayLoader) {
+          l = $('<div/>')
+            .addClass(settings.className.loader)
+            .addClass(settings.loaderVariation);
+          if (!!settings.loaderText) {
+            l.text(settings.loaderText);
+            l.addClass('text');
+          }
+          d.append(l);
+        }
+        return d;
       },
     },
   };

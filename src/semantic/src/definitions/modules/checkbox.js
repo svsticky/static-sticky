@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Checkbox
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Checkbox
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -10,6 +10,12 @@
 
 (function($, window, document, undefined) {
   'use strict';
+
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
 
   window =
     typeof window != 'undefined' && window.Math == Math
@@ -150,7 +156,24 @@
           }
         },
 
+        preventDefaultOnInputTarget: function() {
+          if (
+            typeof event !== 'undefined' &&
+            $(event.target).is(selector.input)
+          ) {
+            module.verbose(
+              'Preventing default check action after manual check action'
+            );
+            event.preventDefault();
+          }
+        },
+
         event: {
+          change: function(event) {
+            if (!module.should.ignoreCallbacks()) {
+              settings.onChange.call(input);
+            }
+          },
           click: function(event) {
             var $target = $(event.target);
             if ($target.is(selector.input)) {
@@ -173,7 +196,41 @@
                 enter: 13,
                 space: 32,
                 escape: 27,
+                left: 37,
+                up: 38,
+                right: 39,
+                down: 40,
               };
+            var r = module.get.radios(),
+              rIndex = r.index($module),
+              rLen = r.length,
+              checkIndex = false;
+
+            if (key == keyCode.left || key == keyCode.up) {
+              checkIndex = (rIndex === 0 ? rLen : rIndex) - 1;
+            } else if (key == keyCode.right || key == keyCode.down) {
+              checkIndex = rIndex === rLen - 1 ? 0 : rIndex + 1;
+            }
+
+            if (!module.should.ignoreCallbacks() && checkIndex !== false) {
+              if (settings.beforeUnchecked.apply(input) === false) {
+                module.verbose(
+                  'Option not allowed to be unchecked, cancelling key navigation'
+                );
+                return false;
+              }
+              if (
+                settings.beforeChecked.apply(
+                  $(r[checkIndex]).children(selector.input)[0]
+                ) === false
+              ) {
+                module.verbose(
+                  'Next option should not allow check, cancelling key navigation'
+                );
+                return false;
+              }
+            }
+
             if (key == keyCode.escape) {
               module.verbose('Escape key pressed blurring field');
               $input.blur();
@@ -204,8 +261,9 @@
           module.set.checked();
           if (!module.should.ignoreCallbacks()) {
             settings.onChecked.call(input);
-            settings.onChange.call(input);
+            module.trigger.change();
           }
+          module.preventDefaultOnInputTarget();
         },
 
         uncheck: function() {
@@ -216,8 +274,9 @@
           module.set.unchecked();
           if (!module.should.ignoreCallbacks()) {
             settings.onUnchecked.call(input);
-            settings.onChange.call(input);
+            module.trigger.change();
           }
+          module.preventDefaultOnInputTarget();
         },
 
         indeterminate: function() {
@@ -229,7 +288,7 @@
           module.set.indeterminate();
           if (!module.should.ignoreCallbacks()) {
             settings.onIndeterminate.call(input);
-            settings.onChange.call(input);
+            module.trigger.change();
           }
         },
 
@@ -242,7 +301,7 @@
           module.set.determinate();
           if (!module.should.ignoreCallbacks()) {
             settings.onDeterminate.call(input);
-            settings.onChange.call(input);
+            module.trigger.change();
           }
         },
 
@@ -253,9 +312,12 @@
           }
           module.debug('Enabling checkbox');
           module.set.enabled();
-          settings.onEnable.call(input);
-          // preserve legacy callbacks
-          settings.onEnabled.call(input);
+          if (!module.should.ignoreCallbacks()) {
+            settings.onEnable.call(input);
+            // preserve legacy callbacks
+            settings.onEnabled.call(input);
+            module.trigger.change();
+          }
         },
 
         disable: function() {
@@ -265,9 +327,12 @@
           }
           module.debug('Disabling checkbox');
           module.set.disabled();
-          settings.onDisable.call(input);
-          // preserve legacy callbacks
-          settings.onDisabled.call(input);
+          if (!module.should.ignoreCallbacks()) {
+            settings.onDisable.call(input);
+            // preserve legacy callbacks
+            settings.onDisabled.call(input);
+            module.trigger.change();
+          }
         },
 
         get: {
@@ -324,14 +389,17 @@
             if (
               module.is.determinate() &&
               module.is.checked() &&
-              !module.should.forceCallbacks()
+              !module.is.initialLoad()
             ) {
               module.debug(
                 'Should not allow check, checkbox is already checked'
               );
               return false;
             }
-            if (settings.beforeChecked.apply(input) === false) {
+            if (
+              !module.should.ignoreCallbacks() &&
+              settings.beforeChecked.apply(input) === false
+            ) {
               module.debug('Should not allow check, beforeChecked cancelled');
               return false;
             }
@@ -341,14 +409,17 @@
             if (
               module.is.determinate() &&
               module.is.unchecked() &&
-              !module.should.forceCallbacks()
+              !module.is.initialLoad()
             ) {
               module.debug(
                 'Should not allow uncheck, checkbox is already unchecked'
               );
               return false;
             }
-            if (settings.beforeUnchecked.apply(input) === false) {
+            if (
+              !module.should.ignoreCallbacks() &&
+              settings.beforeUnchecked.apply(input) === false
+            ) {
               module.debug(
                 'Should not allow uncheck, beforeUnchecked cancelled'
               );
@@ -357,13 +428,16 @@
             return true;
           },
           allowIndeterminate: function() {
-            if (module.is.indeterminate() && !module.should.forceCallbacks()) {
+            if (module.is.indeterminate() && !module.is.initialLoad()) {
               module.debug(
                 'Should not allow indeterminate, checkbox is already indeterminate'
               );
               return false;
             }
-            if (settings.beforeIndeterminate.apply(input) === false) {
+            if (
+              !module.should.ignoreCallbacks() &&
+              settings.beforeIndeterminate.apply(input) === false
+            ) {
               module.debug(
                 'Should not allow indeterminate, beforeIndeterminate cancelled'
               );
@@ -372,22 +446,22 @@
             return true;
           },
           allowDeterminate: function() {
-            if (module.is.determinate() && !module.should.forceCallbacks()) {
+            if (module.is.determinate() && !module.is.initialLoad()) {
               module.debug(
                 'Should not allow determinate, checkbox is already determinate'
               );
               return false;
             }
-            if (settings.beforeDeterminate.apply(input) === false) {
+            if (
+              !module.should.ignoreCallbacks() &&
+              settings.beforeDeterminate.apply(input) === false
+            ) {
               module.debug(
                 'Should not allow determinate, beforeDeterminate cancelled'
               );
               return false;
             }
             return true;
-          },
-          forceCallbacks: function() {
-            return module.is.initialLoad() && settings.fireOnInit;
           },
           ignoreCallbacks: function() {
             return initialLoad && !settings.fireOnInit;
@@ -430,7 +504,6 @@
             }
             module.verbose('Setting state to checked', input);
             $input.prop('indeterminate', false).prop('checked', true);
-            module.trigger.change();
           },
           unchecked: function() {
             module.verbose('Removing checked class');
@@ -443,7 +516,6 @@
             }
             module.debug('Setting state to unchecked');
             $input.prop('indeterminate', false).prop('checked', false);
-            module.trigger.change();
           },
           indeterminate: function() {
             module.verbose('Setting class to indeterminate');
@@ -456,7 +528,6 @@
             }
             module.debug('Setting state to indeterminate');
             $input.prop('indeterminate', true);
-            module.trigger.change();
           },
           determinate: function() {
             module.verbose('Removing indeterminate class');
@@ -481,7 +552,6 @@
             }
             module.debug('Setting state to disabled');
             $input.prop('disabled', 'disabled');
-            module.trigger.change();
           },
           enabled: function() {
             module.verbose('Removing disabled class');
@@ -494,7 +564,6 @@
             }
             module.debug('Setting state to enabled');
             $input.prop('disabled', false);
-            module.trigger.change();
           },
           tabbable: function() {
             module.verbose('Adding tabindex to checkbox');
@@ -548,6 +617,7 @@
             module.verbose('Attaching checkbox events');
             $module
               .on('click' + eventNamespace, module.event.click)
+              .on('change' + eventNamespace, module.event.change)
               .on(
                 'keydown' + eventNamespace,
                 selector.input,
@@ -741,7 +811,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];
