@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Progress
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Progress
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -11,6 +11,12 @@
 (function($, window, document, undefined) {
   'use strict';
 
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
+
   window =
     typeof window != 'undefined' && window.Math == Math
       ? window
@@ -18,12 +24,6 @@
       ? self
       : Function('return this')();
 
-  var global =
-    typeof window != 'undefined' && window.Math == Math
-      ? window
-      : typeof self != 'undefined' && self.Math == Math
-      ? self
-      : Function('return this')();
   $.fn.progress = function(parameters) {
     var $allModules = $(this),
       moduleSelector = $allModules.selector || '',
@@ -46,21 +46,38 @@
         eventNamespace = '.' + namespace,
         moduleNamespace = 'module-' + namespace,
         $module = $(this),
-        $bar = $(this).find(selector.bar),
-        $progress = $(this).find(selector.progress),
+        $bars = $(this).find(selector.bar),
+        $progresses = $(this).find(selector.progress),
         $label = $(this).find(selector.label),
         element = this,
         instance = $module.data(moduleNamespace),
         animating = false,
         transitionEnd,
         module;
-
       module = {
-        initialize: function() {
-          module.debug('Initializing progress bar', settings);
+        helper: {
+          sum: function(nums) {
+            return Array.isArray(nums)
+              ? nums.reduce(function(left, right) {
+                  return left + right;
+                }, 0)
+              : 0;
+          },
+          forceArray: function(element) {
+            return Array.isArray(element)
+              ? element
+              : !isNaN(element)
+              ? [element]
+              : typeof element == 'string'
+              ? element.split(',')
+              : [];
+          },
+        },
 
+        initialize: function() {
           module.set.duration();
           module.set.transitionEvent();
+          module.debug(element);
 
           module.read.metadata();
           module.read.settings();
@@ -96,25 +113,25 @@
         read: {
           metadata: function() {
             var data = {
-              percent: $module.data(metadata.percent),
+              percent: module.helper.forceArray($module.data(metadata.percent)),
               total: $module.data(metadata.total),
-              value: $module.data(metadata.value),
+              value: module.helper.forceArray($module.data(metadata.value)),
             };
-            if (data.percent) {
+            if (data.total) {
+              module.debug('Total value set from metadata', data.total);
+              module.set.total(data.total);
+            }
+            if (data.value.length > 0) {
+              module.debug('Current value set from metadata', data.value);
+              module.set.value(data.value);
+              module.set.progress(data.value);
+            }
+            if (data.percent.length > 0) {
               module.debug(
                 'Current percent value set from metadata',
                 data.percent
               );
               module.set.percent(data.percent);
-            }
-            if (data.total) {
-              module.debug('Total value set from metadata', data.total);
-              module.set.total(data.total);
-            }
-            if (data.value) {
-              module.debug('Current value set from metadata', data.value);
-              module.set.value(data.value);
-              module.set.progress(data.value);
             }
           },
           settings: function() {
@@ -137,31 +154,33 @@
         bind: {
           transitionEnd: function(callback) {
             var transitionEnd = module.get.transitionEnd();
-            $bar.one(transitionEnd + eventNamespace, function(event) {
+            $bars.one(transitionEnd + eventNamespace, function(event) {
               clearTimeout(module.failSafeTimer);
               callback.call(this, event);
             });
             module.failSafeTimer = setTimeout(function() {
-              $bar.triggerHandler(transitionEnd);
+              $bars.triggerHandler(transitionEnd);
             }, settings.duration + settings.failSafeDelay);
             module.verbose('Adding fail safe timer', module.timer);
           },
         },
 
         increment: function(incrementValue) {
-          var maxValue, startValue, newValue;
+          var startValue, newValue;
           if (module.has.total()) {
             startValue = module.get.value();
             incrementValue = incrementValue || 1;
-            newValue = startValue + incrementValue;
           } else {
             startValue = module.get.percent();
             incrementValue = incrementValue || module.get.randomValue();
-
-            newValue = startValue + incrementValue;
-            maxValue = 100;
-            module.debug('Incrementing percentage by', startValue, newValue);
           }
+          newValue = startValue + incrementValue;
+          module.debug(
+            'Incrementing percentage by',
+            startValue,
+            newValue,
+            incrementValue
+          );
           newValue = module.get.normalizedValue(newValue);
           module.set.progress(newValue);
         },
@@ -198,19 +217,21 @@
         },
 
         get: {
-          text: function(templateText) {
-            var value = module.value || 0,
+          text: function(templateText, index) {
+            var index_ = index || 0,
+              value = module.get.value(index_),
               total = module.total || 0,
               percent = animating
-                ? module.get.displayPercent()
-                : module.percent || 0,
+                ? module.get.displayPercent(index_)
+                : module.get.percent(index_),
               left = module.total > 0 ? total - value : 100 - percent;
             templateText = templateText || '';
             templateText = templateText
               .replace('{value}', value)
               .replace('{total}', total)
               .replace('{left}', left)
-              .replace('{percent}', percent);
+              .replace('{percent}', percent)
+              .replace('{bar}', settings.text.bars[index_] || '');
             module.verbose(
               'Adding variables to progress bar text',
               templateText
@@ -277,8 +298,9 @@
           },
 
           // gets current displayed percentage (if animating values this is the intermediary value)
-          displayPercent: function() {
-            var barWidth = $bar.width(),
+          displayPercent: function(index) {
+            var $bar = $($bars[index]),
+              barWidth = $bar.width(),
               totalWidth = $module.width(),
               minDisplay = parseInt($bar.css('min-width'), 10),
               displayPercent =
@@ -291,11 +313,15 @@
               : Math.round(displayPercent);
           },
 
-          percent: function() {
-            return module.percent || 0;
+          percent: function(index) {
+            return (module.percent && module.percent[index || 0]) || 0;
           },
-          value: function() {
-            return module.nextValue || module.value || 0;
+          value: function(index) {
+            return (
+              module.nextValue ||
+              (module.value && module.value[index || 0]) ||
+              0
+            );
           },
           total: function() {
             return module.total || false;
@@ -371,14 +397,50 @@
         },
 
         set: {
-          barWidth: function(value) {
-            if (value > 100) {
-              module.error(error.tooHigh, value);
-            } else if (value < 0) {
-              module.error(error.tooLow, value);
+          barWidth: function(values) {
+            module.debug('set bar width with ', values);
+            values = module.helper.forceArray(values);
+            var total = module.helper.sum(values);
+            if (total > 100) {
+              module.error(error.tooHigh, total);
+            } else if (total < 0) {
+              module.error(error.tooLow, total);
             } else {
-              $bar.css('width', value + '%');
-              $module.attr('data-percent', parseInt(value, 10));
+              var firstNonZeroIndex = -1;
+              var lastNonZeroIndex = -1;
+              var valuesSum = module.helper.sum(values);
+              var barCounts = $bars.length;
+              var isMultiple = barCounts > 1;
+              var percents = values.map(function(value, index) {
+                var allZero = index === barCounts - 1 && valuesSum === 0;
+                var $bar = $($bars[index]);
+                if (value === 0 && isMultiple && !allZero) {
+                  $bar.css('display', 'none');
+                } else {
+                  if (isMultiple && allZero) {
+                    $bar.css('background', 'transparent');
+                  }
+                  if (firstNonZeroIndex == -1) {
+                    firstNonZeroIndex = index;
+                  }
+                  lastNonZeroIndex = index;
+                  $bar.css({
+                    display: 'block',
+                    width: value + '%',
+                  });
+                }
+                return parseInt(value, 10);
+              });
+              values.forEach(function(_, index) {
+                var $bar = $($bars[index]);
+                $bar.css({
+                  borderTopLeftRadius: index == firstNonZeroIndex ? '' : 0,
+                  borderBottomLeftRadius: index == firstNonZeroIndex ? '' : 0,
+                  borderTopRightRadius: index == lastNonZeroIndex ? '' : 0,
+                  borderBottomRightRadius: index == lastNonZeroIndex ? '' : 0,
+                });
+              });
+              $module.attr('data-percent', percents);
             }
           },
           duration: function(duration) {
@@ -388,43 +450,51 @@
               'Setting progress bar transition duration',
               duration
             );
-            $bar.css({
+            $bars.css({
               'transition-duration': duration,
             });
           },
-          percent: function(percent) {
-            percent =
-              typeof percent == 'string' ? +percent.replace('%', '') : percent;
+          percent: function(percents) {
+            percents = module.helper
+              .forceArray(percents)
+              .map(function(percent) {
+                return typeof percent == 'string'
+                  ? +percent.replace('%', '')
+                  : percent;
+              });
             // round display percentage
-            percent =
-              settings.precision > 0
+            percents = percents.map(function(percent) {
+              return settings.precision > 0
                 ? Math.round(percent * (10 * settings.precision)) /
-                  (10 * settings.precision)
+                    (10 * settings.precision)
                 : Math.round(percent);
-            module.percent = percent;
+            });
+            module.percent = percents;
             if (!module.has.total()) {
-              module.value =
-                settings.precision > 0
+              module.value = percents.map(function(percent) {
+                return settings.precision > 0
                   ? Math.round(
                       (percent / 100) * module.total * (10 * settings.precision)
                     ) /
-                    (10 * settings.precision)
+                      (10 * settings.precision)
                   : Math.round((percent / 100) * module.total * 10) / 10;
+              });
               if (settings.limitValues) {
-                module.value =
-                  module.value > 100
+                module.value = module.value.map(function(value) {
+                  return value > 100
                     ? 100
                     : module.value < 0
                     ? 0
                     : module.value;
+                });
               }
             }
-            module.set.barWidth(percent);
+            module.set.barWidth(percents);
             module.set.labelInterval();
             module.set.labels();
             settings.onChange.call(
               element,
-              percent,
+              percents,
               module.value,
               module.total
             );
@@ -464,7 +534,10 @@
             }
           },
           state: function(percent) {
-            percent = percent !== undefined ? percent : module.percent;
+            percent =
+              percent !== undefined
+                ? percent
+                : module.helper.sum(module.percent);
             if (percent === 100) {
               if (
                 settings.autoSuccess &&
@@ -490,15 +563,18 @@
             }
           },
           barLabel: function(text) {
-            if (text !== undefined) {
-              $progress.text(module.get.text(text));
-            } else if (settings.label == 'ratio' && module.total) {
-              module.verbose('Adding ratio to bar label');
-              $progress.text(module.get.text(settings.text.ratio));
-            } else if (settings.label == 'percent') {
-              module.verbose('Adding percentage to bar label');
-              $progress.text(module.get.text(settings.text.percent));
-            }
+            $progresses.map(function(index, element) {
+              var $progress = $(element);
+              if (text !== undefined) {
+                $progress.text(module.get.text(text, index));
+              } else if (settings.label == 'ratio' && module.total) {
+                module.verbose('Adding ratio to bar label');
+                $progress.text(module.get.text(settings.text.ratio, index));
+              } else if (settings.label == 'percent') {
+                module.verbose('Adding percentage to bar label');
+                $progress.text(module.get.text(settings.text.percent, index));
+              }
+            });
           },
           active: function(text) {
             text = text || settings.text.active;
@@ -600,7 +676,7 @@
             module.total = totalValue;
           },
           value: function(value) {
-            module.value = value;
+            module.value = module.helper.forceArray(value);
           },
           progress: function(value) {
             if (!module.has.progressPoll()) {
@@ -635,29 +711,36 @@
               module.remove.nextValue();
             }
           },
-          progress: function(value) {
-            var percentComplete;
-            value = module.get.numericValue(value);
-            if (value === false) {
-              module.error(error.nonNumeric, value);
+          progress: function(values) {
+            var hasTotal = module.has.total();
+            if (hasTotal) {
+              module.set.value(values);
             }
-            value = module.get.normalizedValue(value);
-            if (module.has.total()) {
-              module.set.value(value);
-              percentComplete = (value / module.total) * 100;
-              module.debug(
-                'Calculating percent complete from total',
-                percentComplete
-              );
-              module.set.percent(percentComplete);
-            } else {
-              percentComplete = value;
-              module.debug(
-                'Setting value to exact percentage value',
-                percentComplete
-              );
-              module.set.percent(percentComplete);
-            }
+            var percentCompletes = module.helper
+              .forceArray(values)
+              .map(function(value) {
+                var percentComplete;
+                value = module.get.numericValue(value);
+                if (value === false) {
+                  module.error(error.nonNumeric, value);
+                }
+                value = module.get.normalizedValue(value);
+                if (hasTotal) {
+                  percentComplete = (value / module.total) * 100;
+                  module.debug(
+                    'Calculating percent complete from total',
+                    percentComplete
+                  );
+                } else {
+                  percentComplete = value;
+                  module.debug(
+                    'Setting value to exact percentage value',
+                    percentComplete
+                  );
+                }
+                return percentComplete;
+              });
+            module.set.percent(percentCompletes);
           },
         },
 
@@ -815,7 +898,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];
@@ -914,6 +997,7 @@
       warning: false,
       percent: '{percent}%',
       ratio: '{value} of {total}',
+      bars: [''],
     },
 
     className: {

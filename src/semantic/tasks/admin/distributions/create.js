@@ -11,22 +11,15 @@
 
 var gulp = require('gulp'),
   // node dependencies
-  console = require('better-console'),
-  del = require('del'),
   fs = require('fs'),
   path = require('path'),
-  runSequence = require('run-sequence'),
   mergeStream = require('merge-stream'),
   // admin dependencies
-  concatFileNames = require('gulp-concat-filenames'),
-  debug = require('gulp-debug'),
   flatten = require('gulp-flatten'),
-  git = require('gulp-git'),
   jsonEditor = require('gulp-json-editor'),
   plumber = require('gulp-plumber'),
   rename = require('gulp-rename'),
   replace = require('gulp-replace'),
-  tap = require('gulp-tap'),
   // config
   config = require('../../config/user'),
   release = require('../../config/admin/release'),
@@ -105,7 +98,7 @@ module.exports = function(callback) {
         return filenames;
       };
 
-      gulp.task(task.meteor, function() {
+      tasks.push(function() {
         var files = gatherFiles(outputDirectory),
           filenames = createList(files);
         gulp
@@ -119,7 +112,7 @@ module.exports = function(callback) {
       });
 
       if (distribution == 'CSS') {
-        gulp.task(task.repo, function() {
+        tasks.push(function() {
           var themes, components, releases;
           themes = gulp
             .src('dist/themes/default/**/*', { base: 'dist/' })
@@ -133,7 +126,7 @@ module.exports = function(callback) {
           return mergeStream(themes, components, releases);
         });
       } else if (distribution == 'LESS') {
-        gulp.task(task.repo, function() {
+        tasks.push(function() {
           var definitions, themeImport, themeConfig, siteTheme, themes;
           definitions = gulp
             .src('src/definitions/**/*', { base: 'src/' })
@@ -164,7 +157,7 @@ module.exports = function(callback) {
       }
 
       // extend package.json
-      gulp.task(task.package, function() {
+      tasks.push(function() {
         return gulp
           .src(packageFile)
           .pipe(plumber())
@@ -178,11 +171,8 @@ module.exports = function(callback) {
           )
           .pipe(gulp.dest(outputDirectory));
       });
-
-      tasks.push(task.meteor);
-      tasks.push(task.repo);
-      tasks.push(task.package);
     })(distribution);
   }
-  runSequence(tasks, callback);
+
+  gulp.series(...tasks)(callback);
 };

@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Site
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Site
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -9,6 +9,12 @@
  */
 
 (function($, window, document, undefined) {
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
+
   $.site = $.fn.site = function(parameters) {
     var time = new Date().getTime(),
       performance = [],
@@ -20,7 +26,6 @@
         : $.extend({}, $.site.settings),
       namespace = settings.namespace,
       error = settings.error,
-      eventNamespace = '.' + namespace,
       moduleNamespace = 'module-' + namespace,
       $document = $(document),
       $module = $document,
@@ -378,7 +383,7 @@
         } else if (found !== undefined) {
           response = found;
         }
-        if ($.isArray(returnedValue)) {
+        if (Array.isArray(returnedValue)) {
           returnedValue.push(response);
         } else if (returnedValue !== undefined) {
           returnedValue = [returnedValue, response];
@@ -420,6 +425,7 @@
     modules: [
       'accordion',
       'api',
+      'calendar',
       'checkbox',
       'dimmer',
       'dropdown',
@@ -428,15 +434,17 @@
       'modal',
       'nag',
       'popup',
+      'slider',
       'rating',
       'shape',
       'sidebar',
       'state',
       'sticky',
       'tab',
+      'toast',
       'transition',
-      'visit',
       'visibility',
+      'visit',
     ],
 
     siteNamespace: 'site',

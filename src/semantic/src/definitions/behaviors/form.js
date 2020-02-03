@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Form Validation
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Form Validation
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -10,6 +10,12 @@
 
 (function($, window, document, undefined) {
   'use strict';
+
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
 
   window =
     typeof window != 'undefined' && window.Math == Math
@@ -51,6 +57,9 @@
         namespace,
         moduleNamespace,
         eventNamespace,
+        submitting = false,
+        dirty = false,
+        history = ['clean', 'clean'],
         instance,
         module;
 
@@ -100,6 +109,7 @@
 
         submit: function() {
           module.verbose('Submitting form', $module);
+          submitting = true;
           $module.submit();
         },
 
@@ -130,23 +140,50 @@
               module.event.field.keydown
             );
           }
-          $field.each(function() {
-            var $input = $(this),
+          $field.each(function(index, el) {
+            var $input = $(el),
               type = $input.prop('type'),
               inputEvent = module.get.changeEvent(type, $input);
-            $(this).on(inputEvent + eventNamespace, module.event.field.change);
+            $input.on(inputEvent + eventNamespace, module.event.field.change);
+          });
+
+          // Dirty events
+          if (settings.preventLeaving) {
+            $(window).on(
+              'beforeunload' + eventNamespace,
+              module.event.beforeUnload
+            );
+          }
+
+          $field.on('change click keyup keydown blur', function(e) {
+            $(this).trigger(e.type + '.dirty');
+          });
+
+          $field.on(
+            'change.dirty click.dirty keyup.dirty keydown.dirty blur.dirty',
+            module.determine.isDirty
+          );
+
+          $module.on('dirty' + eventNamespace, function(e) {
+            settings.onDirty.call();
+          });
+
+          $module.on('clean' + eventNamespace, function(e) {
+            settings.onClean.call();
           });
         },
 
         clear: function() {
-          $field.each(function() {
-            var $field = $(this),
+          $field.each(function(index, el) {
+            var $field = $(el),
               $element = $field.parent(),
               $fieldGroup = $field.closest($group),
               $prompt = $fieldGroup.find(selector.prompt),
+              $calendar = $field.closest(selector.uiCalendar),
               defaultValue = $field.data(metadata.defaultValue) || '',
               isCheckbox = $element.is(selector.uiCheckbox),
               isDropdown = $element.is(selector.uiDropdown),
+              isCalendar = $calendar.length > 0,
               isErrored = $fieldGroup.hasClass(className.error);
             if (isErrored) {
               module.verbose('Resetting error on field', $fieldGroup);
@@ -162,6 +199,8 @@
               $element.dropdown('clear');
             } else if (isCheckbox) {
               $field.prop('checked', false);
+            } else if (isCalendar) {
+              $calendar.calendar('clear');
             } else {
               module.verbose('Resetting field value', $field, defaultValue);
               $field.val('');
@@ -170,14 +209,16 @@
         },
 
         reset: function() {
-          $field.each(function() {
-            var $field = $(this),
+          $field.each(function(index, el) {
+            var $field = $(el),
               $element = $field.parent(),
               $fieldGroup = $field.closest($group),
+              $calendar = $field.closest(selector.uiCalendar),
               $prompt = $fieldGroup.find(selector.prompt),
               defaultValue = $field.data(metadata.defaultValue),
               isCheckbox = $element.is(selector.uiCheckbox),
               isDropdown = $element.is(selector.uiDropdown),
+              isCalendar = $calendar.length > 0,
               isErrored = $fieldGroup.hasClass(className.error);
             if (defaultValue === undefined) {
               return;
@@ -201,11 +242,15 @@
                 defaultValue
               );
               $field.prop('checked', defaultValue);
+            } else if (isCalendar) {
+              $calendar.calendar('set date', defaultValue);
             } else {
               module.verbose('Resetting field value', $field, defaultValue);
               $field.val(defaultValue);
             }
           });
+
+          module.determine.isDirty();
         },
 
         determine: {
@@ -217,6 +262,35 @@
               }
             });
             return allValid;
+          },
+          isDirty: function(e) {
+            var formIsDirty = false;
+
+            $field.each(function(index, el) {
+              var $el = $(el),
+                isCheckbox = $el.filter(selector.checkbox).length > 0,
+                isDirty;
+
+              if (isCheckbox) {
+                isDirty = module.is.checkboxDirty($el);
+              } else {
+                isDirty = module.is.fieldDirty($el);
+              }
+
+              $el.data(settings.metadata.isDirty, isDirty);
+
+              formIsDirty |= isDirty;
+            });
+
+            if (formIsDirty) {
+              module.set.dirty();
+            } else {
+              module.set.clean();
+            }
+
+            if (e) {
+              e.stopImmediatePropagation();
+            }
           },
         },
 
@@ -231,12 +305,12 @@
           },
           // duck type rule test
           shorthandRules: function(rules) {
-            return typeof rules == 'string' || $.isArray(rules);
+            return typeof rules == 'string' || Array.isArray(rules);
           },
           empty: function($field) {
             if (!$field || $field.length === 0) {
               return true;
-            } else if ($field.is('input[type="checkbox"]')) {
+            } else if ($field.is(selector.checkbox)) {
               return !$field.is(':checked');
             } else {
               return module.is.blank($field);
@@ -259,6 +333,46 @@
               });
               return allValid;
             }
+          },
+          dirty: function() {
+            return dirty;
+          },
+          clean: function() {
+            return !dirty;
+          },
+          fieldDirty: function($el) {
+            var initialValue = $el.data(metadata.defaultValue);
+            // Explicitly check for null/undefined here as value may be `false`, so ($el.data(dataInitialValue) || '') would not work
+            if (initialValue == null) {
+              initialValue = '';
+            }
+            var currentValue = $el.val();
+            if (currentValue == null) {
+              currentValue = '';
+            }
+
+            // Boolean values can be encoded as "true/false" or "True/False" depending on underlying frameworks so we need a case insensitive comparison
+            var boolRegex = /^(true|false)$/i;
+            var isBoolValue =
+              boolRegex.test(initialValue) && boolRegex.test(currentValue);
+            if (isBoolValue) {
+              var regex = new RegExp('^' + initialValue + '$', 'i');
+              return !regex.test(currentValue);
+            }
+
+            return currentValue !== initialValue;
+          },
+          checkboxDirty: function($el) {
+            var initialValue = $el.data(metadata.defaultValue);
+            var currentValue = $el.is(':checked');
+
+            return initialValue !== currentValue;
+          },
+          justDirty: function() {
+            return history[0] === 'dirty';
+          },
+          justClean: function() {
+            return history[0] === 'clean';
           },
         },
 
@@ -342,6 +456,19 @@
                 }, settings.delay);
               }
             },
+          },
+          beforeUnload: function(event) {
+            if (module.is.dirty() && !submitting) {
+              var event = event || window.event;
+
+              // For modern browsers
+              if (event) {
+                event.returnValue = settings.text.leavingMessage;
+              }
+
+              // For olders...
+              return settings.text.leavingMessage;
+            }
           },
         },
 
@@ -444,8 +571,7 @@
                   keys.length > 0
                     ? parameters[keys[0]].identifier !== undefined &&
                       parameters[keys[0]].rules !== undefined
-                    : false,
-                ruleKeys;
+                    : false;
               if (isLegacySettings) {
                 // 1.x (ducktyped)
                 settings = $.extend(
@@ -512,24 +638,24 @@
           field: function(identifier) {
             module.verbose('Finding field with identifier', identifier);
             identifier = module.escape.string(identifier);
-            if ($field.filter('#' + identifier).length > 0) {
-              return $field.filter('#' + identifier);
-            } else if (
-              $field.filter('[name="' + identifier + '"]').length > 0
+            var t;
+            if ((t = $field.filter('#' + identifier)).length > 0) {
+              return t;
+            }
+            if ((t = $field.filter('[name="' + identifier + '"]')).length > 0) {
+              return t;
+            }
+            if (
+              (t = $field.filter('[name="' + identifier + '[]"]')).length > 0
             ) {
-              return $field.filter('[name="' + identifier + '"]');
-            } else if (
-              $field.filter('[name="' + identifier + '[]"]').length > 0
-            ) {
-              return $field.filter('[name="' + identifier + '[]"]');
-            } else if (
-              $field.filter(
+              return t;
+            }
+            if (
+              (t = $field.filter(
                 '[data-' + metadata.validate + '="' + identifier + '"]'
-              ).length > 0
+              )).length > 0
             ) {
-              return $field.filter(
-                '[data-' + metadata.validate + '="' + identifier + '"]'
-              );
+              return t;
             }
             return $('<input/>');
           },
@@ -547,10 +673,13 @@
             }
             $.each(validation, function(fieldName, field) {
               identifier = field.identifier || fieldName;
-              if (module.get.field(identifier)[0] == $field[0]) {
-                field.identifier = identifier;
-                fieldValidation = field;
-              }
+              $.each(module.get.field(identifier), function(index, groupField) {
+                if (groupField == $field[0]) {
+                  field.identifier = identifier;
+                  fieldValidation = field;
+                  return false;
+                }
+              });
             });
             return fieldValidation || false;
           },
@@ -562,18 +691,19 @@
             return results[field];
           },
           values: function(fields) {
-            var $fields = $.isArray(fields)
+            var $fields = Array.isArray(fields)
                 ? module.get.fields(fields)
                 : $field,
               values = {};
             $fields.each(function(index, field) {
               var $field = $(field),
-                type = $field.prop('type'),
+                $calendar = $field.closest(selector.uiCalendar),
                 name = $field.prop('name'),
                 value = $field.val(),
                 isCheckbox = $field.is(selector.checkbox),
                 isRadio = $field.is(selector.radio),
                 isMultiple = name.indexOf('[]') !== -1,
+                isCalendar = $calendar.length > 0,
                 isChecked = isCheckbox ? $field.is(':checked') : false;
               if (name) {
                 if (isMultiple) {
@@ -601,6 +731,50 @@
                     } else {
                       values[name] = false;
                     }
+                  } else if (isCalendar) {
+                    var date = $calendar.calendar('get date');
+
+                    if (date !== null) {
+                      if (settings.dateHandling == 'date') {
+                        values[name] = date;
+                      } else if (settings.dateHandling == 'input') {
+                        values[name] = $calendar.calendar('get input date');
+                      } else if (settings.dateHandling == 'formatter') {
+                        var type = $calendar.calendar('setting', 'type');
+
+                        switch (type) {
+                          case 'date':
+                            values[name] = settings.formatter.date(date);
+                            break;
+
+                          case 'datetime':
+                            values[name] = settings.formatter.datetime(date);
+                            break;
+
+                          case 'time':
+                            values[name] = settings.formatter.time(date);
+                            break;
+
+                          case 'month':
+                            values[name] = settings.formatter.month(date);
+                            break;
+
+                          case 'year':
+                            values[name] = settings.formatter.year(date);
+                            break;
+
+                          default:
+                            module.debug(
+                              'Wrong calendar mode',
+                              $calendar,
+                              type
+                            );
+                            values[name] = '';
+                        }
+                      }
+                    } else {
+                      values[name] = '';
+                    }
                   } else {
                     values[name] = value;
                   }
@@ -608,6 +782,11 @@
               }
             });
             return values;
+          },
+          dirtyFields: function() {
+            return $field.filter(function(index, e) {
+              return $(e).data(metadata.isDirty);
+            });
           },
         },
 
@@ -653,7 +832,7 @@
           field: function(name, rules) {
             var newValidation = {};
             if (module.is.shorthandRules(rules)) {
-              rules = $.isArray(rules) ? rules : [rules];
+              rules = Array.isArray(rules) ? rules : [rules];
               newValidation[name] = {
                 rules: [],
               };
@@ -675,14 +854,16 @@
             }
             validation = $.extend({}, validation, newValidation);
           },
-          prompt: function(identifier, errors) {
+          prompt: function(identifier, errors, internal) {
             var $field = module.get.field(identifier),
               $fieldGroup = $field.closest($group),
               $prompt = $fieldGroup.children(selector.prompt),
               promptExists = $prompt.length !== 0;
             errors = typeof errors == 'string' ? [errors] : errors;
             module.verbose('Adding field error state', identifier);
-            $fieldGroup.addClass(className.error);
+            if (!internal) {
+              $fieldGroup.addClass(className.error);
+            }
             if (settings.inline) {
               if (!promptExists) {
                 $prompt = settings.templates.prompt(errors);
@@ -726,16 +907,16 @@
 
         remove: {
           rule: function(field, rule) {
-            var rules = $.isArray(rule) ? rule : [rule];
-            if (rule == undefined) {
-              module.debug('Removed all rules');
-              validation[field].rules = [];
+            var rules = Array.isArray(rule) ? rule : [rule];
+            if (
+              validation[field] === undefined ||
+              !Array.isArray(validation[field].rules)
+            ) {
               return;
             }
-            if (
-              validation[field] == undefined ||
-              !$.isArray(validation[field].rules)
-            ) {
+            if (rule === undefined) {
+              module.debug('Removed all rules');
+              validation[field].rules = [];
               return;
             }
             $.each(validation[field].rules, function(index, rule) {
@@ -746,15 +927,15 @@
             });
           },
           field: function(field) {
-            var fields = $.isArray(field) ? field : [field];
+            var fields = Array.isArray(field) ? field : [field];
             $.each(fields, function(index, field) {
               module.remove.rule(field);
             });
           },
           // alias
           rules: function(field, rules) {
-            if ($.isArray(field)) {
-              $.each(fields, function(index, field) {
+            if (Array.isArray(field)) {
+              $.each(field, function(index, field) {
                 module.remove.rule(field, rules);
               });
             } else {
@@ -797,11 +978,17 @@
             $module.removeClass(className.error).addClass(className.success);
           },
           defaults: function() {
-            $field.each(function() {
-              var $field = $(this),
-                isCheckbox = $field.filter(selector.checkbox).length > 0,
-                value = isCheckbox ? $field.is(':checked') : $field.val();
-              $field.data(metadata.defaultValue, value);
+            $field.each(function(index, el) {
+              var $el = $(el),
+                $parent = $el.parent(),
+                isCheckbox = $el.filter(selector.checkbox).length > 0,
+                isDropdown = $parent.is(selector.uiDropdown),
+                value = isCheckbox ? $el.is(':checked') : $el.val();
+              if (isDropdown) {
+                $parent.dropdown('save defaults');
+              }
+              $el.data(metadata.defaultValue, value);
+              $el.data(metadata.isDirty, false);
             });
           },
           error: function() {
@@ -819,7 +1006,7 @@
             $.each(fields, function(key, value) {
               var $field = module.get.field(key),
                 $element = $field.parent(),
-                isMultiple = $.isArray(value),
+                isMultiple = Array.isArray(value),
                 isCheckbox = $element.is(selector.uiCheckbox),
                 isDropdown = $element.is(selector.uiDropdown),
                 isRadio = $field.is(selector.radio) && isCheckbox,
@@ -859,12 +1046,39 @@
               }
             });
           },
+          dirty: function() {
+            module.verbose('Setting state dirty');
+            dirty = true;
+            history[0] = history[1];
+            history[1] = 'dirty';
+
+            if (module.is.justClean()) {
+              $module.trigger('dirty');
+            }
+          },
+          clean: function() {
+            module.verbose('Setting state clean');
+            dirty = false;
+            history[0] = history[1];
+            history[1] = 'clean';
+
+            if (module.is.justDirty()) {
+              $module.trigger('clean');
+            }
+          },
+          asClean: function() {
+            module.set.defaults();
+            module.set.clean();
+          },
+          asDirty: function() {
+            module.set.defaults();
+            module.set.dirty();
+          },
         },
 
         validate: {
           form: function(event, ignoreCallbacks) {
-            var values = module.get.values(),
-              apiRequest;
+            var values = module.get.values();
 
             // input keydown event will fire submit repeatedly by browser default
             if (keyHeldDown) {
@@ -886,7 +1100,7 @@
                 module.add.errors(formErrors);
               }
               // prevent ajax submit
-              if ($module.data('moduleApi') !== undefined) {
+              if (event && $module.data('moduleApi') !== undefined) {
                 event.stopImmediatePropagation();
               }
               if (ignoreCallbacks !== true) {
@@ -914,27 +1128,38 @@
               module.debug('Using field name as identifier', identifier);
               field.identifier = identifier;
             }
-            if ($field.prop('disabled')) {
+            var isDisabled = true;
+            $.each($field, function() {
+              if (!$(this).prop('disabled')) {
+                isDisabled = false;
+                return false;
+              }
+            });
+            if (isDisabled) {
               module.debug('Field is disabled. Skipping', identifier);
-              fieldValid = true;
             } else if (field.optional && module.is.blank($field)) {
               module.debug('Field is optional and blank. Skipping', identifier);
-              fieldValid = true;
             } else if (field.depends && module.is.empty($dependsField)) {
               module.debug(
                 'Field depends on another value that is not present or empty. Skipping',
                 $dependsField
               );
-              fieldValid = true;
             } else if (field.rules !== undefined) {
+              $field.closest($group).removeClass(className.error);
               $.each(field.rules, function(index, rule) {
-                if (
-                  module.has.field(identifier) &&
-                  !module.validate.rule(field, rule)
-                ) {
-                  module.debug('Field is invalid', identifier, rule.type);
-                  fieldErrors.push(module.get.prompt(rule, field));
-                  fieldValid = false;
+                if (module.has.field(identifier)) {
+                  var invalidFields =
+                    module.validate.rule(field, rule, true) || [];
+                  if (invalidFields.length > 0) {
+                    module.debug('Field is invalid', identifier, rule.type);
+                    fieldErrors.push(module.get.prompt(rule, field));
+                    fieldValid = false;
+                    if (showErrors) {
+                      $(invalidFields)
+                        .closest($group)
+                        .addClass(className.error);
+                    }
+                  }
                 }
               });
             }
@@ -946,7 +1171,7 @@
             } else {
               if (showErrors) {
                 formErrors = formErrors.concat(fieldErrors);
-                module.add.prompt(identifier, fieldErrors);
+                module.add.prompt(identifier, fieldErrors, true);
                 settings.onInvalid.call($field, fieldErrors);
               }
               return false;
@@ -955,24 +1180,44 @@
           },
 
           // takes validation rule and returns whether field passes rule
-          rule: function(field, rule) {
+          rule: function(field, rule, internal) {
             var $field = module.get.field(field.identifier),
-              type = rule.type,
-              value = $field.val(),
-              isValid = true,
               ancillary = module.get.ancillaryValue(rule),
               ruleName = module.get.ruleName(rule),
-              ruleFunction = settings.rules[ruleName];
+              ruleFunction = settings.rules[ruleName],
+              invalidFields = [],
+              isCheckbox = $field.is(selector.checkbox),
+              isValid = function(field) {
+                var value = isCheckbox
+                  ? $(field)
+                      .filter(':checked')
+                      .val()
+                  : $(field).val();
+                // cast to string avoiding encoding special values
+                value =
+                  value === undefined || value === '' || value === null
+                    ? ''
+                    : settings.shouldTrim
+                    ? $.trim(value + '')
+                    : String(value + '');
+                return ruleFunction.call(field, value, ancillary, $module);
+              };
             if (!$.isFunction(ruleFunction)) {
               module.error(error.noRule, ruleName);
               return;
             }
-            // cast to string avoiding encoding special values
-            value =
-              value === undefined || value === '' || value === null
-                ? ''
-                : $.trim(value + '');
-            return ruleFunction.call($field, value, ancillary);
+            if (isCheckbox) {
+              if (!isValid($field)) {
+                invalidFields = $field;
+              }
+            } else {
+              $.each($field, function(index, field) {
+                if (!isValid(field)) {
+                  invalidFields.push(field);
+                }
+              });
+            }
+            return internal ? invalidFields : !(invalidFields.length > 0);
           },
         },
 
@@ -1127,7 +1372,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];
@@ -1159,9 +1404,13 @@
 
     delay: 200,
     revalidate: true,
+    shouldTrim: true,
 
     transition: 'scale',
     duration: 200,
+
+    preventLeaving: false,
+    dateHandling: 'date', // 'date', 'input', 'formatter'
 
     onValid: function() {},
     onInvalid: function() {},
@@ -1171,10 +1420,13 @@
     onFailure: function() {
       return false;
     },
+    onDirty: function() {},
+    onClean: function() {},
 
     metadata: {
       defaultValue: 'default',
       validate: 'validate',
+      isDirty: 'isDirty',
     },
 
     regExp: {
@@ -1182,7 +1434,7 @@
       bracket: /\[(.*)\]/i,
       decimal: /^\d+\.?\d*$/,
       email: /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i,
-      escape: /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,
+      escape: /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|:,=@]/g,
       flags: /^\/(.*)\/(.*)?/,
       integer: /^\-?\d+$/,
       number: /^\-?\d*(\.\d+)?$/,
@@ -1192,6 +1444,8 @@
     text: {
       unspecifiedRule: 'Please enter a valid value',
       unspecifiedField: 'This field',
+      leavingMessage:
+        'There are unsaved changes on this page which will be discarded if you continue.',
     },
 
     prompt: {
@@ -1236,6 +1490,7 @@
       submit: '.submit:not([type="submit"])',
       uiCheckbox: '.ui.checkbox',
       uiDropdown: '.ui.dropdown',
+      uiCalendar: '.ui.calendar',
     },
 
     className: {
@@ -1272,13 +1527,47 @@
       },
     },
 
+    formatter: {
+      date: function(date) {
+        return Intl.DateTimeFormat('en-GB').format(date);
+      },
+      datetime: function(date) {
+        return Intl.DateTimeFormat('en-GB', {
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }).format(date);
+      },
+      time: function(date) {
+        return Intl.DateTimeFormat('en-GB', {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        }).format(date);
+      },
+      month: function(date) {
+        return Intl.DateTimeFormat('en-GB', {
+          month: '2-digit',
+          year: 'numeric',
+        }).format(date);
+      },
+      year: function(date) {
+        return Intl.DateTimeFormat('en-GB', {
+          year: 'numeric',
+        }).format(date);
+      },
+    },
+
     rules: {
       // is not empty or blank string
       empty: function(value) {
         return !(
           value === undefined ||
           '' === value ||
-          ($.isArray(value) && value.length === 0)
+          (Array.isArray(value) && value.length === 0)
         );
       },
 
@@ -1424,17 +1713,28 @@
       },
 
       // matches another field
-      match: function(value, identifier) {
-        var $form = $(this),
-          matchingValue;
-        if ($('[data-validate="' + identifier + '"]').length > 0) {
-          matchingValue = $('[data-validate="' + identifier + '"]').val();
-        } else if ($('#' + identifier).length > 0) {
-          matchingValue = $('#' + identifier).val();
-        } else if ($('[name="' + identifier + '"]').length > 0) {
-          matchingValue = $('[name="' + identifier + '"]').val();
-        } else if ($('[name="' + identifier + '[]"]').length > 0) {
-          matchingValue = $('[name="' + identifier + '[]"]');
+      match: function(value, identifier, $module) {
+        var matchingValue, matchingElement;
+        if (
+          (matchingElement = $module.find(
+            '[data-validate="' + identifier + '"]'
+          )).length > 0
+        ) {
+          matchingValue = matchingElement.val();
+        } else if (
+          (matchingElement = $module.find('#' + identifier)).length > 0
+        ) {
+          matchingValue = matchingElement.val();
+        } else if (
+          (matchingElement = $module.find('[name="' + identifier + '"]'))
+            .length > 0
+        ) {
+          matchingValue = matchingElement.val();
+        } else if (
+          (matchingElement = $module.find('[name="' + identifier + '[]"]'))
+            .length > 0
+        ) {
+          matchingValue = matchingElement;
         }
         return matchingValue !== undefined
           ? value.toString() == matchingValue.toString()
@@ -1442,18 +1742,29 @@
       },
 
       // different than another field
-      different: function(value, identifier) {
+      different: function(value, identifier, $module) {
         // use either id or name of field
-        var $form = $(this),
-          matchingValue;
-        if ($('[data-validate="' + identifier + '"]').length > 0) {
-          matchingValue = $('[data-validate="' + identifier + '"]').val();
-        } else if ($('#' + identifier).length > 0) {
-          matchingValue = $('#' + identifier).val();
-        } else if ($('[name="' + identifier + '"]').length > 0) {
-          matchingValue = $('[name="' + identifier + '"]').val();
-        } else if ($('[name="' + identifier + '[]"]').length > 0) {
-          matchingValue = $('[name="' + identifier + '[]"]');
+        var matchingValue, matchingElement;
+        if (
+          (matchingElement = $module.find(
+            '[data-validate="' + identifier + '"]'
+          )).length > 0
+        ) {
+          matchingValue = matchingElement.val();
+        } else if (
+          (matchingElement = $module.find('#' + identifier)).length > 0
+        ) {
+          matchingValue = matchingElement.val();
+        } else if (
+          (matchingElement = $module.find('[name="' + identifier + '"]'))
+            .length > 0
+        ) {
+          matchingValue = matchingElement.val();
+        } else if (
+          (matchingElement = $module.find('[name="' + identifier + '[]"]'))
+            .length > 0
+        ) {
+          matchingValue = matchingElement;
         }
         return matchingValue !== undefined
           ? value.toString() !== matchingValue.toString()

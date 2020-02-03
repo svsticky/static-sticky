@@ -7,7 +7,7 @@
 
 var fs = require('fs'),
   path = require('path'),
-  githubAPI = require('github'),
+  githubAPI = require('@octokit/rest'),
   // stores oauth info for GitHub API
   oAuthConfig = path.join(__dirname, 'oauth.js'),
   oAuth = fs.existsSync(oAuthConfig) ? require(oAuthConfig) : false,

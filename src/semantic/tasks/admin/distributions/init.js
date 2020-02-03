@@ -19,7 +19,6 @@ var gulp = require('gulp'),
   fs = require('fs'),
   path = require('path'),
   git = require('gulp-git'),
-  githubAPI = require('github'),
   mkdirp = require('mkdirp'),
   // admin files
   github = require('../../config/admin/github.js'),

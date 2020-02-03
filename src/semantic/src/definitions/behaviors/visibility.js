@@ -1,6 +1,6 @@
 /*!
- * # Semantic UI - Visibility
- * http://github.com/semantic-org/semantic-ui/
+ * # Fomantic-UI - Visibility
+ * http://github.com/fomantic/Fomantic-UI/
  *
  *
  * Released under the MIT license
@@ -10,6 +10,12 @@
 
 (function($, window, document, undefined) {
   'use strict';
+
+  $.isFunction =
+    $.isFunction ||
+    function(obj) {
+      return typeof obj === 'function' && typeof obj.nodeType !== 'number';
+    };
 
   window =
     typeof window != 'undefined' && window.Math == Math
@@ -43,7 +49,6 @@
         $module = $(this),
         $context = $(settings.context),
         $placeholder,
-        selector = $module.selector || '',
         instance = $module.data(moduleNamespace),
         requestAnimationFrame =
           window.requestAnimationFrame ||
@@ -468,8 +473,7 @@
         },
 
         passed: function(amount, newCallback) {
-          var calculations = module.get.elementCalculations(),
-            amountInPixels;
+          var calculations = module.get.elementCalculations();
           // assign callback
           if (amount && newCallback) {
             settings.onPassed[amount] = newCallback;
@@ -1110,7 +1114,7 @@
           } else if (found !== undefined) {
             response = found;
           }
-          if ($.isArray(returnedValue)) {
+          if (Array.isArray(returnedValue)) {
             returnedValue.push(response);
           } else if (returnedValue !== undefined) {
             returnedValue = [returnedValue, response];
@@ -1227,7 +1231,7 @@
 
     className: {
       fixed: 'fixed',
-      placeholder: 'placeholder',
+      placeholder: 'constraint',
       visible: 'visible',
     },
 
