@@ -8,7 +8,7 @@ const JobItem = props => (
     <Card
       as={Link}
       fluid
-      to={`${props.job.node_locale}/vacatures/${props.job.slug}`}
+      to={`/${props.job.node_locale}/vacatures/${props.job.slug}`}
       className="card"
     >
       <Label
