@@ -6,6 +6,7 @@ import Board from '$/components/Board';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
 import { device } from '../../data/Devices';
+import { getTranslation } from '../../data/i18n';
 
 const BoardPage = props => {
   const language =
@@ -18,9 +19,9 @@ const BoardPage = props => {
     <Layout title={page.title}>
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
-      <h3>Het huidige bestuur</h3>
+      <h3>{getTranslation(language, 'board.current')}</h3>
       {getCurrentBoard(boards)}
-      <h3>Oud-besturen</h3>
+      <h3>{getTranslation(language, 'board.old')}</h3>
       <Grid stretched stackable doubling columns={3}>
         {getOldBoards(boards)}
       </Grid>
