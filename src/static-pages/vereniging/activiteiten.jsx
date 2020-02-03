@@ -19,7 +19,6 @@ export default class Activities extends Component {
   };
 
   render() {
-    console.log('test');
     const page = this.props.data.contentfulPage;
     const language =
       typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
