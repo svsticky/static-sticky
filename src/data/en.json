@@ -4,9 +4,18 @@
 		"description": "There is are free drinks every week! This period the drinks are:",
 		"when": "Every {0} starting at {1} in the {2}!"
 	},
+	"board": {
+		"number": "Board {}",
+		"no_photo": "No picture",
+		"current": "The current board",
+		"old": "Old boards"
+	},
 	"vacancy": {
 		"title": "Vacancies",
 		"featured": "Featured vacancy",
+		"at": "Vancancies at {0}",
+		"call": "Call",
+		"mail": "Mail",
 		"choose": {
 			"study": "Sort by studies",
 			"type": "Sort by type(s)"
@@ -14,15 +23,41 @@
 		"chosen": {
 			"study": "{0} studies selected:",
 			"type": "{0} type(s) selected:"
+		},
+		"filter": {
+			"grad": "Graduation assignment",
+			"side": "Side job",
+			"full": "Full-time",
+			"part": "Part-time",
+			"intern": "Internship",
+			"trainee": "Traineeship"
 		}
 	},
 	"activities": {
 		"title": "Activities",
 		"next": "Next Activity",
 		"more": "More activities",
-		"none": "No activities"
+		"none": "No activities",
+		"loading": "Loading activities...",
+		"poster": "Poster for {0}",
+		"location": "Location: ",
+		"price": "Price: ",
+		"free": "Free"
 	},
 	"news": {
 		"title": "News"
+	},
+	"menu": {
+		"pics": "Pictures",
+		"signup": "Sign up"
+	},
+	"studies": {
+		"inca": "Computer Science (Bsc)",
+		"inku": "Information Science",
+		"gt": "Gametechnology"
+	},
+	"404": {
+		"title": "NOT FOUND",
+		"description": "You just hit a route that does not exist... the sadness."
 	}
 }

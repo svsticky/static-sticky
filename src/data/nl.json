@@ -3,10 +3,19 @@
     "title": "Borrels",
     "description": "Elke week is er een gratis borrel! Deze periode is de borreldag:",
     "when": "Elke {0} vanaf {1} in de {2}!"
-  },
+	},
+	"board": {
+		"number": "Bestuur {}",
+		"no_photo": "Geen foto",
+		"current": "Het huidige bestuur",
+		"old": "Oud-besturen"
+	},
 	"vacancy": {
 		"title": "Vacatures",
 		"featured": "Uitgelichte Vacature",
+		"at": "Vacatures bij {0}",
+		"call": "Bellen",
+		"mail": "Mailen",
 		"choose": {
 			"study": "Selecteer op studie(s)",
 			"type": "Selecteer op type(n)"
@@ -14,15 +23,41 @@
 		"chosen": {
 			"study": "{0} studie(s) geselecteerd:",
 			"type": "{0} type(n) geselecteerd:"
+		},
+		"filter": {
+			"grad": "Afstudeeropdracht",
+			"side": "Bijbaan",
+			"full": "Voltijd",
+			"part": "Deeltijd",
+			"intern": "Stage",
+			"trainee": "Traineeship"
 		}
 	},
 	"activities": {
 		"title": "Activiteiten",
 		"next": "Volgende activiteit",
 		"more": "Meer activiteiten",
-		"none": "Geen activiteiten"
+		"none": "Geen activiteiten",
+		"loading": "Activiteiten aan het laden...",
+		"poster": "Poster voor {0}",
+		"location": "Locatie: ",
+		"price": "Prijs: ",
+		"free": "Gratis"
 	},
 	"news": {
 		"title": "Nieuws"
+	},
+	"menu": {
+		"pics": "Foto's",
+		"signup": "Inschrijven"
+	},
+	"studies": {
+		"inca": "Informatica",
+		"inku": "Informatiekunde",
+		"gt": "Gametechnologie"
+	},
+	"404": {
+		"title": "NIET GEVONDEN",
+		"description": "Je hebt zojuist een route gevonden die niet bestaat... het verdriet."
 	}
 }
