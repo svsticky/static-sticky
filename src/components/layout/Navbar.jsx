@@ -12,18 +12,19 @@ import {
 import logo from '$/images/sticky-logo.svg';
 import menu from '$/data/menu.json';
 import { device } from '../../data/Devices';
+import { getTranslation } from '../../data/i18n';
 
 class NavBar extends React.Component {
   constructor(props) {
-    const language =
+    super(props);
+    this.language =
       typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl'; // Default fallback to Dutch
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
-      content => content.node.node_locale === language // Only get the current language
+      content => content.node.node_locale === this.language // Only get the current language
     );
     props.data.allContentfulPage.edges.sort(
       (a, b) => b.node.title.localeCompare(a.node.title) // Sorting all the menu items
     );
-    super(props);
   }
 
   changeLanguage = lg => {
@@ -139,10 +140,13 @@ class NavBar extends React.Component {
                 rel="noopener noreferrer"
                 className="button"
               >
-                Sign up
+                {getTranslation(this.language, 'menu.signup')}
               </Button>
             </Menu.Item>
-            <Dropdown item text="Language">
+            <Dropdown
+              item
+              text={getTranslation(this.language, 'menu.language')}
+            >
               <Dropdown.Menu>
                 <Dropdown.Item
                   className="item"

@@ -5,6 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import { device } from '../../data/Devices';
 import menu from '$/data/menu.json';
 import logo from '$/images/hoofd.svg';
+import { getTranslation } from '../../data/i18n';
 
 class MobileNavBar extends React.Component {
   state = {
@@ -13,15 +14,15 @@ class MobileNavBar extends React.Component {
   };
 
   constructor(props) {
-    const language =
+    super(props);
+    this.language =
       typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
-      content => content.node.node_locale === language // Only get the current language
+      content => content.node.node_locale === this.language // Only get the current language
     );
     props.data.allContentfulPage.edges.sort(
       (a, b) => b.node.title.localeCompare(a.node.title) // Sorting submenuitems a-z (flex-direction is column-reverse/row-reverse)
     );
-    super(props);
   }
 
   changeLanguage = lg => {
@@ -112,7 +113,7 @@ class MobileNavBar extends React.Component {
               rel="noopener noreferrer" // For safety
             >
               <div className="sub-menu-item">
-                Foto's
+                {getTranslation(this.language, 'menu.pics')}
                 <i className="item-text icon external" />
               </div>
             </a>
