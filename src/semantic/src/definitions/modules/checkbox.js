@@ -159,6 +159,7 @@
         preventDefaultOnInputTarget: function() {
           if (
             typeof event !== 'undefined' &&
+            event !== null &&
             $(event.target).is(selector.input)
           ) {
             module.verbose(
@@ -237,7 +238,8 @@
               shortcutPressed = true;
             } else if (
               !event.ctrlKey &&
-              (key == keyCode.space || key == keyCode.enter)
+              (key == keyCode.space ||
+                (key == keyCode.enter && settings.enableEnterKey))
             ) {
               module.verbose('Enter/space key pressed, toggling checkbox');
               module.toggle();
@@ -850,6 +852,7 @@
     // delegated event context
     uncheckable: 'auto',
     fireOnInit: false,
+    enableEnterKey: true,
 
     onChange: function() {},
 

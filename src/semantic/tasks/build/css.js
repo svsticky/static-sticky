@@ -221,6 +221,7 @@ module.exports.watch = function(type, config) {
     .watch([
       normalize(config.paths.source.config),
       normalize(config.paths.source.site + '/**/site.variables'),
+      normalize(config.paths.source.themes + '/**/site.variables'),
     ])
     .on('all', function() {
       // Clear timeout and reset files

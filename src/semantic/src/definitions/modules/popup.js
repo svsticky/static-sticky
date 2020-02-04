@@ -250,19 +250,19 @@
               module.bind.popup();
             }
             settings.onCreate.call($popup, element);
+          } else if (settings.popup) {
+            $(settings.popup).data(metadata.activator, $module);
+            module.verbose('Used popup specified in settings');
+            module.refresh();
+            if (settings.hoverable) {
+              module.bind.popup();
+            }
           } else if ($target.next(selector.popup).length !== 0) {
             module.verbose('Pre-existing popup found');
             settings.inline = true;
             settings.popup = $target
               .next(selector.popup)
               .data(metadata.activator, $module);
-            module.refresh();
-            if (settings.hoverable) {
-              module.bind.popup();
-            }
-          } else if (settings.popup) {
-            $(settings.popup).data(metadata.activator, $module);
-            module.verbose('Used popup specified in settings');
             module.refresh();
             if (settings.hoverable) {
               module.bind.popup();
@@ -892,7 +892,10 @@
               calculations
             );
 
-            if (module.is.offstage(distanceFromBoundary, position)) {
+            if (
+              !settings.forcePosition &&
+              module.is.offstage(distanceFromBoundary, position)
+            ) {
               module.debug('Position is outside viewport', position);
               if (searchDepth < settings.maxSearchDepth) {
                 searchDepth++;
@@ -1124,7 +1127,10 @@
             return !module.is.visible();
           },
           rtl: function() {
-            return $module.css('direction') == 'rtl';
+            return (
+              $module.attr('dir') === 'rtl' ||
+              $module.css('direction') === 'rtl'
+            );
           },
         },
 
@@ -1360,6 +1366,9 @@
     // default position relative to element
     position: 'top left',
 
+    // if given position should be used regardless if popup fits
+    forcePosition: false,
+
     // name of variation to use
     variation: '',
 
@@ -1477,10 +1486,9 @@
 
     templates: {
       escape: function(string) {
-        var badChars = /[&<>"'`]/g,
+        var badChars = /[<>"'`]/g,
           shouldEscape = /[&<>"'`]/,
           escape = {
-            '&': '&amp;',
             '<': '&lt;',
             '>': '&gt;',
             '"': '&quot;',
@@ -1491,6 +1499,7 @@
             return escape[chr];
           };
         if (shouldEscape.test(string)) {
+          string = string.replace(/&(?![a-z0-9#]{1,6};)/, '&amp;');
           return string.replace(badChars, escapedChar);
         }
         return string;

@@ -101,6 +101,7 @@
             if (module.get.maxDate() !== null) {
               module.set.maxDate($module.data(metadata.maxDate));
             }
+            module.setting('type', module.get.type());
           },
           popup: function() {
             if (settings.inline) {
@@ -119,9 +120,14 @@
             if (!$container.length) {
               //prepend the popup element to the activator's parent so that it has less chance of messing with
               //the styling (eg input action button needs to be the last child to have correct border radius)
+              var $activatorParent = $activator.parent(),
+                domPositionFunction =
+                  $activatorParent.closest(selector.append).length !== 0
+                    ? 'appendTo'
+                    : 'prependTo';
               $container = $('<div/>')
                 .addClass(className.popup)
-                .prependTo($activator.parent());
+                [domPositionFunction]($activatorParent);
             }
             $container.addClass(className.calendar);
             var onVisible = settings.onVisible;
@@ -173,17 +179,15 @@
             }
           },
           date: function() {
+            var date;
             if (settings.initialDate) {
-              var date = parser.date(settings.initialDate, settings);
-              module.set.date(date, settings.formatInput, false);
+              date = parser.date(settings.initialDate, settings);
             } else if ($module.data(metadata.date) !== undefined) {
-              var date = parser.date($module.data(metadata.date), settings);
-              module.set.date(date, settings.formatInput, false);
+              date = parser.date($module.data(metadata.date), settings);
             } else if ($input.length) {
-              var val = $input.val();
-              var date = parser.date(val, settings);
-              module.set.date(date, settings.formatInput, false);
+              date = parser.date($input.val(), settings);
             }
+            module.set.date(date, settings.formatInput, false);
           },
         },
 
@@ -544,6 +548,10 @@
                   (!adjacent || (settings.selectAdjacentDays && adjacent)) &&
                   !disabled
               );
+
+              if (module.helper.isTodayButton(cell)) {
+                return;
+              }
               cell.toggleClass(
                 className.rangeCell,
                 inRange && !active && !disabled
@@ -645,17 +653,18 @@
             }
           },
           keydown: function(event) {
-            if (event.keyCode === 27 || event.keyCode === 9) {
+            var keyCode = event.which;
+            if (keyCode === 27 || keyCode === 9) {
               //esc || tab
               module.popup('hide');
             }
 
             if (module.popup('is visible')) {
               if (
-                event.keyCode === 37 ||
-                event.keyCode === 38 ||
-                event.keyCode === 39 ||
-                event.keyCode === 40
+                keyCode === 37 ||
+                keyCode === 38 ||
+                keyCode === 39 ||
+                keyCode === 40
               ) {
                 //arrow keys
                 var mode = module.get.mode();
@@ -668,11 +677,11 @@
                     ? timeGap['column']
                     : 3;
                 var increment =
-                  event.keyCode === 37
+                  keyCode === 37
                     ? -1
-                    : event.keyCode === 38
+                    : keyCode === 38
                     ? -bigIncrement
-                    : event.keyCode == 39
+                    : keyCode == 39
                     ? 1
                     : bigIncrement;
                 increment *= mode === 'minute' ? settings.minTimeGap : 1;
@@ -698,7 +707,7 @@
                 if (module.helper.isDateInRange(newFocusDate, mode)) {
                   module.set.focusDate(newFocusDate);
                 }
-              } else if (event.keyCode === 13) {
+              } else if (keyCode === 13) {
                 //enter
                 var mode = module.get.mode();
                 var date = module.get.focusDate();
@@ -716,7 +725,7 @@
               }
             }
 
-            if (event.keyCode === 38 || event.keyCode === 40) {
+            if (keyCode === 38 || keyCode === 40) {
               //arrow-up || arrow-down
               event.preventDefault(); //don't scroll
               module.popup('show');
@@ -809,6 +818,9 @@
               ? 'year'
               : 'day';
           },
+          type: function() {
+            return $module.data(metadata.type) || settings.type;
+          },
           validModes: function() {
             var validModes = [];
             if (settings.type !== 'time') {
@@ -862,9 +874,10 @@
 
             var mode = module.get.mode();
             var text = formatter.datetime(date, settings);
+
             if (
               fireChange &&
-              settings.onChange.call(element, date, text, mode) === false
+              settings.onBeforeChange.call(element, date, text, mode) === false
             ) {
               return false;
             }
@@ -884,6 +897,10 @@
 
             if (updateInput && $input.length) {
               $input.val(text);
+            }
+
+            if (fireChange) {
+              settings.onChange.call(element, date, text, mode);
             }
           },
           startDate: function(date, refreshCalendar) {
@@ -1059,13 +1076,16 @@
               mode === 'day' &&
               (settings.disabledDaysOfWeek.indexOf(date.getDay()) !== -1 ||
                 settings.disabledDates.some(function(d) {
+                  if (typeof d === 'string') {
+                    d = module.helper.sanitiseDate(d);
+                  }
                   if (d instanceof Date) {
                     return module.helper.dateEqual(date, d, mode);
                   }
-                  if (d !== null && typeof d === 'object') {
+                  if (d !== null && typeof d === 'object' && d[metadata.date]) {
                     return module.helper.dateEqual(
                       date,
-                      d[metadata.date],
+                      module.helper.sanitiseDate(d[metadata.date]),
                       mode
                     );
                   }
@@ -1075,15 +1095,18 @@
           isEnabled: function(date, mode) {
             if (mode === 'day') {
               return (
-                settings.enabledDates.length == 0 ||
+                settings.enabledDates.length === 0 ||
                 settings.enabledDates.some(function(d) {
+                  if (typeof d === 'string') {
+                    d = module.helper.sanitiseDate(d);
+                  }
                   if (d instanceof Date) {
                     return module.helper.dateEqual(date, d, mode);
                   }
-                  if (d !== null && typeof d === 'object') {
+                  if (d !== null && typeof d === 'object' && d[metadata.date]) {
                     return module.helper.dateEqual(
                       date,
-                      d[metadata.date],
+                      module.helper.sanitiseDate(d[metadata.date]),
                       mode
                     );
                   }
@@ -1100,6 +1123,9 @@
               var d;
               for (; i < il; i++) {
                 d = dates[i];
+                if (typeof d === 'string') {
+                  d = module.helper.sanitiseDate(d);
+                }
                 if (
                   d instanceof Date &&
                   module.helper.dateEqual(date, d, mode)
@@ -1111,7 +1137,11 @@
                   d !== null &&
                   typeof d === 'object' &&
                   d[metadata.date] &&
-                  module.helper.dateEqual(date, d[metadata.date], mode)
+                  module.helper.dateEqual(
+                    date,
+                    module.helper.sanitiseDate(d[metadata.date]),
+                    mode
+                  )
                 ) {
                   return d;
                 }
@@ -1235,6 +1265,9 @@
                   time.getHours(),
                   time.getMinutes()
                 );
+          },
+          isTodayButton: function(element) {
+            return element.text() === settings.text.today;
           },
         },
 
@@ -1598,6 +1631,16 @@
         if (text.length === 0) {
           return null;
         }
+        // Reverse date and month in some cases
+        text = settings.monthFirst
+          ? text
+          : text
+              .replace(/[\/\-\.]/g, '/')
+              .replace(/([0-9]+)\/([0-9]+)/, '$2/$1');
+        var textDate = new Date(text);
+        if (!isNaN(textDate.getDate())) {
+          return textDate;
+        }
 
         var i, j, k;
         var minute = -1,
@@ -1610,8 +1653,13 @@
         var isTimeOnly = settings.type === 'time';
         var isDateOnly = settings.type.indexOf('time') < 0;
 
-        var words = text.split(settings.regExp.dateWords);
-        var numbers = text.split(settings.regExp.dateNumbers);
+        var words = text.split(settings.regExp.dateWords),
+          word;
+        var numbers = text.split(settings.regExp.dateNumbers),
+          number;
+
+        var parts;
+        var monthString;
 
         if (!isDateOnly) {
           //am/pm
@@ -1624,10 +1672,10 @@
 
           //time with ':'
           for (i = 0; i < numbers.length; i++) {
-            var number = numbers[i];
+            number = numbers[i];
             if (number.indexOf(':') >= 0) {
               if (hour < 0 || minute < 0) {
-                var parts = number.split(':');
+                parts = number.split(':');
                 for (k = 0; k < Math.min(2, parts.length); k++) {
                   j = parseInt(parts[k]);
                   if (isNaN(j)) {
@@ -1648,19 +1696,13 @@
         if (!isTimeOnly) {
           //textual month
           for (i = 0; i < words.length; i++) {
-            var word = words[i];
+            word = words[i];
             if (word.length <= 0) {
               continue;
             }
-            word = word.substring(0, Math.min(word.length, 3));
             for (j = 0; j < settings.text.months.length; j++) {
-              var monthString = settings.text.months[j];
-              monthString = monthString
-                .substring(
-                  0,
-                  Math.min(word.length, Math.min(monthString.length, 3))
-                )
-                .toLowerCase();
+              monthString = settings.text.months[j];
+              monthString = monthString.substring(0, word.length).toLowerCase();
               if (monthString === word) {
                 month = j + 1;
                 break;
@@ -1804,10 +1846,13 @@
       },
     },
 
-    // callback when date changes, return false to cancel the change
-    onChange: function(date, text, mode) {
+    // callback before date is changed, return false to cancel the change
+    onBeforeChange: function(date, text, mode) {
       return true;
     },
+
+    // callback when date changes
+    onChange: function(date, text, mode) {},
 
     // callback before show animation, return false to prevent show
     onShow: function() {},
@@ -1833,6 +1878,7 @@
       popup: '.ui.popup',
       input: 'input',
       activator: 'input',
+      append: '.inline.field,.inline.fields',
     },
 
     regExp: {
@@ -1876,6 +1922,7 @@
       minDate: 'minDate',
       maxDate: 'maxDate',
       mode: 'mode',
+      type: 'type',
       monthOffset: 'monthOffset',
       message: 'message',
       class: 'class',

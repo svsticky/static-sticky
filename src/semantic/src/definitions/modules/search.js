@@ -423,19 +423,14 @@
             return results;
           },
           result: function(value, results) {
-            var lookupFields = ['title', 'id'],
-              result = false;
+            var result = false;
             value = value !== undefined ? value : module.get.value();
             results = results !== undefined ? results : module.get.results();
             if (settings.type === 'category') {
               module.debug('Finding result that matches', value);
               $.each(results, function(index, category) {
                 if (Array.isArray(category.results)) {
-                  result = module.search.object(
-                    value,
-                    category.results,
-                    lookupFields
-                  )[0];
+                  result = module.search.object(value, category.results)[0];
                   // don't continue searching if a result is found
                   if (result) {
                     return false;
@@ -444,7 +439,7 @@
               });
             } else {
               module.debug('Finding result in results object', value);
-              result = module.search.object(value, results, lookupFields)[0];
+              result = module.search.object(value, results)[0];
             }
             return result || false;
           },
@@ -595,9 +590,16 @@
             // iterate through search fields looking for matches
             $.each(searchFields, function(index, field) {
               $.each(source, function(label, content) {
-                var fieldExists = typeof content[field] == 'string';
+                var fieldExists =
+                  typeof content[field] == 'string' ||
+                  typeof content[field] == 'number';
                 if (fieldExists) {
-                  var text = module.remove.diacritics(content[field]);
+                  var text;
+                  if (typeof content[field] === 'string') {
+                    text = module.remove.diacritics(content[field]);
+                  } else {
+                    text = content[field].toString();
+                  }
                   if (text.search(matchRegExp) !== -1) {
                     // content starts with value (first in results)
                     addResult(results, content);
@@ -1176,7 +1178,7 @@
     searchOnFocus: true,
 
     // fields to search
-    searchFields: ['title', 'description'],
+    searchFields: ['id', 'title', 'description'],
 
     // field to display in standard results template
     displayField: '',
@@ -1293,10 +1295,9 @@
         if (preserveHTML) {
           return string;
         }
-        var badChars = /[&<>"'`]/g,
+        var badChars = /[<>"'`]/g,
           shouldEscape = /[&<>"'`]/,
           escape = {
-            '&': '&amp;',
             '<': '&lt;',
             '>': '&gt;',
             '"': '&quot;',
@@ -1307,6 +1308,7 @@
             return escape[chr];
           };
         if (shouldEscape.test(string)) {
+          string = string.replace(/&(?![a-z0-9#]{1,6};)/, '&amp;');
           return string.replace(badChars, escapedChar);
         }
         return string;

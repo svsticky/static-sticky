@@ -69,12 +69,14 @@
         initialMouseDownInModal,
         initialMouseDownInScrollbar,
         initialBodyMargin = '',
+        tempBodyMargin = '',
         elementEventNamespace,
         id,
         observer,
         module;
       module = {
         initialize: function() {
+          module.cache = {};
           module.verbose('Initializing dimmer', $context);
 
           module.create.id();
@@ -139,6 +141,9 @@
         },
 
         destroy: function() {
+          if (observer) {
+            observer.disconnect();
+          }
           module.verbose('Destroying previous modal');
           $module.removeData(moduleNamespace).off(eventNamespace);
           $window.off(elementEventNamespace);
@@ -262,7 +267,8 @@
             module.hide();
           },
           mousedown: function(event) {
-            var $target = $(event.target);
+            var $target = $(event.target),
+              isRtl = module.is.rtl();
             initialMouseDownInModal =
               $target.closest(selector.modal).length > 0;
             if (initialMouseDownInModal) {
@@ -270,7 +276,10 @@
             }
             initialMouseDownInScrollbar =
               module.is.scrolling() &&
-              $(window).outerWidth() - settings.scrollbarWidth <= event.clientX;
+              ((!isRtl &&
+                $(window).outerWidth() - settings.scrollbarWidth <=
+                  event.clientX) ||
+                (isRtl && settings.scrollbarWidth >= event.clientX));
             if (initialMouseDownInScrollbar) {
               module.verbose(
                 'Mouse down event registered inside the scrollbar'
@@ -373,6 +382,7 @@
           if (module.is.animating() || !module.is.active()) {
             module.showDimmer();
             module.cacheSizes();
+            module.set.bodyMargin();
             if (module.can.useFlex()) {
               module.remove.legacy();
             } else {
@@ -585,15 +595,15 @@
             }
           },
           bodyMargin: function() {
-            initialBodyMargin = $body.css('margin-right');
+            initialBodyMargin = $body.css(
+              'margin-' + (module.can.leftBodyScrollbar() ? 'left' : 'right')
+            );
             var bodyMarginRightPixel = parseInt(
                 initialBodyMargin.replace(/[^\d.]/g, '')
               ),
               bodyScrollbarWidth =
-                window.innerWidth - document.documentElement.clientWidth,
-              diffPos = bodyMarginRightPixel + bodyScrollbarWidth;
-            $body.css('margin-right', diffPos + 'px');
-            $body.find(selector.bodyFixed).css('padding-right', diffPos + 'px');
+                window.innerWidth - document.documentElement.clientWidth;
+            tempBodyMargin = bodyMarginRightPixel + bodyScrollbarWidth;
           },
         },
 
@@ -608,10 +618,11 @@
             }
           },
           bodyMargin: function() {
-            $body.css('margin-right', initialBodyMargin);
+            var position = module.can.leftBodyScrollbar() ? 'left' : 'right';
+            $body.css('margin-' + position, initialBodyMargin);
             $body
-              .find(selector.bodyFixed)
-              .css('padding-right', initialBodyMargin);
+              .find(selector.bodyFixed.replace('right', position))
+              .css('padding-' + position, initialBodyMargin);
           },
         },
 
@@ -623,6 +634,9 @@
             $module.removeClass(className.legacy);
           },
           clickaway: function() {
+            if (!settings.detachable) {
+              $module.off('mousedown' + elementEventNamespace);
+            }
             $dimmer.off('mousedown' + elementEventNamespace);
             $dimmer.off('mouseup' + elementEventNamespace);
           },
@@ -655,8 +669,8 @@
           var scrollHeight = $module.prop('scrollHeight'),
             modalWidth = $module.outerWidth(),
             modalHeight = $module.outerHeight();
-          if (module.cache === undefined || modalHeight !== 0) {
-            module.cache = {
+          if (module.cache.pageHeight === undefined || modalHeight !== 0) {
+            $.extend(module.cache, {
               pageHeight: $(document).outerHeight(),
               width: modalWidth,
               height: modalHeight + settings.offset,
@@ -665,7 +679,7 @@
                 settings.context == 'body'
                   ? $(window).height()
                   : $dimmable.height(),
-            };
+            });
             module.cache.topOffset = -(module.cache.height / 2);
           }
           $module.removeClass(className.loading);
@@ -673,10 +687,19 @@
         },
 
         can: {
+          leftBodyScrollbar: function() {
+            if (module.cache.leftBodyScrollbar === undefined) {
+              module.cache.leftBodyScrollbar =
+                module.is.rtl() &&
+                ((module.is.iframe && !module.is.firefox()) ||
+                  module.is.safari() ||
+                  module.is.edge() ||
+                  module.is.ie());
+            }
+            return module.cache.leftBodyScrollbar;
+          },
           useFlex: function() {
-            return settings.useFlex == 'auto'
-              ? settings.detachable && !module.is.ie()
-              : settings.useFlex;
+            return settings.useFlex && settings.detachable && !module.is.ie();
           },
           fit: function() {
             var contextHeight = module.cache.contextHeight,
@@ -697,9 +720,12 @@
             return $module.hasClass(className.active);
           },
           ie: function() {
-            var isIE11 = !window.ActiveXObject && 'ActiveXObject' in window,
-              isIE = 'ActiveXObject' in window;
-            return isIE11 || isIE;
+            if (module.cache.isIE === undefined) {
+              var isIE11 = !window.ActiveXObject && 'ActiveXObject' in window,
+                isIE = 'ActiveXObject' in window;
+              module.cache.isIE = isIE11 || isIE;
+            }
+            return module.cache.isIE;
           },
           animating: function() {
             return $module.transition('is supported')
@@ -712,6 +738,36 @@
           modernBrowser: function() {
             // appName for IE11 reports 'Netscape' can no longer use
             return !(window.ActiveXObject || 'ActiveXObject' in window);
+          },
+          rtl: function() {
+            if (module.cache.isRTL === undefined) {
+              module.cache.isRTL =
+                $body.attr('dir') === 'rtl' || $body.css('direction') === 'rtl';
+            }
+            return module.cache.isRTL;
+          },
+          safari: function() {
+            if (module.cache.isSafari === undefined) {
+              module.cache.isSafari =
+                /constructor/i.test(window.HTMLElement) ||
+                !!window.ApplePaySession;
+            }
+            return module.cache.isSafari;
+          },
+          edge: function() {
+            if (module.cache.isEdge === undefined) {
+              module.cache.isEdge = !!window.setImmediate && !module.is.ie();
+            }
+            return module.cache.isEdge;
+          },
+          firefox: function() {
+            if (module.cache.isFirefox === undefined) {
+              module.cache.isFirefox = !!window.InstallTrigger;
+            }
+            return module.cache.isFirefox;
+          },
+          iframe: function() {
+            return !(self === top);
           },
         },
 
@@ -730,7 +786,22 @@
               $input.focus();
             }
           },
+          bodyMargin: function() {
+            var position = module.can.leftBodyScrollbar() ? 'left' : 'right';
+            if (settings.detachable || module.can.fit()) {
+              $body.css('margin-' + position, tempBodyMargin + 'px');
+            }
+            $body
+              .find(selector.bodyFixed.replace('right', position))
+              .css('padding-' + position, tempBodyMargin + 'px');
+          },
           clickaway: function() {
+            if (!settings.detachable) {
+              $module.on(
+                'mousedown' + elementEventNamespace,
+                module.event.mousedown
+              );
+            }
             $dimmer.on(
               'mousedown' + elementEventNamespace,
               module.event.mousedown
@@ -778,15 +849,30 @@
             }
           },
           modalOffset: function() {
-            var width = module.cache.width,
-              height = module.cache.height;
-            $module.css({
-              marginTop:
-                !$module.hasClass('aligned') && module.can.fit()
-                  ? -(height / 2)
-                  : 0,
-              marginLeft: -(width / 2),
-            });
+            if (!settings.detachable) {
+              var canFit = module.can.fit();
+              $module.css({
+                top:
+                  !$module.hasClass('aligned') && canFit
+                    ? $(document).scrollTop() +
+                      (module.cache.contextHeight - module.cache.height) / 2
+                    : !canFit || $module.hasClass('top')
+                    ? $(document).scrollTop() + settings.padding
+                    : $(document).scrollTop() +
+                      (module.cache.contextHeight -
+                        module.cache.height -
+                        settings.padding),
+                marginLeft: -(module.cache.width / 2),
+              });
+            } else {
+              $module.css({
+                marginTop:
+                  !$module.hasClass('aligned') && module.can.fit()
+                    ? -(module.cache.height / 2)
+                    : settings.padding / 2,
+                marginLeft: -(module.cache.width / 2),
+              });
+            }
             module.verbose('Setting modal offset for legacy mode');
           },
           screenHeight: function() {

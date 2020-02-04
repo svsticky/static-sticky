@@ -169,6 +169,9 @@
                 verbose: settings.verbose,
                 duration: settings.duration,
                 skipInlineHidden: true,
+                onComplete: function() {
+                  $activeContent.children().removeClass(className.transition);
+                },
               });
             } else {
               $activeContent
@@ -573,6 +576,7 @@
     className: {
       active: 'active',
       animating: 'animating',
+      transition: 'transition',
     },
 
     selector: {
