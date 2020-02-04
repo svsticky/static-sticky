@@ -199,7 +199,7 @@
         },
 
         complete: function(event) {
-          if (event.target === element) {
+          if (event && event.target === element) {
             event.stopPropagation();
           }
           module.debug('Animation complete', settings.animation);

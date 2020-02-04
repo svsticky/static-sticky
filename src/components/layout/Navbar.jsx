@@ -238,6 +238,9 @@ const NavBarWrapper = styled.div`
       }
     }
   }
+  .ui.menu:not(.vertical) .left.menu {
+    display: none;
+  }
 `;
 
 export default props => (

@@ -70,6 +70,7 @@ module.exports = {
     'divider',
     'dropdown',
     'embed',
+    'emoji',
     'feed',
     'flag',
     'form',

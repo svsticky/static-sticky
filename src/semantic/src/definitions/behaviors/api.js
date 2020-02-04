@@ -17,12 +17,13 @@
       return obj != null && obj === obj.window;
     };
 
-  var window =
+  window =
     typeof window != 'undefined' && window.Math == Math
       ? window
       : typeof self != 'undefined' && self.Math == Math
       ? self
       : Function('return this')();
+
   $.api = $.fn.api = function(parameters) {
     var // use window context if none specified
       $allModules = $.isFunction(this) ? $(window) : $(this),
@@ -746,7 +747,7 @@
           },
           settings: function() {
             var runSettings;
-            runSettings = settings.beforeSend.call(context, settings);
+            runSettings = settings.beforeSend.call($module, settings);
             if (runSettings) {
               if (runSettings.success !== undefined) {
                 module.debug('Legacy success callback detected', runSettings);

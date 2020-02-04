@@ -323,7 +323,6 @@
             module.cache = {
               width: $module.outerWidth(),
               height: $module.outerHeight(),
-              rtl: $module.css('direction') == 'rtl',
             };
           },
           layout: function() {
@@ -741,7 +740,9 @@
           },
           rtl: function() {
             if (module.cache.rtl === undefined) {
-              module.cache.rtl = $module.css('direction') == 'rtl';
+              module.cache.rtl =
+                $module.attr('dir') === 'rtl' ||
+                $module.css('direction') === 'rtl';
             }
             return module.cache.rtl;
           },

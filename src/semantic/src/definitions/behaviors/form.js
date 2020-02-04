@@ -156,7 +156,7 @@
           }
 
           $field.on('change click keyup keydown blur', function(e) {
-            $(this).trigger(e.type + '.dirty');
+            $(this).triggerHandler(e.type + '.dirty');
           });
 
           $field.on(
@@ -182,8 +182,11 @@
               $calendar = $field.closest(selector.uiCalendar),
               defaultValue = $field.data(metadata.defaultValue) || '',
               isCheckbox = $element.is(selector.uiCheckbox),
-              isDropdown = $element.is(selector.uiDropdown),
-              isCalendar = $calendar.length > 0,
+              isDropdown =
+                $element.is(selector.uiDropdown) &&
+                module.can.useElement('dropdown'),
+              isCalendar =
+                $calendar.length > 0 && module.can.useElement('calendar'),
               isErrored = $fieldGroup.hasClass(className.error);
             if (isErrored) {
               module.verbose('Resetting error on field', $fieldGroup);
@@ -196,7 +199,7 @@
                 $element,
                 defaultValue
               );
-              $element.dropdown('clear');
+              $element.dropdown('clear', true);
             } else if (isCheckbox) {
               $field.prop('checked', false);
             } else if (isCalendar) {
@@ -217,8 +220,11 @@
               $prompt = $fieldGroup.find(selector.prompt),
               defaultValue = $field.data(metadata.defaultValue),
               isCheckbox = $element.is(selector.uiCheckbox),
-              isDropdown = $element.is(selector.uiDropdown),
-              isCalendar = $calendar.length > 0,
+              isDropdown =
+                $element.is(selector.uiDropdown) &&
+                module.can.useElement('dropdown'),
+              isCalendar =
+                $calendar.length > 0 && module.can.useElement('calendar'),
               isErrored = $fieldGroup.hasClass(className.error);
             if (defaultValue === undefined) {
               return;
@@ -234,7 +240,7 @@
                 $element,
                 defaultValue
               );
-              $element.dropdown('restore defaults');
+              $element.dropdown('restore defaults', true);
             } else if (isCheckbox) {
               module.verbose(
                 'Resetting checkbox value',
@@ -288,8 +294,9 @@
               module.set.clean();
             }
 
-            if (e) {
+            if (e && e.namespace === 'dirty') {
               e.stopImmediatePropagation();
+              e.preventDefault();
             }
           },
         },
@@ -703,7 +710,8 @@
                 isCheckbox = $field.is(selector.checkbox),
                 isRadio = $field.is(selector.radio),
                 isMultiple = name.indexOf('[]') !== -1,
-                isCalendar = $calendar.length > 0,
+                isCalendar =
+                  $calendar.length > 0 && module.can.useElement('calendar'),
                 isChecked = isCheckbox ? $field.is(':checked') : false;
               if (name) {
                 if (isMultiple) {
@@ -817,6 +825,16 @@
           },
         },
 
+        can: {
+          useElement: function(element) {
+            if ($.fn[element] !== undefined) {
+              return true;
+            }
+            module.error(error.noElement.replace('{element}', element));
+            return false;
+          },
+        },
+
         escape: {
           string: function(text) {
             text = String(text);
@@ -830,20 +848,37 @@
             module.add.field(name, rules);
           },
           field: function(name, rules) {
-            var newValidation = {};
-            if (module.is.shorthandRules(rules)) {
-              rules = Array.isArray(rules) ? rules : [rules];
-              newValidation[name] = {
+            // Validation should have at least a standard format
+            if (
+              validation[name] === undefined ||
+              validation[name].rules === undefined
+            ) {
+              validation[name] = {
                 rules: [],
               };
-              $.each(rules, function(index, rule) {
-                newValidation[name].rules.push({ type: rule });
+            }
+            var newValidation = {
+              rules: [],
+            };
+            if (module.is.shorthandRules(rules)) {
+              rules = Array.isArray(rules) ? rules : [rules];
+              $.each(rules, function(_index, rule) {
+                newValidation.rules.push({ type: rule });
               });
             } else {
-              newValidation[name] = rules;
+              newValidation.rules = rules.rules;
             }
-            validation = $.extend({}, validation, newValidation);
-            module.debug('Adding rules', newValidation, validation);
+            // For each new rule, check if there's not already one with the same type
+            $.each(newValidation.rules, function(_index, rule) {
+              if (
+                $.grep(validation[name].rules, function(item) {
+                  return item.type == rule.type;
+                }).length == 0
+              ) {
+                validation[name].rules.push(rule);
+              }
+            });
+            module.debug('Adding rules', newValidation.rules, validation);
           },
           fields: function(fields) {
             var newValidation;
@@ -866,14 +901,14 @@
             }
             if (settings.inline) {
               if (!promptExists) {
-                $prompt = settings.templates.prompt(errors);
+                $prompt = settings.templates.prompt(errors, className.label);
                 $prompt.appendTo($fieldGroup);
               }
               $prompt.html(errors[0]);
               if (!promptExists) {
                 if (
                   settings.transition &&
-                  $.fn.transition !== undefined &&
+                  module.can.useElement('transition') &&
                   $module.transition('is supported')
                 ) {
                   module.verbose(
@@ -920,7 +955,7 @@
               return;
             }
             $.each(validation[field].rules, function(index, rule) {
-              if (rules.indexOf(rule.type) !== -1) {
+              if (rule && rules.indexOf(rule.type) !== -1) {
                 module.debug('Removed rule', rule.type);
                 validation[field].rules.splice(index, 1);
               }
@@ -954,7 +989,7 @@
               module.verbose('Removing prompt for field', identifier);
               if (
                 settings.transition &&
-                $.fn.transition !== undefined &&
+                module.can.useElement('transition') &&
                 $module.transition('is supported')
               ) {
                 $prompt.transition(
@@ -982,10 +1017,17 @@
               var $el = $(el),
                 $parent = $el.parent(),
                 isCheckbox = $el.filter(selector.checkbox).length > 0,
-                isDropdown = $parent.is(selector.uiDropdown),
+                isDropdown =
+                  $parent.is(selector.uiDropdown) &&
+                  module.can.useElement('dropdown'),
+                $calendar = $el.closest(selector.uiCalendar),
+                isCalendar =
+                  $calendar.length > 0 && module.can.useElement('calendar'),
                 value = isCheckbox ? $el.is(':checked') : $el.val();
               if (isDropdown) {
                 $parent.dropdown('save defaults');
+              } else if (isCalendar) {
+                $calendar.calendar('refresh');
               }
               $el.data(metadata.defaultValue, value);
               $el.data(metadata.isDirty, false);
@@ -1006,10 +1048,17 @@
             $.each(fields, function(key, value) {
               var $field = module.get.field(key),
                 $element = $field.parent(),
+                $calendar = $field.closest(selector.uiCalendar),
                 isMultiple = Array.isArray(value),
-                isCheckbox = $element.is(selector.uiCheckbox),
-                isDropdown = $element.is(selector.uiDropdown),
+                isCheckbox =
+                  $element.is(selector.uiCheckbox) &&
+                  module.can.useElement('checkbox'),
+                isDropdown =
+                  $element.is(selector.uiDropdown) &&
+                  module.can.useElement('dropdown'),
                 isRadio = $field.is(selector.radio) && isCheckbox,
+                isCalendar =
+                  $calendar.length > 0 && module.can.useElement('calendar'),
                 fieldExists = $field.length > 0,
                 $multipleField;
               if (fieldExists) {
@@ -1031,7 +1080,7 @@
                     .checkbox('check');
                 } else if (isCheckbox) {
                   module.verbose('Setting checkbox value', value, $element);
-                  if (value === true) {
+                  if (value === true || value === 1) {
                     $element.checkbox('check');
                   } else {
                     $element.checkbox('uncheck');
@@ -1039,6 +1088,8 @@
                 } else if (isDropdown) {
                   module.verbose('Setting dropdown value', value, $element);
                   $element.dropdown('set selected', value);
+                } else if (isCalendar) {
+                  $calendar.calendar('set date', value);
                 } else {
                   module.verbose('Setting field value', value, $field);
                   $field.val(value);
@@ -1495,7 +1546,7 @@
 
     className: {
       error: 'error',
-      label: 'ui prompt label',
+      label: 'ui basic red pointing prompt label',
       pressed: 'down',
       success: 'success',
     },
@@ -1506,6 +1557,7 @@
       noRule: 'There is no rule matching the one you specified',
       oldSyntax:
         'Starting in 2.0 forms now only take a single settings object. Validation settings converted to new syntax automatically.',
+      noElement: 'This module requires ui {element}',
     },
 
     templates: {
@@ -1520,9 +1572,9 @@
       },
 
       // template that produces label
-      prompt: function(errors) {
+      prompt: function(errors, labelClasses) {
         return $('<div/>')
-          .addClass('ui basic red pointing prompt label')
+          .addClass(labelClasses)
           .html(errors[0]);
       },
     },
