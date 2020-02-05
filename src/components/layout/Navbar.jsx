@@ -92,7 +92,6 @@ class NavBar extends React.Component {
         </Dropdown.Item>
       );
     });
-    console.log(lgItems);
     return lgItems;
   };
 

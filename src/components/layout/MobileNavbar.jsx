@@ -5,7 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import { device } from '../../data/Devices';
 import menu from '$/data/menu.json';
 import logo from '$/images/hoofd.svg';
-import { getTranslation, getLanguage } from '../../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 class MobileNavBar extends React.Component {
   state = {
@@ -77,23 +77,24 @@ class MobileNavBar extends React.Component {
     );
   };
 
+  renderLanguageSwitch = languages => {
+    let lgItems = [];
+    languages.forEach(lg => {
+      lgItems.push(
+        <div className="sub-menu-item" onClick={() => this.changeLanguage(lg)}>
+          {lg.toUpperCase()}
+        </div>
+      );
+    });
+    return lgItems;
+  };
+
   renderExternalItems = links => {
     return (
       <>
         {this.state.active === 'links' ? (
           <>
-            <div
-              className="sub-menu-item"
-              onClick={() => this.changeLanguage('en-US')}
-            >
-              EN
-            </div>
-            <div
-              className="sub-menu-item"
-              onClick={() => this.changeLanguage('nl')}
-            >
-              NL
-            </div>
+            {this.renderLanguageSwitch(Object.keys(metadata.languages))}
             <a
               href="https://koala.svsticky.nl/"
               key="Koala"
