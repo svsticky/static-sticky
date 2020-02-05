@@ -12,7 +12,7 @@ import {
 import logo from '$/images/sticky-logo.svg';
 import menu from '$/data/menu.json';
 import { device } from '../../data/Devices';
-import { getTranslation, getLanguage } from '../../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 class NavBar extends React.Component {
   constructor(props) {
@@ -30,8 +30,16 @@ class NavBar extends React.Component {
     let url = window.location.href;
     let oldLg = url.split('/')[3];
     let newUrl;
-    if (oldLg) newUrl = url.replace(oldLg, lg);
-    else newUrl = url + lg;
+
+    if (oldLg) {
+      if (Object.keys(metadata.languages).indexOf(oldLg) === -1) {
+        lg = `${lg}/${oldLg}`;
+      }
+      newUrl = url.replace(oldLg, lg);
+    } else {
+      newUrl = url + lg;
+    }
+
     window.location.href = newUrl;
   };
 
