@@ -4,10 +4,10 @@ import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
 import Dispute from '../../components/Dispute';
 import { FlexListContainer } from '../../helpers';
+import { getLanguage } from '../../data/i18n';
 
 const DisputeIndexPage = ({ data }) => {
-  const language =
-    typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
+  const language = getLanguage(window);
   const disputeEdges = data.allContentfulDispute.edges.map(
     disputeEdge => disputeEdge.node
   );

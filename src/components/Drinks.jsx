@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { graphql, StaticQuery } from 'gatsby';
-import { getTranslation } from '../data/i18n';
+import { getTranslation, getLanguage } from '../data/i18n';
 
 class Drinks extends React.Component {
   renderDescription = (drinks, lg) => {
@@ -20,8 +20,7 @@ class Drinks extends React.Component {
   };
 
   render() {
-    const language =
-      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
+    const language = getLanguage(window);
     return (
       <>
         <div>

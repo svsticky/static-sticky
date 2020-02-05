@@ -4,7 +4,7 @@ import { Button, Card, Image } from 'semantic-ui-react';
 import Currency from 'react-currency-formatter';
 import SanitizeHTML from 'sanitize-html';
 import TurnReveal, { Direction, Transition } from '$/components/TurnReveal';
-import { getTranslation } from '../../data/i18n';
+import { getTranslation, getLanguage } from '../../data/i18n';
 
 export default class Activity extends React.Component {
   state = {
@@ -24,8 +24,7 @@ export default class Activity extends React.Component {
 
   render() {
     const { thumbnail, name } = this.props.activity;
-    const language =
-      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
+    const language = getLanguage(window);
     return (
       // getBoundingClientRect is undefined on React components, so we need a plain DOM element here.
       // Putting the eventHandlers on the TurnReveal component also doesn't work for some reason.

@@ -1,11 +1,8 @@
 import React from 'react';
 import Layout from '../components/layout/Layout';
-import { getTranslation } from '../data/i18n';
+import { getTranslation, getLanguage } from '../data/i18n';
 
-const languages = ['nl', 'en-US'];
-const urlLg =
-  typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
-const language = languages.indexOf(urlLg) !== -1 ? urlLg : 'nl';
+const language = getLanguage(window);
 
 const NotFoundPage = () => (
   <Layout title="404">

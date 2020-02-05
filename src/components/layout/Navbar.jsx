@@ -12,13 +12,12 @@ import {
 import logo from '$/images/sticky-logo.svg';
 import menu from '$/data/menu.json';
 import { device } from '../../data/Devices';
-import { getTranslation } from '../../data/i18n';
+import { getTranslation, getLanguage } from '../../data/i18n';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.language =
-      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl'; // Default fallback to Dutch
+    this.language = getLanguage(window);
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
       content => content.node.node_locale === this.language // Only get the current language
     );

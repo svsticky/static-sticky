@@ -3,7 +3,7 @@ import ActivityCollection from './ActivityCollection';
 import Activity from './Activity';
 import { Link } from 'gatsby';
 import { Button } from 'semantic-ui-react';
-import { getTranslation } from '../../data/i18n';
+import { getTranslation, getLanguage } from '../../data/i18n';
 
 export default class ActivityWidget extends Component {
   state = {
@@ -22,8 +22,7 @@ export default class ActivityWidget extends Component {
     if (this.state.activities.length === 0 && this.state.activitiesLoaded)
       return <div />;
 
-    const language =
-      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
+    const language = getLanguage(window);
 
     return (
       <>
