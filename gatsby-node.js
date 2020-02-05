@@ -98,8 +98,6 @@ exports.createPages = async ({ graphql, actions }) => {
       });
     }
 
-    console.log(`${lg}${url}`);
-
     createPage({
       path: `${lg}${url}`,
       component: slash(templatePath),
