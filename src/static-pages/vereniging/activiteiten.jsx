@@ -5,7 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import Activity from '$/components/activities/Activity';
 import { Grid } from 'semantic-ui-react';
 import Layout from '../../components/layout/Layout';
-import { getTranslation, getLanguage } from '../../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 export default class Activities extends Component {
   state = {
@@ -20,7 +20,10 @@ export default class Activities extends Component {
 
   render() {
     const page = this.props.data.contentfulPage;
-    const language = getLanguage(window);
+    const language =
+      typeof window !== 'undefined'
+        ? getLanguage(window)
+        : metadata.defaultLocale;
     const title = getTranslation(language, 'activities.title');
     return (
       <Layout title={title}>

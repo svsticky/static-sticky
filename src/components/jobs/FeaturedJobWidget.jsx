@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import JobItem from './JobItem';
-import { getTranslation, getLanguage } from '../../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 class FeaturedJobs extends React.Component {
   getRandom = max => {
@@ -9,7 +9,10 @@ class FeaturedJobs extends React.Component {
   };
 
   renderFeaturedJobs = jobs => {
-    const language = getLanguage(window);
+    const language =
+      typeof window !== 'undefined'
+        ? getLanguage(window)
+        : metadata.defaultLocale;
     const featuredJobs = jobs.filter(
       job => job.node.featured && job.node.node_locale === language
     );

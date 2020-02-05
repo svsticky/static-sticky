@@ -1,8 +1,9 @@
 import React from 'react';
 import Layout from '../components/layout/Layout';
-import { getTranslation, getLanguage } from '../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../data/i18n';
 
-const language = getLanguage(window);
+const language =
+  typeof window !== 'undefined' ? getLanguage(window) : metadata.defaultLocale;
 
 const NotFoundPage = () => (
   <Layout title="404">

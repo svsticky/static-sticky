@@ -15,7 +15,10 @@ class MobileNavBar extends React.Component {
 
   constructor(props) {
     super(props);
-    this.language = getLanguage(window);
+    this.language =
+      typeof window !== 'undefined'
+        ? getLanguage(window)
+        : metadata.defaultLocale;
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
       content => content.node.node_locale === this.language // Only get the current language
     );

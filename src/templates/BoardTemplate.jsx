@@ -4,11 +4,14 @@ import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Image, Button, Card } from 'semantic-ui-react';
 import { device } from '../data/Devices';
-import { getLanguage } from '../data/i18n';
+import { getLanguage, metadata } from '../data/i18n';
 
 const BoardView = ({ data }) => {
   const board = data.contentfulBoard;
-  board.language = getLanguage(window);
+  board.language =
+    typeof window !== 'undefined'
+      ? getLanguage(window)
+      : metadata.defaultLocale;
 
   return (
     <Layout title={board.name}>

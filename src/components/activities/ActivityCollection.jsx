@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getTranslation, getLanguage } from '../../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 export default class ActivityCollection extends Component {
   state = {
@@ -31,7 +31,10 @@ export default class ActivityCollection extends Component {
   }
 
   render() {
-    const language = getLanguage(window);
+    const language =
+      typeof window !== 'undefined'
+        ? getLanguage(window)
+        : metadata.defaultLocale;
     if (this.state.loading)
       return <p>{getTranslation(language, 'activities.loading')}</p>;
     else if (this.state.error) return <p>{this.state.error}</p>;
