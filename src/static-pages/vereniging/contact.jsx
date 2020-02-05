@@ -4,10 +4,13 @@ import { graphql, StaticQuery } from 'gatsby';
 import ContactPerson from '$/components/ContactPerson';
 import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
-import { getLanguage } from '../../data/i18n';
+import { getLanguage, metadata } from '../../data/i18n';
 
 const ContactPage = props => {
-  const language = getLanguage(window);
+  const language =
+    typeof window !== 'undefined'
+      ? getLanguage(window)
+      : metadata.defaultLocale;
   const contactPersons = props.data.allContentfulBoardMember.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );

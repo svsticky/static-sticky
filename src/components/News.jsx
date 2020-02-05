@@ -6,12 +6,15 @@ import Markdown from 'markdown-to-jsx';
 import { GlobalState } from '$/data/Context';
 import { Card, List } from 'semantic-ui-react';
 import { device } from '../data/Devices';
-import { getTranslation, getLanguage } from '../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../data/i18n';
 
 class News extends React.Component {
   constructor(props) {
     super(props);
-    this.language = getLanguage(window);
+    this.language =
+      typeof window !== 'undefined'
+        ? getLanguage(window)
+        : metadata.defaultLocale;
     this.newsItems = this.props.data.allContentfulNewsArticles.edges.filter(
       content => content.node.node_locale === this.language // Only get the current language
     );

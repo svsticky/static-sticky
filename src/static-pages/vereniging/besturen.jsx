@@ -6,10 +6,13 @@ import Board from '$/components/Board';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
 import { device } from '../../data/Devices';
-import { getTranslation, getLanguage } from '../../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 const BoardPage = props => {
-  const language = getLanguage(window);
+  const language =
+    typeof window !== 'undefined'
+      ? getLanguage(window)
+      : metadata.defaultLocale;
   const boards = props.data.allContentfulBoard.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );

@@ -4,12 +4,15 @@ import JobsList from '$/components/jobs/JobsList';
 import JobFilter from '$/components/jobs/JobFilter';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
-import { getTranslation, getLanguage } from '../../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 class JobIndexPage extends React.Component {
   constructor(props) {
     super(props);
-    this.language = getLanguage(window);
+    this.language =
+      typeof window !== 'undefined'
+        ? getLanguage(window)
+        : metadata.defaultLocale;
     this.state = {
       studiesFilter: [],
       typesFilter: [],

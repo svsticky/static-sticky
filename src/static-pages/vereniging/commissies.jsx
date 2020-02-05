@@ -4,10 +4,13 @@ import ContentfulPage from '../../components/layout/ContentfulPage';
 import Markdown from 'markdown-to-jsx';
 import { Image, Card, Grid } from 'semantic-ui-react';
 import styled from 'styled-components';
-import { getLanguage } from '../../data/i18n';
+import { getLanguage, metadata } from '../../data/i18n';
 
 const CommitteeIndexPage = ({ data }) => {
-  const language = getLanguage(window);
+  const language =
+    typeof window !== 'undefined'
+      ? getLanguage(window)
+      : metadata.defaultLocale;
   const committeesNode = data.allContentfulCommittee.edges.map(
     committeeEdge => committeeEdge.node
   );

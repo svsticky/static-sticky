@@ -4,10 +4,13 @@ import Partner from '$/components/Partner';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
 import { FlexListContainer } from '../../helpers';
-import { getLanguage } from '../../data/i18n';
+import { getLanguage, metadata } from '../../data/i18n';
 
 const PartnerIndexPage = ({ data }) => {
-  const language = getLanguage(window);
+  const language =
+    typeof window !== 'undefined'
+      ? getLanguage(window)
+      : metadata.defaultLocale;
   const partners = data.allContentfulPartner.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );
