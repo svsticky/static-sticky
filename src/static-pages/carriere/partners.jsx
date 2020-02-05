@@ -7,9 +7,7 @@ import { FlexListContainer } from '../../helpers';
 import { getLanguage } from '../../data/i18n';
 
 const PartnerIndexPage = ({ data }) => {
-  console.log('test');
   const language = getLanguage(window);
-  console.log(language);
   const partners = data.allContentfulPartner.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );

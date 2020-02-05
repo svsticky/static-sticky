@@ -138,7 +138,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
     // Create jobpages
     query.data.allContentfulJobListing.edges.forEach(({ node }) => {
-      // console.log(node.node_locale)
       createTemplatePage(
         node.node_locale,
         `/vacatures/${node.slug}`,

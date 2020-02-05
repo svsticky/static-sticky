@@ -10,7 +10,6 @@ import { getTranslation, getLanguage } from '../../data/i18n';
 
 const BoardPage = props => {
   const language = getLanguage(window);
-  console.log(language);
   const boards = props.data.allContentfulBoard.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );
