@@ -5,7 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import { device } from '../../data/Devices';
 import menu from '$/data/menu.json';
 import logo from '$/images/hoofd.svg';
-import { getTranslation } from '../../data/i18n';
+import { getTranslation, getLanguage } from '../../data/i18n';
 
 class MobileNavBar extends React.Component {
   state = {
@@ -15,8 +15,7 @@ class MobileNavBar extends React.Component {
 
   constructor(props) {
     super(props);
-    this.language =
-      typeof window !== 'undefined' ? window.location.href.split('/')[3] : 'nl';
+    this.language = getLanguage(window);
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
       content => content.node.node_locale === this.language // Only get the current language
     );

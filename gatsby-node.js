@@ -86,20 +86,22 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `);
 
-  function createLanguageRedirect(node, url) {
-    if (node.node_locale === metadata.defaultLocale) {
-      createRedirect({
-        fromPath: `${url}/${node.slug}`,
-        isPermanent: true,
-        redirectInBrowser: true,
-        toPath: `/${metadata.defaultLocale}${url}/${node.slug}`,
+  function createTemplatePage(lg, url, templatePath, id) {
+    // Create page without language for default language
+    if (lg === metadata.defaultLocale) {
+      createPage({
+        path: url,
+        component: slash(templatePath),
+        context: {
+          id: id,
+        },
       });
     }
-  }
 
-  function createTemplatePage(url, templatePath, id) {
+    console.log(`${lg}${url}`);
+
     createPage({
-      path: url,
+      path: `${lg}${url}`,
       component: slash(templatePath),
       context: {
         id: id,
@@ -119,16 +121,11 @@ exports.createPages = async ({ graphql, actions }) => {
       // Create a page for each language
       metadata.languages.forEach(lang => {
         createTemplatePage(
-          `${lang}/${baseUrl}`,
+          lang,
+          `/${baseUrl}`,
           path.resolve(`${folder}/${file}`),
           null
         );
-
-        let node = {
-          node_locale: lang,
-          slug: baseUrl,
-        };
-        createLanguageRedirect(node, '');
       });
     });
   }
@@ -137,49 +134,46 @@ exports.createPages = async ({ graphql, actions }) => {
     throw new Error(JSON.stringify(query.errors));
   } else {
     // Create all static pages
-    createStaticPages(staticFolder, '', createTemplatePage);
+    createStaticPages(staticFolder, '');
 
     // Create jobpages
     query.data.allContentfulJobListing.edges.forEach(({ node }) => {
+      // console.log(node.node_locale)
       createTemplatePage(
-        `/${node.node_locale}/vacatures/${node.slug}`,
+        node.node_locale,
+        `/vacatures/${node.slug}`,
         jobTemplate,
         node.id
       );
-
-      createLanguageRedirect(node, '/vacatures');
     });
 
     // Create partnerpages
     query.data.allContentfulPartner.edges.forEach(({ node }) => {
       createTemplatePage(
-        `/${node.node_locale}/partners/${node.slug}`,
+        node.node_locale,
+        `/partners/${node.slug}`,
         partnerTemplate,
         node.id
       );
-
-      createLanguageRedirect(node, '/partners');
     });
 
     // Create boardpages
     query.data.allContentfulBoard.edges.forEach(({ node }) => {
       createTemplatePage(
-        `/${node.node_locale}/besturen/${node.number}`,
+        node.node_locale,
+        `/besturen/${node.number}`,
         boardTemplate,
         node.id
       );
-
-      createLanguageRedirect(node, '/besturen');
     });
 
     query.data.allContentfulNewsArticles.edges.forEach(({ node }) => {
       createTemplatePage(
-        `/${node.node_locale}/news/${node.slug}`,
+        node.node_locale,
+        `/news/${node.slug}`,
         newsTemplate,
         node.id
       );
-
-      createLanguageRedirect(node, '/news');
     });
 
     // Create general pages
@@ -196,35 +190,31 @@ exports.createPages = async ({ graphql, actions }) => {
       fs.access(localPath, fs.R_OK, err => {
         if (err) {
           createTemplatePage(
-            `/${node.node_locale}/${url}`,
+            node.node_locale,
+            `/${url}`,
             pageTemplate,
             node.id
           );
-
-          node.slug = url;
-          createLanguageRedirect(node, '');
         }
       });
     });
 
     query.data.allContentfulDispute.edges.forEach(({ node }) => {
       createTemplatePage(
-        `/${node.node_locale}/disputen/${node.slug}`,
+        node.node_locale,
+        `/disputen/${node.slug}`,
         disputeTemplate,
         node.id
       );
-
-      createLanguageRedirect(node, '/disputen');
     });
 
     query.data.allContentfulCommittee.edges.forEach(({ node }) => {
       createTemplatePage(
-        `/${node.node_locale}/commissies/${node.slug}`,
+        node.node_locale,
+        `/commissies/${node.slug}`,
         committeeTemplate,
         node.id
       );
-
-      createLanguageRedirect(node, '/commissies');
     });
   }
 };
