@@ -83,6 +83,19 @@ class NavBar extends React.Component {
         </Dropdown.Item>
       ));
 
+  renderLanguageSwitch = languages => {
+    let lgItems = [];
+    languages.forEach(lg => {
+      lgItems.push(
+        <Dropdown.Item className="item" onClick={() => this.changeLanguage(lg)}>
+          <span className="item-text">{lg.toUpperCase()}</span>
+        </Dropdown.Item>
+      );
+    });
+    console.log(lgItems);
+    return lgItems;
+  };
+
   renderExternMenuItems = externMenuItems =>
     externMenuItems.map(externMenuItem => (
       <Dropdown.Item
@@ -155,18 +168,7 @@ class NavBar extends React.Component {
               text={getTranslation(this.language, 'menu.language')}
             >
               <Dropdown.Menu>
-                <Dropdown.Item
-                  className="item"
-                  onClick={() => this.changeLanguage('nl')}
-                >
-                  <p className="item-text">NL</p>
-                </Dropdown.Item>
-                <Dropdown.Item
-                  className="item"
-                  onClick={() => this.changeLanguage('en-US')}
-                >
-                  <p className="item-text">EN</p>
-                </Dropdown.Item>
+                {this.renderLanguageSwitch(Object.keys(metadata.languages))}
               </Dropdown.Menu>
             </Dropdown>
           </Container>
