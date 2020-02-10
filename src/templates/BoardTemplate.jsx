@@ -4,7 +4,7 @@ import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Image, Button, Card } from 'semantic-ui-react';
 import { device } from '../data/Devices';
-import { getLanguage, metadata } from '../data/i18n';
+import { getLanguage, metadata, getTranslation } from '../data/i18n';
 
 const BoardView = ({ data }) => {
   const board = data.contentfulBoard;
@@ -32,7 +32,7 @@ const BoardView = ({ data }) => {
                   </p>
                   {board.motto && <em>O.d.z "{board.motto}"</em>}
                 </div>
-                <h3>Bestuursleden:</h3>
+                <h3>{getTranslation(board.language, 'board.members')}:</h3>
                 {board.members.map(member => (
                   <p key={member} className="member">
                     {member}
@@ -50,7 +50,9 @@ const BoardView = ({ data }) => {
 
 const buildHeader = board => {
   if (board.current) {
-    return 'Huidig ' + board.name;
+    return `${getTranslation(board.language, 'board.current_name')} ${
+      board.name
+    }`;
   }
   return board.name;
 };
