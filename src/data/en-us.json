@@ -8,9 +8,9 @@
 		"number": "Board {0}",
 		"no_photo": "No picture",
 		"current": "The current board",
-		"current_name": "Huidig",
-		"old": "Oud-besturen",
-		"members": "Bestuursleden"
+		"current_name": "Current",
+		"old": "Old board",
+		"members": "Board members"
 	},
 	"vacancy": {
 		"title": "Vacancies",
@@ -63,7 +63,7 @@
 		"title": "NOT FOUND",
 		"description": "You just hit a route that does not exist... the sadness."
 	},
-	"society": "Disputen",
+	"society": "Societies",
 	"mailchimp": {
 		"email": "E-mail address",
 		"firstname": "First name",
