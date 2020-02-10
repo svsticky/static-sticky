@@ -1,7 +1,13 @@
 export const metadata = {
   languages: {
-    'en-US': require('./en-us.json'),
-    nl: require('./nl.json'),
+    nl: {
+      key: 'Nederlands',
+      json: require('./nl.json'),
+    },
+    'en-US': {
+      key: 'English',
+      json: require('./en-us.json'),
+    },
   },
   defaultLocale: 'nl',
 };
@@ -23,9 +29,9 @@ export const getTranslation = (lg, key, words) => {
   const vars = key.split('.');
   let text;
   if (vars.length === 1) {
-    text = metadata.languages[lg][key];
+    text = metadata.languages[lg].json[key];
   } else {
-    let trans = metadata.languages[lg] || '';
+    let trans = metadata.languages[lg].json || '';
     for (let i = 0; i < vars.length; i++) {
       trans = trans[vars[i]] || '';
     }
