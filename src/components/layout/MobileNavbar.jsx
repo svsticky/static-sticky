@@ -31,8 +31,16 @@ class MobileNavBar extends React.Component {
     let url = window.location.href;
     let oldLg = url.split('/')[3];
     let newUrl;
-    if (oldLg) newUrl = url.replace(oldLg, lg);
-    else newUrl = url + lg;
+
+    if (oldLg) {
+      if (Object.keys(metadata.languages).indexOf(oldLg) === -1) {
+        lg = `${lg}/${oldLg}`;
+      }
+      newUrl = url.replace(oldLg, lg);
+    } else {
+      newUrl = url + lg;
+    }
+
     window.location.href = newUrl;
   };
 
@@ -82,13 +90,13 @@ class MobileNavBar extends React.Component {
 
   renderLanguageSwitch = languages => {
     let lgItems = [];
-    languages.forEach(lg => {
+    for (let lg in languages) {
       lgItems.push(
-        <div className="sub-menu-item" onClick={() => this.changeLanguage(lg)}>
-          {lg.toUpperCase()}
+        <div key={lg} onClick={() => this.changeLanguage(lg)}>
+          <div className="sub-menu-item">{languages[lg].key}</div>
         </div>
       );
-    });
+    }
     return lgItems;
   };
 
@@ -97,7 +105,6 @@ class MobileNavBar extends React.Component {
       <>
         {this.state.active === 'links' ? (
           <>
-            {this.renderLanguageSwitch(Object.keys(metadata.languages))}
             <a
               href="https://koala.svsticky.nl/"
               key="Koala"
@@ -162,6 +169,14 @@ class MobileNavBar extends React.Component {
           >
             <i className="external icon" />
           </ParentMenuItem>
+          <ParentMenuItem
+            className="center-container"
+            onClick={() => {
+              this.handleMenuClick('language');
+            }}
+          >
+            <i className="globe icon large" />
+          </ParentMenuItem>
         </div>
         <CSSTransition
           in={this.state.showSubMenu}
@@ -171,7 +186,11 @@ class MobileNavBar extends React.Component {
           onExited={() => this.setState({ active: null })}
         >
           <div className="sub-menu-wrapper">
-            <div className="sub-menu">{this.renderSubMenuItems(edges)}</div>
+            <div className="sub-menu">
+              {this.state.active === 'language'
+                ? this.renderLanguageSwitch(metadata.languages)
+                : this.renderSubMenuItems(edges)}
+            </div>
           </div>
         </CSSTransition>
       </MobileNavBarWrapper>
@@ -209,7 +228,7 @@ const MobileNavBarWrapper = styled.div`
     background-color: ${props => props.color};
     z-index: 10;
     display: grid;
-    grid-template-columns: 1fr 2fr 2fr 2fr 1fr;
+    grid-template-columns: 1fr 2fr 2fr 2fr 1fr 1fr;
     grid-gap: 0.5em;
     padding: 0.5em;
     border-radius: 5px 5px 0 0;
