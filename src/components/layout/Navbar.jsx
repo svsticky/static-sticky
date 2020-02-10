@@ -8,6 +8,7 @@ import {
   Container,
   Button,
   Grid,
+  Icon,
 } from 'semantic-ui-react';
 import logo from '$/images/sticky-logo.svg';
 import menu from '$/data/menu.json';
@@ -169,10 +170,7 @@ class NavBar extends React.Component {
                 {getTranslation(this.language, 'menu.signup')}
               </Button>
             </Menu.Item>
-            <Dropdown
-              item
-              text={getTranslation(this.language, 'menu.language')}
-            >
+            <Dropdown icon="large globe" item class="languageIcon">
               <Dropdown.Menu>
                 {this.renderLanguageSwitch(metadata.languages)}
               </Dropdown.Menu>
