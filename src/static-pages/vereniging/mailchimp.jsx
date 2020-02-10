@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../components/layout/Layout';
 import Mailchimp from '../../components/Mailchimp';
-import { StaticQuery } from 'gatsby';
+import { graphql, StaticQuery } from 'gatsby';
 
 const MailchimpPage = props => {
   const page = props.data.contentfulPage;
