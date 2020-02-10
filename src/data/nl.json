@@ -8,7 +8,9 @@
 		"number": "Bestuur {0}",
 		"no_photo": "Geen foto",
 		"current": "Het huidige bestuur",
-		"old": "Oud-besturen"
+		"current_name": "Huidig",
+		"old": "Oud-besturen",
+		"members": "Bestuursleden"
 	},
 	"vacancy": {
 		"title": "Vacatures",
@@ -60,5 +62,14 @@
 	"404": {
 		"title": "NIET GEVONDEN",
 		"description": "Je hebt zojuist een route gevonden die niet bestaat... het verdriet."
+	},
+	"society": "Disputen",
+	"mailchimp": {
+		"email": "E-mail adres",
+		"firstname": "Voornaam",
+		"lastname": "Achternaam",
+		"mmm": "MaandagMorgenMail",
+		"company": "Bedrijfsmailing",
+		"workshops": "Lezingen en workshops"
 	}
 }

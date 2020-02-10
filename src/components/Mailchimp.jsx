@@ -1,8 +1,14 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
+import { getTranslation, getLanguage, metadata } from '../data/i18n';
 
 class Mailchimp extends React.Component {
   render() {
+    let language =
+      typeof window !== 'undefined'
+        ? getLanguage(window)
+        : metadata.defaultLocale;
+
     return (
       <>
         <Card fluid>
@@ -11,54 +17,58 @@ class Mailchimp extends React.Component {
               action="https://svsticky.us5.list-manage.com/subscribe/post?u=f1bd25633d7d6479e3daca998&id=d96e096a38"
               method="post"
               target="_blank"
-              class="ui form"
+              className="ui form"
               name="mc-embedded-subscribe-form"
             >
-              <div class="field">
-                <label>E-mail adres</label>
+              <div className="field">
+                <label>{getTranslation(language, 'mailchimp.email')}</label>
                 <input
                   type="email"
-                  placeholder="naam@svsticky.nl"
+                  placeholder="email@svsticky.nl"
                   name="EMAIL"
                 />
               </div>
-              <div class="field">
-                <label>Voornaam</label>
+              <div className="field">
+                <label>{getTranslation(language, 'mailchimp.firstname')}</label>
                 <input type="text" name="FIRSTNAME" placeholder="Pietje" />
               </div>
-              <div class="field">
-                <label>Achternaam</label>
+              <div className="field">
+                <label>{getTranslation(language, 'mailchimp.lastname')}</label>
                 <input type="text" name="LASTNAME" placeholder="Puk" />
               </div>
-              <div class="grouped fields">
-                <div class="field">
-                  <div class="ui checkbox">
+              <div className="grouped fields">
+                <div className="field">
+                  <div className="ui checkbox">
                     <input
                       type="checkbox"
                       defaultValue={1}
                       name="group[13][1]"
                     />
-                    <label>MaandagMorgenMail</label>
+                    <label>{getTranslation(language, 'mailchimp.mmm')}</label>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="ui checkbox">
+                <div className="field">
+                  <div className="ui checkbox">
                     <input
                       type="checkbox"
                       defaultValue={2}
                       name="group[13][2]"
                     />
-                    <label>Bedrijfsmailing</label>
+                    <label>
+                      {getTranslation(language, 'mailchimp.company')}
+                    </label>
                   </div>
                 </div>
-                <div class="field">
-                  <div class="ui checkbox">
+                <div className="field">
+                  <div className="ui checkbox">
                     <input
                       type="checkbox"
                       defaultValue={8}
                       name="group[13][8]"
                     />
-                    <label>Lezingen en workshops</label>
+                    <label>
+                      {getTranslation(language, 'mailchimp.workshops')}
+                    </label>
                   </div>
                 </div>
               </div>
@@ -81,11 +91,9 @@ class Mailchimp extends React.Component {
               <div className="clear">
                 <input
                   type="submit"
-                  defaultValue="Subscribe"
                   name="subscribe"
-                  className="button"
-                  class="ui button"
-                  value="Inschrijven"
+                  className="ui button"
+                  value={getTranslation(language, 'menu.signup')}
                 />
               </div>
             </form>

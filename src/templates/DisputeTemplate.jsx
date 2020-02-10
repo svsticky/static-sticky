@@ -4,9 +4,14 @@ import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Grid, Header, Image, Divider, Button, Icon } from 'semantic-ui-react';
+import { getLanguage, metadata, getTranslation } from '../data/i18n';
 
 const DisputeView = ({ data }) => {
   const { contentfulDispute: dispute } = data;
+  let language =
+    typeof window !== 'undefined'
+      ? getLanguage(window)
+      : metadata.defaultLocale;
 
   return (
     <Layout title={data.name}>
@@ -16,7 +21,7 @@ const DisputeView = ({ data }) => {
         to="/vereniging/disputen"
       >
         <Icon name="angle left" />
-        Disputen
+        {getTranslation(language, 'society')}
       </Button>
       <Divider hidden />
 

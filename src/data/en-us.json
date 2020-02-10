@@ -8,7 +8,9 @@
 		"number": "Board {0}",
 		"no_photo": "No picture",
 		"current": "The current board",
-		"old": "Old boards"
+		"current_name": "Huidig",
+		"old": "Oud-besturen",
+		"members": "Bestuursleden"
 	},
 	"vacancy": {
 		"title": "Vacancies",
@@ -60,5 +62,14 @@
 	"404": {
 		"title": "NOT FOUND",
 		"description": "You just hit a route that does not exist... the sadness."
+	},
+	"society": "Disputen",
+	"mailchimp": {
+		"email": "E-mail address",
+		"firstname": "First name",
+		"lastname": "Last name",
+		"mmm": "MondayMorningMail",
+		"company": "Companymailing",
+		"workshops": "Lectures and workshops"
 	}
 }
