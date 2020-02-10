@@ -8,7 +8,6 @@ import {
   Container,
   Button,
   Grid,
-  Icon,
 } from 'semantic-ui-react';
 import logo from '$/images/sticky-logo.svg';
 import menu from '$/data/menu.json';
@@ -22,6 +21,7 @@ class NavBar extends React.Component {
       typeof window !== 'undefined'
         ? getLanguage(window)
         : metadata.defaultLocale;
+
     props.data.allContentfulPage.edges = props.data.allContentfulPage.edges.filter(
       content => content.node.node_locale === this.language // Only get the current language
     );
@@ -170,7 +170,7 @@ class NavBar extends React.Component {
                 {getTranslation(this.language, 'menu.signup')}
               </Button>
             </Menu.Item>
-            <Dropdown icon="large globe" item class="languageIcon">
+            <Dropdown icon="globe" item labeled>
               <Dropdown.Menu>
                 {this.renderLanguageSwitch(metadata.languages)}
               </Dropdown.Menu>
@@ -211,6 +211,10 @@ const NavBarWrapper = styled.div`
       }
       .icon-item-text {
         padding-right: 20pt;
+      }
+      .icon.globe {
+        font-size: 25px;
+        margin: 0;
       }
     }
     .link-item {
