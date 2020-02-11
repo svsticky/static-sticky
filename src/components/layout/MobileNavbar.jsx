@@ -117,13 +117,13 @@ class MobileNavBar extends React.Component {
               </div>
             </a>
             <a
-              href="https://photos.svsticky.nl/"
+              href="https://intro.svsticky.nl/"
               key="Photos"
               target="_blank"
               rel="noopener noreferrer" // For safety
             >
               <div className="sub-menu-item">
-                {getTranslation(this.language, 'menu.pics')}
+                {getTranslation(this.language, 'menu.signup')}
                 <i className="item-text icon external" />
               </div>
             </a>
