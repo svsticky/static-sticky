@@ -76,7 +76,7 @@ class MobileNavBar extends React.Component {
           )
           .map(page => (
             <Link
-              to={'/' + page.node.parentPage.slug + '/' + page.node.slug}
+              to={`/${page.node.node_locale}/${page.node.parentPage.slug}/${page.node.slug}`}
               key={page.node.title}
             >
               <div className="sub-menu-item">{page.node.title}</div>
