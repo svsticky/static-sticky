@@ -11,12 +11,14 @@ import {
 } from 'semantic-ui-react';
 import logo from '$/images/sticky-logo.svg';
 import menu from '$/data/menu.json';
+import { Location } from '@reach/router';
 import { device } from '../../data/Devices';
 import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
+    this.props = props;
     this.language =
       typeof window !== 'undefined'
         ? getLanguage(window)
@@ -30,9 +32,9 @@ class NavBar extends React.Component {
     );
   }
 
-  changeLanguage = lg => {
-    let url = window.location.href;
-    let oldLg = url.split('/')[3];
+  changeLanguage = (lg, location) => {
+    let url = location.pathname;
+    let oldLg = url.split('/')[1];
     let newUrl;
 
     if (oldLg) {
@@ -44,7 +46,8 @@ class NavBar extends React.Component {
       newUrl = url + lg;
     }
 
-    window.location.href = newUrl;
+    console.log(newUrl);
+    return `/${newUrl}`;
   };
 
   renderMenuItems = data =>
@@ -87,16 +90,14 @@ class NavBar extends React.Component {
         </Dropdown.Item>
       ));
 
-  renderLanguageSwitch = languages => {
+  renderLanguageSwitch = (languages, location) => {
     let lgItems = [];
     for (let lg in languages) {
       lgItems.push(
-        <Dropdown.Item
-          className="item"
-          key={lg}
-          onClick={() => this.changeLanguage(lg)}
-        >
-          <span className="item-text">{languages[lg].key}</span>
+        <Dropdown.Item className="item" key={lg}>
+          <Link to={this.changeLanguage(lg, location)}>
+            {languages[lg].key}
+          </Link>
         </Dropdown.Item>
       );
     }
@@ -170,11 +171,17 @@ class NavBar extends React.Component {
                 {getTranslation(this.language, 'menu.signup')}
               </Button>
             </Menu.Item>
-            <Dropdown icon="globe" item labeled>
-              <Dropdown.Menu>
-                {this.renderLanguageSwitch(metadata.languages)}
-              </Dropdown.Menu>
-            </Dropdown>
+            <Location>
+              {({ location }) => {
+                return (
+                  <Dropdown icon="globe" item labeled>
+                    <Dropdown.Menu>
+                      {this.renderLanguageSwitch(metadata.languages, location)}
+                    </Dropdown.Menu>
+                  </Dropdown>
+                );
+              }}
+            </Location>
           </Container>
         </Menu>
       </NavBarWrapper>
