@@ -5,6 +5,7 @@ import { CSSTransition } from 'react-transition-group';
 import { device } from '../../data/Devices';
 import menu from '$/data/menu.json';
 import logo from '$/images/hoofd.svg';
+import { Location } from '@reach/router';
 import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 class MobileNavBar extends React.Component {
@@ -27,9 +28,9 @@ class MobileNavBar extends React.Component {
     );
   }
 
-  changeLanguage = lg => {
-    let url = window.location.href;
-    let oldLg = url.split('/')[3];
+  changeLanguage = (lg, location) => {
+    let url = location.pathname;
+    let oldLg = url.split('/')[1];
     let newUrl;
 
     if (oldLg) {
@@ -41,7 +42,7 @@ class MobileNavBar extends React.Component {
       newUrl = url + lg;
     }
 
-    window.location.href = newUrl;
+    return `${newUrl}`;
   };
 
   handleMenuClick = clicked => {
@@ -88,13 +89,18 @@ class MobileNavBar extends React.Component {
     );
   };
 
-  renderLanguageSwitch = languages => {
+  renderLanguageSwitch = (languages, location) => {
     let lgItems = [];
     for (let lg in languages) {
       lgItems.push(
-        <div key={lg} onClick={() => this.changeLanguage(lg)}>
-          <div className="sub-menu-item">{languages[lg].key}</div>
-        </div>
+        <a
+          key={lg}
+          href={this.changeLanguage(lg, location)}
+          className="item"
+          color={this.props.color}
+        >
+          <p className="sub-menu-item">{languages[lg].key}</p>
+        </a>
       );
     }
     return lgItems;
@@ -186,11 +192,17 @@ class MobileNavBar extends React.Component {
           onExited={() => this.setState({ active: null })}
         >
           <div className="sub-menu-wrapper">
-            <div className="sub-menu">
-              {this.state.active === 'language'
-                ? this.renderLanguageSwitch(metadata.languages)
-                : this.renderSubMenuItems(edges)}
-            </div>
+            <Location>
+              {({ location }) => {
+                return (
+                  <div className="sub-menu">
+                    {this.state.active === 'language'
+                      ? this.renderLanguageSwitch(metadata.languages, location)
+                      : this.renderSubMenuItems(edges)}
+                  </div>
+                );
+              }}
+            </Location>
           </div>
         </CSSTransition>
       </MobileNavBarWrapper>
