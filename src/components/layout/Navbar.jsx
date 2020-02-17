@@ -92,10 +92,13 @@ class NavBar extends React.Component {
     let lgItems = [];
     for (let lg in languages) {
       lgItems.push(
-        <Dropdown.Item className="item" key={lg}>
-          <Link to={this.changeLanguage(lg, location)}>
-            {languages[lg].key}
-          </Link>
+        <Dropdown.Item
+          key={lg}
+          as={Link}
+          to={this.changeLanguage(lg, location)}
+          className="item"
+        >
+          {languages[lg].key}
         </Dropdown.Item>
       );
     }
