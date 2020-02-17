@@ -45,7 +45,7 @@ class NavBar extends React.Component {
       newUrl = url + lg;
     }
 
-    return `/${newUrl}`;
+    return `${newUrl}`;
   };
 
   renderMenuItems = data =>
@@ -92,14 +92,9 @@ class NavBar extends React.Component {
     let lgItems = [];
     for (let lg in languages) {
       lgItems.push(
-        <Dropdown.Item
-          key={lg}
-          as={Link}
-          to={this.changeLanguage(lg, location)}
-          className="item"
-        >
+        <a key={lg} href={this.changeLanguage(lg, location)} className="item">
           {languages[lg].key}
-        </Dropdown.Item>
+        </a>
       );
     }
     return lgItems;
