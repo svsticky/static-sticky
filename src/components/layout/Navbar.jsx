@@ -18,7 +18,6 @@ import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.props = props;
     this.language =
       typeof window !== 'undefined'
         ? getLanguage(window)
@@ -46,7 +45,6 @@ class NavBar extends React.Component {
       newUrl = url + lg;
     }
 
-    console.log(newUrl);
     return `/${newUrl}`;
   };
 
