@@ -82,7 +82,10 @@ class News extends React.Component {
                     total={this.state.pageCount}
                     current={context.state.lastReadNewsPage}
                     visiblePages={this.state.visiblePage}
-                    titles={{ first: 'First', last: 'Last' }}
+                    titles={{
+                      first: getTranslation(this.language, 'news.first'),
+                      last: getTranslation(this.language, 'news.last'),
+                    }}
                     onPageChanged={newpage =>
                       context.actions.updateLastReadNewsPage(newpage)
                     }
