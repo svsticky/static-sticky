@@ -53,7 +53,9 @@ class News extends React.Component {
                 <div className="news-item-image">
                   <img
                     src={item.node.frontPageImage.file.url}
-                    alt={'Front page image of news article: ' + item.node.title}
+                    alt={getTranslation(item.node.node_locale, 'news.alt', [
+                      item.node.title,
+                    ])}
                   />
                 </div>
               )}
