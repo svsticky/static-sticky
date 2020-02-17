@@ -10,7 +10,8 @@
 		"current": "Het huidige bestuur",
 		"current_name": "Huidig",
 		"old": "Oud-besturen",
-		"members": "Bestuursleden"
+		"members": "Bestuursleden",
+    "back": "Terug naar overzicht"
 	},
 	"vacancy": {
 		"title": "Vacatures",
@@ -47,7 +48,8 @@
 		"free": "Gratis"
 	},
 	"news": {
-		"title": "Nieuws"
+		"title": "Nieuws",
+    "alt": "Voorpagina afbeelding van nieuws artikel: {0}"
 	},
 	"menu": {
 		"pics": "Foto's",

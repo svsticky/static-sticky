@@ -63,7 +63,9 @@ const showButton = board => {
       as={Link}
       labelPosition="left"
       icon="left chevron"
-      content={`Bestuur ${board.number - 1}`}
+      content={getTranslation(board.language, 'board.number', [
+        board.number - 1,
+      ])}
       to={`/${board.language}/besturen/${board.number - 1}`}
       className="button-prev"
       color={board.color}
@@ -75,7 +77,9 @@ const showButton = board => {
       as={Link}
       labelPosition="right"
       icon="right chevron"
-      content={`Bestuur ${board.number + 1}`}
+      content={getTranslation(board.language, 'board.number', [
+        board.number - 1,
+      ])}
       to={`/${board.language}/besturen/${board.number + 1}`}
       className="button-next"
       color={board.color}
@@ -87,7 +91,7 @@ const showButton = board => {
       {board.number !== 1 ? prev : null}
       <Button
         as={Link}
-        content={'Terug naar overzicht'}
+        content={getTranslation(board.language, 'board.back')}
         to={`/${board.language}/vereniging/besturen`}
         className="button-index"
         color={board.color}

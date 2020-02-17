@@ -10,7 +10,8 @@
 		"current": "The current board",
 		"current_name": "Current",
 		"old": "Old board",
-		"members": "Board members"
+		"members": "Board members",
+    "back": "Back to the overview"
 	},
 	"vacancy": {
 		"title": "Vacancies",
@@ -47,7 +48,8 @@
 		"free": "Free"
 	},
 	"news": {
-		"title": "News"
+		"title": "News",
+    "alt": "Front page image of news article: {0}"
 	},
 	"menu": {
 		"pics": "Pictures",
