@@ -11,6 +11,7 @@
 		"current_name": "Current",
 		"old": "Old board",
 		"members": "Board members",
+		"member": "Board member",
     "back": "Back to the overview"
 	},
 	"vacancy": {
@@ -49,7 +50,9 @@
 	},
 	"news": {
 		"title": "News",
-    "alt": "Front page image of news article: {0}"
+    "alt": "Front page image of news article: {0}",
+		"first": "First",
+		"last": "Last"
 	},
 	"menu": {
 		"pics": "Pictures",
@@ -65,7 +68,11 @@
 		"title": "NOT FOUND",
 		"description": "You just hit a route that does not exist... the sadness."
 	},
-	"society": "Societies",
+	"society": {
+		"name": "Societies",
+		"logo": "Society Logo"
+	},
+	"committee": "Committees",
 	"mailchimp": {
 		"email": "E-mail address",
 		"firstname": "First name",

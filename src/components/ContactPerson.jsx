@@ -18,7 +18,10 @@ const ContactPerson = ({ contactPerson }) => (
               ) : (
                 <img
                   className="member-photo"
-                  alt="board-member"
+                  alt={getTranslation(
+                    contactPerson.node_locale,
+                    'board.member'
+                  )}
                   src={contactPerson.photo.file.url}
                 />
               )}

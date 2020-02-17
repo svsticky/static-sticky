@@ -11,6 +11,7 @@
 		"current_name": "Huidig",
 		"old": "Oud-besturen",
 		"members": "Bestuursleden",
+		"member": "Bestuurslid",
     "back": "Terug naar overzicht"
 	},
 	"vacancy": {
@@ -49,7 +50,9 @@
 	},
 	"news": {
 		"title": "Nieuws",
-    "alt": "Voorpagina afbeelding van nieuws artikel: {0}"
+		"alt": "Voorpagina afbeelding van nieuws artikel: {0}",
+		"first": "Eerste",
+		"last": "Laatste"
 	},
 	"menu": {
 		"pics": "Foto's",
@@ -65,7 +68,11 @@
 		"title": "NIET GEVONDEN",
 		"description": "Je hebt zojuist een route gevonden die niet bestaat... het verdriet."
 	},
-	"society": "Disputen",
+	"society": {
+		"name": "Disputen",
+		"logo": "Dispuut Logo"
+	},
+	"committee": "Commissies",
 	"mailchimp": {
 		"email": "E-mail adres",
 		"firstname": "Voornaam",

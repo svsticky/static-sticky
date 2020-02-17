@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
 import { Button, Header, Icon, Image, Grid, Divider } from 'semantic-ui-react';
+import { getTranslation } from '../data/i18n';
 
 const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
   return (
@@ -14,7 +15,7 @@ const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
         to={`/${committee.node_locale}/vereniging/commissies`}
       >
         <Icon name="angle left" />
-        Commissies
+        {getTranslation(committee.node_locale, 'committee')}
       </Button>
       <Divider hidden />
 

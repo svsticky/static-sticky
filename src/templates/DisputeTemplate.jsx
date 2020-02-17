@@ -21,7 +21,7 @@ const DisputeView = ({ data }) => {
         to="/vereniging/disputen"
       >
         <Icon name="angle left" />
-        {getTranslation(language, 'society')}
+        {getTranslation(language, 'society.name')}
       </Button>
       <Divider hidden />
 
