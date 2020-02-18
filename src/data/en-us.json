@@ -1,84 +1,84 @@
 {
   "drinks": {
-		"title": "Drinks",
-		"description": "There is are free drinks every week! This period the drinks are:",
-		"when": "Every {0} starting at {1} in the {2}!"
-	},
-	"board": {
-		"number": "Board {0}",
-		"no_photo": "No picture",
-		"current": "The current board",
-		"current_name": "Current",
-		"old": "Old board",
-		"members": "Board members",
-		"member": "Board member",
+    "title": "Drinks",
+    "description": "There is are free drinks every week! This period the drinks are:",
+    "when": "Every {0} starting at {1} in the {2}!"
+  },
+  "board": {
+    "number": "Board {0}",
+    "no_photo": "No picture",
+    "current": "The current board",
+    "current_name": "Current",
+    "old": "Old board",
+    "members": "Board members",
+    "member": "Board member",
     "back": "Back to the overview"
-	},
-	"vacancy": {
-		"title": "Vacancies",
-		"featured": "Featured vacancy",
-		"at": "Vancancies at {0}",
-		"call": "Call",
-		"mail": "Mail",
-		"choose": {
-			"study": "Sort by studies",
-			"type": "Sort by type(s)"
-		},
-		"chosen": {
-			"study": "{0} studies selected:",
-			"type": "{0} type(s) selected:"
-		},
-		"filter": {
-			"grad": "Graduation assignment",
-			"side": "Side job",
-			"full": "Full-time",
-			"part": "Part-time",
-			"intern": "Internship",
-			"trainee": "Traineeship"
-		}
-	},
-	"activities": {
-		"title": "Activities",
-		"next": "Next Activity",
-		"more": "More activities",
-		"none": "No activities",
-		"loading": "Loading activities...",
-		"poster": "Poster for {0}",
-		"location": "Location: ",
-		"price": "Price: ",
-		"free": "Free"
-	},
-	"news": {
-		"title": "News",
+  },
+  "vacancy": {
+    "title": "Vacancies",
+    "featured": "Featured vacancy",
+    "at": "Vancancies at {0}",
+    "call": "Call",
+    "mail": "Mail",
+    "choose": {
+      "study": "Sort by studies",
+      "type": "Sort by type(s)"
+    },
+    "chosen": {
+      "study": "{0} studies selected:",
+      "type": "{0} type(s) selected:"
+    },
+    "filter": {
+      "grad": "Graduation assignment",
+      "side": "Side job",
+      "full": "Full-time",
+      "part": "Part-time",
+      "intern": "Internship",
+      "trainee": "Traineeship"
+    }
+  },
+  "activities": {
+    "title": "Activities",
+    "next": "Next Activity",
+    "more": "More activities",
+    "none": "No activities",
+    "loading": "Loading activities...",
+    "poster": "Poster for {0}",
+    "location": "Location: ",
+    "price": "Price: ",
+    "free": "Free"
+  },
+  "news": {
+    "title": "News",
     "alt": "Front page image of news article: {0}",
-		"first": "First",
-		"last": "Last"
-	},
-	"menu": {
-		"pics": "Pictures",
-		"signup": "Sign up",
-		"language": "Language"
-	},
-	"studies": {
-		"inca": "Computer Science (Bsc)",
-		"inku": "Information Science",
-		"gt": "Gametechnology"
-	},
-	"404": {
-		"title": "NOT FOUND",
-		"description": "You just hit a route that does not exist... the sadness."
-	},
-	"society": {
-		"name": "Societies",
-		"logo": "Society Logo"
-	},
-	"committee": "Committees",
-	"mailchimp": {
-		"email": "E-mail address",
-		"firstname": "First name",
-		"lastname": "Last name",
-		"mmm": "MondayMorningMail",
-		"company": "Companymailing",
-		"workshops": "Lectures and workshops"
-	}
+    "first": "First",
+    "last": "Last"
+  },
+  "menu": {
+    "pics": "Pictures",
+    "signup": "Sign up",
+    "language": "Language"
+  },
+  "studies": {
+    "inca": "Computer Science (Bsc)",
+    "inku": "Information Science",
+    "gt": "Gametechnology"
+  },
+  "404": {
+    "title": "NOT FOUND",
+    "description": "You just hit a route that does not exist... the sadness."
+  },
+  "society": {
+    "name": "Societies",
+    "logo": "Society Logo"
+  },
+  "committee": "Committees",
+  "mailchimp": {
+    "email": "E-mail address",
+    "firstname": "First name",
+    "lastname": "Last name",
+    "mmm": "MondayMorningMail",
+    "company": "Company mailing",
+    "workshops": "Lectures and workshops"
+  }
 }
