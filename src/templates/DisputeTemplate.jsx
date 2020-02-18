@@ -18,7 +18,7 @@ const DisputeView = ({ data }) => {
       <Button
         as={Link}
         className="labeled icon basic"
-        to="/vereniging/disputen"
+        to={`/${dispute.node_locale}/vereniging/disputen`}
       >
         <Icon name="angle left" />
         {getTranslation(language, 'society.name')}
@@ -74,6 +74,7 @@ export const DisputeQuery = graphql`
       id
       name
       website
+      node_locale
       description {
         description
       }
