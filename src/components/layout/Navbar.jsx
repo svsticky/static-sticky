@@ -27,7 +27,7 @@ class NavBar extends React.Component {
       content => content.node.node_locale === this.language // Only get the current language
     );
     props.data.allContentfulPage.edges.sort(
-      (a, b) => a.node.order > b.node.order ? -1 : 1 // Sorting all the menu items
+      (a, b) => a.node.order - b.node.order // Sorting all the menu items
     );
   }
 
@@ -250,6 +250,7 @@ export default props => (
               id
               title
               slug
+              order
               node_locale
               parentPage {
                 title
