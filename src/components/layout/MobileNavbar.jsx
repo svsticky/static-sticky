@@ -62,7 +62,7 @@ class MobileNavBar extends React.Component {
         >
           {page.node.title}
         </ParentMenuItem>
-      ));
+      )).sort((a,b) => b.order - a.order);
   };
 
   renderSubMenuItems = pages => {
@@ -313,6 +313,7 @@ export default props => (
               id
               title
               slug
+              order
               node_locale
               parentPage {
                 title
