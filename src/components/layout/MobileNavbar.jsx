@@ -24,7 +24,7 @@ class MobileNavBar extends React.Component {
       content => content.node.node_locale === this.language // Only get the current language
     );
     props.data.allContentfulPage.edges.sort(
-      (a, b) => b.node.title.localeCompare(a.node.title) // Sorting submenuitems a-z (flex-direction is column-reverse/row-reverse)
+      (a, b) => a.node.order - b.node.order // Sorting menuitems on order from contentful (flex-direction is column-reverse/row-reverse)
     );
   }
 
@@ -62,7 +62,7 @@ class MobileNavBar extends React.Component {
         >
           {page.node.title}
         </ParentMenuItem>
-      )).sort((a,b) => b.order - a.order);
+      ));
   };
 
   renderSubMenuItems = pages => {
