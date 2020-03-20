@@ -78,7 +78,7 @@ const showButton = board => {
       labelPosition="right"
       icon="right chevron"
       content={getTranslation(board.language, 'board.number', [
-        board.number - 1,
+        board.number + 1,
       ])}
       to={`/${board.language}/besturen/${board.number + 1}`}
       className="button-next"
