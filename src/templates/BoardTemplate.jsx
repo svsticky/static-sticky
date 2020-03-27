@@ -14,7 +14,9 @@ const BoardView = ({ data }) => {
       : metadata.defaultLocale;
 
   return (
-    <Layout title={board.name}>
+    <Layout
+      title={getTranslation(board.language, 'board.number', [board.number])}
+    >
       <BoardTemplateWrapper motto={board.motto} color={board.color}>
         <div>
           <div>
@@ -50,11 +52,12 @@ const BoardView = ({ data }) => {
 
 const buildHeader = board => {
   if (board.current) {
-    return `${getTranslation(board.language, 'board.current_name')} ${
-      board.name
-    }`;
+    return `${getTranslation(
+      board.language,
+      'board.current_name'
+    )} ${getTranslation(board.node_locale, 'board.number', [board.number])}`;
   }
-  return board.name;
+  return getTranslation(board.node_locale, 'board.number', [board.number]);
 };
 
 const showButton = board => {
@@ -169,11 +172,11 @@ export const boardQuery = graphql`
   query boardQuery($id: String!) {
     contentfulBoard(id: { eq: $id }) {
       id
-      name
       years
       number
       motto
       members
+      node_locale
       color
       current
       photo {
