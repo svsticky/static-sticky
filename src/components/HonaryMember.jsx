@@ -3,54 +3,42 @@ import styled from 'styled-components';
 import { Card } from 'semantic-ui-react';
 import { getTranslation } from '../data/i18n';
 
-const ContactPerson = ({ contactPerson }) => (
-  <ContactPersonMember>
+const HonaryMember = ({ honaryMember }) => (
+  <HonaryPersonMember color={honaryMember.color}>
     <div className="card">
       <Card fluid>
         <Card.Content>
-          <h3 className="head">{contactPerson.typeOfContact}</h3>
+          <h3 className="head">{honaryMember.name + ' (' + honaryMember.year + ')'}</h3>
           <div className="flex-card">
             <div>
-              {contactPerson.photo === null ? (
+              {honaryMember.photo === null ? (
                 <p>
-                  {getTranslation(contactPerson.node_locale, 'board.no_photo')}
+                  {getTranslation(honaryMember.node_locale, 'board.no_photo')}
                 </p>
               ) : (
                 <img
                   className="member-photo"
                   alt={getTranslation(
-                    contactPerson.node_locale,
-                    'board.member'
+                    honaryMember.node_locale,
+                    'honary.member'
                   )}
-                  src={contactPerson.photo.file.url}
+                  src={honaryMember.photo.file.url}
                 />
               )}
             </div>
             <div>
-              <p>{contactPerson.name + ' (' + contactPerson.role + ')'}</p>
               <p>
-                Tel.:
-                <a href={'tel:' + contactPerson.mobile}>
-                  {' '}
-                  {contactPerson.mobile}
-                </a>
-              </p>
-              <p>
-                Mail:
-                <a href={'mailto:' + contactPerson.email}>
-                  {' '}
-                  {contactPerson.email}
-                </a>
+                {honaryMember.description}
               </p>
             </div>
           </div>
         </Card.Content>
       </Card>
     </div>
-  </ContactPersonMember>
+  </HonaryPersonMember>
 );
 
-const ContactPersonMember = styled.div`
+const HonaryPersonMember = styled.div`
   .head {
     color: ${props => (props.color ? props.color : '#000')};
   }
@@ -69,4 +57,4 @@ const ContactPersonMember = styled.div`
   }
 `;
 
-export default ContactPerson;
+export default HonaryMember;
