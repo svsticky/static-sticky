@@ -32,6 +32,15 @@ class News extends React.Component {
           pageNum * this.props.itemsPerPage + this.props.itemsPerPage
         )
         .map(item => {
+          let cutarr = [' ',',','.','\n'];
+          if(item.node.content.content.length > 400){
+            for(let i = 400; i < item.node.content.content.length; i++){
+              if(cutarr.indexOf(item.node.content.content[i]) > -1){
+                item.node.content.content = item.node.content.content.slice(0,i) + '...';
+                break;
+              }
+            }
+          }
           return (
             <Link
               to={`/${item.node.node_locale}/news/${item.node.slug}`}
@@ -46,7 +55,7 @@ class News extends React.Component {
                   </p>
                 </div>
                 <List.Description>
-                  <Markdown>{item.node.content.content.slice(0, 300)}</Markdown>
+                  <Markdown>{item.node.content.content}</Markdown>
                 </List.Description>
               </div>
               {item.node.frontPageImage && (
