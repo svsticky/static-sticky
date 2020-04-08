@@ -1,8 +1,0 @@
-{
-  "ignore": {
-    "gulp": {
-      "versions": ">=4.0.0",
-      "reason": "Incompatible with semantic-ui (for now https://github.com/Semantic-Org/Semantic-UI/issues/3793)"
-    }
-  }
-}
