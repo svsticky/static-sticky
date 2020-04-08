@@ -3,24 +3,30 @@ import styled from 'styled-components';
 import { Dropdown } from 'semantic-ui-react';
 import { device } from '../../data/Devices';
 import { getTranslation } from '../../data/i18n';
+import { StaticQuery } from 'gatsby';
+import { getLanguage, metadata } from '../../data/i18n';
 
-const studieFilterOptions = lg => [
-  { key: 1, text: getTranslation(lg, 'studies.inca'), value: 'Informatica' },
-  {
-    key: 2,
-    text: getTranslation(lg, 'studies.inku'),
-    value: 'Informatiekunde',
-  },
-  { key: 3, text: getTranslation(lg, 'studies.gt'), value: 'Gametechnologie' },
-  { key: 4, text: 'Artificial Intelligence', value: 'Artificial Intelligence' },
-  { key: 5, text: 'Business Informatics', value: 'Business Informatics' },
-  { key: 6, text: 'Computing Science', value: 'Computing Science' },
-  {
-    key: 7,
-    text: 'Game and Media Technology',
-    value: 'Game and Media Technology',
-  },
-];
+const studieFilterOptions = query => {
+  const language =
+  typeof window !== 'undefined'
+  ? getLanguage(window)
+  : metadata.defaultLocale;
+  const filter = query.nodes.filter(
+    content => content.node_locale === language // Only get the current language
+  );
+  let studies = [];
+  for(let i = 0; i < filter.length; i++){
+    studies[i] = {
+      key: filter[i].order,
+      text: filter[i].Name,
+      value: filter[i].short,
+    };
+  }
+  return studies;
+};
+
+  
+;
 
 const typeFilterOptions = lg => [
   {
@@ -81,7 +87,7 @@ const JobFilter = props => (
         fluid
         multiple
         selection
-        options={studieFilterOptions(props.locale)}
+        options={studieFilterOptions(props.data.allContentfulStudy)}
         placeholder={getTranslation(props.locale, 'vacancy.choose.study')}
         onChange={(e, data) => {
           props.updateStudiesFilter(data.value);
@@ -145,5 +151,21 @@ const JobFilterWrapper = styled.div`
     }
   }
 `;
-
-export default JobFilter;
+const studiesQuery = graphql`
+  query studiesQuery{
+    allContentfulStudy{
+      nodes{
+        Name
+        node_locale
+        short
+        order
+      }
+    }
+  }
+`;
+export default props => (
+  <StaticQuery
+    query={studiesQuery}
+    render={data => <JobFilter data={data} {...props}/>}
+  />
+);
