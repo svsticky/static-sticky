@@ -8,7 +8,7 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
     return createJobs(jobs);
   } else if (studiesFilter.length > 0 && typesFilter.length === 0) {
     const jobStudieFilter = jobs.filter(job =>
-      job.node.target_studies.some(studie => studiesFilter.indexOf(studie) >= 0)
+      job.node.studies.some(studie => studiesFilter.indexOf(studie.short) >= 0)
     );
     return createJobs(jobStudieFilter);
   } else if (typesFilter.length > 0 && studiesFilter.length === 0) {
@@ -19,8 +19,8 @@ const displayJobs = (studiesFilter, typesFilter, jobs) => {
   } else if (studiesFilter.length > 0 && typesFilter.length > 0) {
     const jobSuperFilter = jobs.filter(
       job =>
-        job.node.target_studies.some(
-          studie => studiesFilter.indexOf(studie) >= 0
+        job.node.studies.some(
+          studie => studiesFilter.indexOf(studie.short) >= 0
         ) && job.node.type.some(type => typesFilter.indexOf(type) >= 0)
     );
     return createJobs(jobSuperFilter);

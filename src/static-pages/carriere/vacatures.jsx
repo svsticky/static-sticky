@@ -63,7 +63,9 @@ const JobsListQuery = graphql`
           job_title
           summary
           featured
-          target_studies
+          studies{
+            short
+          }
           type
           isJob
           slug
