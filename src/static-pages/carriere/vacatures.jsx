@@ -63,7 +63,7 @@ const JobsListQuery = graphql`
           job_title
           summary
           featured
-          studies{
+          study{
             short
           }
           type
