@@ -65,7 +65,7 @@ const honourMemberQuery = graphql`
         }
       }
     }
-    contentfulPage(slug: { eq: "LedenVanVerdiensten" }) {
+    contentfulPage(slug: { eq: "LedenVanVerdienste" }) {
       title
       content {
         content
