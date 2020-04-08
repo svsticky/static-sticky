@@ -26,10 +26,7 @@ const HonourPage = props => {
 
 const getHonourPersons = honourPersons => {
   return honourPersons.map(honaryMember => (
-    <HonaryMember
-      key={honaryMember.node.id}
-      honaryMember={honaryMember.node}
-    />
+    <HonaryMember key={honaryMember.node.id} honaryMember={honaryMember.node} />
   ));
 };
 
@@ -65,7 +62,7 @@ const honourMemberQuery = graphql`
         }
       }
     }
-    contentfulPage(slug: { eq: "LedenVanVerdienste" }) {
+    contentfulPage(slug: { eq: "leden-van-verdienste" }) {
       title
       content {
         content
