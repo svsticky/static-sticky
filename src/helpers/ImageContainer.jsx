@@ -12,12 +12,8 @@ export const ImageContainer = props => {
 const StyledImageContainer = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+  height: 10rem;
   img {
-    height: auto;
     max-height: 100%;
-    max-width: 100%;
   }
 `;
