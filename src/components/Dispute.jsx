@@ -6,6 +6,7 @@ const Dispute = ({ dispute }) => (
   <LinkLogoCard
     url={`/${dispute.node_locale}/disputen/${dispute.slug}`}
     listItem
+    name={dispute.name}
   >
     <ImageContainer
       src={dispute.logo.file.url}
