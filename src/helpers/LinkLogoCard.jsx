@@ -9,7 +9,7 @@ export const LinkLogoCard = props => {
       <Card as={Link} to={props.url} className="card">
         {props.children}
         <Card.Content>
-          <Card.Header centered>{props.name}</Card.Header>
+          <Card.Header className="center aligned">{props.name}</Card.Header>
         </Card.Content>
       </Card>
     </StyledLinkLogoCard>

@@ -8,7 +8,9 @@ const HonaryMember = ({ honaryMember }) => (
     <div className="card">
       <Card fluid>
         <Card.Content>
-          <h3 className="head">{honaryMember.name + ' (' + honaryMember.year + ')'}</h3>
+          <h3 className="head">
+            {honaryMember.name + ' (' + honaryMember.year + ')'}
+          </h3>
           <div className="flex-card">
             <div>
               {honaryMember.photo === null ? (
@@ -27,9 +29,7 @@ const HonaryMember = ({ honaryMember }) => (
               )}
             </div>
             <div>
-              <p>
-                {honaryMember.description}
-              </p>
+              <p>{honaryMember.description}</p>
             </div>
           </div>
         </Card.Content>
