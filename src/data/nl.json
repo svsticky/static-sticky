@@ -72,13 +72,5 @@
 		"name": "Disputen",
 		"logo": "Dispuut Logo"
 	},
-	"committee": "Commissies",
-	"mailchimp": {
-		"email": "E-mail adres",
-		"firstname": "Voornaam",
-		"lastname": "Achternaam",
-		"mmm": "MaandagMorgenMail",
-		"company": "Bedrijfsmailing",
-		"workshops": "Lezingen en workshops"
-	}
+	"committee": "Commissies"
 }
