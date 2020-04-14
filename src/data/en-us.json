@@ -72,13 +72,5 @@
     "name": "Societies",
     "logo": "Society Logo"
   },
-  "committee": "Committees",
-  "mailchimp": {
-    "email": "E-mail address",
-    "firstname": "First name",
-    "lastname": "Last name",
-    "mmm": "MondayMorningMail",
-    "company": "Company mailing",
-    "workshops": "Lectures and workshops"
-  }
+  "committee": "Committees"
 }

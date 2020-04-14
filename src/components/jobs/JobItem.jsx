@@ -9,13 +9,17 @@ const JobItem = props => (
       as={Link}
       fluid
       to={`/${props.job.node_locale}/vacatures/${props.job.slug}`}
-      className="card"
     >
-      <Label
-        color={props.job.isJob ? 'blue' : 'yellow'}
-        ribbon="right"
-        className="ribbon"
-      >
+      {
+        // This div is neccesary for the styling of the ribbon, believe it or not
+        // there is this .ui.card > :first-child selector in card.less (semantic)
+        // that sets the border-top to none (apparently this is important)
+        // overriding this is kinda hard because you need to set the color again,
+        // matching (but not identical to) the label color
+        // Inserting an empty before the ribbon fixes this bullshit
+      }
+      <div></div>
+      <Label color={props.job.isJob ? 'blue' : 'yellow'} ribbon="right">
         <Icon
           name={props.job.isJob ? 'briefcase' : 'student'}
           size="large"
