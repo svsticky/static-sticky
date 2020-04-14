@@ -1739,6 +1739,7 @@ i.icon.zoom.out:before { content: "\f010"; }
   i.icon.linux:before { content: "\f17c"; font-family: @brandFontName; }
   i.icon.lyft:before { content: "\f3c3"; font-family: @brandFontName; }
   i.icon.magento:before { content: "\f3c4"; font-family: @brandFontName; }
+  i.icon.mailchimp:before { content: "\f59e"; font-family: @brandFontName; }
   i.icon.mandalorian:before { content: "\f50f"; font-family: @brandFontName; }
   i.icon.markdown:before { content: "\f60f"; font-family: @brandFontName; }
   i.icon.mastodon:before { content: "\f4f6"; font-family: @brandFontName; }
