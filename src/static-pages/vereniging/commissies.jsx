@@ -16,7 +16,7 @@ const CommitteeIndexPage = ({ data }) => {
   );
   const committees = committeesNode.filter(
     content => content.node_locale === language
-  );
+  ).sort((a,b) => a.name > b.name);
   const page = data.contentfulPage;
 
   return (
