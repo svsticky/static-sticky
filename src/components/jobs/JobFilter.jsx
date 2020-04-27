@@ -8,14 +8,14 @@ import { getLanguage, metadata } from '../../data/i18n';
 
 const studieFilterOptions = query => {
   const language =
-  typeof window !== 'undefined'
-  ? getLanguage(window)
-  : metadata.defaultLocale;
+    typeof window !== 'undefined'
+      ? getLanguage(window)
+      : metadata.defaultLocale;
   const filter = query.nodes.filter(
     content => content.node_locale === language // Only get the current language
   );
   let studies = [];
-  for(let i = 0; i < filter.length; i++){
+  for (let i = 0; i < filter.length; i++) {
     studies[i] = {
       key: filter[i].order,
       text: filter[i].Name,
@@ -24,9 +24,6 @@ const studieFilterOptions = query => {
   }
   return studies;
 };
-
-  
-;
 
 const typeFilterOptions = lg => [
   {
@@ -152,9 +149,9 @@ const JobFilterWrapper = styled.div`
   }
 `;
 const studiesQuery = graphql`
-  query studiesQuery{
-    allContentfulStudy{
-      nodes{
+  query studiesQuery {
+    allContentfulStudy(sort: { fields: [order] }) {
+      nodes {
         Name
         node_locale
         short
@@ -166,6 +163,6 @@ const studiesQuery = graphql`
 export default props => (
   <StaticQuery
     query={studiesQuery}
-    render={data => <JobFilter data={data} {...props}/>}
+    render={data => <JobFilter data={data} {...props} />}
   />
 );
