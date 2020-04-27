@@ -10,14 +10,15 @@ export const ImageContainer = props => {
 };
 
 const StyledImageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 100%;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 10rem;
+  align-items: center;
   img {
-    height: auto;
     max-height: 100%;
+    height: auto;
     max-width: 100%;
   }
 `;
