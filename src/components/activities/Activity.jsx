@@ -60,7 +60,10 @@ const renderPoster = (posterUrl, activityName, lg) => (
   />
 );
 
-const renderInfo = ({ id, location, name, price, description }, lg) => (
+const renderInfo = (
+  { id, location, name, price, description_nl, description_en },
+  lg
+) => (
   <FullSizeCard fluid>
     <FlexContainer>
       <Title>
@@ -83,7 +86,11 @@ const renderInfo = ({ id, location, name, price, description }, lg) => (
         </em>
       </div>
       <Description>
-        <em dangerouslySetInnerHTML={{ __html: SanitizeHTML(description) }} />
+        <em
+          dangerouslySetInnerHTML={{
+            __html: SanitizeHTML(lg == 'nl' ? description_nl : description_en),
+          }}
+        />
       </Description>
       <div>
         {/* without a div around the button the height of the label would not be taken into account */}
