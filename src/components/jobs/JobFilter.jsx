@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Dropdown } from 'semantic-ui-react';
 import { device } from '../../data/Devices';
 import { getTranslation } from '../../data/i18n';
+import { graphql } from 'gatsby';
 import { StaticQuery } from 'gatsby';
 import { getLanguage, metadata } from '../../data/i18n';
 
