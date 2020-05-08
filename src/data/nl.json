@@ -1,8 +1,8 @@
 {
-  "drinks": {
-    "title": "Borrels",
-    "description": "Elke week is er een gratis borrel! Deze periode is de borreldag:",
-    "when": "Elke {0} vanaf {1} in de {2}!"
+	"drinks": {
+		"title": "Borrels",
+		"description": "Elke week is er een gratis borrel! Deze periode is de borreldag:",
+		"when": "Elke {0} vanaf {1} in de {2}!"
 	},
 	"board": {
 		"number": "Bestuur {0}",
@@ -12,7 +12,7 @@
 		"old": "Oud-besturen",
 		"members": "Bestuursleden",
 		"member": "Bestuurslid",
-    "back": "Terug naar overzicht"
+		"back": "Terug naar overzicht"
 	},
 	"vacancy": {
 		"title": "Vacatures",
@@ -56,7 +56,7 @@
 	},
 	"menu": {
 		"pics": "Foto's",
-		"signup": "Inschrijven",
+		"signup": "Word lid!",
 		"language": "Taal"
 	},
 	"studies": {
