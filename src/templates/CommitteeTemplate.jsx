@@ -3,7 +3,15 @@ import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Button, Header, Icon, Image, Grid, Divider } from 'semantic-ui-react';
+import {
+  Button,
+  Card,
+  Header,
+  Icon,
+  Image,
+  Grid,
+  Divider,
+} from 'semantic-ui-react';
 import { getTranslation } from '../data/i18n';
 
 const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
@@ -47,8 +55,10 @@ const CommitteeView = ({ data: { contentfulCommittee: committee } }) => {
           </Sticky>
         </Grid.Column>
         <Grid.Column width={9}>
-          <Header className="huge">{committee.name}</Header>
-          <Markdown>{committee.description.description}</Markdown>
+          <Card fluid>
+            <Header className="huge">{committee.name}</Header>
+            <Markdown>{committee.description.description}</Markdown>
+          </Card>
         </Grid.Column>
       </Grid>
     </Layout>
