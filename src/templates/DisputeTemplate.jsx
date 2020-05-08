@@ -3,7 +3,15 @@ import Markdown from 'markdown-to-jsx';
 import styled from 'styled-components';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout/Layout';
-import { Grid, Header, Image, Divider, Button, Icon } from 'semantic-ui-react';
+import {
+  Card,
+  Grid,
+  Header,
+  Image,
+  Divider,
+  Button,
+  Icon,
+} from 'semantic-ui-react';
 import { getLanguage, metadata, getTranslation } from '../data/i18n';
 
 const DisputeView = ({ data }) => {
@@ -53,8 +61,10 @@ const DisputeView = ({ data }) => {
           </Sticky>
         </Grid.Column>
         <Grid.Column width={9}>
-          <Header className="huge">{dispute.name}</Header>
-          <Markdown>{dispute.description.description}</Markdown>
+          <Card fluid>
+            <Header className="huge">{dispute.name}</Header>
+            <Markdown>{dispute.description.description}</Markdown>
+          </Card>
         </Grid.Column>
       </Grid>
     </Layout>
