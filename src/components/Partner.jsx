@@ -5,8 +5,9 @@ const Partner = ({ partner }) => (
   <LinkLogoCard
     url={`/${partner.node_locale}/partners/${partner.slug}`}
     listItem
+    name={partner.name}
   >
-    <ImageContainer src={partner.logo.file.url} alt="Partner Logo" />
+    <ImageContainer src={partner.logo.file.url} alt={`Logo ${partner.name}`} />
   </LinkLogoCard>
 );
 
