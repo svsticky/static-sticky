@@ -22,6 +22,14 @@ const StyledLinkLogoCard = styled.div`
     .card {
       height: 16rem;
       width: 15rem;
+
+      .content {
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        margin-left: -21px;
+        margin-right: -21px;
+      }
     }
     .content {
       border-top: 0px;
