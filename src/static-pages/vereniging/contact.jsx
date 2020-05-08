@@ -54,7 +54,6 @@ const boardMemberQuery = graphql`
       edges {
         node {
           id
-          topic
           name
           role
           email
