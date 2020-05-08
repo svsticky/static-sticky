@@ -33,6 +33,7 @@ export default class Activity extends React.Component {
       // Putting the eventHandlers on the TurnReveal component also doesn't work for some reason.
       <TurnRevealWrapper>
         <div
+          role="textbox"
           onMouseEnter={e => this.animateInfo(e, Transition.show)}
           onMouseLeave={e => this.animateInfo(e, Transition.hide)}
           ref={this.revealRef}
