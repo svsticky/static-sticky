@@ -47,3 +47,7 @@ export const getTranslation = (lg, key, words) => {
     return text;
   }
 };
+
+export const getTranslatedPage = (query, lg) => {
+  return query.edges.filter(page => page.node.node_locale === lg)[0].node;
+};

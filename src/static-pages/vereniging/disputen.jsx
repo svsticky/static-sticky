@@ -4,7 +4,7 @@ import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
 import Dispute from '../../components/Dispute';
 import { FlexListContainer } from '../../helpers';
-import { getLanguage, metadata } from '../../data/i18n';
+import { getTranslatedPage, getLanguage, metadata } from '../../data/i18n';
 
 const DisputeIndexPage = ({ data }) => {
   const language =
@@ -17,7 +17,7 @@ const DisputeIndexPage = ({ data }) => {
   const disputes = disputeEdges.filter(
     content => content.node_locale === language // Only get the current language
   );
-  const page = data.contentfulPage;
+  const page = getTranslatedPage(data.allContentfulPage, language);
 
   return (
     <Layout title={page.title}>
@@ -49,10 +49,15 @@ const DisputeListQuery = graphql`
         }
       }
     }
-    contentfulPage(slug: { eq: "disputen" }) {
-      title
-      content {
-        content
+    allContentfulPage(filter: { slug: { eq: "disputen" } }) {
+      edges {
+        node {
+          title
+          node_locale
+          content {
+            content
+          }
+        }
       }
     }
   }

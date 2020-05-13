@@ -5,6 +5,7 @@ import { graphql, StaticQuery } from 'gatsby';
 import Layout from '../../components/layout/Layout';
 import Committee from '../../components/Committee';
 import { FlexListContainer } from '../../helpers';
+import { getTranslatedPage } from '../../data/i18n';
 
 const CommitteeIndexPage = ({ data }) => {
   const language =
@@ -17,7 +18,8 @@ const CommitteeIndexPage = ({ data }) => {
   const committees = committeesNode
     .filter(content => content.node_locale === language)
     .sort((a, b) => a.name.localeCompare(b.name));
-  const page = data.contentfulPage;
+
+  const page = getTranslatedPage(data.allContentfulPage, language);
 
   return (
     <Layout title={page.title}>
@@ -49,11 +51,15 @@ const CommitteeListQuery = graphql`
         }
       }
     }
-    contentfulPage(slug: { eq: "commissies" }) {
-      title
-      node_locale
-      content {
-        content
+    allContentfulPage(filter: { slug: { eq: "commissies" } }) {
+      edges {
+        node {
+          title
+          node_locale
+          content {
+            content
+          }
+        }
       }
     }
   }
