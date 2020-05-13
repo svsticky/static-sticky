@@ -30,7 +30,7 @@ class FeaturedJobs extends React.Component {
   };
 
   renderFeaturedJob = job => {
-    return <JobItem job={job.node} />;
+    return <JobItem job={job.node} partner={job.node.partner} />;
   };
 
   render() {
@@ -51,7 +51,7 @@ export default props => (
               job_title
               summary
               featured
-              study{
+              study {
                 short
               }
               type
