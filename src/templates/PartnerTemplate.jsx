@@ -159,13 +159,6 @@ export const PartnerQuery = graphql`
         slug
         isJob
         node_locale
-        partner {
-          logo {
-            file {
-              url
-            }
-          }
-        }
       }
     }
   }

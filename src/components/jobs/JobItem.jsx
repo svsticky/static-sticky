@@ -27,7 +27,7 @@ const JobItem = props => (
         />
       </Label>
       <div className="image-container">
-        <Image size="small" src={props.job.partner.logo.file.url} />
+        <Image size="small" src={props.partner.logo.file.url} />
       </div>
       <h4>{props.job.job_title}</h4>
       <p>{props.job.summary}</p>
