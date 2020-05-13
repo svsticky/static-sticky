@@ -4,7 +4,7 @@ import { graphql, StaticQuery } from 'gatsby';
 import HonaryMember from '$/components/HonaryMember';
 import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
-import { getLanguage, metadata } from '../../data/i18n';
+import { getTranslatedPage, getLanguage, metadata } from '../../data/i18n';
 
 const HonourPage = props => {
   const language =
@@ -14,7 +14,8 @@ const HonourPage = props => {
   const honourPersons = props.data.allContentfulHonaryMember.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );
-  const page = props.data.contentfulPage;
+  const page = getTranslatedPage(props.data.allContentfulPage, language);
+
   return (
     <Layout title={page.title}>
       <h2>{page.title}</h2>
@@ -62,10 +63,15 @@ const honourMemberQuery = graphql`
         }
       }
     }
-    contentfulPage(slug: { eq: "leden-van-verdienste" }) {
-      title
-      content {
-        content
+    allContentfulPage(filter: { slug: { eq: "leden-van-verdienste" } }) {
+      edges {
+        node {
+          title
+          node_locale
+          content {
+            content
+          }
+        }
       }
     }
   }

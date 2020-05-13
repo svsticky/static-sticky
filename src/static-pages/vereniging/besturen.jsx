@@ -6,7 +6,12 @@ import Board from '$/components/Board';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
 import { device } from '../../data/Devices';
-import { getTranslation, getLanguage, metadata } from '../../data/i18n';
+import {
+  getTranslatedPage,
+  getTranslation,
+  getLanguage,
+  metadata,
+} from '../../data/i18n';
 
 const BoardPage = props => {
   const language =
@@ -16,7 +21,8 @@ const BoardPage = props => {
   const boards = props.data.allContentfulBoard.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );
-  const page = props.data.contentfulPage;
+  const page = getTranslatedPage(props.data.allContentfulPage, language);
+
   return (
     <Layout title={page.title}>
       <h2>{page.title}</h2>
@@ -87,11 +93,15 @@ const BoardsQuery = graphql`
         }
       }
     }
-    contentfulPage(slug: { eq: "besturen" }) {
-      title
-      node_locale
-      content {
-        content
+    allContentfulPage(filter: { slug: { eq: "besturen" } }) {
+      edges {
+        node {
+          title
+          node_locale
+          content {
+            content
+          }
+        }
       }
     }
   }
