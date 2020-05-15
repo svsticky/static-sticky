@@ -88,7 +88,7 @@ const renderInfo = (
       <Description>
         <em
           dangerouslySetInnerHTML={{
-            __html: SanitizeHTML(lg == 'nl' ? description_nl : description_en),
+            __html: SanitizeHTML(lg === 'nl' ? description_nl : description_en),
           }}
         />
       </Description>
