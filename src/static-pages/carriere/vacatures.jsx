@@ -20,7 +20,7 @@ class JobIndexPage extends React.Component {
     this.jobs = this.props.data.allContentfulJobListing.edges.filter(
       content => content.node.node_locale === this.language // Only get the current language
     );
-    
+
     this.page = props.data.contentfulPage;
   }
 
@@ -57,14 +57,14 @@ class JobIndexPage extends React.Component {
 
 const JobsListQuery = graphql`
   query JobsListQuery {
-    allContentfulJobListing (sort: { fields: [createdAt] order: DESC}) {
+    allContentfulJobListing(sort: { fields: [createdAt], order: DESC }) {
       edges {
         node {
           id
           job_title
           summary
           featured
-          study{
+          study {
             short
           }
           type

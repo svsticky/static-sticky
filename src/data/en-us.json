@@ -72,9 +72,5 @@
     "name": "Societies",
     "logo": "Society Logo"
   },
-  "committee": "Committees",
-  "contacts": {
-    "confidential_counselors": "Confidential Counselors",
-    "confidential_counselor": "Confidential Counselor"
-  }
+  "committee": "Committees"
 }

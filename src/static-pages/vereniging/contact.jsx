@@ -4,7 +4,7 @@ import { graphql, StaticQuery } from 'gatsby';
 import ContactPerson from '$/components/ContactPerson';
 import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
-import { getTranslation, getLanguage, metadata } from '../../data/i18n';
+import { getLanguage, metadata } from '../../data/i18n';
 
 const ContactPage = props => {
   const language =
@@ -14,21 +14,12 @@ const ContactPage = props => {
   const contactPersons = props.data.allContentfulBoardMember.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );
-  console.log(props.data);
-  const confidentialCounselors = props.data.allContentfulConfidentialCounselor.nodes.filter(
-    content => content.node_locale === language // Only get the current language
-  );
   const page = props.data.contentfulPage;
   return (
     <Layout title={page.title}>
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <ContactList>{getContactPersons(contactPersons)}</ContactList>
-      <h2>{getTranslation(language, 'contacts.confidential_counselors')}</h2>
-      <Markdown>{page.content.content}</Markdown>
-      <ContactList>
-        {getConfidentialCounselors(confidentialCounselors)}
-      </ContactList>
     </Layout>
   );
 };
@@ -38,15 +29,6 @@ const getContactPersons = contactPersons => {
     <ContactPerson
       key={contactPerson.node.id}
       contactPerson={contactPerson.node}
-    />
-  ));
-};
-
-const getConfidentialCounselors = confidentialCounselors => {
-  return confidentialCounselors.map(confidentialCounselor => (
-    <ContactPerson
-      key={confidentialCounselor.id}
-      contactPerson={confidentialCounselor}
     />
   ));
 };
@@ -91,20 +73,6 @@ const boardMemberQuery = graphql`
       title
       content {
         content
-      }
-    }
-    allContentfulConfidentialCounselor {
-      nodes {
-        id
-        name
-        email
-        mobile
-        node_locale
-        photo {
-          file {
-            url
-          }
-        }
       }
     }
   }
