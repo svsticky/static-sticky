@@ -27,7 +27,10 @@ const ContactPerson = ({ contactPerson }) => (
               )}
             </div>
             <div>
-              <p>{contactPerson.name + ' (' + contactPerson.role + ')'}</p>
+              <p>
+                {contactPerson.name +
+                  (contactPerson.role ? ' (' + contactPerson.role + ')' : '')}
+              </p>
               <p>
                 Tel.:
                 <a href={'tel:' + contactPerson.mobile}>
