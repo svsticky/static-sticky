@@ -20,6 +20,9 @@ const ContactPage = props => {
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <ContactList>{getContactPersons(contactPersons)}</ContactList>
+      <h2>{'Vertrouwens personen'}</h2>
+      <Markdown>{page.content.content}</Markdown>
+      <ContactList></ContactList>
     </Layout>
   );
 };
@@ -78,6 +81,25 @@ const boardMemberQuery = graphql`
   }
 `;
 
+const confiancePersonQuery = graphql`
+  query confiancePersonQuery {
+    allContentfulConfiancePerson {
+      nodes {
+        id
+        name
+        email
+        mobile
+        node_locale
+        photo {
+          file {
+            url
+          }
+        }
+        typeOfContact
+      }
+    }
+  }
+`;
 export default props => (
   <StaticQuery
     query={boardMemberQuery}
