@@ -14,6 +14,10 @@ const ContactPage = props => {
   const contactPersons = props.data.allContentfulBoardMember.edges.filter(
     content => content.node.node_locale === language // Only get the current language
   );
+  console.log(props.data);
+  const confidentialCounselors = props.data.allContentfulConfiancePerson.nodes.filter(
+    content => content.node_locale === language // Only get the current language
+  );
   const page = props.data.contentfulPage;
   return (
     <Layout title={page.title}>
@@ -22,7 +26,9 @@ const ContactPage = props => {
       <ContactList>{getContactPersons(contactPersons)}</ContactList>
       <h2>{'Vertrouwens personen'}</h2>
       <Markdown>{page.content.content}</Markdown>
-      <ContactList></ContactList>
+      <ContactList>
+        {getConfidentialCounselors(confidentialCounselors)}
+      </ContactList>
     </Layout>
   );
 };
@@ -32,6 +38,15 @@ const getContactPersons = contactPersons => {
     <ContactPerson
       key={contactPerson.node.id}
       contactPerson={contactPerson.node}
+    />
+  ));
+};
+
+const getConfidentialCounselors = confidentialCounselors => {
+  return confidentialCounselors.map(confidentialCounselor => (
+    <ContactPerson
+      key={confidentialCounselor.id}
+      contactPerson={confidentialCounselor}
     />
   ));
 };
@@ -78,11 +93,6 @@ const boardMemberQuery = graphql`
         content
       }
     }
-  }
-`;
-
-const confiancePersonQuery = graphql`
-  query confiancePersonQuery {
     allContentfulConfiancePerson {
       nodes {
         id
@@ -100,6 +110,7 @@ const confiancePersonQuery = graphql`
     }
   }
 `;
+
 export default props => (
   <StaticQuery
     query={boardMemberQuery}
