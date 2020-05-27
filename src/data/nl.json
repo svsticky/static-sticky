@@ -72,5 +72,8 @@
     "name": "Disputen",
     "logo": "Dispuut Logo"
   },
-  "committee": "Commissies"
+  "committee": "Commissies",
+  "contacts": {
+    "confidentials_counselors": "Vertrouwenspersonen"
+  }
 }

@@ -4,7 +4,7 @@ import { graphql, StaticQuery } from 'gatsby';
 import ContactPerson from '$/components/ContactPerson';
 import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
-import { getLanguage, metadata } from '../../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 const ContactPage = props => {
   const language =
@@ -24,7 +24,7 @@ const ContactPage = props => {
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <ContactList>{getContactPersons(contactPersons)}</ContactList>
-      <h2>{'Vertrouwens personen'}</h2>
+      <h2>{getTranslation(language, 'contacts.confidentials_counselors')}</h2>
       <Markdown>{page.content.content}</Markdown>
       <ContactList>
         {getConfidentialCounselors(confidentialCounselors)}
