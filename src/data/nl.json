@@ -74,6 +74,7 @@
   },
   "committee": "Commissies",
   "contacts": {
-    "confidentials_counselors": "Vertrouwenspersonen"
+    "confidential_counselors": "Vertrouwenspersonen",
+    "confidential_counselor": "Vertrouwenspersoon"
   }
 }

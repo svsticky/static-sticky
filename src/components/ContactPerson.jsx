@@ -8,7 +8,11 @@ const ContactPerson = ({ contactPerson }) => (
     <div className="card">
       <Card fluid>
         <Card.Content>
-          <h3 className="head">{contactPerson.typeOfContact}</h3>
+          {contactPerson ? (
+            <h3 className="head">{contactPerson.typeOfContact}</h3>
+          ) : (
+            ''
+          )}
           <div className="flex-card">
             <div>
               {contactPerson.photo === null ? (

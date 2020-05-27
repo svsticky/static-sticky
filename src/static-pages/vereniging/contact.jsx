@@ -24,7 +24,7 @@ const ContactPage = props => {
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
       <ContactList>{getContactPersons(contactPersons)}</ContactList>
-      <h2>{getTranslation(language, 'contacts.confidentials_counselors')}</h2>
+      <h2>{getTranslation(language, 'contacts.confidential_counselors')}</h2>
       <Markdown>{page.content.content}</Markdown>
       <ContactList>
         {getConfidentialCounselors(confidentialCounselors)}
@@ -105,7 +105,6 @@ const boardMemberQuery = graphql`
             url
           }
         }
-        typeOfContact
       }
     }
   }

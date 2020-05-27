@@ -74,6 +74,7 @@
   },
   "committee": "Committees",
   "contacts": {
-    "confidentials_counselors": "Confidential Counselors"
+    "confidential_counselors": "Confidential Counselors",
+    "confidential_counselor": "Confidential Counselor"
   }
 }
