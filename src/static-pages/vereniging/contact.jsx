@@ -15,7 +15,7 @@ const ContactPage = props => {
     content => content.node.node_locale === language // Only get the current language
   );
   console.log(props.data);
-  const confidentialCounselors = props.data.allContentfulConfiancePerson.nodes.filter(
+  const confidentialCounselors = props.data.allContentfulConfidentialCounselor.nodes.filter(
     content => content.node_locale === language // Only get the current language
   );
   const page = props.data.contentfulPage;
@@ -93,7 +93,7 @@ const boardMemberQuery = graphql`
         content
       }
     }
-    allContentfulConfiancePerson {
+    allContentfulConfidentialCounselor {
       nodes {
         id
         name
