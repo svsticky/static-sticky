@@ -1,7 +1,7 @@
 {
   "name": "static-sticky",
   "description": "Sticky's website (svsticky.nl)",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "author": "Commit (https://github.com/orgs/svsticky/teams/commit)",
   "dependencies": {
     "atomic-layout": "^0.12.7",
