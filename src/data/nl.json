@@ -6,13 +6,14 @@
   },
   "board": {
     "number": "Bestuur {0}",
-    "no_photo": "Geen foto",
     "current": "Het huidige bestuur",
     "current_name": "Huidig",
     "old": "Oud-besturen",
     "members": "Bestuursleden",
-    "member": "Bestuurslid",
     "back": "Terug naar overzicht"
+  },
+  "contact": {
+    "alt": "Contact foto"
   },
   "vacancy": {
     "title": "Vacatures",

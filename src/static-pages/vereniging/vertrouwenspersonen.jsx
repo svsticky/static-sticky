@@ -5,7 +5,7 @@ import ContactPerson from '$/components/ContactPerson';
 import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
 import { Card } from 'semantic-ui-react';
-import { getLanguage, metadata } from '../../data/i18n';
+import { getLanguage, getTranslatedPage, metadata } from '../../data/i18n';
 
 const ContactPage = props => {
   const language =
@@ -15,7 +15,8 @@ const ContactPage = props => {
   const confidentialCounselors = props.data.allContentfulConfidentialCounselor.nodes.filter(
     content => content.node_locale === language // Only get the current language
   );
-  const page = props.data.contentfulPage;
+
+  const page = getTranslatedPage(props.data.allContentfulPage, language);
   return (
     <Layout title={page.title}>
       <h2>{page.title}</h2>
@@ -55,10 +56,15 @@ const ContactList = styled.div`
 
 const confidentialCounselorsQuery = graphql`
   query confidentialCounselorsQuery {
-    contentfulPage(slug: { eq: "vertrouwenspersonen" }) {
-      title
-      content {
-        content
+    allContentfulPage(filter: { slug: { eq: "vertrouwenspersonen" } }) {
+      edges {
+        node {
+          title
+          node_locale
+          content {
+            content
+          }
+        }
       }
     }
     allContentfulConfidentialCounselor {

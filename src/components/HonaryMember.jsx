@@ -14,9 +14,7 @@ const HonaryMember = ({ honaryMember }) => (
           <div className="flex-card">
             <div>
               {honaryMember.photo === null ? (
-                <p>
-                  {getTranslation(honaryMember.node_locale, 'board.no_photo')}
-                </p>
+                <p>{getTranslation(honaryMember.node_locale, 'contact.alt')}</p>
               ) : (
                 <img
                   className="member-photo"

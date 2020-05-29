@@ -6,13 +6,14 @@
   },
   "board": {
     "number": "Board {0}",
-    "no_photo": "No picture",
     "current": "The current board",
     "current_name": "Current",
     "old": "Old board",
     "members": "Board members",
-    "member": "Board member",
     "back": "Back to the overview"
+  },
+  "contact": {
+    "alt": "Contact photo"
   },
   "vacancy": {
     "title": "Vacancies",

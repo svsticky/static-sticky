@@ -17,15 +17,12 @@ const ContactPerson = ({ contactPerson }) => (
             <div>
               {contactPerson.photo === null ? (
                 <p>
-                  {getTranslation(contactPerson.node_locale, 'board.no_photo')}
+                  {getTranslation(contactPerson.node_locale, 'contact.alt')}
                 </p>
               ) : (
                 <img
                   className="member-photo"
-                  alt={getTranslation(
-                    contactPerson.node_locale,
-                    'board.member'
-                  )}
+                  alt={getTranslation(contactPerson.node_locale, 'contact.alt')}
                   src={contactPerson.photo.file.url}
                 />
               )}
