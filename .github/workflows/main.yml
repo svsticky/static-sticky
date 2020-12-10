@@ -1,0 +1,11 @@
+name: ESLint
+
+on: pull_request
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: run prettier
+        run: npx prettier --check src/**/*.jsx
