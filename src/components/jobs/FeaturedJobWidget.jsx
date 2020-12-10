@@ -51,7 +51,7 @@ export default props => (
               job_title
               summary
               featured
-              study{
+              study {
                 short
               }
               type

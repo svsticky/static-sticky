@@ -32,11 +32,12 @@ class News extends React.Component {
           pageNum * this.props.itemsPerPage + this.props.itemsPerPage
         )
         .map(item => {
-          let cutarr = [' ',',','.','\n'];
-          if(item.node.content.content.length > 400){
-            for(let i = 400; i < item.node.content.content.length; i++){
-              if(cutarr.indexOf(item.node.content.content[i]) > -1){
-                item.node.content.content = item.node.content.content.slice(0,i) + '...';
+          let cutarr = [' ', ',', '.', '\n'];
+          if (item.node.content.content.length > 400) {
+            for (let i = 400; i < item.node.content.content.length; i++) {
+              if (cutarr.indexOf(item.node.content.content[i]) > -1) {
+                item.node.content.content =
+                  item.node.content.content.slice(0, i) + '...';
                 break;
               }
             }
