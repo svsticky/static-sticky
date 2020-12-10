@@ -8,4 +8,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: run prettier
-        run: npx prettier --check src/**/*.jsx
+        run: npx prettier@1.19.1 --check src/**/*.jsx --config .prettierrc
