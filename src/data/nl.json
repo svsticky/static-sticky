@@ -1,7 +1,7 @@
 {
   "drinks": {
     "title": "Borrels",
-    "description": "Elke week is er een gratis borrel! Deze periode is de borreldag:",
+    "description": "Vanwege de huidige omstandigheden rondom het COVID-19 virus zijn er op het moment geen borrels.",
     "when": "Elke {0} vanaf {1} in de {2}!"
   },
   "board": {

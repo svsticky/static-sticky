@@ -8,13 +8,13 @@ class Drinks extends React.Component {
     return (
       <>
         {getTranslation(lg, 'drinks.description')} <br />
-        <b>
+        {/* <b>
           {getTranslation(lg, 'drinks.when', [
             drinks.day,
             drinks.time,
             drinks.location,
           ])}
-        </b>
+        </b> */}
       </>
     );
   };
