@@ -1,7 +1,7 @@
 {
   "drinks": {
     "title": "Drinks",
-    "description": "There is are free drinks every week! This period the drinks are:",
+    "description": "Because of the current situation concerning the COVID-19 virus we are not organizing any drinks.",
     "when": "Every {0} starting at {1} in the {2}!"
   },
   "board": {
