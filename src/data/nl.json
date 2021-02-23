@@ -47,7 +47,8 @@
     "poster": "Poster voor {0}",
     "location": "Locatie: ",
     "price": "Prijs: ",
-    "free": "Gratis"
+    "free": "Gratis",
+    "signup": "Inschrijven"
   },
   "news": {
     "title": "Nieuws",

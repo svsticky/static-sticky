@@ -47,7 +47,8 @@
     "poster": "Poster for {0}",
     "location": "Location: ",
     "price": "Price: ",
-    "free": "Free"
+    "free": "Free",
+    "signup": "Sign up"
   },
   "news": {
     "title": "News",

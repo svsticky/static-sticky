@@ -107,7 +107,7 @@ const renderInfo = (
           href={'https://koala.svsticky.nl/activities/' + id}
           target="_blank"
           rel="noopener noreferrer"
-          content={getTranslation(lg, 'menu.signup')}
+          content={getTranslation(lg, 'activities.signup')}
           icon="external"
           labelPosition="right"
         />
