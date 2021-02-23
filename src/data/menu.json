@@ -2,7 +2,13 @@
   "studie": [
     {
       "title": "Boekverkoop",
-      "url": "https://www.studystore.nl/sticky"
+      "url": "https://www.studystore.nl/sticky",
+      "node_locale": "nl"
+    },
+    {
+      "title": "Books",
+      "url": "https://www.studystore.nl/sticky",
+      "node_locale": "en-US"
     }
   ],
   "vereniging": [],
@@ -10,27 +16,63 @@
   "links": [
     {
       "title": "ODC Informatica",
-      "url": "http://www.cs.uu.nl/docs/committees/odc/"
+      "url": "http://www.cs.uu.nl/docs/committees/odc/",
+      "node_locale": "nl"
     },
     {
       "title": "SODI",
-      "url": "https://sodi.nl/"
+      "url": "https://sodi.nl/",
+      "node_locale": "nl"
     },
     {
       "title": "GitHub",
-      "url": "https://github.com/svsticky"
+      "url": "https://github.com/svsticky",
+      "node_locale": "nl"
     },
     {
       "title": "Exec(ut)",
-      "url": "https://www.execut.nl/"
+      "url": "https://www.execut.nl/",
+      "node_locale": "nl"
     },
     {
       "title": "Foto's",
-      "url": "https://photos.svsticky.nl/"
+      "url": "https://photos.svsticky.nl/",
+      "node_locale": "nl"
     },
     {
       "title": "Declaraties",
-      "url": "https://digidecs.svsticky.nl"
+      "url": "https://digidecs.svsticky.nl",
+      "node_locale": "nl"
+    },
+    {
+      "title": "ODC Informatica",
+      "url": "http://www.cs.uu.nl/docs/committees/odc/",
+      "node_locale": "en-US"
+    },
+    {
+      "title": "SODI",
+      "url": "https://sodi.nl/",
+      "node_locale": "en-US"
+    },
+    {
+      "title": "GitHub",
+      "url": "https://github.com/svsticky",
+      "node_locale": "en-US"
+    },
+    {
+      "title": "Exec(ut)",
+      "url": "https://www.execut.nl/",
+      "node_locale": "en-US"
+    },
+    {
+      "title": "Pictures",
+      "url": "https://photos.svsticky.nl/",
+      "node_locale": "en-US"
+    },
+    {
+      "title": "Declarations",
+      "url": "https://digidecs.svsticky.nl",
+      "node_locale": "en-US"
     }
   ]
 }

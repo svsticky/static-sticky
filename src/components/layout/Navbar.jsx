@@ -106,26 +106,30 @@ class NavBar extends React.Component {
   };
 
   renderExternMenuItems = externMenuItems =>
-    externMenuItems.map(externMenuItem => (
-      <Dropdown.Item
-        className="item"
-        key={externMenuItem.title}
-        href={externMenuItem.url}
-        target="_blank"
-        rel="noopener noreferrer" // For safety
-      >
-        <Grid>
-          <Grid.Row>
-            <Grid.Column width={12}>
-              <p className="item-text icon-item-text">{externMenuItem.title}</p>
-            </Grid.Column>
-            <Grid.Column>
-              <i className="item-text icon external" />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
-      </Dropdown.Item>
-    ));
+    externMenuItems
+      .filter(externMenuItem => externMenuItem.node_locale === this.language)
+      .map(externMenuItem => (
+        <Dropdown.Item
+          className="item"
+          key={externMenuItem.title}
+          href={externMenuItem.url}
+          target="_blank"
+          rel="noopener noreferrer" // For safety
+        >
+          <Grid>
+            <Grid.Row>
+              <Grid.Column width={12}>
+                <p className="item-text icon-item-text">
+                  {externMenuItem.title}
+                </p>
+              </Grid.Column>
+              <Grid.Column>
+                <i className="item-text icon external" />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Dropdown.Item>
+      ));
 
   render() {
     return (
