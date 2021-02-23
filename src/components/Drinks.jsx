@@ -8,15 +8,13 @@ class Drinks extends React.Component {
     return (
       <>
         {getTranslation(lg, 'drinks.description')} <br />
-        {
-          /*<b>
+        {/*<b>
             {getTranslation(lg, 'drinks.when', [
               drinks.day,
               drinks.time,
               drinks.location,
             ])}
-          </b>*/
-        }
+          </b>*/}
       </>
     );
   };
@@ -27,15 +25,13 @@ class Drinks extends React.Component {
         ? getLanguage(window)
         : metadata.defaultLocale;
     let drink = this.props.data.allContentfulDrinks.nodes.filter(
-      d => d.node_locale === language 
+      d => d.node_locale === language
     )[0]; //get only the first element
     return (
       <>
         <div>
           <h2>{getTranslation(language, 'drinks.title')}</h2>
-          <Card fluid>
-            {this.renderDescription(drink, language)}
-          </Card>
+          <Card fluid>{this.renderDescription(drink, language)}</Card>
         </div>
       </>
     );
@@ -43,16 +39,16 @@ class Drinks extends React.Component {
 }
 
 const drinksQuery = graphql`
-query drinksQuery {
-  allContentfulDrinks {
-    nodes {
-      day
-      node_locale
-      time
-      location
+  query drinksQuery {
+    allContentfulDrinks {
+      nodes {
+        day
+        node_locale
+        time
+        location
+      }
     }
   }
-}
 `;
 
 export default props => (
