@@ -8,13 +8,15 @@ class Drinks extends React.Component {
     return (
       <>
         {getTranslation(lg, 'drinks.description')} <br />
-        {/* <b>
-          {getTranslation(lg, 'drinks.when', [
-            drinks.day,
-            drinks.time,
-            drinks.location,
-          ])}
-        </b> */}
+        {
+          <b>
+            {getTranslation(lg, 'drinks.when', [
+              drinks.day,
+              drinks.time,
+              drinks.location,
+            ])}
+          </b>
+        }
       </>
     );
   };
@@ -37,17 +39,19 @@ class Drinks extends React.Component {
   }
 }
 
+const drinksQuery = graphql`
+  query {
+    contentfulDrinks {
+      location
+      day
+      time
+    }
+  }
+`;
+
 export default props => (
   <StaticQuery
-    query={graphql`
-      query {
-        contentfulDrinks {
-          location
-          day
-          time
-        }
-      }
-    `}
+    query={drinksQuery}
     render={data => <Drinks data={data} {...props} />}
   />
 );
