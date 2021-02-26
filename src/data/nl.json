@@ -73,5 +73,12 @@
     "name": "Disputen",
     "logo": "Dispuut Logo"
   },
-  "committee": "Commissies"
+  "committee": "Commissies",
+  "footer": {
+    "about_us": "Over Ons",
+    "contact": "Contact",
+    "partners": "Partners",
+    "advertise": "Adverteren",
+    "privacy": "Privacy"
+  }
 }
