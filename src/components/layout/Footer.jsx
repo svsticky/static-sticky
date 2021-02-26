@@ -65,8 +65,11 @@ const FooterWrapper = styled.div`
 
   footer {
     display: none;
+    margin-top: 2rem;
+
     @media ${device.tablet} {
       display: block;
+      margin-top: 1rem;
     }
 
     background-color: #444;
