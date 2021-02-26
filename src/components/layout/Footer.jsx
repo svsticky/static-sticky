@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { device } from '../../data/Devices';
 import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 const language =
@@ -7,6 +8,7 @@ const language =
 
 const Footer = () => (
   <FooterWrapper>
+    <div className="mobile"></div>
     <footer>
       <div className="ui centered container inverted divided three column grid">
         <div className="aligned column">
@@ -53,7 +55,20 @@ const Footer = () => (
 );
 
 const FooterWrapper = styled.div`
+  .mobile {
+    display: block;
+    @media ${device.tablet} {
+      display: none;
+    }
+    height: 42px;
+  }
+
   footer {
+    display: none;
+    @media ${device.tablet} {
+      display: block;
+    }
+
     background-color: #444;
     color: white;
 
@@ -66,6 +81,10 @@ const FooterWrapper = styled.div`
     .column {
       display: flex;
       align-items: center;
+      padding: 0.2rem !important;
+      @media ${device.smallMonitor} {
+        padding: 0.4rem !important;
+      }
     }
   }
 `;
