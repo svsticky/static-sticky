@@ -1,55 +1,57 @@
 import React from 'react';
 import styled from 'styled-components';
-import { device } from '../../data/Devices';
 
 const Footer = () => (
   <FooterWrapper>
-    <div className="footer-container">
-      <div className="footer-list">
-        <div className="footer-item">
-          <h3>Bezoekadres</h3>
-          Kamer 2.81 <br />
-          Buys Ballot Gebouw <br />
-          Princetonplein 5 <br />
-          3584 CC UTRECHT
+    <footer>
+      <div className="ui centered container inverted divided three column grid">
+        <div className="aligned column">
+          <a href="/">
+            <div class="ui mini image">
+              <img
+                src="https://public.svsticky.nl/logos/hoofd_outline_wit.svg"
+                alt="Home"
+              ></img>
+            </div>
+          </a>
+          <a href="/vereniging/over-ons">Over Ons</a>
+          <a href="/vereniging/contact">Contact</a>
         </div>
-        <div className="footer-item">
-          <h3>Postadres</h3>
-          Studievereniging Sticky <br />
-          Princetonplein 5 <br />
-          3584 CC UTRECHT
+        <div className="aligned column">
+          <a href="https://svsticky.nl/facebook">
+            <i class="big facebook icon"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/studievereniging-sticky">
+            <i class="big linkedin icon"></i>
+          </a>
+          <a href="https://github.com/svsticky/">
+            <i class="big github icon"></i>
+          </a>
         </div>
-        <div className="footer-item">
-          <h3>Gegevens</h3>
-          <strong>IBAN:</strong> NL61INGB0002877106 <br />
-          <strong>BTW:</strong> NL-8173.55.303.B01 <br />
-          <strong>KvK:</strong> 30220729, UTRECHT
+        <div className="aligned column grid">
+          <a href="/carriere/partners">Partners</a>
+          <a href="/carriere/samenwerking">Adverteren</a>
+          <a href="https://public.svsticky.nl/privacystatement.pdf">Privacy</a>
         </div>
       </div>
-    </div>
+    </footer>
   </FooterWrapper>
 );
 
 const FooterWrapper = styled.div`
-  background-color: #444;
-  color: white;
-  .footer {
-    &-container {
+  footer {
+    background-color: #444;
+    color: white;
+
+    a {
+      color: white;
+      margin: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .column {
       display: flex;
-      justify-content: center;
-    }
-    &-list {
-      display: flex;
-      flex-wrap: wrap;
-    }
-    &-item {
-      margin: 2rem;
-    }
-  }
-  @media ${device.mobileMax} {
-    padding: 1rem 0 5rem 0;
-    .footer-item {
-      margin: 1rem 2rem;
+      align-items: center;
     }
   }
 `;
