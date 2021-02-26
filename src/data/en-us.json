@@ -74,5 +74,12 @@
     "name": "Societies",
     "logo": "Society Logo"
   },
-  "committee": "Committees"
+  "committee": "Committees",
+  "footer": {
+    "about_us": "About Us",
+    "contact": "Contact",
+    "partners": "Partners",
+    "advertise": "Advertising",
+    "privacy": "Privacy"
+  }
 }

@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { getTranslation, getLanguage, metadata } from '../../data/i18n';
+
+const language =
+  typeof window !== 'undefined' ? getLanguage(window) : metadata.defaultLocale;
 
 const Footer = () => (
   <FooterWrapper>
@@ -14,8 +18,12 @@ const Footer = () => (
               ></img>
             </div>
           </a>
-          <a href="/vereniging/over-ons">Over Ons</a>
-          <a href="/vereniging/contact">Contact</a>
+          <a href="/vereniging/over-ons">
+            {getTranslation(language, 'footer.about_us')}
+          </a>
+          <a href="/vereniging/contact">
+            {getTranslation(language, 'footer.contact')}
+          </a>
         </div>
         <div className="aligned column">
           <a href="https://svsticky.nl/facebook">
@@ -29,9 +37,15 @@ const Footer = () => (
           </a>
         </div>
         <div className="aligned column grid">
-          <a href="/carriere/partners">Partners</a>
-          <a href="/carriere/samenwerking">Adverteren</a>
-          <a href="https://public.svsticky.nl/privacystatement.pdf">Privacy</a>
+          <a href="/carriere/partners">
+            {getTranslation(language, 'footer.partners')}
+          </a>
+          <a href="/carriere/samenwerking">
+            {getTranslation(language, 'footer.advertising')}
+          </a>
+          <a href="https://public.svsticky.nl/privacystatement.pdf">
+            {getTranslation(language, 'footer.privacy')}
+          </a>
         </div>
       </div>
     </footer>
