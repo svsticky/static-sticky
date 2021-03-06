@@ -13,7 +13,21 @@
     "back": "Terug naar overzicht"
   },
   "contact": {
-    "alt": "Contact foto"
+    "alt": "Contact foto",
+    "visiting_address": "Bezoekadres",
+    "postal_address": "Postadres",
+    "name": "Studievereniging Sticky",
+    "data": "Gegevens",
+    "room": "Kamer 2.81",
+    "building": "Buys Ballot Gebouw",
+    "address_1": "Princetonplein 5",
+    "address_2": "3584 CC UTRECHT",
+    "iban": "IBAN",
+    "iban_no": "NL61INGB0002877106",
+    "vat": "BTW",
+    "vat_no": "NL-8173.55.303.B01",
+    "kvk": "KVK",
+    "kvk_no": "30220729, UTRECHT"
   },
   "vacancy": {
     "title": "Vacatures",

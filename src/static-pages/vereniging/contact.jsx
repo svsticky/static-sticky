@@ -4,7 +4,8 @@ import { graphql, StaticQuery } from 'gatsby';
 import ContactPerson from '$/components/ContactPerson';
 import Layout from '../../components/layout/Layout';
 import Markdown from 'markdown-to-jsx';
-import { getLanguage, metadata } from '../../data/i18n';
+import { getTranslation, getLanguage, metadata } from '../../data/i18n';
+import { Card } from 'semantic-ui-react';
 
 const ContactPage = props => {
   const language =
@@ -19,7 +20,39 @@ const ContactPage = props => {
     <Layout title={page.title}>
       <h2>{page.title}</h2>
       <Markdown>{page.content.content}</Markdown>
-      <ContactList>{getContactPersons(contactPersons)}</ContactList>
+      <ContactList>
+        {getContactPersons(contactPersons)}
+
+        <Card fluid>
+          <Card.Content>
+            <h3>{getTranslation(language, 'contact.visiting_address')}</h3>
+            {getTranslation(language, 'contact.building')} <br />
+            {getTranslation(language, 'contact.room')} <br />
+            {getTranslation(language, 'contact.address_1')} <br />
+            {getTranslation(language, 'contact.address_2')}
+          </Card.Content>
+        </Card>
+
+        <Card fluid>
+          <Card.Content>
+            <h3>{getTranslation(language, 'contact.postal_address')}</h3>
+            {getTranslation(language, 'contact.name')} <br />
+            {getTranslation(language, 'contact.address_1')} <br />
+            {getTranslation(language, 'contact.address_2')}
+          </Card.Content>
+        </Card>
+        <Card fluid>
+          <Card.Content>
+            <h3>{getTranslation(language, 'contact.data')}</h3>
+            <strong>{getTranslation(language, 'contact.iban')}:</strong>{' '}
+            {getTranslation(language, 'contact.iban_no')} <br />
+            <strong>{getTranslation(language, 'contact.vat')}:</strong>{' '}
+            {getTranslation(language, 'contact.vat_no')} <br />
+            <strong>{getTranslation(language, 'contact.kvk')}:</strong>{' '}
+            {getTranslation(language, 'contact.kvk_no')}
+          </Card.Content>
+        </Card>
+      </ContactList>
     </Layout>
   );
 };
@@ -46,6 +79,10 @@ const ContactList = styled.div`
     grid-template-columns: 1fr;
   }
   grid-gap: 1em;
+
+  .ui.fluid.card {
+    margin: 0;
+  }
 `;
 
 const boardMemberQuery = graphql`
