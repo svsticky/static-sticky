@@ -5,7 +5,7 @@ Study Association Sticky's website is a static website built in React with Gatsb
 ## Installation
 
 1. Install Node Version Manager [nvm](https://github.com/creationix/nvm).
-2. Install the required version of nodejs by running `nvm install` in the project directory.
+2. Install the required version of Node.JS (v13.11.0) by running `nvm install` in the project directory.
 3. Install dependencies with `npm i` or `pnpm` (see below).
 4. Create .env file: `cp sample.env .env`.
 5. Fill .env with the required api keys from [contentful](https://app.contentful.com/).
@@ -25,6 +25,11 @@ If you get an error about file watchers, try this <https://github.com/guard/list
 
 Then just run `npm run develop` to start a shiny development server with hot reloading.
 
+## Contentful queries
+
+You can debug queries by typing localhost:8000/___graphql in your explorer.
+
 ## Deployment
 
 Also pretty simple, run `npm run build` and copy the files to a server.
+
