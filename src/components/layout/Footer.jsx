@@ -11,7 +11,7 @@ const Footer = () => (
     <div className="mobile"></div>
     <footer>
       <div className="ui centered container inverted divided three column grid">
-        <div className="aligned column">
+        <div className="aligned column grid">
           <a href="/">
             <div class="ui mini image">
               <img
@@ -66,6 +66,10 @@ const FooterWrapper = styled.div`
   footer {
     display: none;
     margin-top: 2rem;
+
+    .container {
+      margin-bottom: 0 !important;
+    }
 
     @media ${device.tablet} {
       display: block;
