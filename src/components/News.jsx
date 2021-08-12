@@ -33,6 +33,11 @@ class News extends React.Component {
         )
         .map(item => {
           let cutarr = [' ', ',', '.', '\n'];
+          item.node.content.content = item.node.content.content.replaceAll(
+            /\[([^[\]]*)\]\((.*?)\)/gm,
+            '$1'
+          );
+          console.log(item.node.content.content);
           if (item.node.content.content.length > 400) {
             for (let i = 400; i < item.node.content.content.length; i++) {
               if (cutarr.indexOf(item.node.content.content[i]) > -1) {
