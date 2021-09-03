@@ -12,6 +12,9 @@
     "members": "Bestuursleden",
     "back": "Terug naar overzicht"
   },
+  "branding": {
+    "title": "Huisstijl"
+  },
   "contact": {
     "alt": "Contact foto",
     "visiting_address": "Bezoekadres",

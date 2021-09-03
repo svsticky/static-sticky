@@ -12,6 +12,9 @@
     "members": "Board members",
     "back": "Back to the overview"
   },
+  "branding": {
+    "title": "Branding"
+  },
   "contact": {
     "alt": "Contact photo",
     "visiting_address": "Visiting Address",
