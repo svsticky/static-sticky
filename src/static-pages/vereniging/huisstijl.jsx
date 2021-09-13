@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../components/layout/Layout';
-import { Image, Grid, Button, Container, Header } from 'semantic-ui-react';
+import { Image, Grid, Button, Container } from 'semantic-ui-react';
 import { getTranslation, getLanguage, metadata } from '../../data/i18n';
 
 const columns = ['kleur', 'outline_zwart', 'outline_wit', 'kleur'];
@@ -12,7 +12,6 @@ const CreateCell = (row, column) => {
 
   return (
     <Grid.Column color={color}>
-      {/* <Header textAlign="center">Kleur</Header>  */}
       <Image
         size="massive"
         centered
@@ -59,15 +58,20 @@ const Huisstijl = props => {
 
   return (
     <Layout title={title}>
-      <h2>{title}</h2>
-      Op deze pagina wordt toegelicht hoe de huisstijl van Sticky werkt.
-      <h3>Logo's</h3>
+      <h1>{title}</h1>
+      <h2>Logo's</h2>
+      <p>
+        Het Sticky logo heeft drie verschillende vormen; Het hoofd, de compactie
+        versie en het volledige logo. Het hoofd wordt voornamelijk gebruikt op
+        Sticky merchandise of handtekeningen van mails. De compacte versie is
+        ook terug te vinden op bepaalde merchandise items. Verder wordt dit logo
+        voornamelijk gebruikt bij het maken van posters voor activiteiten van de
+        vereniging. Als laatste wordt het volledige logo voonramelijk voor breed
+        en externe doeleinden gebruikt. Hierbij kan je denken aan promotie
+        richting bedrijven en universiteit(en) toe.
+      </p>
+      <br />
       <Grid divided>
-        <Grid.Row columns={1}>
-          {/* <Grid.Column textAlign='center'>
-            <h4>Hoofd</h4>
-          </Grid.Column> */}
-        </Grid.Row>
         <Grid.Row columns={4}>
           {all_rows[0][0]}
           {all_rows[0][1]}
@@ -87,6 +91,56 @@ const Huisstijl = props => {
           {all_rows[2][3]}
         </Grid.Row>
       </Grid>
+      <h2>Kleuren</h2>
+      <p>Elk bestuur bij Sticky heeft zijn eigen bestuurskleur.</p>
+      <h2>Lettertypes</h2>
+      <p>
+        In posters wordt er aangeraden om maximaal 1 of 2 fonts te gebruiken. Zo
+        wordt de poster niet te vol. De lettertype families 'serif' en
+        'sans-serif' worden voornamelijk gebruikt, maar er is altijd vrijheid om
+        een andere familie te gebruiken.
+      </p>
+      <h2>Posters</h2>
+      <p>
+        De posters bij Sticky hebben een aantal vaste requirements staan. Deze
+        zijn er om de kwaliteit en zichtbaarheid van de posters te verbeteren.
+        Deze luiden;
+        <ul>
+          <li>
+            Formaat: <b>A3</b>
+          </li>
+          <li>
+            Resolutie: <b>300dpi</b>
+          </li>
+          <li>
+            Oriëntatie: <b>Portret</b>
+          </li>
+          <li>
+            Bestandsformaat: <b>PDF</b>
+          </li>
+          <li>
+            Taal: <b>Engels</b>
+          </li>
+        </ul>
+        <h3>Activiteitenposters</h3>
+        <p>
+          De titel van de activiteit, datum, locatie, commissie logo en het
+          Sticky logo moeten ook altijd te vinden zijn op de posters. Voor de
+          datum zijn er geen harde lijnen, maar wordt er geadviseerd de
+          DD-MM(m), DD-MM-YY of DD-MM-YYYY notatie te gebruiken. Het enige wat
+          wordt afgeraden is de Amerikaanse MM-DD notatie, gezien dit verwarring
+          kan brengen met in welke maand de activiteit plaats vind.
+        </p>
+        <h3>Externposters</h3>
+        <p>
+          De posters voor extern of onderwijs gerelateerde activiteiten hebben
+          soms wat extra vereisten. Zo moet in plaats van het commissie logo het
+          logo van een bedrijf komen te staan. Verder wordt het gebruik van het
+          volledige logo hier ook aangeraden. De stijl van de poster wordt vaker
+          serieuzer en proffessioneler opgesteld om de aard van de activiteit te
+          laten zien.
+        </p>
+      </p>
     </Layout>
   );
 };
