@@ -40,6 +40,15 @@ const CreateCell = (row, column) => {
   );
 };
 
+const tableStyle = {
+  'background-color': '#800816',
+  color: '#ffffff',
+};
+
+const tdStyle = {
+  padding: '10px',
+};
+
 const Huisstijl = props => {
   const language =
     typeof window !== 'undefined'
@@ -92,7 +101,33 @@ const Huisstijl = props => {
         </Grid.Row>
       </Grid>
       <h2>Kleuren</h2>
-      <p>Elk bestuur bij Sticky heeft zijn eigen bestuurskleur.</p>
+      <p>
+        Elk bestuur bij Sticky heeft zijn eigen bestuurskleur.
+        <i>Dit jaar is het bordeaux rood met de hexcode #800816.</i>
+        Sticky heeft oranje als verenigingskleur, maar deze wordt niet altijd
+        gebruikt. Voor het gebruik van kleur bij promotie van Sticky wordt
+        aangeraden om niet telkens met 1 kleur te werken, maar meerderen die
+        goed op elkaar aansluiten. Hiervoor zijn websites als{' '}
+        <a href="https://coolors.co">Coolors</a> en{' '}
+        <a href="https://color.adobe.com">Adobe Color Wheel</a>.
+        <h3>Kleuroverzicht</h3>
+        <table style={tableStyle}>
+          <tbody>
+            <tr>
+              <td style={tdStyle}>CYMK</td>
+              <td style={tdStyle}>0%, 94%, 83%, 50%</td>
+            </tr>
+            <tr>
+              <td style={tdStyle}>RGB</td>
+              <td style={tdStyle}>128, 8, 22</td>
+            </tr>
+            <tr>
+              <td style={tdStyle}>HEX</td>
+              <td style={tdStyle}>#800816</td>
+            </tr>
+          </tbody>
+        </table>
+      </p>
       <h2>Lettertypes</h2>
       <p>
         In posters wordt er aangeraden om maximaal 1 of 2 fonts te gebruiken. Zo
