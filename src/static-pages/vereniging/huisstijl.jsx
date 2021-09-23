@@ -1,9 +1,10 @@
 import React from 'react';
+import { graphql, StaticQuery } from 'gatsby';
 import Layout from '../../components/layout/Layout';
-import { Image, Grid, Button, Container } from 'semantic-ui-react';
 import { getTranslation, getLanguage, metadata } from '../../data/i18n';
+import { Image, Grid, Button, Container, Dropdown } from 'semantic-ui-react';
 
-const columns = ['kleur', 'outline_zwart', 'outline_wit', 'kleur'];
+const columns = ['kleur', 'zwart', 'wit'];
 const rows = ['hoofd', 'logo_compact', 'logo'];
 
 const CreateCell = (row, column) => {
@@ -15,34 +16,45 @@ const CreateCell = (row, column) => {
       <Image
         size="massive"
         centered
-        src={`https://public.svsticky.nl/logos/${row}_${column}.svg`}
+        src={`https://public.svsticky.nl/logos/${row}_outline_${column}.svg`}
       />
       <br />
       <Container textAlign="center">
-        <Button
-          primary
-          as="a"
-          href={`https://public.svsticky.nl/logos/${row}_${column}.png`}
-          target="_blank"
-        >
-          PNG
-        </Button>
-        <Button
-          primary
-          as="a"
-          href={`https://public.svsticky.nl/logos/${row}_${column}.svg`}
-          target="_blank"
-        >
-          SVG
-        </Button>
+        <Dropdown text="Download" floating labeled button className="icon">
+          <Dropdown.Menu>
+            <Dropdown.Item
+              as="a"
+              href={`https://public.svsticky.nl/logos/${row}_outline_${column}.svg`}
+              text="SVG"
+            />
+            <Dropdown.Item
+              as="a"
+              href={`https://public.svsticky.nl/logos/${row}_outline_${column}.png`}
+              text="PNG"
+            />
+            <Dropdown.Divider />
+            <Dropdown.Item
+              as="a"
+              href={`https://public.svsticky.nl/logos/${row}_gevuld_${column}.svg`}
+              text="Gevulde SVG"
+            />
+            <Dropdown.Item
+              as="a"
+              href={`https://public.svsticky.nl/logos/${row}_gevuld_${column}.png`}
+              text="Gevulde PNG"
+            />
+          </Dropdown.Menu>
+        </Dropdown>
       </Container>
     </Grid.Column>
   );
 };
 
-const tableStyle = {
-  'background-color': '#800816',
-  color: '#ffffff',
+const tableStyle = board_color => {
+  return {
+    'background-color': board_color,
+    color: '#ffffff',
+  };
 };
 
 const tdStyle = {
@@ -81,29 +93,20 @@ const Huisstijl = props => {
       </p>
       <br />
       <Grid divided>
-        <Grid.Row columns={4}>
-          {all_rows[0][0]}
-          {all_rows[0][1]}
-          {all_rows[0][2]}
-          {all_rows[0][3]}
-        </Grid.Row>
-        <Grid.Row columns={4}>
-          {all_rows[1][0]}
-          {all_rows[1][1]}
-          {all_rows[1][2]}
-          {all_rows[1][3]}
-        </Grid.Row>
-        <Grid.Row columns={4}>
-          {all_rows[2][0]}
-          {all_rows[2][1]}
-          {all_rows[2][2]}
-          {all_rows[2][3]}
-        </Grid.Row>
+        {all_rows.map(row => {
+          return (
+            <Grid.Row columns={3}>
+              {row[0]}
+              {row[1]}
+              {row[2]}
+            </Grid.Row>
+          );
+        })}
       </Grid>
       <h2>Kleuren</h2>
       <p>
         Elk bestuur bij Sticky heeft zijn eigen bestuurskleur.
-        <i>Dit jaar is het bordeaux rood met de hexcode #800816.</i>
+        <i> Dit jaar is het {props.data.contentfulBoard.color}. </i>
         Sticky heeft oranje als verenigingskleur, maar deze wordt niet altijd
         gebruikt. Voor het gebruik van kleur bij promotie van Sticky wordt
         aangeraden om niet telkens met 1 kleur te werken, maar meerderen die
@@ -111,7 +114,7 @@ const Huisstijl = props => {
         <a href="https://coolors.co">Coolors</a> en{' '}
         <a href="https://color.adobe.com">Adobe Color Wheel</a>.
         <h3>Kleuroverzicht</h3>
-        <table style={tableStyle}>
+        <table style={tableStyle(props.data.contentfulBoard.color)}>
           <tbody>
             <tr>
               <td style={tdStyle}>CYMK</td>
@@ -123,7 +126,7 @@ const Huisstijl = props => {
             </tr>
             <tr>
               <td style={tdStyle}>HEX</td>
-              <td style={tdStyle}>#800816</td>
+              <td style={tdStyle}>{props.data.contentfulBoard.color}</td>
             </tr>
           </tbody>
         </table>
@@ -180,4 +183,15 @@ const Huisstijl = props => {
   );
 };
 
-export default Huisstijl;
+export default props => (
+  <StaticQuery
+    query={graphql`
+      query {
+        contentfulBoard(current: { eq: true }) {
+          color
+        }
+      }
+    `}
+    render={data => <Huisstijl data={data} {...props} />}
+  />
+);
