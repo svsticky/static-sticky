@@ -15,7 +15,7 @@ jobs:
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: install node
         shell: bash -l {0}
-        run: nvm install
+        run: nvm install --latest-npm
       - name: install dependencies
         run: npm install
       - name: build
