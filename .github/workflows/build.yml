@@ -17,9 +17,9 @@ jobs:
         shell: bash -l {0}
         run: nvm install --latest-npm
       - name: install dependencies
-        run: npm install
+        run: /home/runner/.nvm/versions/node/v13.11.0/bin/npm install
       - name: build
-        run: npm run build
+        run: /home/runner/.nvm/versions/node/v13.11.0/bin/npm run build
         env:
           CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
           CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
