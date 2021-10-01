@@ -1,0 +1,36 @@
+name: Build
+# TODO: figure out if this should be in the main workflow
+
+on: push
+# TODO: run on pullrequest and master
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - name: install node
+        shell: bash -l {0}
+        run: nvm install
+      - name: install dependencies
+        run: npm install
+      - name: build
+        run: npm run build
+        env:
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+      # TODO: only run this on master
+      - name: export timestamp
+        run: export TIMESTAMP=$(date +'%Y%m%d-%H%M%S')
+      - name: export file name
+        run: export FILENAME="$TIMESTAMP.tar.gz"
+      - name: pack build
+        run: tar --create --gzip --file $FILENAME public
+      - name: generate hash
+        run: sha256sum $FILENAME > $TIMESTAMP.sha256
+      - name: upload artifacts to s3
+        run: aws s3 cp $FILENAME s3://static-sticky-builds
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # TODO: trigger a deploy
