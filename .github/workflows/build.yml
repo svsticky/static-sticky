@@ -1,5 +1,4 @@
 name: Build
-# TODO: figure out if this should be in the main workflow
 
 on: push
 # TODO: run on pullrequest and master
@@ -13,6 +12,10 @@ jobs:
         with:
           path: node_modules
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
+      - uses: actions/cache@v2.1.6
+        with:
+          path: ~/.nvm
+          key: nvm-${{ hashFiles('**.nvmrc') }}
       - name: install node
         shell: bash -l {0}
         run: nvm install --latest-npm
