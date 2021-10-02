@@ -1,7 +1,10 @@
 name: Build
 
-on: push
-# TODO: run on pullrequest and master
+on:
+  pull_request: {}
+  push:
+    branches:
+      - master
 
 jobs:
   build:
