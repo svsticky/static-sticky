@@ -31,11 +31,13 @@ jobs:
         env:
           CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
           CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
-      # TODO: only run this on master
       - name: export timestamp
         run: echo "TIMESTAMP=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+      - name: Git branch name
+        id: git-branch-name
+        uses: EthanSK/git-branch-name-action@v1
       - name: export file name
-        run: echo "FILENAME=$TIMESTAMP.tar.gz" >> $GITHUB_ENV
+        run: echo "FILENAME=$GIT_BRANCH_NAME-$TIMESTAMP" >> $GITHUB_ENV
       - name: pack build
         run: tar --create --gzip --file $FILENAME public
       - name: generate hash
