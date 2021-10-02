@@ -28,9 +28,9 @@ jobs:
           CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
       # TODO: only run this on master
       - name: export timestamp
-        run: export TIMESTAMP=$(date +'%Y%m%d-%H%M%S')
+        run: echo "TIMESTAMP=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
       - name: export file name
-        run: export FILENAME="$TIMESTAMP.tar.gz"
+        run: echo "FILENAME=$TIMESTAMP.tar.gz" >> $GITHUB_ENV
       - name: pack build
         run: tar --create --gzip --file $FILENAME public
       - name: generate hash
