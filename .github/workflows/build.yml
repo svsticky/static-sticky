@@ -44,11 +44,17 @@ jobs:
       - name: export file name
         run: echo "FILENAME=$(echo $GIT_BRANCH_NAME | sed 's/\//-/g')-$TIMESTAMP" >> $GITHUB_ENV
       - name: pack build
-        run: tar --create --gzip --file $FILENAME public
+        run: tar --create --gzip --file $FILENAME.tar.gz public
       - name: generate hash
-        run: sha256sum $FILENAME > $TIMESTAMP.sha256
-      - name: upload artifacts to s3
-        run: aws s3 cp $FILENAME s3://static-sticky-builds
+        run: sha256sum $FILENAME.tar.gz > $FILENAME.sha256
+      - name: upload build to s3
+        run: aws s3 cp $FILENAME.tar.gz s3://static-sticky-builds
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: eu-central-1
+      - name: upload checksum to s3
+        run: aws s3 cp $FILENAME.sha256 s3://static-sticky-builds
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
