@@ -7,14 +7,14 @@ class Drinks extends React.Component {
   renderDescription = (drinks, lg) => {
     return (
       <>
-        {getTranslation(lg, 'drinks.description')} <br />
-        {/*<b>
-            {getTranslation(lg, 'drinks.when', [
-              drinks.day,
-              drinks.time,
-              drinks.location,
-            ])}
-          </b>*/}
+        {getTranslation(lg, 'drinks.description')}
+        <b>
+          {getTranslation(lg, 'drinks.when', [
+            drinks.day,
+            drinks.time,
+            drinks.location,
+          ])}
+        </b>
       </>
     );
   };
