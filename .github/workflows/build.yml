@@ -7,6 +7,9 @@ on:
       - master
       - development
   workflow_dispatch: {}
+  schedule:
+    # Trigger a weekly deploy in order to prevent build staleness in S3
+    - cron: '0 0 * * 0'
 
 jobs:
   build:
