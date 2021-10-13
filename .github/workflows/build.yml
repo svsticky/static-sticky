@@ -59,4 +59,8 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-central-1
-      # TODO: trigger a deploy
+      - name: Trigger deploy to staging
+        uses: distributhor/workflow-webhook@v2.0.2
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL_STAGING }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET_STAGING }}
