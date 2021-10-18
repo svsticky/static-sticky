@@ -13,7 +13,38 @@
     "back": "Terug naar overzicht"
   },
   "branding": {
-    "title": "Huisstijl"
+    "title": "Huisstijl",
+    "logo": {
+      "title": "Sticky logo's",
+      "text": "Het Sticky logo heeft drie verschillende vormen; Het hoofd, de compactie versie en het volledige logo. Het hoofd wordt voornamelijk gebruikt op Sticky merchandise of handtekeningen van mails. De compacte versie is ook terug te vinden op bepaalde merchandise items. Verder wordt dit logo voornamelijk gebruikt bij het maken van posters voor activiteiten van de vereniging. Als laatste wordt het volledige logo voonramelijk voor breed en externe doeleinden gebruikt. Hierbij kan je denken aan promotie richting bedrijven en universiteit(en) toe.",
+      "filled": "Gevulde"
+    },
+    "colors": {
+      "title": "Kleuren",
+      "text": "Elk bestuur bij Sticky heeft zijn eigen bestuurskleur. Dit jaar is het {0}. Sticky heeft oranje als verenigingskleur, maar deze wordt niet altijd gebruikt. Voor het gebruik van kleur bij promotie van Sticky wordt aangeraden om niet telkens met 1 kleur te werken, maar meerderen die goed op elkaar aansluiten. Hiervoor zijn websites als",
+      "chart": "Kleuroverzicht"
+    },
+    "fonts": {
+      "title": "Lettertypes",
+      "text": "In posters wordt er aangeraden om maximaal 1 of 2 fonts te gebruiken. Zo wordt de poster niet te vol. De lettertype families 'serif' en 'sans-serif' worden voornamelijk gebruikt, maar er is altijd vrijheid om een andere familie te gebruiken."
+    },
+    "posters": {
+      "title": "Posters",
+      "text": "De posters bij Sticky hebben een aantal vaste requirements staan. Deze zijn er om de kwaliteit en zichtbaarheid van de posters te verbeteren. Deze luiden;",
+      "activities_title": "Activiteitenposters",
+      "activities": "De titel van de activiteit, datum, locatie, commissie logo en het Sticky logo moeten ook altijd te vinden zijn op de posters. Voor de datum zijn er geen harde lijnen, maar wordt er geadviseerd de DD-MM(m), DD-MM-YY of DD-MM-YYYY notatie te gebruiken. Het enige wat wordt afgeraden is de Amerikaanse MM-DD notatie, gezien dit verwarring kan brengen met in welke maand de activiteit plaats vind.",
+      "external_title": "Externposters",
+      "external": "De posters voor extern of onderwijs gerelateerde activiteiten hebben soms wat extra vereisten. Zo moet in plaats van het commissie logo het logo van een bedrijf komen te staan. Verder wordt het gebruik van het volledige logo hier ook aangeraden. De stijl van de poster wordt vaker serieuzer en proffessioneler opgesteld om de aard van de activiteit te laten zien.",
+      "requirements": {
+        "format": "Formaat",
+        "resolution": "Resolutie",
+        "orientation": "Oriëntatie",
+        "file_format": "Bestandsformaat",
+        "language": "Taal",
+        "english": "Engels",
+        "portrait": "Portret"
+      }
+    }
   },
   "contact": {
     "alt": "Contact foto",

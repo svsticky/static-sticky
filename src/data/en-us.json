@@ -13,7 +13,38 @@
     "back": "Back to the overview"
   },
   "branding": {
-    "title": "Branding"
+    "title": "Branding",
+    "logo": {
+      "title": "Sticky logos",
+      "text": "The Sticky logo has three different shapes; The head, the compact version and the full logo. The head is mainly used on sticky merchandise or signatures of e-mails. The compact version can also be found on certain merchandise items. Furthermore, this logo is mainly used when making posters for activities of the association. Lastly, the entire logo is mainly used for broad and external purposes. You can think of promotion towards companies and universities.",
+      "filled": "Filled"
+    },
+    "colors": {
+      "title": "Colors",
+      "text": "Each board at Sticky has its own board color. This year it is {0}. Sticky has orange as its main association color, but this is not always used. For the use of color when promoting Sticky, it is recommended not to always work with 1 color, but several that fit well together. For this, we recommended using websites like",
+      "chart": "Color chart"
+    },
+    "fonts": {
+      "title": "Fonts",
+      "text": "In posters it is recommended to use a maximum of 1 or 2 fonts. This way the poster will not become too cluttered. The font families 'serif' and 'sans-serif' are mainly used, but you are always free to use any family."
+    },
+    "posters": {
+      "title": "Posters",
+      "text": "The posters at Sticky have a number of fixed requirements. These are in place to improve the quality and visibility of the posters. They are ;",
+      "activities_title": "Activity posters",
+      "activities": "The title of the activity, date, location, committee logo and the Sticky logo must also always be present on the posters. There are no hard lines for the date, but it is recommended to use the DD-MM(m), DD-MM-YY or DD-MM-YYYY format. The only thing that is discouraged is the American MM-DD notation, as this can cause confusion and is not standard use in the Netherlands.",
+      "external_title": "External posters",
+      "external": "The posters for external or education related activities sometimes have some extra requirements. For example, instead of the committee logo, the logo of a company should be displayed. Furthermore, the use of the full Sticky logo is also recommended. The style of the poster is often more seriously and professionally to show the nature of the activity.",
+      "requirements": {
+        "format": "Format",
+        "resolution": "Resolution",
+        "orientation": "Orientation",
+        "file_format": "File format",
+        "language": "Language",
+        "english": "English",
+        "portrait": "Portrait"
+      }
+    }
   },
   "contact": {
     "alt": "Contact photo",
