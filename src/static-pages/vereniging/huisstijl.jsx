@@ -12,7 +12,7 @@ const CreateCell = (row, column, language) => {
   const color = white ? 'black' : null;
 
   return (
-    <Grid.Column color={color}>
+    <Grid.Column color={color} style={{ padding: '20px' }}>
       <Image
         size="massive"
         centered
@@ -86,7 +86,7 @@ const Huisstijl = props => {
       <Grid divided>
         {all_rows.map(row => {
           return (
-            <Grid.Row columns={3}>
+            <Grid.Row columns={3} style={{ padding: 0 }}>
               {row[0]}
               {row[1]}
               {row[2]}
