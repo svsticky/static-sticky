@@ -71,3 +71,8 @@ jobs:
         env:
           webhook_url: ${{ secrets.WEBHOOK_URL_STAGING }}
           webhook_secret: ${{ secrets.WEBHOOK_SECRET_STAGING }}
+      - name: Trigger deploy to production
+        uses: distributhor/workflow-webhook@v2.0.2
+        env:
+          webhook_url: ${{ secrets.WEBHOOK_URL_PRODUCTION }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET_PRODUCTION }}
