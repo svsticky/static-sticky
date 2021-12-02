@@ -7,7 +7,7 @@ class Drinks extends React.Component {
   renderDescription = (drinks, lg) => {
     return (
       <>
-        {getTranslation(lg, 'drinks.description')}
+        {drinks.description}
         <b>
           {getTranslation(lg, 'drinks.when', [
             drinks.day,
@@ -30,7 +30,7 @@ class Drinks extends React.Component {
     return (
       <>
         <div>
-          <h2>{getTranslation(language, 'drinks.title')}</h2>
+          <h2>{drink.title}</h2>
           <Card fluid>{this.renderDescription(drink, language)}</Card>
         </div>
       </>
@@ -46,6 +46,8 @@ const drinksQuery = graphql`
         node_locale
         time
         location
+        title
+        description
       }
     }
   }
