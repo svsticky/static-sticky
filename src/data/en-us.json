@@ -1,7 +1,5 @@
 {
   "drinks": {
-    "title": "Drinks",
-    "description": "There is are free drinks every week! This period the drinks are:",
     "when": "Every {0} starting at {1} in the {2}!"
   },
   "board": {
