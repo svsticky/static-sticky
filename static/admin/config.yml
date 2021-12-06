@@ -1,0 +1,22 @@
+---
+backend:
+  name: "github"
+  repo: "svsticky/static-sticky"
+  branch: "maartenberg/netlify-cms"
+
+media_folder: "src/images"
+public_folder: "/images"
+
+collections:
+  - name: "news_article"
+    label: "News Article"
+    folder: "_posts/news"
+    create: true
+    slug: "{{ slug }}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Slug", name: "slug", widget: "string"}
+      - {label: "Date of publishing", name: "published", widget: "datetime"}
+      - {label: "Front Page Image", name: "published", widget: "datetime"}
+      - {label: "Content", name: "content", widget: "markdown"}
+
