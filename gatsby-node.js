@@ -2,6 +2,7 @@ const path = require('path');
 const slash = require('slash');
 const fs = require('fs');
 const metadata = require('./gatsby-config.js').siteMetadata;
+const util = require('util');
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage, createRedirect } = actions;
@@ -14,6 +15,7 @@ exports.createPages = async ({ graphql, actions }) => {
   const disputeTemplate = path.resolve(`src/templates/DisputeTemplate.jsx`);
   const committeeTemplate = path.resolve(`src/templates/CommitteeTemplate.jsx`);
   const staticFolder = `src/static-pages`;
+
   const query = await graphql(`
     query PagesQuery {
       allContentfulJobListing {
@@ -135,83 +137,102 @@ exports.createPages = async ({ graphql, actions }) => {
     createStaticPages(staticFolder, '');
 
     // Create jobpages
-    query.data.allContentfulJobListing.edges.forEach(({ node }) => {
-      createTemplatePage(
-        node.node_locale,
-        `/vacatures/${node.slug}`,
-        jobTemplate,
-        node.id
-      );
-    });
+    await Promise.all(
+      query.data.allContentfulJobListing.edges.map(async ({ node }) => {
+        createTemplatePage(
+          node.node_locale,
+          `/vacatures/${node.slug}`,
+          jobTemplate,
+          node.id
+        );
+      })
+    );
 
     // Create partnerpages
-    query.data.allContentfulPartner.edges.forEach(({ node }) => {
-      createTemplatePage(
-        node.node_locale,
-        `/partners/${node.slug}`,
-        partnerTemplate,
-        node.id
-      );
-    });
+    await Promise.all(
+      query.data.allContentfulPartner.edges.map(async ({ node }) => {
+        createTemplatePage(
+          node.node_locale,
+          `/partners/${node.slug}`,
+          partnerTemplate,
+          node.id
+        );
+      })
+    );
 
     // Create boardpages
-    query.data.allContentfulBoard.edges.forEach(({ node }) => {
-      createTemplatePage(
-        node.node_locale,
-        `/besturen/${node.number}`,
-        boardTemplate,
-        node.id
-      );
-    });
+    await Promise.all(
+      query.data.allContentfulBoard.edges.map(async ({ node }) => {
+        createTemplatePage(
+          node.node_locale,
+          `/besturen/${node.number}`,
+          boardTemplate,
+          node.id
+        );
+      })
+    );
 
-    query.data.allContentfulNewsArticles.edges.forEach(({ node }) => {
-      createTemplatePage(
-        node.node_locale,
-        `/news/${node.slug}`,
-        newsTemplate,
-        node.id
-      );
-    });
+    await Promise.all(
+      query.data.allContentfulNewsArticles.edges.map(async ({ node }) => {
+        createTemplatePage(
+          node.node_locale,
+          `/news/${node.slug}`,
+          newsTemplate,
+          node.id
+        );
+      })
+    );
 
+    console.log('before general');
     // Create general pages
-    query.data.allContentfulPage.edges.forEach(({ node }) => {
-      let url;
-      if (node.parentPage) {
-        url = node.parentPage.slug + '/' + node.slug;
-      } else {
-        url = node.slug;
-      }
-
-      const localPath = path.resolve('src', 'static-pages', url + '.jsx');
-      // Check asynchronously if we have a the page locally.
-      fs.access(localPath, fs.R_OK, err => {
-        if (err) {
-          createTemplatePage(
-            node.node_locale,
-            `/${url}`,
-            pageTemplate,
-            node.id
-          );
+    await Promise.all(
+      query.data.allContentfulPage.edges.map(async ({ node }) => {
+        let url;
+        if (node.parentPage) {
+          url = node.parentPage.slug + '/' + node.slug;
+        } else {
+          url = node.slug;
         }
-      });
-    });
 
-    query.data.allContentfulDispute.edges.forEach(({ node }) => {
-      createTemplatePage(
-        node.node_locale,
-        `/disputen/${node.slug}`,
-        disputeTemplate,
-        node.id
-      );
-    });
+        const localPath = path.resolve('src', 'static-pages', url + '.jsx');
+        // Check asynchronously if we have the page locally.
+        try {
+          await fs.promises.access(localPath, fs.R_OK);
+        } catch (err) {
+          if (err) {
+            createTemplatePage(
+              node.node_locale,
+              `/${url}`,
+              pageTemplate,
+              node.id
+            );
+          }
+        }
+      })
+    );
 
-    query.data.allContentfulCommittee.edges.forEach(({ node }) => {
-      createTemplatePage(
-        node.node_locale,
-        `/commissies/${node.slug}`,
-        committeeTemplate,
-        node.id
-      );
-    });
+    console.log('general finished');
+
+    await Promise.all(
+      query.data.allContentfulDispute.edges.map(async ({ node }) => {
+        createTemplatePage(
+          node.node_locale,
+          `/disputen/${node.slug}`,
+          disputeTemplate,
+          node.id
+        );
+      })
+    );
+
+    await Promise.all(
+      query.data.allContentfulCommittee.edges.map(async ({ node }) => {
+        createTemplatePage(
+          node.node_locale,
+          `/commissies/${node.slug}`,
+          committeeTemplate,
+          node.id
+        );
+      })
+    );
   }
 };
