@@ -4,7 +4,7 @@
   "version": "2.6.3",
   "author": "Commit (https://github.com/orgs/svsticky/teams/commit)",
   "dependencies": {
-    "@babel/compat-data": "^7.9.0",
+    "@babel/compat-data": "^7.16.4",
     "atomic-layout": "^0.12.7",
     "bufferutil": "^4.0.1",
     "dotenv": "^8.2.0",
