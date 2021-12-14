@@ -13,7 +13,7 @@
     "gatsby-plugin-react-helmet": "^3.2.1",
     "gatsby-plugin-styled-components": "^3.2.1",
     "gatsby-source-contentful": "^2.2.7",
-    "markdown-to-jsx": "^6.11.4",
+    "markdown-to-jsx": "^7.1.5",
     "react": "^16.13.1",
     "react-currency-formatter": "^1.1.0",
     "react-dom": "^16.13.1",
