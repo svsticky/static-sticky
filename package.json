@@ -24,7 +24,6 @@
     "sanitize-html": "^2.6.1",
     "semantic-ui-react": "^2.0.4",
     "styled-components": "^5.3.3",
-    "typescript": "^3.8.3",
     "utf-8-validate": "^5.0.2",
     "webpack": "^4.46.0"
   },
