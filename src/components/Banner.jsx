@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { graphql, StaticQuery } from 'gatsby';
 import { Card, Image } from 'semantic-ui-react';
 import { device } from '../data/Devices';
+import 'react-slideshow-image/dist/styles.css';
 
 class Banner extends React.Component {
   constructor(props) {
