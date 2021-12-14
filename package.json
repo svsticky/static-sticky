@@ -47,7 +47,7 @@
     "babel-plugin-root-import": "^6.5.0",
     "babel-plugin-styled-components": "^2.0.2",
     "babel-preset-gatsby": "^0.2.36",
-    "fomantic-ui": "^2.8.4",
+    "fomantic-ui": "^2.8.8",
     "gulp": "^4.0.2",
     "husky": "^4.2.3",
     "less": "^3.11.1",
