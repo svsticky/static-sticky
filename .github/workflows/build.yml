@@ -20,6 +20,7 @@ jobs:
         uses: n1hility/cancel-previous-runs@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+        if: ${{ github.event_name }} != 'schedule'
       - uses: actions/cache@v2.1.6
         with:
           path: node_modules
