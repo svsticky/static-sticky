@@ -132,6 +132,7 @@ const TurnRevealWrapper = styled.div`
 
   .turnreveal-container {
     width: fit-content;
+    overflow: hidden;
   }
 `;
 
