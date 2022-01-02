@@ -60,7 +60,7 @@ export default class Activity extends React.Component {
 }
 
 const renderPoster = (posterUrl, activityName, lg) => (
-  <StyledImage
+  <Image
     size="medium"
     src={posterUrl}
     alt={getTranslation(lg, 'activities.poster', [activityName])}
@@ -116,23 +116,26 @@ const renderInfo = (
   </FullSizeCard>
 );
 
-const StyledImage = styled(Image)`
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
-`;
-
 const FullSizeCard = styled(Card)`
   height: 100%;
   overflow: auto;
+  /*
+   * box-shadow gives weird artifacts with the flipping animation.
+   * The box-shadow on this element comes from the '.ui.cards > .card' selector,
+   * which is a strong selector, thus giving rise to the !important override.
+   */
+  box-shadow: none !important;
 `;
 
 const TurnRevealWrapper = styled.div`
   display: flex;
   justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
 
   .turnreveal-container {
     width: fit-content;
-    overflow: hidden;
   }
 `;
 

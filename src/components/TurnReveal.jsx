@@ -123,9 +123,10 @@ const turnAnimation = ({
 };
 
 const Perspective = styled.div`
-  display: inline-block;
+  display: block;
   perspective: ${perspective}px;
   position: relative;
+  overflow: hidden;
 `;
 
 const Hideable = styled.div`
