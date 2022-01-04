@@ -133,6 +133,9 @@ const TurnRevealWrapper = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15), 0 2px 6px rgba(0, 0, 0, 0.2);
   border-radius: 5px;
   overflow: hidden;
+  width: fit-content;
+  justify-self: center;
+  margin: auto;
 
   .turnreveal-container {
     width: fit-content;
