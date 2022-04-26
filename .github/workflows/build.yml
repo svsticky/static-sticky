@@ -20,6 +20,10 @@ jobs:
         uses: n1hility/cancel-previous-runs@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          # This needs to be set on scheduled runs to make this task not crash
+          # We cancel the other worflow in this project, that doesn't do much
+          # besides linting, otherwise the current workflow might be cancelled.
+          workflow: "main.yml"
         if: ${{ github.event_name }} != 'schedule'
       - uses: actions/cache@v2.1.6
         with:
