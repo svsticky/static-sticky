@@ -35,8 +35,8 @@ class News extends React.Component {
           let cutarr = [' ', ',', '.', '\n'];
           //Removes link and figure content
           item.node.content.content = item.node.content.content.replace(
-            /!?\[([^[\]]*)\]\((.*?)\)/gm,
-            ''
+            /\[([^[\]]*)\]\((.*?)\)/gm,
+            '$1'
           );
           if (item.node.content.content.length > 400) {
             for (let i = 400; i < item.node.content.content.length; i++) {
