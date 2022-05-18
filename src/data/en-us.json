@@ -64,6 +64,7 @@
   "vacancy": {
     "title": "Vacancies",
     "featured": "Featured vacancy",
+    "more": "More vacancies",
     "at": "Vancancies at {0}",
     "call": "Call",
     "mail": "Mail",
