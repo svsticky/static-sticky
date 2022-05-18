@@ -64,6 +64,7 @@
   "vacancy": {
     "title": "Vacatures",
     "featured": "Uitgelichte Vacature",
+    "more": "Meer vacatures",
     "at": "Vacatures bij {0}",
     "call": "Bellen",
     "mail": "Mailen",

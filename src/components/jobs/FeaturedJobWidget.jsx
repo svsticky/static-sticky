@@ -2,6 +2,8 @@ import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 import JobItem from './JobItem';
 import { getTranslation, getLanguage, metadata } from '../../data/i18n';
+import { Button } from 'semantic-ui-react';
+import { Link } from 'gatsby';
 
 class FeaturedJobs extends React.Component {
   getRandom = max => {
@@ -22,6 +24,15 @@ class FeaturedJobs extends React.Component {
         <div>
           <h2>{getTranslation(language, 'vacancy.featured')}</h2>
           {this.renderFeaturedJob(featuredJobs[chosenJob])}
+          <Button
+            fluid
+            primary
+            as={Link}
+            to={`/${language}/carriere/vacatures`}
+            style={{ marginTop: '1rem' }}
+          >
+            {getTranslation(language, 'vacancy.more')}
+          </Button>
         </div>
       );
     } else {
