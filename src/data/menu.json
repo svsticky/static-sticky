@@ -2,12 +2,12 @@
   "studie": [
     {
       "title": "Boekverkoop",
-      "url": "https://www.studystore.nl/sticky",
+      "url": "https://www.svsticky.nl/boeken",
       "node_locale": "nl"
     },
     {
       "title": "Books",
-      "url": "https://www.studystore.nl/sticky",
+      "url": "https://www.svsticky.nl/boeken",
       "node_locale": "en-US"
     }
   ],
