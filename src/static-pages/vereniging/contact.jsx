@@ -46,6 +46,16 @@ const ContactPage = props => {
             <h3>{getTranslation(language, 'contact.data')}</h3>
             <strong>{getTranslation(language, 'contact.iban')}:</strong>{' '}
             {getTranslation(language, 'contact.iban_no')} <br />
+            <strong>{getTranslation(language, 'contact.mail')}:</strong>{' '}
+            <a
+              primary
+              href={
+                'mailto:' + getTranslation(language, 'contact.mail_address')
+              }
+              fluid
+            >
+              {getTranslation(language, 'contact.mail_address')} <br />
+            </a>
             <strong>{getTranslation(language, 'contact.vat')}:</strong>{' '}
             {getTranslation(language, 'contact.vat_no')} <br />
             <strong>{getTranslation(language, 'contact.kvk')}:</strong>{' '}
