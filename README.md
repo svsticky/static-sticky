@@ -28,3 +28,14 @@ You can debug queries by typing localhost:8000/___graphql in your explorer.
 
 Also pretty simple, run `npm run build` and copy the files to a server.
 
+## Automatic deployment
+
+As part of the build script, artifacts are pushed to AWS. Then a deployment script is triggered on the server that attempts to download the
+latest build from AWS and deploy it. This is triggered on both development and production. However, this deploy script will error early if the
+branch name does not match `master` or `development` respectively. Thus, it is expected that the deploy on production fails with the error:
+
+```
+fatal error: An error occurred (404) when calling the HeadObject operation: Key ".tar.gz" does not exist
+```
+
+...because grepping for master did not match anything. If you want to deploy on production you must merge to master.
