@@ -9,7 +9,7 @@ on:
   workflow_dispatch: {}
   schedule:
     # Trigger a weekly deploy in order to prevent build staleness in S3
-    - cron: '0 0 * * 0'
+    - cron: "0 0 * * 0"
 
 jobs:
   build:
@@ -36,7 +36,7 @@ jobs:
       - name: pin node version
         uses: actions/setup-node@v2
         with:
-          node-version: '16.13.1'
+          node-version: "16.13.1"
       - name: install npm
         shell: bash -l {0}
         run: nvm install --latest-npm
@@ -75,11 +75,12 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-central-1
-      - name: Trigger deploy to staging
-        uses: distributhor/workflow-webhook@v2.0.2
-        env:
-          webhook_url: ${{ secrets.WEBHOOK_URL_STAGING }}
-          webhook_secret: ${{ secrets.WEBHOOK_SECRET_STAGING }}
+      # - name: Trigger deploy to staging
+      #   uses: distributhor/workflow-webhook@v2.0.2
+      #   env:
+      #     webhook_url: ${{ secrets.WEBHOOK_URL_STAGING }}
+      #     webhook_secret: ${{ secrets.WEBHOOK_SECRET_STAGING }}
+      # Commented untill staging is running again
       - name: Trigger deploy to production
         uses: distributhor/workflow-webhook@v2.0.2
         env:
