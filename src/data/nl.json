@@ -87,6 +87,10 @@
       "trainee": "Traineeship"
     }
   },
+  "partners": {
+    "main": "Hoofdsponsor",
+    "regular": "Reguliere partners"
+  },
   "activities": {
     "title": "Activiteiten",
     "next": "Volgende activiteit",

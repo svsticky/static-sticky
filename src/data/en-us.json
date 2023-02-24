@@ -87,6 +87,10 @@
       "trainee": "Traineeship"
     }
   },
+  "partners": {
+    "main": "Main partner",
+    "regular": "Regular partners"
+  },
   "activities": {
     "title": "Activities",
     "next": "Next Activity",
