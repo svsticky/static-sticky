@@ -5,7 +5,7 @@ import Markdown from 'markdown-to-jsx';
 import Layout from '$/components/layout/Layout';
 import { FlexListContainer } from '$/helpers';
 import { getLanguage, getTranslation, metadata } from '$/data/i18n';
-import MainPartner from '$/components/MainPartner';
+import MainPartner from '$/components/mainpartner/Partner';
 
 const partition = (list, pred) => [
   list.filter(pred),
@@ -17,14 +17,14 @@ const PartnerIndexPage = ({ data }) => {
     typeof window !== 'undefined'
       ? getLanguage(window)
       : metadata.defaultLocale;
-  const partners = data.allContentfulPartner.edges.filter(
-    content => content.node.node_locale === language // Only get the current language
-  );
   // NOTE: content.node.isMainPartner can be either true, false or null
   // not every partner has the isMainPartner field filled out, hence the null option
-  const [headPartners, regPartners] = partition(
-    partners,
-    content => content.node.isMainPartner
+  const [[{ node: mainPartner }], partners] = partition(
+    data.allContentfulPartner.edges,
+    edge => edge.node.isMainPartner
+  );
+  const regPartners = partners.filter(
+    content => content.node.node_locale === language // Only get the current language
   );
   const page = data.contentfulPage;
 
@@ -35,7 +35,7 @@ const PartnerIndexPage = ({ data }) => {
         <Markdown>{page.content.content}</Markdown>
 
         <h3>{getTranslation(language, 'partners.main')}</h3>
-        <MainPartner partner={headPartners[0].node}></MainPartner>
+        <MainPartner partner={mainPartner}></MainPartner>
 
         <h3>{getTranslation(language, 'partners.regular')}</h3>
         <FlexListContainer>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { Link } from 'gatsby';
-import { getTranslation, getLanguage, metadata } from '../data/i18n';
+import { getTranslation, getLanguage, metadata } from '$/data/i18n';
 import { ImageContainer } from '$/helpers/ImageContainer';
 
-const MainPartnerIndex = ({ partner }) => {
+const MainPartnerCard = ({ partner }) => {
   const language =
     typeof window !== 'undefined'
       ? getLanguage(window)
@@ -22,4 +22,4 @@ const MainPartnerIndex = ({ partner }) => {
     </div>
   );
 };
-export default MainPartnerIndex;
+export default MainPartnerCard;

@@ -3,21 +3,20 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import styled from 'styled-components';
 
-const MainPartnerBanner = ({ partner }) => (
-  <MainPartnerBannerWrapper>
+const Banner = ({ partner }) => (
+  <BannerWrapper>
     <Card
       fluid
       className="mainPartnerBanner-card"
       as={Link}
       to={`/${partner.node_locale}/partners/${partner.slug}`}
-      raised
     >
       <img src={partner.logo.file.url} />
     </Card>
-  </MainPartnerBannerWrapper>
+  </BannerWrapper>
 );
 
-const MainPartnerBannerWrapper = styled.div`
+const BannerWrapper = styled.div`
   img {
     width: 100%;
     position: relative;
@@ -30,4 +29,4 @@ const MainPartnerBannerWrapper = styled.div`
   }
 `;
 
-export default MainPartnerBanner;
+export default Banner;
