@@ -5,7 +5,7 @@ import NavBar from './Navbar';
 import MobileNavbar from './MobileNavbar';
 import Footer from './Footer';
 import { Container } from 'semantic-ui-react';
-import { device } from '../../data/Devices';
+import { device } from '$/data/Devices';
 import { Helmet } from 'react-helmet';
 
 const layout = ({ children, title }) => (
