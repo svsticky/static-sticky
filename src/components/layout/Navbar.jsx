@@ -152,16 +152,7 @@ class NavBar extends React.Component {
             >
               <img src={logo} alt="Sticky logo" />
             </Image>
-            <Image
-              as={Link}
-              to={`/${this.mainPartner.node_locale}/partners/${this.mainPartner.slug}`}
-              className="logo hoofdsponsor-logo"
-            >
-              <img
-                src={this.mainPartner.logo.file.url}
-                alt={'Hoofdsponsor' + this.mainPartner.slug}
-              />
-            </Image>
+
             <div style={{ flex: 1 }} />
             {this.renderMenuItems(this.props.data.allContentfulPage.edges)}
             <Dropdown item text="Links" direction="left" key="links">
