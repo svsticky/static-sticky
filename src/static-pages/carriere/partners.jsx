@@ -25,11 +25,10 @@ const PartnerIndexPage = ({ data }) => {
     edge => edge.node.isMainPartner
   );
 
-  console.log(mainPartners);
   const [mainPartner] = mainPartners.filter(
     partner => partner.node.node_locale === language
   );
-  console.log(mainPartner);
+
   const regPartners = partners.filter(
     content => content.node.node_locale === language // Only get the current language
   );
