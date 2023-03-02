@@ -72,7 +72,7 @@ export const BannerWrapper = styled.div`
     justify-content: center;
     align-items: center;
     height: 10rem;
-    width: 100%;
+    width: 95%;
   }
   .card {
     flex-grow: 1;

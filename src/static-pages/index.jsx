@@ -1,29 +1,34 @@
 import React from 'react';
-import Layout from '../components/layout/Layout';
-import logo from '../images/sticky-logo-text.svg';
-import Banner from '../components/Banner';
-import News from '../components/News';
-import Drinks from '../components/Drinks';
-import IndexWrapper from '../components/layout/GridDryQueries';
-import FeaturedJobWidget from '../components/jobs/FeaturedJobWidget';
-import ActivityWidget from '../components/activities/ActivityWidget';
 import { graphql } from 'gatsby';
 
-const Index = props => {
+// Components
+import Layout from '$/components/layout/Layout';
+import Banner from '$/components/Banner';
+import News from '$/components/News';
+import Drinks from '$/components/Drinks';
+import MainPartnerIndex from '$/components/mainpartner/Card';
+import MainPartnerBanner from '$/components/mainpartner/Banner';
+import IndexWrapper from '$/components/layout/GridDryQueries';
+import FeaturedJobWidget from '$/components/jobs/FeaturedJobWidget';
+import ActivityWidget from '$/components/activities/ActivityWidget';
+
+import logo from '$/images/sticky-logo-text.svg';
+
+const Index = ({ data }) => {
+  const mainPartner = data.allContentfulPartner.edges.filter(
+    edge => edge.node.isMainPartner
+  )[0].node;
   return (
     <Layout title="Sticky">
       <IndexWrapper
-        color={
-          !props.data.contentfulBoard
-            ? '#000000'
-            : props.data.contentfulBoard.color
-        }
+        color={!data.contentfulBoard ? '#000000' : data.contentfulBoard.color}
       >
         <div className="container">
           <div className="logo">
             <img src={logo} alt="Sticky Logo" />
           </div>
           <div className="banner">
+            <MainPartnerBanner partner={mainPartner} />
             <Banner />
           </div>
           <div className="news">
@@ -31,6 +36,9 @@ const Index = props => {
           </div>
           <div className="drinks">
             <Drinks />
+          </div>
+          <div className="mainPartner">
+            <MainPartnerIndex partner={mainPartner} />
           </div>
           <div className="jobs">
             <FeaturedJobWidget />
@@ -49,6 +57,20 @@ export const indexQuery = graphql`
   query colorQuery {
     contentfulBoard(current: { eq: true }) {
       color
+    }
+    allContentfulPartner {
+      edges {
+        node {
+          isMainPartner
+          node_locale
+          slug
+          logo {
+            file {
+              url
+            }
+          }
+        }
+      }
     }
   }
 `;

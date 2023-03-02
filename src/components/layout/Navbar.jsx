@@ -29,6 +29,9 @@ class NavBar extends React.Component {
     props.data.allContentfulPage.edges.sort(
       (a, b) => a.node.order - b.node.order // Sorting all the menu items
     );
+    this.mainPartner = props.data.allContentfulPartner.edges.filter(
+      edge => edge.node.isMainPartner
+    )[0].node;
   }
 
   changeLanguage = (lg, location) => {
@@ -149,6 +152,7 @@ class NavBar extends React.Component {
             >
               <img src={logo} alt="Sticky logo" />
             </Image>
+
             <div style={{ flex: 1 }} />
             {this.renderMenuItems(this.props.data.allContentfulPage.edges)}
             <Dropdown item text="Links" direction="left" key="links">
@@ -212,6 +216,9 @@ const NavBarWrapper = styled.div`
         height: 100%;
       }
     }
+    .hoofdsponsor-logo {
+      margin-left: 2em;
+    }
     .item {
       color: white !important;
       &:hover {
@@ -262,6 +269,20 @@ export default props => (
               parentPage {
                 title
                 slug
+              }
+            }
+          }
+        }
+        allContentfulPartner {
+          edges {
+            node {
+              slug
+              node_locale
+              isMainPartner
+              logo {
+                file {
+                  url
+                }
               }
             }
           }

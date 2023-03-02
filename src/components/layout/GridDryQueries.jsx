@@ -20,6 +20,15 @@ const IndexWrapper = styled.div`
   .activity {
     grid-area: activity;
   }
+  .mainPartner {
+    grid-area: mainPartner;
+  }
+
+  .banner {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    grid-gap: 3em;
+  }
 
   @media ${device.mobileMax} {
     .container {
@@ -32,6 +41,7 @@ const IndexWrapper = styled.div`
         'news'
         'news'
         'drinks'
+        'mainPartner'
         'jobs'
         'activity';
       grid-gap: 2em;
@@ -55,7 +65,7 @@ const IndexWrapper = styled.div`
       grid-template-areas:
         'banner banner'
         'news news'
-        'drinks activity'
+        'drinks mainPartner'
         'jobs activity';
       grid-gap: 3em;
     }
@@ -71,9 +81,9 @@ const IndexWrapper = styled.div`
       grid-template-areas:
         'banner banner'
         'news drinks'
+        'news mainPartner'
         'news jobs'
-        'news activity'
-        'news ...';
+        'news activity';
       grid-gap: 3em;
     }
     .logo {

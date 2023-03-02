@@ -13,7 +13,7 @@ const Footer = () => (
       <div className="ui centered container inverted divided three column grid">
         <div className="aligned column grid">
           <a href="/">
-            <div class="ui mini image">
+            <div className="ui mini image">
               <img
                 src="https://public.svsticky.nl/logos/hoofd_outline_wit.svg"
                 alt="Home"
@@ -29,13 +29,13 @@ const Footer = () => (
         </div>
         <div className="aligned column">
           <a href="https://svsticky.nl/facebook">
-            <i class="big facebook icon"></i>
+            <i className="big facebook icon"></i>
           </a>
           <a href="https://www.linkedin.com/company/studievereniging-sticky">
-            <i class="big linkedin icon"></i>
+            <i className="big linkedin icon"></i>
           </a>
           <a href="https://github.com/svsticky/">
-            <i class="big github icon"></i>
+            <i className="big github icon"></i>
           </a>
         </div>
         <div className="aligned column grid">
