@@ -19,10 +19,17 @@ const PartnerIndexPage = ({ data }) => {
       : metadata.defaultLocale;
   // NOTE: content.node.isMainPartner can be either true, false or null
   // not every partner has the isMainPartner field filled out, hence the null option
-  const [[{ node: mainPartner }], partners] = partition(
+
+  const [mainPartners, partners] = partition(
     data.allContentfulPartner.edges,
     edge => edge.node.isMainPartner
   );
+
+  console.log(mainPartners);
+  const [mainPartner] = mainPartners.filter(
+    partner => partner.node.node_locale === language
+  );
+  console.log(mainPartner);
   const regPartners = partners.filter(
     content => content.node.node_locale === language // Only get the current language
   );
@@ -35,7 +42,7 @@ const PartnerIndexPage = ({ data }) => {
         <Markdown>{page.content.content}</Markdown>
 
         <h3>{getTranslation(language, 'partners.main')}</h3>
-        <MainPartner partner={mainPartner}></MainPartner>
+        <MainPartner partner={mainPartner.node}></MainPartner>
 
         <h3>{getTranslation(language, 'partners.regular')}</h3>
         <FlexListContainer>
