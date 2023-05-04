@@ -57,6 +57,9 @@ const PartnerListQuery = graphql`
           isMainPartner
           node_locale
           name
+          shortText {
+            shortText
+          }
           slug
           website
           description {

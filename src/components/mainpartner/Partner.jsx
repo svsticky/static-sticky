@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Markdown from 'markdown-to-jsx';
 
 const MainPartner = ({
-  partner: { description, name, website, slug, node_locale, logo },
+  partner: { name, website, slug, node_locale, logo, shortText },
 }) => (
   <MainPartnerWrapper>
     <Segment raised>
@@ -17,16 +17,18 @@ const MainPartner = ({
           </div>
         </Grid.Column>
         <Grid.Column>
-          <Markdown>{description.description}</Markdown>
+          <Markdown>{shortText.shortText}</Markdown>
         </Grid.Column>
       </Grid>
       <Divider vertical></Divider>
     </Segment>
     <Grid columns={3}>
       <Grid.Column>
-        <Button fluid primary as={Link} to={website}>
-          Website
-        </Button>
+        <a href={website}>
+          <Button fluid primary>
+            Website
+          </Button>
+        </a>
       </Grid.Column>
       <Grid.Column>
         <Button fluid primary as={Link} to={`/${node_locale}/partners/${slug}`}>
