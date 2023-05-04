@@ -3,6 +3,7 @@ import React from 'react';
 import { Segment, Button, Grid, Divider } from 'semantic-ui-react';
 import { getTranslation } from '$/data/i18n';
 import styled from 'styled-components';
+import Markdown from 'markdown-to-jsx';
 
 const MainPartner = ({
   partner: { description, name, website, slug, node_locale, logo },
@@ -16,7 +17,7 @@ const MainPartner = ({
           </div>
         </Grid.Column>
         <Grid.Column>
-          <p>{description.description}</p>
+          <Markdown>{description.description}</Markdown>
         </Grid.Column>
       </Grid>
       <Divider vertical></Divider>
