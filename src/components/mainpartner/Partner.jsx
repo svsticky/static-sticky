@@ -3,9 +3,10 @@ import React from 'react';
 import { Segment, Button, Grid, Divider } from 'semantic-ui-react';
 import { getTranslation } from '$/data/i18n';
 import styled from 'styled-components';
+import Markdown from 'markdown-to-jsx';
 
 const MainPartner = ({
-  partner: { description, name, website, slug, node_locale, logo },
+  partner: { name, website, slug, node_locale, logo, shortText },
 }) => (
   <MainPartnerWrapper>
     <Segment raised>
@@ -16,16 +17,18 @@ const MainPartner = ({
           </div>
         </Grid.Column>
         <Grid.Column>
-          <p>{description.description}</p>
+          <Markdown>{shortText.shortText}</Markdown>
         </Grid.Column>
       </Grid>
       <Divider vertical></Divider>
     </Segment>
     <Grid columns={3}>
       <Grid.Column>
-        <Button fluid primary as={Link} to={website}>
-          Website
-        </Button>
+        <a href={website}>
+          <Button fluid primary>
+            Website
+          </Button>
+        </a>
       </Grid.Column>
       <Grid.Column>
         <Button fluid primary as={Link} to={`/${node_locale}/partners/${slug}`}>
