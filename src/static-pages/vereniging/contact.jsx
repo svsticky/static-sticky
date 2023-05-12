@@ -39,8 +39,8 @@ const ContactPage = props => {
             {getTranslation(language, 'contact.name')},{' '}
             {getTranslation(language, 'contact.building')}
             <br />
-            {getTranslation(language, 'contact.address_1')} <br />
-            {getTranslation(language, 'contact.address_2')}
+            {getTranslation(language, 'contact.address_1_postal')} <br />
+            {getTranslation(language, 'contact.address_2_postal')}
           </Card.Content>
         </Card>
         <Card fluid>
