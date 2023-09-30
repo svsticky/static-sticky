@@ -6,11 +6,7 @@ import Markdown from 'markdown-to-jsx';
 
 class Drinks extends React.Component {
   renderDescription = (drinks, lg) => {
-    return (
-      <Markdown>
-        {drinks.descriptionlong.descriptionlong}
-      </Markdown>
-    );
+    return <Markdown>{drinks.descriptionlong.descriptionlong}</Markdown>;
   };
 
   render() {
