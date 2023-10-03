@@ -1,22 +1,12 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
 import { graphql, StaticQuery } from 'gatsby';
-import { getTranslation, getLanguage, metadata } from '../data/i18n';
+import { getLanguage, metadata } from '../data/i18n';
+import Markdown from 'markdown-to-jsx';
 
 class Drinks extends React.Component {
   renderDescription = (drinks, lg) => {
-    return (
-      <>
-        {drinks.description}
-        <b>
-          {getTranslation(lg, 'drinks.when', [
-            drinks.day,
-            drinks.time,
-            drinks.location,
-          ])}
-        </b>
-      </>
-    );
+    return <Markdown>{drinks.descriptionlong.descriptionlong}</Markdown>;
   };
 
   render() {
@@ -42,12 +32,11 @@ const drinksQuery = graphql`
   query drinksQuery {
     allContentfulDrinks {
       nodes {
-        day
         node_locale
-        time
-        location
         title
-        description
+        descriptionlong {
+          descriptionlong
+        }
       }
     }
   }
