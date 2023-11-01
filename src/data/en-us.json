@@ -1,7 +1,4 @@
 {
-  "drinks": {
-    "when": "Every {0} starting at {1} in the {2}!"
-  },
   "board": {
     "number": "Board {0}",
     "current": "The current board",

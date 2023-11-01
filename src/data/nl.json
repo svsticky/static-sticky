@@ -1,7 +1,4 @@
 {
-  "drinks": {
-    "when": "Elke {0} vanaf {1} in de {2}!"
-  },
   "board": {
     "number": "Bestuur {0}",
     "current": "Het huidige bestuur",
