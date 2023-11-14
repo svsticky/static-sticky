@@ -31,14 +31,16 @@ const JobView = ({ data }) => {
               <Button primary href={'mailto:' + job.contactPerson.email} fluid>
                 {getTranslation(job.node_locale, 'vacancy.mail')}
               </Button>
-              <Button
-                primary
-                href={'tel:' + job.contactPerson.phone}
-                fluid
-                className="call-button"
-              >
-                {getTranslation(job.node_locale, 'vacancy.call')}
-              </Button>
+              {job.contactPerson.phone && (
+                <Button
+                  primary
+                  href={'tel:' + job.contactPerson.phone}
+                  fluid
+                  className="call-button"
+                >
+                  {getTranslation(job.node_locale, 'vacancy.call')}
+                </Button>
+              )}
             </Card>
           )}
         </div>
