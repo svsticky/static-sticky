@@ -23,6 +23,9 @@ const IndexWrapper = styled.div`
   .mainPartner {
     grid-area: mainPartner;
   }
+  .introInformation {
+    grid-area: introInformation;
+  }
 
   .banner {
     display: grid;
@@ -38,6 +41,7 @@ const IndexWrapper = styled.div`
       grid-template-areas:
         'logo'
         'banner'
+        'introInformation'
         'news'
         'news'
         'drinks'
@@ -64,6 +68,7 @@ const IndexWrapper = styled.div`
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
         'banner banner'
+        'introInformation introInformation'
         'news news'
         'drinks mainPartner'
         'jobs activity';
@@ -80,6 +85,7 @@ const IndexWrapper = styled.div`
       grid-template-columns: 3fr 1fr;
       grid-template-areas:
         'banner banner'
+        'news introInformation'
         'news drinks'
         'news mainPartner'
         'news jobs'

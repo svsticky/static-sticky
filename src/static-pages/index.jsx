@@ -11,6 +11,7 @@ import MainPartnerBanner from '$/components/mainpartner/Banner';
 import IndexWrapper from '$/components/layout/GridDryQueries';
 import FeaturedJobWidget from '$/components/jobs/FeaturedJobWidget';
 import ActivityWidget from '$/components/activities/ActivityWidget';
+import IntroInformation from '$/components/IntroInformation';
 
 import logo from '$/images/sticky-logo-text.svg';
 
@@ -33,6 +34,9 @@ const Index = ({ data }) => {
           </div>
           <div className="news">
             <News itemsPerPage="5" />
+          </div>
+          <div className="introInformation">
+            <IntroInformation />
           </div>
           <div className="drinks">
             <Drinks />
