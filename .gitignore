@@ -70,3 +70,6 @@ pnpm-lock.yaml
 .yarn-integrity
 # semantic dist
 src/semantic/dist
+
+# IDEA
+.idea/
