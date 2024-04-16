@@ -32,20 +32,8 @@ const ContactPerson = ({ contactPerson }) => (
                 {contactPerson.name +
                   (contactPerson.role ? ' (' + contactPerson.role + ')' : '')}
               </p>
-              <p>
-                Tel.:
-                <a href={'tel:' + contactPerson.mobile}>
-                  {' '}
-                  {contactPerson.mobile}
-                </a>
-              </p>
-              <p>
-                Mail:
-                <a href={'mailto:' + contactPerson.email}>
-                  {' '}
-                  {contactPerson.email}
-                </a>
-              </p>
+              <p>Tel.: {contactPerson.mobile}</p>
+              <p>Mail: {contactPerson.email}</p>
             </div>
           </div>
         </Card.Content>
@@ -53,6 +41,14 @@ const ContactPerson = ({ contactPerson }) => (
     </div>
   </ContactPersonMember>
 );
+
+function getEmailDomain(email) {
+  return email.split('@')[1];
+}
+
+function getEmailName(email) {
+  return email.split('@')[0];
+}
 
 const ContactPersonMember = styled.div`
   .head {
