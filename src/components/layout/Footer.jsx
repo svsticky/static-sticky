@@ -31,6 +31,9 @@ const Footer = () => (
           <a href="https://svsticky.nl/facebook">
             <i className="big facebook icon"></i>
           </a>
+          <a href="https://www.instagram.com/stickyutrecht/">
+            <i className="big instagram icon"></i>
+          </a>
           <a href="https://www.linkedin.com/company/studievereniging-sticky">
             <i className="big linkedin icon"></i>
           </a>
@@ -83,6 +86,11 @@ const FooterWrapper = styled.div`
       color: white;
       margin: 1rem;
       font-size: 1.1rem;
+    }
+
+    i,
+    img {
+      font-size: 1.9rem !important;
     }
 
     .column {
