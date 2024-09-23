@@ -71,6 +71,52 @@ const tdStyle = {
   padding: '10px',
 };
 
+function rgbToCymk(rgb) {
+  let computedC = 1 - rgb.r / 255;
+  let computedM = 1 - rgb.g / 255;
+  let computedY = 1 - rgb.b / 255;
+
+  let minCMY = Math.min(computedC, Math.min(computedM, computedY));
+  computedC = Math.round(((computedC - minCMY) / (1 - minCMY)) * 100);
+  computedY = Math.round(((computedY - minCMY) / (1 - minCMY)) * 100);
+  computedM = Math.round(((computedM - minCMY) / (1 - minCMY)) * 100);
+  let computedK = Math.round(minCMY * 100);
+
+  return {
+    c: computedC,
+    y: computedY,
+    m: computedM,
+    k: computedK,
+  };
+}
+
+function hexToRgb(hex) {
+  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+  let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+    return r + r + g + g + b + b;
+  });
+
+  let result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result
+    ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16),
+      }
+    : null;
+}
+
+function cymkColor(hex) {
+  const cymk = rgbToCymk(hexToRgb(hex));
+  return `${cymk.c}%, ${cymk.y}%, ${cymk.m}%, ${cymk.k}%`;
+}
+
+function rgbColor(hex) {
+  const rgb = hexToRgb(hex);
+  return `${rgb.r}, ${rgb.g}, ${rgb.b}`;
+}
+
 const Huisstijl = props => {
   const language =
     typeof window !== 'undefined'
@@ -116,11 +162,15 @@ const Huisstijl = props => {
           <tbody>
             <tr>
               <td style={tdStyle}>CYMK</td>
-              <td style={tdStyle}>0%, 94%, 83%, 50%</td>
+              <td style={tdStyle}>
+                {cymkColor(props.data.contentfulBoard.color)}
+              </td>
             </tr>
             <tr>
               <td style={tdStyle}>RGB</td>
-              <td style={tdStyle}>128, 8, 22</td>
+              <td style={tdStyle}>
+                {rgbColor(props.data.contentfulBoard.color)}
+              </td>
             </tr>
             <tr>
               <td style={tdStyle}>HEX</td>
