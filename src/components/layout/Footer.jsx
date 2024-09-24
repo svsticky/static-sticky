@@ -31,13 +31,13 @@ const Footer = () => (
           <a href="https://svsticky.nl/facebook">
             <i className="big facebook icon"></i>
           </a>
-          <a href="https://www.instagram.com/stickyutrecht/">
+          <a href="https://svsticky.nl/instagram">
             <i className="big instagram icon"></i>
           </a>
-          <a href="https://www.linkedin.com/company/studievereniging-sticky">
+          <a href="https://svsticky.nl/linkedin">
             <i className="big linkedin icon"></i>
           </a>
-          <a href="https://github.com/svsticky/">
+          <a href="https://svsticky.nl/github">
             <i className="big github icon"></i>
           </a>
         </div>
