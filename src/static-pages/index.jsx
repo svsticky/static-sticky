@@ -11,7 +11,8 @@ import MainPartnerBanner from '$/components/mainpartner/Banner';
 import IndexWrapper from '$/components/layout/GridDryQueries';
 import FeaturedJobWidget from '$/components/jobs/FeaturedJobWidget';
 import ActivityWidget from '$/components/activities/ActivityWidget';
-import IntroInformation from '$/components/IntroInformation';
+//Please uncomment this import to enable into information
+//import IntroInformation from '$/components/IntroInformation';
 
 import logo from '$/images/sticky-logo-text.svg';
 
@@ -35,9 +36,10 @@ const Index = ({ data }) => {
           <div className="news">
             <News itemsPerPage="5" />
           </div>
-          <div className="introInformation">
+          {/* Please uncomment part below to enable Introduction information */}
+          {/* <div className="introInformation">
             <IntroInformation />
-          </div>
+          </div> */}
           <div className="drinks">
             <Drinks />
           </div>
