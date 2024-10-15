@@ -68,7 +68,7 @@
   },
   "lint-staged": {
     "{*,src/**/*}.{js,jsx}": [
-      "npx prettier --write {*,src/**/*}.{js,jsx}"
+      "pnpm prettier --write {*,src/**/*}.{js,jsx}"
     ]
   },
   "browserslist": [
