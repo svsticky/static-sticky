@@ -44,7 +44,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: latest
-          cache: npm
+          cache: pnpm
 
       # This step will fail if `pnpm-lock.yaml` is missing or an update is needed
       - name: Install dependencies
