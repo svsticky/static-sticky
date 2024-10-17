@@ -11,8 +11,7 @@ import MainPartnerBanner from '$/components/mainpartner/Banner';
 import IndexWrapperFactory from '$/components/layout/GridDryQueries';
 import FeaturedJobWidget from '$/components/jobs/FeaturedJobWidget';
 import ActivityWidget from '$/components/activities/ActivityWidget';
-//Please uncomment this import to enable into information
-//import IntroInformation from '$/components/IntroInformation';
+import IntroInformation from '$/components/IntroInformation';
 
 import logo from '$/images/sticky-logo-text.svg';
 
