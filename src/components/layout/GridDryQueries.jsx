@@ -1,7 +1,7 @@
 import { device } from '../../data/Devices';
 import styled from 'styled-components';
 
-const IndexWrapper = styled.div`
+const IndexWrapperFactory = hasIntroInformation => styled.div`
   .logo {
     grid-area: logo;
   }
@@ -23,9 +23,11 @@ const IndexWrapper = styled.div`
   .mainPartner {
     grid-area: mainPartner;
   }
-  .introInformation {
-    grid-area: introInformation;
-  }
+  ${hasIntroInformation
+    ? `.introInformation {
+      grid-area: introInformation;
+    }`
+    : ''}
 
   .banner {
     display: grid;
@@ -41,7 +43,7 @@ const IndexWrapper = styled.div`
       grid-template-areas:
         'logo'
         'banner'
-        'introInformation'
+        ${hasIntroInformation ? `'introInformation'` : ''}
         'news'
         'news'
         'drinks'
@@ -68,7 +70,7 @@ const IndexWrapper = styled.div`
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
         'banner banner'
-        'introInformation introInformation'
+        ${hasIntroInformation ? `'introInformation introInformation'` : ''}
         'news news'
         'drinks mainPartner'
         'jobs activity';
@@ -85,7 +87,7 @@ const IndexWrapper = styled.div`
       grid-template-columns: 3fr 1fr;
       grid-template-areas:
         'banner banner'
-        'news introInformation'
+        ${hasIntroInformation ? `'news introInformation'` : ''}
         'news drinks'
         'news mainPartner'
         'news jobs'
@@ -98,4 +100,4 @@ const IndexWrapper = styled.div`
   }
 `;
 
-export default IndexWrapper;
+export default IndexWrapperFactory;
