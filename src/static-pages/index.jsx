@@ -8,7 +8,7 @@ import News from '$/components/News';
 import Drinks from '$/components/Drinks';
 import MainPartnerIndex from '$/components/mainpartner/Card';
 import MainPartnerBanner from '$/components/mainpartner/Banner';
-import IndexWrapper from '$/components/layout/GridDryQueries';
+import IndexWrapperFactory from '$/components/layout/GridDryQueries';
 import FeaturedJobWidget from '$/components/jobs/FeaturedJobWidget';
 import ActivityWidget from '$/components/activities/ActivityWidget';
 import IntroInformation from '$/components/IntroInformation';
@@ -19,6 +19,9 @@ const Index = ({ data }) => {
   const mainPartner = data.allContentfulPartner.edges.filter(
     edge => edge.node.isMainPartner
   )[0].node;
+  const hasIntroInformation = !!data.allContentfulIntroInformation.nodes.length;
+  const IndexWrapper = IndexWrapperFactory(hasIntroInformation);
+
   return (
     <Layout title="Sticky">
       <IndexWrapper
@@ -35,9 +38,11 @@ const Index = ({ data }) => {
           <div className="news">
             <News itemsPerPage="5" />
           </div>
-          <div className="introInformation">
-            <IntroInformation />
-          </div>
+          {hasIntroInformation && (
+            <div className="introInformation">
+              <IntroInformation />
+            </div>
+          )}
           <div className="drinks">
             <Drinks />
           </div>
@@ -61,6 +66,11 @@ export const indexQuery = graphql`
   query colorQuery {
     contentfulBoard(current: { eq: true }) {
       color
+    }
+    allContentfulIntroInformation {
+      nodes {
+        id
+      }
     }
     allContentfulPartner {
       edges {
