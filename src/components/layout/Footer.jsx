@@ -28,9 +28,6 @@ const Footer = () => (
           </a>
         </div>
         <div className="aligned column">
-          <a href="https://svsticky.nl/facebook">
-            <i className="big facebook icon"></i>
-          </a>
           <a href="https://svsticky.nl/instagram">
             <i className="big instagram icon"></i>
           </a>
