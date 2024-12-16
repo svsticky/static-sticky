@@ -18,7 +18,7 @@ If you want to watch for changes in the theme, also run `npm run watch-semantic`
 
 If you get an error about file watchers, try this <https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers>
 
-Then just run `npm run develop` to start a shiny development server with hot reloading.
+Then just run `npm run develop` inside the devcontainer commandline to start a shiny development server with hot reloading.
 
 ## Contentful queries
 
