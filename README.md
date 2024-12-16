@@ -4,9 +4,9 @@ Study Association Sticky's website is a static website built in React with Gatsb
 
 ## Installation
 
-1. Install Node Version Manager [nvm](https://github.com/creationix/nvm).
-2. Install the required version of Node.JS (v13.11.0) by running `nvm install --latest-npm` in the project directory.
-3. Install dependencies with `npm install`.
+1. Make sure you have the [Docker engine](https://docs.docker.com/engine/), as well as [Visual studio code](https://code.visualstudio.com/) with the [Devcontainers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) extention installed.
+2. open the project in a dev containter. The default shortcut for this (in VS Code) is: <kbd>CTRL</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>, and then typing `open folder` in container. You may have to select the project folder. If this takes longer than expected, please read the warning below.
+3. Open a terminal in the dev container. You can do this by pressing `Terminal` (in the hotbar), then `New terminal`. Alternatively, you can use the default keybinds: <kbd>CTRL</kbd>+<kbd>Shift</kbd>+<kbd>`</kbd>.
 4. Create .env file: `cp sample.env .env`.
 5. Fill .env with the required api keys from [contentful](https://app.contentful.com/).
    Ask someone in the CommIT for the right keys to use.
@@ -18,7 +18,7 @@ If you want to watch for changes in the theme, also run `npm run watch-semantic`
 
 If you get an error about file watchers, try this <https://github.com/guard/listen/wiki/Increasing-the-amount-of-inotify-watchers>
 
-Then just run `npm run develop` to start a shiny development server with hot reloading.
+Then just run `npm run develop` inside the devcontainer commandline to start a shiny development server with hot reloading.
 
 ## Contentful queries
 
