@@ -19,7 +19,8 @@ const Index = ({ data }) => {
   const mainPartner = data.allContentfulPartner.edges.filter(
     edge => edge.node.isMainPartner
   )[0].node;
-  const hasIntroInformation = !!data.allContentfulIntroInformation.nodes.length;
+  const hasIntroInformation =
+    data.allContentfulIntroInformation.nodes[0].enabled;
   const IndexWrapper = IndexWrapperFactory(hasIntroInformation);
 
   return (
@@ -69,7 +70,7 @@ export const indexQuery = graphql`
     }
     allContentfulIntroInformation {
       nodes {
-        id
+        enabled
       }
     }
     allContentfulPartner {
