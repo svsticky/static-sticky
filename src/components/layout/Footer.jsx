@@ -31,6 +31,9 @@ const Footer = () => (
           <a href="https://svsticky.nl/instagram">
             <i className="big instagram icon"></i>
           </a>
+          <a href="https://svsticky.nl/instagram">
+            <i className="big instagram icon"></i>
+          </a>
           <a href="https://svsticky.nl/linkedin">
             <i className="big linkedin icon"></i>
           </a>
