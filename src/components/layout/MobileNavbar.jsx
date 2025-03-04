@@ -113,7 +113,6 @@ class MobileNavBar extends React.Component {
           <>
             <a
               href="https://koala.svsticky.nl/"
-              key="Koala"
               target="_blank"
               rel="noopener noreferrer" // For safety
             >
@@ -123,8 +122,7 @@ class MobileNavBar extends React.Component {
               </div>
             </a>
             <a
-              href="https://intro.svsticky.nl/"
-              key="Photos"
+              href="https://wordlid.svsticky.nl/"
               target="_blank"
               rel="noopener noreferrer" // For safety
             >
