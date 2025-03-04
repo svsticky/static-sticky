@@ -13,7 +13,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
       - name: Cancel previous runs of the pipeline
@@ -25,25 +25,25 @@ jobs:
           # besides linting, otherwise the current workflow might be cancelled.
           workflow: "main.yml"
         if: ${{ github.event_name }} != 'schedule'
-      - uses: actions/cache@v2.1.6
+      - uses: actions/cache@v4.2.2
         with:
           path: node_modules
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
-      - uses: actions/cache@v2.1.6
+      - uses: actions/cache@v4.2.2
         with:
           path: ~/.nvm
           key: nvm-${{ hashFiles('**.nvmrc') }}
       - name: pin node version
         uses: actions/setup-node@v2
         with:
-          node-version: "16.13.1"
+          node-version: "22.10.0"
       - name: install npm
         shell: bash -l {0}
         run: nvm install --latest-npm
       - name: install dependencies
-        run: /home/runner/.nvm/versions/node/v16.13.1/bin/npm install
+        run: /home/runner/.nvm/versions/node/v22.10.0/bin/npm install
       - name: build
-        run: /home/runner/.nvm/versions/node/v16.13.1/bin/npm run build
+        run: /home/runner/.nvm/versions/node/v22.10.0/bin/npm run build
         env:
           CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
           CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
