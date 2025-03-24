@@ -32,27 +32,6 @@ const CreateCell = (row, column, language) => {
               href={`https://public.svsticky.nl/logos/${row}_outline_${column}.png`}
               text="PNG"
             />
-            {row != 'hoofd' && (
-              <>
-                <Dropdown.Divider />
-                <Dropdown.Item
-                  as="a"
-                  href={`https://public.svsticky.nl/logos/${row}_gevuld_${column}.svg`}
-                  text={`${getTranslation(
-                    language,
-                    'branding.logo.filled'
-                  )} SVG`}
-                />
-                <Dropdown.Item
-                  as="a"
-                  href={`https://public.svsticky.nl/logos/${row}_gevuld_${column}.png`}
-                  text={`${getTranslation(
-                    language,
-                    'branding.logo.filled'
-                  )} PNG`}
-                />
-              </>
-            )}
           </Dropdown.Menu>
         </Dropdown>
       </Container>
