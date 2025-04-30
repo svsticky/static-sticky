@@ -4,7 +4,7 @@ import JobsList from '$/components/jobs/JobsList';
 import JobFilter from '$/components/jobs/JobFilter';
 import Markdown from 'markdown-to-jsx';
 import Layout from '../../components/layout/Layout';
-import { getTranslation, getLanguage, metadata } from '../../data/i18n';
+import { getLanguage, getTranslation, metadata } from '../../data/i18n';
 
 class JobIndexPage extends React.Component {
   constructor(props) {
@@ -17,9 +17,11 @@ class JobIndexPage extends React.Component {
       studiesFilter: [],
       typesFilter: [],
     };
-    this.jobs = this.props.data.allContentfulJobListing.edges.filter(
-      content => content.node.node_locale === this.language // Only get the current language
-    );
+    this.jobs = this.props.data.nonUUVacancies.edges
+      .concat(this.props.data.uuVacancies.edges)
+      .filter(
+        content => content.node.node_locale === this.language // Only get the current language
+      );
 
     this.page = props.data.contentfulPage;
   }
@@ -57,29 +59,23 @@ class JobIndexPage extends React.Component {
 
 const JobsListQuery = graphql`
   query JobsListQuery {
-    allContentfulJobListing(sort: { fields: [createdAt], order: DESC }) {
+    nonUUVacancies: allContentfulJobListing(
+      sort: { fields: [updatedAt], order: DESC }
+      filter: { partner: { slug: { ne: "utrecht-university" } } }
+    ) {
       edges {
         node {
-          id
-          job_title
-          summary
-          featured
-          study {
-            short
-          }
-          type
-          isJob
-          slug
-          node_locale
-          createdAt
-          partner {
-            name
-            logo {
-              file {
-                url
-              }
-            }
-          }
+          ...JobListing
+        }
+      }
+    }
+    uuVacancies: allContentfulJobListing(
+      sort: { fields: [updatedAt], order: DESC }
+      filter: { partner: { slug: { eq: "utrecht-university" } } }
+    ) {
+      edges {
+        node {
+          ...JobListing
         }
       }
     }
@@ -87,6 +83,29 @@ const JobsListQuery = graphql`
       title
       content {
         content
+      }
+    }
+  }
+
+  fragment JobListing on ContentfulJobListing {
+    id
+    job_title
+    summary
+    featured
+    study {
+      short
+    }
+    type
+    isJob
+    slug
+    node_locale
+    createdAt
+    partner {
+      name
+      logo {
+        file {
+          url
+        }
       }
     }
   }
