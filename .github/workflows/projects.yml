@@ -4,9 +4,9 @@ on:
   issues:
     types:
       - opened
-  pull_requests:
-    types:
-      - opened
+  # pull_requests:
+  #   types:
+  #     - opened
 
 jobs:
   add-to-project:
