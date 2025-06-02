@@ -88,3 +88,34 @@ jobs:
         env:
           webhook_url: ${{ secrets.WEBHOOK_URL_PRODUCTION }}
           webhook_secret: ${{ secrets.WEBHOOK_SECRET_PRODUCTION }}
+
+  dockerize:
+    name: Build and push Docker image
+    needs: build
+    # if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/development' # for now we always run this job
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download previously built files (from tar.gz)
+        run: |
+          mkdir -p dist
+          tar -xzf *.tar.gz -C dist --strip-components=1
+
+      - name: Log in to Docker registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.HARBOR_REGISTRY }}
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.HARBOR_REGISTRY }}/static-sticky/static-sticky:latest
+          build-args: |
+            BUILD_NUMBER=${{ github.run_id }}
