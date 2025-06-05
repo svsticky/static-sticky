@@ -1,0 +1,55 @@
+name: Dockerize
+
+on:
+  push:
+    branches: {} # always for now :)
+      # - master
+      # - development
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 0 * * 0"
+
+jobs:
+  dockerize:
+    name: Build and push Docker image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '22.10.0'
+
+      - name: Cache node_modules
+        uses: actions/cache@v4.2.2
+        with:
+          path: node_modules
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+        env:
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+
+      - name: Log in to Docker registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.HARBOR_REGISTRY }}
+          username: ${{ secrets.HARBOR_USERNAME }}
+          password: ${{ secrets.HARBOR_PASSWORD }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.HARBOR_REGISTRY }}/static-sticky/static-sticky:latest
+          build-args: |
+            BUILD_NUMBER=${{ github.run_id }}
