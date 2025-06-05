@@ -1,8 +1,8 @@
 name: Dockerize
 
 on:
-  push:
-    branches: {} # always for now :)
+  push: {} # always for now :)
+    # branches: 
       # - master
       # - development
   workflow_dispatch: {}
