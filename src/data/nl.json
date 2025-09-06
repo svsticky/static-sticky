@@ -29,7 +29,7 @@
       "activities_title": "Activiteitenposters",
       "activities": "De titel van de activiteit, datum, locatie, commissie logo en het Sticky logo moeten ook altijd te vinden zijn op de posters. Voor de datum zijn er geen harde lijnen, maar wordt er geadviseerd de DD-MM(m), DD-MM-YY of DD-MM-YYYY notatie te gebruiken. Het enige wat wordt afgeraden is de Amerikaanse MM-DD notatie, gezien dit verwarring kan brengen met in welke maand de activiteit plaats vind.",
       "external_title": "Externposters",
-      "external": "De posters voor extern of onderwijs gerelateerde activiteiten hebben soms wat extra vereisten. Zo moet in plaats van het commissie logo het logo van een bedrijf komen te staan. Verder wordt het gebruik van het volledige logo hier ook aangeraden. De stijl van de poster wordt vaker serieuzer en professioneler opgesteld om de aard van de activiteit te laten zien.",
+      "external": "De posters voor extern of onderwijs gerelateerde activiteiten hebben soms wat extra vereisten. Zo moet in plaats van het commissie logo het logo van een bedrijf komen te staan.",
       "requirements": {
         "format": "Formaat",
         "resolution": "Resolutie",
