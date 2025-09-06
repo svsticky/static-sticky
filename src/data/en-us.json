@@ -29,7 +29,7 @@
       "activities_title": "Activity posters",
       "activities": "The title of the activity, date, location, committee logo and the Sticky logo must also always be present on the posters. There are no hard lines for the date, but it is recommended to use the DD-MM(m), DD-MM-YY or DD-MM-YYYY format. The only thing that is discouraged is the American MM-DD notation, as this can cause confusion and is not standard use in the Netherlands.",
       "external_title": "External posters",
-      "external": "The posters for external or education related activities sometimes have some extra requirements. For example, instead of the committee logo, the logo of a company should be displayed. Furthermore, the use of the full Sticky logo is also recommended. The style of the poster is often more seriously and professionally to show the nature of the activity.",
+      "external": "The posters for external or education related activities sometimes have some extra requirements. For example, instead of the committee logo, the logo of a company should be displayed.",
       "requirements": {
         "format": "Format",
         "resolution": "Resolution",
