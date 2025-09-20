@@ -14,6 +14,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/main' && 'production' || 'development'}}
     steps:
       - uses: actions/checkout@v2.3.4
       - name: Cancel previous runs of the pipeline
