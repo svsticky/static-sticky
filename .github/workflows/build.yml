@@ -14,6 +14,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: ${{ github.ref == 'refs/heads/master' && 'production' || 'development' }}
+
     steps:
       - uses: actions/checkout@v2.3.4
       - name: Cancel previous runs of the pipeline
@@ -25,66 +27,73 @@ jobs:
           # besides linting, otherwise the current workflow might be cancelled.
           workflow: "main.yml"
         if: ${{ github.event_name }} != 'schedule'
+
       - uses: actions/cache@v4.2.2
         with:
           path: node_modules
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
+
       - uses: actions/cache@v4.2.2
         with:
           path: ~/.nvm
           key: nvm-${{ hashFiles('**.nvmrc') }}
+
       - name: pin node version
         uses: actions/setup-node@v2
         with:
           node-version: "22.10.0"
+
       - name: install npm
         shell: bash -l {0}
         run: nvm install --latest-npm
+
       - name: install dependencies
         run: /home/runner/.nvm/versions/node/v22.10.0/bin/npm install
+
       - name: build
         run: /home/runner/.nvm/versions/node/v22.10.0/bin/npm run build
         env:
           CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
           CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}
+
       - name: export timestamp
         run: echo "TIMESTAMP=$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+
       # Github exports the branchname in a different variable if you're on a push
       # compared to a pull_request run. These variables also require unpacking
       # because they are in /ref/head/branchname form
       - name: Git branch name
         id: git-branch-name
         uses: EthanSK/git-branch-name-action@v1
+
       # We cannot handle filenames with a /, so we replace a slash in the branchname
       # with a - with `sed`
       - name: export file name
         run: echo "FILENAME=$(echo $GIT_BRANCH_NAME | sed 's/\//-/g')-$TIMESTAMP" >> $GITHUB_ENV
+
       - name: pack build
         run: tar --create --gzip --file $FILENAME.tar.gz public
+
       - name: generate hash
         run: sha256sum $FILENAME.tar.gz > $FILENAME.sha256
+
       - name: upload build to s3
         run: aws s3 cp $FILENAME.tar.gz s3://static-sticky-builds
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-central-1
+
       - name: upload checksum to s3
         run: aws s3 cp $FILENAME.sha256 s3://static-sticky-builds
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: eu-central-1
-      - name: Trigger deploy to staging if on development
-        uses: distributhor/workflow-webhook@v2.0.2
-        env:
-          webhook_url: ${{ secrets.WEBHOOK_URL_STAGING }}
-          webhook_secret: ${{ secrets.WEBHOOK_SECRET_STAGING }}
-        if: ${{ github.ref == 'refs/heads/development' }}
 
-      - name: Trigger deploy to production if on master
+      - name: Trigger deploy to targeted environment
         uses: distributhor/workflow-webhook@v2.0.2
-        if: ${{ github.ref == 'refs/heads/master' }}
         env:
-          webhook_url: ${{ secrets.WEBHOOK_URL_PRODUCTION }}
-          webhook_secret: ${{ secrets.WEBHOOK_SECRET_PRODUCTION }}
+          webhook_url: ${{ vars.WEBHOOK_URL }}
+          webhook_secret: ${{ secrets.WEBHOOK_SECRET }}
+
