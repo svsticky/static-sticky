@@ -19,7 +19,7 @@ const Index = ({ data }) => {
   const mainPartners = data.allContentfulPartner.edges.filter(
     edge => edge.node.isMainPartner
   );
-  const mainPartner = mainPartners.length > 0 ? mainPartners[0].node : null; 
+  const mainPartner = mainPartners.length > 0 ? mainPartners[0].node : null;
   const hasIntroInformation =
     data.allContentfulIntroInformation.nodes[0].enabled;
   const IndexWrapper = IndexWrapperFactory(hasIntroInformation);
@@ -35,10 +35,10 @@ const Index = ({ data }) => {
           </div>
 
           {mainPartner && (
-          <div className="banner">
-            <MainPartnerBanner partner={mainPartner} />
-            <Banner />
-          </div>
+            <div className="banner">
+              <MainPartnerBanner partner={mainPartner} />
+              <Banner />
+            </div>
           )}
 
           <div className="news">
