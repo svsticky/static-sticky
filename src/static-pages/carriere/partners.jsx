@@ -40,8 +40,12 @@ const PartnerIndexPage = ({ data }) => {
         <h2>{page.title}</h2>
         <Markdown>{page.content.content}</Markdown>
 
-        <h3>{getTranslation(language, 'partners.main')}</h3>
-        <MainPartner partner={mainPartner.node}></MainPartner>
+        {mainPartner && (
+          <>
+            <h3>{getTranslation(language, 'partners.main')}</h3>
+            <MainPartner partner={mainPartner.node}></MainPartner>
+          </>
+        )}
 
         <h3>{getTranslation(language, 'partners.regular')}</h3>
         <FlexListContainer>

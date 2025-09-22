@@ -16,9 +16,10 @@ import IntroInformation from '$/components/IntroInformation';
 import logo from '$/images/sticky-logo-text.svg';
 
 const Index = ({ data }) => {
-  const mainPartner = data.allContentfulPartner.edges.filter(
+  const mainPartners = data.allContentfulPartner.edges.filter(
     edge => edge.node.isMainPartner
-  )[0].node;
+  );
+  const mainPartner = mainPartners.length > 0 ? mainPartners[0].node : null;
   const hasIntroInformation =
     data.allContentfulIntroInformation.nodes[0].enabled;
   const IndexWrapper = IndexWrapperFactory(hasIntroInformation);
@@ -32,10 +33,14 @@ const Index = ({ data }) => {
           <div className="logo">
             <img src={logo} alt="Sticky Logo" />
           </div>
-          <div className="banner">
-            <MainPartnerBanner partner={mainPartner} />
-            <Banner />
-          </div>
+
+          {mainPartner && (
+            <div className="banner">
+              <MainPartnerBanner partner={mainPartner} />
+              <Banner />
+            </div>
+          )}
+
           <div className="news">
             <News itemsPerPage="5" />
           </div>
@@ -47,9 +52,11 @@ const Index = ({ data }) => {
           <div className="drinks">
             <Drinks />
           </div>
-          <div className="mainPartner">
-            <MainPartnerIndex partner={mainPartner} />
-          </div>
+          {mainPartner && (
+            <div className="mainPartner">
+              <MainPartnerIndex partner={mainPartner} />
+            </div>
+          )}
           <div className="jobs">
             <FeaturedJobWidget />
           </div>
