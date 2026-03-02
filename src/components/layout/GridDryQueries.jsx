@@ -29,10 +29,15 @@ const IndexWrapperFactory = hasIntroInformation => styled.div`
     }`
     : ''}
 
-  .banner {
+  .banner-main-partner {
     display: grid;
     grid-template-columns: 20% 80%;
     grid-gap: 3em;
+  }
+
+  .banner-no-main-partner {
+    display: grid;
+    grid-template-columns: 1fr;
   }
 
   @media ${device.mobileMax} {

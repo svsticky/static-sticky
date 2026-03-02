@@ -34,9 +34,13 @@ const Index = ({ data }) => {
             <img src={logo} alt="Sticky Logo" />
           </div>
 
-          {mainPartner && (
-            <div className="banner">
+          {mainPartner ? (
+            <div className="banner banner-main-partner">
               <MainPartnerBanner partner={mainPartner} />
+              <Banner />
+            </div>
+          ) : (
+            <div className="banner banner-no-main-partner">
               <Banner />
             </div>
           )}

@@ -27,7 +27,7 @@ class Banner extends React.Component {
     <div className="card-container">
       <Card className="card">
         <div className="slide">
-          <Slide {...properties}>
+          <Slide {...properties(allLogos.length)}>
             {shuffleArray(allLogos).map(logo => (
               <div className="each-slide" key={logo.node.id}>
                 <Image src={logo.node.image.file.url} className="image" />
@@ -48,14 +48,18 @@ class Banner extends React.Component {
   }
 }
 
-const properties = {
-  duration: 8000,
-  transitionDuration: 500,
-  infinite: true,
-  indicators: false,
-  arrows: true,
-  autoplay: true,
-};
+function properties(no_of_slides) {
+  return no_of_slides === 1
+    ? { arrows: false, autoplay: false, indicators: false, infinite: false }
+    : {
+        duration: 8000,
+        transitionDuration: 500,
+        infinite: true,
+        indicators: false,
+        arrows: true,
+        autoplay: true,
+      };
+}
 
 const shuffleArray = array => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -72,7 +76,6 @@ export const BannerWrapper = styled.div`
     justify-content: center;
     align-items: center;
     height: 10rem;
-    width: 95%;
   }
   .card {
     flex-grow: 1;
