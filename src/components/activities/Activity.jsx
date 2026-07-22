@@ -23,7 +23,7 @@ export default class Activity extends React.Component {
   };
 
   render() {
-    const { thumbnail, name } = this.props.activity;
+    const { thumbnail, poster, name } = this.props.activity;
     const language =
       typeof window !== 'undefined'
         ? getLanguage(window)
@@ -47,7 +47,7 @@ export default class Activity extends React.Component {
           className="turnreveal-container"
         >
           <TurnReveal
-            back={renderPoster(thumbnail, name, language)}
+            back={renderPoster(thumbnail || poster, name, language)}
             transition={this.state.infoTransition}
             direction={this.state.infoDirection}
           >
@@ -68,53 +68,72 @@ const renderPoster = (posterUrl, activityName, lg) => (
 );
 
 const renderInfo = (
-  { id, location, name, price, description_nl, description_en },
+  {
+    id,
+    location,
+    name,
+    price,
+    description_nl,
+    description_en,
+    dutchDescription,
+    englishDescription,
+  },
   lg
-) => (
-  <FullSizeCard fluid>
-    <FlexContainer>
-      <Title>
-        <h3>{name}</h3>
-      </Title>
-      {location && (
-        <div className="location">
-          <strong>{getTranslation(lg, 'activities.location')}</strong>
-          <em>{location}</em>
+) => {
+  const descNl = description_nl || dutchDescription || '';
+  const descEn = description_en || englishDescription || '';
+  const signupBaseUrl =
+    process.env.GATSBY_TAVERN_URL ||
+    process.env.GATSBY_KOALA_URL ||
+    'http://localhost:5173';
+  const signupUrl = `${signupBaseUrl.replace(/\/$/, '')}/activities/${id}`;
+
+  return (
+    <FullSizeCard fluid>
+      <FlexContainer>
+        <Title>
+          <h3>{name}</h3>
+        </Title>
+        {location && (
+          <div className="location">
+            <strong>{getTranslation(lg, 'activities.location')}</strong>
+            <em>{location}</em>
+          </div>
+        )}
+        <div className="price">
+          <strong>{getTranslation(lg, 'activities.price')}</strong>
+          <em>
+            {price !== 0 ? (
+              <Currency quantity={parseFloat(price)} currency="EUR" />
+            ) : (
+              getTranslation(lg, 'activities.free')
+            )}
+          </em>
         </div>
-      )}
-      <div className="price">
-        <strong>{getTranslation(lg, 'activities.price')}</strong>
-        <em>
-          {price !== 0 ? (
-            <Currency quantity={parseFloat(price)} currency="EUR" />
-          ) : (
-            getTranslation(lg, 'activities.free')
-          )}
-        </em>
-      </div>
-      <Description>
-        <em
-          dangerouslySetInnerHTML={{
-            __html: SanitizeHTML(lg === 'nl' ? description_nl : description_en),
-          }}
-        />
-      </Description>
-      <div>
-        {/* without a div around the button the height of the label would not be taken into account */}
-        <Button
-          fluid
-          primary
-          href={'https://koala.svsticky.nl/activities/' + id}
-          target="_blank"
-          rel="noopener noreferrer"
-          content={getTranslation(lg, 'activities.signup')}
-          icon="external"
-          labelPosition="right"
-        />
-      </div>
-    </FlexContainer>
-  </FullSizeCard>
-);
+        <Description>
+          <em
+            dangerouslySetInnerHTML={{
+              __html: SanitizeHTML(lg === 'nl' ? descNl : descEn),
+            }}
+          />
+        </Description>
+        <div>
+          {/* without a div around the button the height of the label would not be taken into account */}
+          <Button
+            fluid
+            primary
+            href={signupUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            content={getTranslation(lg, 'activities.signup')}
+            icon="external"
+            labelPosition="right"
+          />
+        </div>
+      </FlexContainer>
+    </FullSizeCard>
+  );
+};
 
 const FullSizeCard = styled(Card)`
   height: 100%;

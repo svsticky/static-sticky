@@ -29,7 +29,7 @@ class NavBar extends React.Component {
     props.data.allContentfulPage.edges.sort(
       (a, b) => a.node.order - b.node.order // Sorting all the menu items
     );
-    
+
     const mainPartnerEdge = props.data.allContentfulPartner.edges.find(
       edge => edge.node.isMainPartner
     );
